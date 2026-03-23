@@ -1,0 +1,14 @@
+C:\DEV\PMIS\react-frontend-v2\code-gen\bin\Debug\net8.0\react-codegen.exe
+C:\DEV\PMIS\react-frontend-v2\code-gen\bin\Debug\net8.0\react-codegen.deps.json
+C:\DEV\PMIS\react-frontend-v2\code-gen\bin\Debug\net8.0\react-codegen.runtimeconfig.json
+C:\DEV\PMIS\react-frontend-v2\code-gen\bin\Debug\net8.0\react-codegen.dll
+C:\DEV\PMIS\react-frontend-v2\code-gen\bin\Debug\net8.0\react-codegen.pdb
+C:\DEV\PMIS\react-frontend-v2\code-gen\obj\Debug\net8.0\react-codegen.GeneratedMSBuildEditorConfig.editorconfig
+C:\DEV\PMIS\react-frontend-v2\code-gen\obj\Debug\net8.0\react-codegen.AssemblyInfoInputs.cache
+C:\DEV\PMIS\react-frontend-v2\code-gen\obj\Debug\net8.0\react-codegen.AssemblyInfo.cs
+C:\DEV\PMIS\react-frontend-v2\code-gen\obj\Debug\net8.0\react-codegen.csproj.CoreCompileInputs.cache
+C:\DEV\PMIS\react-frontend-v2\code-gen\obj\Debug\net8.0\react-codegen.dll
+C:\DEV\PMIS\react-frontend-v2\code-gen\obj\Debug\net8.0\refint\react-codegen.dll
+C:\DEV\PMIS\react-frontend-v2\code-gen\obj\Debug\net8.0\react-codegen.pdb
+C:\DEV\PMIS\react-frontend-v2\code-gen\obj\Debug\net8.0\react-codegen.genruntimeconfig.cache
+C:\DEV\PMIS\react-frontend-v2\code-gen\obj\Debug\net8.0\ref\react-codegen.dll

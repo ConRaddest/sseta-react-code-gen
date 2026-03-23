@@ -1,0 +1,2780 @@
+﻿{
+  "Allowance": [
+    {
+      "groupName": "Basic Information",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "name",
+          "columns": 2
+        },
+        {
+          "name": "allowanceTypeId",
+          "columns": 1
+        },
+        {
+          "name": "paymentFrequencyId",
+          "columns": 1
+        }
+      ]
+    },
+    {
+      "groupName": "Financials",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "amount",
+          "columns": 1
+        },
+        {
+          "name": "performancePlanId",
+          "columns": 1
+        }
+      ]
+    },
+    {
+      "groupName": "Status",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "statusId",
+          "columns": 1
+        },
+        {
+          "name": "statusReason",
+          "columns": 1
+        }
+      ]
+    }
+  ],
+  "Application": [
+    {
+      "groupName": "Basic Information",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "name",
+          "columns": 2
+        },
+        {
+          "name": "applicationTypeId",
+          "columns": 1
+        },
+        {
+          "name": "amount",
+          "columns": 1
+        }
+      ]
+    },
+    {
+      "groupName": "Related Records",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "interventionId",
+          "columns": 1
+        },
+        {
+          "name": "organisationId",
+          "columns": 1
+        },
+        {
+          "name": "eventId",
+          "columns": 1
+        },
+        {
+          "name": "personId",
+          "columns": 1
+        }
+      ]
+    },
+    {
+      "groupName": "Status",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "statusId",
+          "columns": 1
+        },
+        {
+          "name": "statusReason",
+          "columns": 1
+        }
+      ]
+    }
+  ],
+  "Approval": [
+    {
+      "groupName": "Basic Information",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "name",
+          "columns": 2
+        },
+        {
+          "name": "approvalTypeId",
+          "columns": 1
+        },
+        {
+          "name": "approvalStatusId",
+          "columns": 1
+        }
+      ]
+    },
+    {
+      "groupName": "References",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "parentObjectId",
+          "columns": 1
+        },
+        {
+          "name": "parentRecordId",
+          "columns": 1
+        }
+      ]
+    },
+    {
+      "groupName": "Approval",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "approvedDate",
+          "columns": 2
+        },
+        {
+          "name": "statusId",
+          "columns": 1
+        },
+        {
+          "name": "statusReason",
+          "columns": 1
+        }
+      ]
+    }
+  ],
+  "ApprovalStep": [
+    {
+      "groupName": "Basic Information",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "name",
+          "columns": 2
+        },
+        {
+          "name": "approvalId",
+          "columns": 1
+        },
+        {
+          "name": "approverSystemUserId",
+          "columns": 1
+        }
+      ]
+    },
+    {
+      "groupName": "Decision",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "approvalStatusId",
+          "columns": 1
+        },
+        {
+          "name": "approvalDate",
+          "columns": 1
+        },
+        {
+          "name": "comments",
+          "columns": 2
+        }
+      ]
+    },
+    {
+      "groupName": "Status",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "statusId",
+          "columns": 1
+        },
+        {
+          "name": "statusReason",
+          "columns": 1
+        }
+      ]
+    }
+  ],
+  "Attendee": [
+    {
+      "groupName": "Basic Information",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "name",
+          "columns": 2
+        },
+        {
+          "name": "eventId",
+          "columns": 1
+        },
+        {
+          "name": "personId",
+          "columns": 1
+        }
+      ]
+    },
+    {
+      "groupName": "Participation",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "isOrganiser",
+          "columns": 2
+        },
+        {
+          "name": "statusId",
+          "columns": 1
+        },
+        {
+          "name": "statusReason",
+          "columns": 1
+        }
+      ]
+    }
+  ],
+  "BursaryApplicant": [
+    {
+      "groupName": "Basic Information",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "name",
+          "columns": 2
+        },
+        {
+          "name": "firstName",
+          "columns": 1
+        },
+        {
+          "name": "middleName",
+          "columns": 1
+        },
+        {
+          "name": "lastName",
+          "columns": 1
+        },
+        {
+          "name": "titleId",
+          "columns": 1
+        }
+      ]
+    },
+    {
+      "groupName": "Identity",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "identityTypeId",
+          "columns": 1
+        },
+        {
+          "name": "identityNumber",
+          "columns": 1
+        },
+        {
+          "name": "dateOfBirth",
+          "columns": 1
+        },
+        {
+          "name": "genderId",
+          "columns": 1
+        },
+        {
+          "name": "nationalityId",
+          "columns": 1
+        },
+        {
+          "name": "registrationCode",
+          "columns": 1
+        },
+        {
+          "name": "registrationCodeExpiryDate",
+          "columns": 2
+        }
+      ]
+    },
+    {
+      "groupName": "Contact",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "email",
+          "columns": 2
+        },
+        {
+          "name": "mobilePhone",
+          "columns": 1
+        },
+        {
+          "name": "homePhone",
+          "columns": 1
+        },
+        {
+          "name": "businessPhone",
+          "columns": 1
+        },
+        {
+          "name": "faxNumber",
+          "columns": 1
+        }
+      ]
+    },
+    {
+      "groupName": "Address",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "homeAddressLineOne",
+          "columns": 2
+        },
+        {
+          "name": "homeAddressLineTwo",
+          "columns": 2
+        },
+        {
+          "name": "cityId",
+          "columns": 1
+        },
+        {
+          "name": "municipalityLocalId",
+          "columns": 1
+        },
+        {
+          "name": "provinceId",
+          "columns": 1
+        },
+        {
+          "name": "postalCode",
+          "columns": 1
+        },
+        {
+          "name": "statsSaAreaId",
+          "columns": 2
+        }
+      ]
+    },
+    {
+      "groupName": "Demographics",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "ageBracketId",
+          "columns": 1
+        },
+        {
+          "name": "communityTypeId",
+          "columns": 1
+        },
+        {
+          "name": "disabilityId",
+          "columns": 1
+        },
+        {
+          "name": "economicTypeId",
+          "columns": 1
+        },
+        {
+          "name": "equityCodeId",
+          "columns": 1
+        },
+        {
+          "name": "homeLanguageId",
+          "columns": 1
+        }
+      ]
+    },
+    {
+      "groupName": "Application",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "applicantTypeId",
+          "columns": 1
+        },
+        {
+          "name": "amount",
+          "columns": 1
+        },
+        {
+          "name": "interventionOrganisationId",
+          "columns": 1
+        },
+        {
+          "name": "organisationInvoiceId",
+          "columns": 1
+        },
+        {
+          "name": "personId",
+          "columns": 1
+        },
+        {
+          "name": "systemUserId",
+          "columns": 1
+        }
+      ]
+    },
+    {
+      "groupName": "Status",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "statusId",
+          "columns": 1
+        },
+        {
+          "name": "statusReason",
+          "columns": 1
+        }
+      ]
+    }
+  ],
+  "BursaryApplicantAppeal": [
+    {
+      "groupName": "Case Details",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "name",
+          "columns": 2
+        },
+        {
+          "name": "caseNumber",
+          "columns": 1
+        },
+        {
+          "name": "caseType",
+          "columns": 1
+        },
+        {
+          "name": "caseTitle",
+          "columns": 2
+        },
+        {
+          "name": "description",
+          "columns": 2
+        }
+      ]
+    },
+    {
+      "groupName": "Applicant",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "firstName",
+          "columns": 1
+        },
+        {
+          "name": "lastName",
+          "columns": 1
+        },
+        {
+          "name": "identityNumber",
+          "columns": 1
+        },
+        {
+          "name": "email",
+          "columns": 1
+        },
+        {
+          "name": "mobilePhone",
+          "columns": 2
+        }
+      ]
+    },
+    {
+      "groupName": "References",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "bursaryApplicantId",
+          "columns": 1
+        },
+        {
+          "name": "caseId",
+          "columns": 1
+        }
+      ]
+    },
+    {
+      "groupName": "Status",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "statusId",
+          "columns": 1
+        },
+        {
+          "name": "statusReason",
+          "columns": 1
+        }
+      ]
+    }
+  ],
+  "BursaryApplicantAppealTimeline": [
+    {
+      "groupName": "Basic Information",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "name",
+          "columns": 2
+        },
+        {
+          "name": "noteTitle",
+          "columns": 1
+        },
+        {
+          "name": "noteType",
+          "columns": 1
+        }
+      ]
+    },
+    {
+      "groupName": "Note",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "noteDescription",
+          "columns": 2
+        },
+        {
+          "name": "noteModifiedOn",
+          "columns": 1
+        },
+        {
+          "name": "bursaryApplicantAppealId",
+          "columns": 1
+        }
+      ]
+    }
+  ],
+  "BursaryApplicantEducation": [
+    {
+      "groupName": "Basic Information",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "name",
+          "columns": 2
+        },
+        {
+          "name": "highestQualificationLevelId",
+          "columns": 1
+        },
+        {
+          "name": "bursaryApplicantId",
+          "columns": 1
+        }
+      ]
+    },
+    {
+      "groupName": "School",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "lastSchoolName",
+          "columns": 2
+        },
+        {
+          "name": "lastSchoolEMISNo",
+          "columns": 1
+        },
+        {
+          "name": "lastSchoolYear",
+          "columns": 1
+        },
+        {
+          "name": "highSchoolAddress",
+          "columns": 2
+        }
+      ]
+    },
+    {
+      "groupName": "Status",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "statusId",
+          "columns": 1
+        },
+        {
+          "name": "statusReason",
+          "columns": 1
+        }
+      ]
+    }
+  ],
+  "BursaryApplicantEmployment": [
+    {
+      "groupName": "Basic Information",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "name",
+          "columns": 2
+        },
+        {
+          "name": "bursaryApplicantId",
+          "columns": 1
+        },
+        {
+          "name": "employerName",
+          "columns": 1
+        }
+      ]
+    },
+    {
+      "groupName": "Contact",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "employerContactPerson",
+          "columns": 1
+        },
+        {
+          "name": "employerContactEmailAddress",
+          "columns": 1
+        },
+        {
+          "name": "employerPhoneNumber",
+          "columns": 2
+        }
+      ]
+    },
+    {
+      "groupName": "Registration",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "employerRegistrationNumber",
+          "columns": 1
+        },
+        {
+          "name": "employerSDLNumber",
+          "columns": 1
+        },
+        {
+          "name": "employerSICCode",
+          "columns": 1
+        },
+        {
+          "name": "employerSETARegistered",
+          "columns": 1
+        }
+      ]
+    },
+    {
+      "groupName": "Address",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "employerPostalAddress",
+          "columns": 2
+        },
+        {
+          "name": "employerPostalCode",
+          "columns": 1
+        },
+        {
+          "name": "employerProvinceId",
+          "columns": 1
+        }
+      ]
+    },
+    {
+      "groupName": "Status",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "statusId",
+          "columns": 1
+        },
+        {
+          "name": "statusReason",
+          "columns": 1
+        }
+      ]
+    }
+  ],
+  "BursaryApplicantInstitution": [
+    {
+      "groupName": "Basic Information",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "name",
+          "columns": 2
+        },
+        {
+          "name": "institutionName",
+          "columns": 2
+        },
+        {
+          "name": "bursaryApplicantId",
+          "columns": 1
+        },
+        {
+          "name": "institutionProviderClassId",
+          "columns": 1
+        }
+      ]
+    },
+    {
+      "groupName": "Registration",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "institutionAccreditationNumber",
+          "columns": 1
+        },
+        {
+          "name": "institutionRegistrationNumber",
+          "columns": 1
+        },
+        {
+          "name": "institutionSdlNumber",
+          "columns": 2
+        }
+      ]
+    },
+    {
+      "groupName": "Contact",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "institutionContactPerson",
+          "columns": 1
+        },
+        {
+          "name": "institutionContactEmailAddress",
+          "columns": 1
+        }
+      ]
+    },
+    {
+      "groupName": "Address",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "institutionAddress",
+          "columns": 2
+        },
+        {
+          "name": "institutionPostalCode",
+          "columns": 1
+        },
+        {
+          "name": "institutionProvinceId",
+          "columns": 1
+        }
+      ]
+    },
+    {
+      "groupName": "Status",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "statusId",
+          "columns": 1
+        },
+        {
+          "name": "statusReason",
+          "columns": 1
+        }
+      ]
+    }
+  ],
+  "BursaryApplicantQualification": [
+    {
+      "groupName": "Basic Information",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "name",
+          "columns": 2
+        },
+        {
+          "name": "qualificationName",
+          "columns": 2
+        },
+        {
+          "name": "levelOfStudyId",
+          "columns": 1
+        },
+        {
+          "name": "qualificationSAQAId",
+          "columns": 1
+        }
+      ]
+    },
+    {
+      "groupName": "Dates",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "registrationDate",
+          "columns": 1
+        },
+        {
+          "name": "bursaryApplicantId",
+          "columns": 1
+        }
+      ]
+    },
+    {
+      "groupName": "Status",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "statusId",
+          "columns": 1
+        },
+        {
+          "name": "statusReason",
+          "columns": 1
+        }
+      ]
+    }
+  ],
+  "BursaryApplicantRejectionReason": [
+    {
+      "groupName": "Basic Information",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "name",
+          "columns": 2
+        },
+        {
+          "name": "rejectionReasonId",
+          "columns": 1
+        },
+        {
+          "name": "bursaryApplicantId",
+          "columns": 1
+        }
+      ]
+    },
+    {
+      "groupName": "Status",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "statusId",
+          "columns": 1
+        },
+        {
+          "name": "statusReason",
+          "columns": 1
+        }
+      ]
+    }
+  ],
+  "ChecklistInstance": [
+    {
+      "groupName": "Basic Information",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "name",
+          "columns": 2
+        },
+        {
+          "name": "checklistId",
+          "columns": 1
+        },
+        {
+          "name": "stageId",
+          "columns": 1
+        },
+        {
+          "name": "dossierId",
+          "columns": 1
+        },
+        {
+          "name": "value",
+          "columns": 1
+        }
+      ]
+    },
+    {
+      "groupName": "Progress",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "dateStarted",
+          "columns": 1
+        },
+        {
+          "name": "dateCompleted",
+          "columns": 1
+        },
+        {
+          "name": "dateApproved",
+          "columns": 1
+        },
+        {
+          "name": "isDelayed",
+          "columns": 1
+        },
+        {
+          "name": "isApproved",
+          "columns": 2
+        }
+      ]
+    },
+    {
+      "groupName": "Users",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "approvedBySystemUserId",
+          "columns": 1
+        },
+        {
+          "name": "completedBySystemUserId",
+          "columns": 1
+        }
+      ]
+    },
+    {
+      "groupName": "Notes",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "note",
+          "columns": 2
+        },
+        {
+          "name": "statusId",
+          "columns": 1
+        },
+        {
+          "name": "statusReason",
+          "columns": 1
+        }
+      ]
+    }
+  ],
+  "Disbursement": [
+    {
+      "groupName": "Basic Information",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "name",
+          "columns": 2
+        },
+        {
+          "name": "disbursementTypeId",
+          "columns": 1
+        },
+        {
+          "name": "economicTypeId",
+          "columns": 1
+        }
+      ]
+    },
+    {
+      "groupName": "Payment",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "amount",
+          "columns": 1
+        },
+        {
+          "name": "paymentDueDate",
+          "columns": 1
+        },
+        {
+          "name": "regardingSystemUserId",
+          "columns": 2
+        }
+      ]
+    },
+    {
+      "groupName": "Status",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "statusId",
+          "columns": 1
+        },
+        {
+          "name": "statusReason",
+          "columns": 1
+        }
+      ]
+    }
+  ],
+  "DocumentSignature": [
+    {
+      "groupName": "Basic Information",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "name",
+          "columns": 2
+        },
+        {
+          "name": "personId",
+          "columns": 1
+        },
+        {
+          "name": "parentObjectId",
+          "columns": 1
+        },
+        {
+          "name": "parentPrimaryKeyId",
+          "columns": 2
+        }
+      ]
+    },
+    {
+      "groupName": "Status",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "statusId",
+          "columns": 1
+        },
+        {
+          "name": "statusReason",
+          "columns": 1
+        }
+      ]
+    }
+  ],
+  "Evaluation": [
+    {
+      "groupName": "Basic Information",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "name",
+          "columns": 2
+        },
+        {
+          "name": "evaluationTemplateId",
+          "columns": 1
+        },
+        {
+          "name": "recommendationTypeId",
+          "columns": 1
+        }
+      ]
+    },
+    {
+      "groupName": "Context",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "interventionId",
+          "columns": 1
+        },
+        {
+          "name": "organisationId",
+          "columns": 1
+        },
+        {
+          "name": "evaluatedBySystemUserId",
+          "columns": 1
+        },
+        {
+          "name": "averagePercentage",
+          "columns": 1
+        }
+      ]
+    },
+    {
+      "groupName": "Dates",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "evaluationDate",
+          "columns": 2
+        },
+        {
+          "name": "statusId",
+          "columns": 1
+        },
+        {
+          "name": "statusReason",
+          "columns": 1
+        }
+      ]
+    }
+  ],
+  "EvaluationResult": [
+    {
+      "groupName": "Basic Information",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "name",
+          "columns": 2
+        },
+        {
+          "name": "evaluationId",
+          "columns": 1
+        },
+        {
+          "name": "evaluationCriteriaId",
+          "columns": 1
+        }
+      ]
+    },
+    {
+      "groupName": "Scoring",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "evaluationScoreId",
+          "columns": 1
+        },
+        {
+          "name": "evaluatorPercentage",
+          "columns": 1
+        },
+        {
+          "name": "notes",
+          "columns": 2
+        }
+      ]
+    },
+    {
+      "groupName": "Status",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "statusId",
+          "columns": 1
+        },
+        {
+          "name": "statusReason",
+          "columns": 1
+        }
+      ]
+    }
+  ],
+  "Event": [
+    {
+      "groupName": "Basic Information",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "name",
+          "columns": 2
+        },
+        {
+          "name": "title",
+          "columns": 2
+        },
+        {
+          "name": "eventTypeId",
+          "columns": 1
+        },
+        {
+          "name": "eventFormatId",
+          "columns": 1
+        }
+      ]
+    },
+    {
+      "groupName": "Schedule",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "startDateTime",
+          "columns": 1
+        },
+        {
+          "name": "endDateTime",
+          "columns": 1
+        },
+        {
+          "name": "eventVenueId",
+          "columns": 2
+        }
+      ]
+    },
+    {
+      "groupName": "Status",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "statusId",
+          "columns": 1
+        },
+        {
+          "name": "statusReason",
+          "columns": 1
+        }
+      ]
+    }
+  ],
+  "FundingCap": [
+    {
+      "groupName": "Basic Information",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "name",
+          "columns": 2
+        },
+        {
+          "name": "economicTypeId",
+          "columns": 1
+        },
+        {
+          "name": "levelOfStudyId",
+          "columns": 1
+        }
+      ]
+    },
+    {
+      "groupName": "Funding",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "amount",
+          "columns": 1
+        },
+        {
+          "name": "performancePlanId",
+          "columns": 1
+        }
+      ]
+    },
+    {
+      "groupName": "Status",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "statusId",
+          "columns": 1
+        },
+        {
+          "name": "statusReason",
+          "columns": 1
+        }
+      ]
+    }
+  ],
+  "Indicator": [
+    {
+      "groupName": "Basic Information",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "name",
+          "columns": 2
+        },
+        {
+          "name": "code",
+          "columns": 1
+        },
+        {
+          "name": "calculationTypeId",
+          "columns": 1
+        },
+        {
+          "name": "reportingTypeId",
+          "columns": 1
+        },
+        {
+          "name": "feasibilityStatusId",
+          "columns": 1
+        }
+      ]
+    },
+    {
+      "groupName": "Targets",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "annualTarget",
+          "columns": 1
+        },
+        {
+          "name": "quarterOneTarget",
+          "columns": 1
+        },
+        {
+          "name": "quarterTwoTarget",
+          "columns": 1
+        },
+        {
+          "name": "quarterThreeTarget",
+          "columns": 1
+        },
+        {
+          "name": "quarterFourTarget",
+          "columns": 2
+        }
+      ]
+    },
+    {
+      "groupName": "Ownership",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "programmeId",
+          "columns": 1
+        },
+        {
+          "name": "subProgrammeId",
+          "columns": 1
+        },
+        {
+          "name": "performancePlanId",
+          "columns": 1
+        },
+        {
+          "name": "responsibleDepartmentTypeId",
+          "columns": 1
+        },
+        {
+          "name": "responsibleEmSystemUserId",
+          "columns": 2
+        }
+      ]
+    },
+    {
+      "groupName": "Status",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "statusId",
+          "columns": 1
+        },
+        {
+          "name": "statusReason",
+          "columns": 1
+        }
+      ]
+    }
+  ],
+  "IndicatorAchievement": [
+    {
+      "groupName": "Basic Information",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "name",
+          "columns": 2
+        },
+        {
+          "name": "reportingPeriodId",
+          "columns": 1
+        },
+        {
+          "name": "countsTowardTarget",
+          "columns": 1
+        }
+      ]
+    },
+    {
+      "groupName": "Evidence",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "indicatorEvidenceTypeId",
+          "columns": 1
+        },
+        {
+          "name": "parentObjectTypeId",
+          "columns": 1
+        },
+        {
+          "name": "parentObjectId",
+          "columns": 1
+        },
+        {
+          "name": "parentExternalKey",
+          "columns": 1
+        }
+      ]
+    },
+    {
+      "groupName": "Notes",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "notes",
+          "columns": 2
+        },
+        {
+          "name": "statusId",
+          "columns": 1
+        },
+        {
+          "name": "statusReason",
+          "columns": 1
+        }
+      ]
+    }
+  ],
+  "IndicatorDescriptor": [
+    {
+      "groupName": "Basic Information",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "name",
+          "columns": 2
+        },
+        {
+          "name": "title",
+          "columns": 2
+        },
+        {
+          "name": "code",
+          "columns": 1
+        },
+        {
+          "name": "indicatorId",
+          "columns": 1
+        }
+      ]
+    },
+    {
+      "groupName": "Methodology",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "calculationTypeId",
+          "columns": 1
+        },
+        {
+          "name": "dataSource",
+          "columns": 1
+        },
+        {
+          "name": "calculationMethod",
+          "columns": 2
+        },
+        {
+          "name": "verificationMeans",
+          "columns": 1
+        },
+        {
+          "name": "reportingTypeId",
+          "columns": 1
+        }
+      ]
+    },
+    {
+      "groupName": "Content",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "definition",
+          "columns": 2
+        },
+        {
+          "name": "assumptions",
+          "columns": 2
+        },
+        {
+          "name": "desiredPerformance",
+          "columns": 2
+        },
+        {
+          "name": "disaggregationOfBeneficiaries",
+          "columns": 2
+        },
+        {
+          "name": "spatialTransformation",
+          "columns": 2
+        },
+        {
+          "name": "indicatorResponsibility",
+          "columns": 2
+        }
+      ]
+    },
+    {
+      "groupName": "Status",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "statusId",
+          "columns": 1
+        },
+        {
+          "name": "statusReason",
+          "columns": 1
+        }
+      ]
+    }
+  ],
+  "IndicatorEmpowerment": [
+    {
+      "groupName": "Basic Information",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "name",
+          "columns": 2
+        },
+        {
+          "name": "indicatorDescriptorId",
+          "columns": 1
+        },
+        {
+          "name": "demographicTypeId",
+          "columns": 1
+        }
+      ]
+    },
+    {
+      "groupName": "Performance",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "targetPercentage",
+          "columns": 1
+        },
+        {
+          "name": "achievedPercentage",
+          "columns": 1
+        },
+        {
+          "name": "reportingPeriodId",
+          "columns": 2
+        }
+      ]
+    },
+    {
+      "groupName": "Status",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "statusId",
+          "columns": 1
+        },
+        {
+          "name": "statusReason",
+          "columns": 1
+        }
+      ]
+    }
+  ],
+  "IndicatorEvidence": [
+    {
+      "groupName": "Basic Information",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "name",
+          "columns": 2
+        },
+        {
+          "name": "indicatorId",
+          "columns": 1
+        },
+        {
+          "name": "evidenceTypeId",
+          "columns": 1
+        }
+      ]
+    },
+    {
+      "groupName": "Status",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "statusId",
+          "columns": 1
+        },
+        {
+          "name": "statusReason",
+          "columns": 1
+        }
+      ]
+    }
+  ],
+  "IndicatorIssue": [
+    {
+      "groupName": "Basic Information",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "name",
+          "columns": 2
+        },
+        {
+          "name": "subject",
+          "columns": 2
+        }
+      ]
+    },
+    {
+      "groupName": "Context",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "indicatorId",
+          "columns": 1
+        },
+        {
+          "name": "reportingPeriodId",
+          "columns": 1
+        },
+        {
+          "name": "programmeId",
+          "columns": 1
+        },
+        {
+          "name": "subProgrammeId",
+          "columns": 1
+        }
+      ]
+    },
+    {
+      "groupName": "Impact",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "impactTypeId",
+          "columns": 1
+        },
+        {
+          "name": "impactDetail",
+          "columns": 2
+        },
+        {
+          "name": "issueDetail",
+          "columns": 2
+        }
+      ]
+    },
+    {
+      "groupName": "Resolution",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "responsibleDepartmentId",
+          "columns": 1
+        },
+        {
+          "name": "recommendation",
+          "columns": 2
+        },
+        {
+          "name": "feedback",
+          "columns": 2
+        }
+      ]
+    },
+    {
+      "groupName": "Status",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "statusId",
+          "columns": 1
+        },
+        {
+          "name": "statusReason",
+          "columns": 1
+        }
+      ]
+    }
+  ],
+  "IndicatorResult": [
+    {
+      "groupName": "Basic Information",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "name",
+          "columns": 2
+        },
+        {
+          "name": "indicatorId",
+          "columns": 1
+        },
+        {
+          "name": "reportingPeriodId",
+          "columns": 1
+        }
+      ]
+    },
+    {
+      "groupName": "Values",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "targetValue",
+          "columns": 1
+        },
+        {
+          "name": "actualValue",
+          "columns": 1
+        },
+        {
+          "name": "projectedValue",
+          "columns": 1
+        },
+        {
+          "name": "systemValue",
+          "columns": 1
+        },
+        {
+          "name": "percentageAchieved",
+          "columns": 1
+        },
+        {
+          "name": "variance",
+          "columns": 1
+        }
+      ]
+    },
+    {
+      "groupName": "Risk",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "riskRatingId",
+          "columns": 1
+        },
+        {
+          "name": "varianceExplanation",
+          "columns": 2
+        },
+        {
+          "name": "comments",
+          "columns": 2
+        }
+      ]
+    },
+    {
+      "groupName": "Status",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "statusId",
+          "columns": 1
+        },
+        {
+          "name": "statusReason",
+          "columns": 1
+        }
+      ]
+    }
+  ],
+  "Intervention": [
+    {
+      "groupName": "Basic Information",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "name",
+          "columns": 2
+        },
+        {
+          "name": "interventionTypeId",
+          "columns": 1
+        },
+        {
+          "name": "departmentTypeId",
+          "columns": 1
+        }
+      ]
+    },
+    {
+      "groupName": "Details",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "economicTypeId",
+          "columns": 1
+        },
+        {
+          "name": "performancePlanId",
+          "columns": 1
+        },
+        {
+          "name": "allowPublicApplications",
+          "columns": 2
+        }
+      ]
+    },
+    {
+      "groupName": "Status",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "statusId",
+          "columns": 1
+        },
+        {
+          "name": "statusReason",
+          "columns": 1
+        }
+      ]
+    }
+  ],
+  "InterventionIndicator": [
+    {
+      "groupName": "Basic Information",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "name",
+          "columns": 2
+        },
+        {
+          "name": "interventionId",
+          "columns": 1
+        },
+        {
+          "name": "indicatorId",
+          "columns": 1
+        }
+      ]
+    },
+    {
+      "groupName": "Status",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "statusId",
+          "columns": 1
+        },
+        {
+          "name": "statusReason",
+          "columns": 1
+        }
+      ]
+    }
+  ],
+  "InterventionOrganisation": [
+    {
+      "groupName": "Basic Information",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "name",
+          "columns": 2
+        },
+        {
+          "name": "interventionId",
+          "columns": 1
+        },
+        {
+          "name": "organisationId",
+          "columns": 1
+        }
+      ]
+    },
+    {
+      "groupName": "Status",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "statusId",
+          "columns": 1
+        },
+        {
+          "name": "statusReason",
+          "columns": 1
+        }
+      ]
+    }
+  ],
+  "InterventionOrganisationLearnerList": [
+    {
+      "groupName": "Basic Information",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "name",
+          "columns": 2
+        },
+        {
+          "name": "interventionOrganisationId",
+          "columns": 2
+        }
+      ]
+    },
+    {
+      "groupName": "Status",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "statusId",
+          "columns": 1
+        },
+        {
+          "name": "statusReason",
+          "columns": 1
+        }
+      ]
+    }
+  ],
+  "Notification": [
+    {
+      "groupName": "Basic Information",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "name",
+          "columns": 2
+        },
+        {
+          "name": "title",
+          "columns": 2
+        },
+        {
+          "name": "notificationTypeId",
+          "columns": 1
+        },
+        {
+          "name": "notificationTemplateId",
+          "columns": 1
+        }
+      ]
+    },
+    {
+      "groupName": "Delivery",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "recipientSystemUserId",
+          "columns": 1
+        },
+        {
+          "name": "isRead",
+          "columns": 1
+        },
+        {
+          "name": "description",
+          "columns": 2
+        }
+      ]
+    },
+    {
+      "groupName": "Status",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "statusId",
+          "columns": 1
+        },
+        {
+          "name": "statusReason",
+          "columns": 1
+        }
+      ]
+    }
+  ],
+  "Organisation": [
+    {
+      "groupName": "Basic Information",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "name",
+          "columns": 2
+        },
+        {
+          "name": "organisationTypeId",
+          "columns": 1
+        },
+        {
+          "name": "organisationProviderClassId",
+          "columns": 1
+        }
+      ]
+    },
+    {
+      "groupName": "Registration",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "registrationNumber",
+          "columns": 1
+        },
+        {
+          "name": "vatNumber",
+          "columns": 1
+        },
+        {
+          "name": "fnoVendorId",
+          "columns": 2
+        }
+      ]
+    },
+    {
+      "groupName": "Status",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "statusId",
+          "columns": 1
+        },
+        {
+          "name": "statusReason",
+          "columns": 1
+        }
+      ]
+    }
+  ],
+  "OrganisationContract": [
+    {
+      "groupName": "Basic Information",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "name",
+          "columns": 2
+        },
+        {
+          "name": "organisationId",
+          "columns": 1
+        },
+        {
+          "name": "signingHubPackageId",
+          "columns": 1
+        },
+        {
+          "name": "signingHubDocumentId",
+          "columns": 2
+        }
+      ]
+    },
+    {
+      "groupName": "Status",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "statusId",
+          "columns": 1
+        },
+        {
+          "name": "statusReason",
+          "columns": 1
+        }
+      ]
+    }
+  ],
+  "OrganisationFundingCap": [
+    {
+      "groupName": "Basic Information",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "name",
+          "columns": 2
+        },
+        {
+          "name": "fundingCapId",
+          "columns": 1
+        },
+        {
+          "name": "interventionOrganisationId",
+          "columns": 1
+        }
+      ]
+    },
+    {
+      "groupName": "Limits",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "maxFundingAmount",
+          "columns": 1
+        },
+        {
+          "name": "maxLearnerCount",
+          "columns": 1
+        },
+        {
+          "name": "approvedFundingAmount",
+          "columns": 1
+        },
+        {
+          "name": "approvedLearnerCount",
+          "columns": 1
+        }
+      ]
+    },
+    {
+      "groupName": "Status",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "statusId",
+          "columns": 1
+        },
+        {
+          "name": "statusReason",
+          "columns": 1
+        }
+      ]
+    }
+  ],
+  "OrganisationInvoice": [
+    {
+      "groupName": "Basic Information",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "name",
+          "columns": 2
+        },
+        {
+          "name": "invoiceNumber",
+          "columns": 1
+        },
+        {
+          "name": "purchaseOrderNumber",
+          "columns": 1
+        }
+      ]
+    },
+    {
+      "groupName": "References",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "organisationId",
+          "columns": 1
+        },
+        {
+          "name": "interventionId",
+          "columns": 1
+        },
+        {
+          "name": "totalAmount",
+          "columns": 2
+        }
+      ]
+    },
+    {
+      "groupName": "Status",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "statusId",
+          "columns": 1
+        },
+        {
+          "name": "statusReason",
+          "columns": 1
+        }
+      ]
+    }
+  ],
+  "OrganisationPerson": [
+    {
+      "groupName": "Basic Information",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "name",
+          "columns": 2
+        },
+        {
+          "name": "organisationId",
+          "columns": 1
+        },
+        {
+          "name": "personId",
+          "columns": 1
+        }
+      ]
+    },
+    {
+      "groupName": "Status",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "statusId",
+          "columns": 1
+        },
+        {
+          "name": "statusReason",
+          "columns": 1
+        }
+      ]
+    }
+  ],
+  "PerformancePlan": [
+    {
+      "groupName": "Basic Information",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "name",
+          "columns": 2
+        },
+        {
+          "name": "startDate",
+          "columns": 1
+        },
+        {
+          "name": "endDate",
+          "columns": 1
+        }
+      ]
+    },
+    {
+      "groupName": "Status",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "statusId",
+          "columns": 1
+        },
+        {
+          "name": "statusReason",
+          "columns": 1
+        }
+      ]
+    }
+  ],
+  "Person": [
+    {
+      "groupName": "Basic Information",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "name",
+          "columns": 2
+        },
+        {
+          "name": "firstName",
+          "columns": 1
+        },
+        {
+          "name": "middleName",
+          "columns": 1
+        },
+        {
+          "name": "lastName",
+          "columns": 1
+        },
+        {
+          "name": "titleId",
+          "columns": 1
+        }
+      ]
+    },
+    {
+      "groupName": "Identity",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "identityTypeId",
+          "columns": 1
+        },
+        {
+          "name": "identityNumber",
+          "columns": 1
+        },
+        {
+          "name": "dateOfBirth",
+          "columns": 1
+        },
+        {
+          "name": "genderId",
+          "columns": 1
+        },
+        {
+          "name": "nationalityId",
+          "columns": 1
+        },
+        {
+          "name": "registrationCode",
+          "columns": 1
+        },
+        {
+          "name": "registrationCodeExpiryDate",
+          "columns": 2
+        }
+      ]
+    },
+    {
+      "groupName": "Contact",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "email",
+          "columns": 2
+        },
+        {
+          "name": "mobilePhone",
+          "columns": 1
+        },
+        {
+          "name": "homePhone",
+          "columns": 1
+        },
+        {
+          "name": "businessPhone",
+          "columns": 1
+        },
+        {
+          "name": "faxNumber",
+          "columns": 1
+        }
+      ]
+    },
+    {
+      "groupName": "Address",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "homeAddressLineOne",
+          "columns": 2
+        },
+        {
+          "name": "homeAddressLineTwo",
+          "columns": 2
+        },
+        {
+          "name": "cityId",
+          "columns": 1
+        },
+        {
+          "name": "municipalityLocalId",
+          "columns": 1
+        },
+        {
+          "name": "provinceId",
+          "columns": 1
+        },
+        {
+          "name": "postalCode",
+          "columns": 1
+        },
+        {
+          "name": "statsSaAreaId",
+          "columns": 2
+        }
+      ]
+    },
+    {
+      "groupName": "Demographics",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "ageBracketId",
+          "columns": 1
+        },
+        {
+          "name": "communityTypeId",
+          "columns": 1
+        },
+        {
+          "name": "disabilityId",
+          "columns": 1
+        },
+        {
+          "name": "economicTypeId",
+          "columns": 1
+        },
+        {
+          "name": "equityCodeId",
+          "columns": 1
+        },
+        {
+          "name": "homeLanguageId",
+          "columns": 1
+        }
+      ]
+    },
+    {
+      "groupName": "Status",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "statusId",
+          "columns": 1
+        },
+        {
+          "name": "statusReason",
+          "columns": 1
+        }
+      ]
+    }
+  ],
+  "PersonOrganisationPersonType": [
+    {
+      "groupName": "Basic Information",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "name",
+          "columns": 2
+        },
+        {
+          "name": "organisationId",
+          "columns": 1
+        },
+        {
+          "name": "personId",
+          "columns": 1
+        },
+        {
+          "name": "personTypeId",
+          "columns": 2
+        }
+      ]
+    },
+    {
+      "groupName": "Status",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "statusId",
+          "columns": 1
+        },
+        {
+          "name": "statusReason",
+          "columns": 1
+        }
+      ]
+    }
+  ],
+  "PriorityFieldOfStudy": [
+    {
+      "groupName": "Basic Information",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "name",
+          "columns": 2
+        },
+        {
+          "name": "fieldOfStudyId",
+          "columns": 1
+        },
+        {
+          "name": "performancePlanId",
+          "columns": 1
+        }
+      ]
+    },
+    {
+      "groupName": "Status",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "statusId",
+          "columns": 1
+        },
+        {
+          "name": "statusReason",
+          "columns": 1
+        }
+      ]
+    }
+  ],
+  "Programme": [
+    {
+      "groupName": "Basic Information",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "name",
+          "columns": 2
+        },
+        {
+          "name": "code",
+          "columns": 1
+        },
+        {
+          "name": "fiscalPeriod",
+          "columns": 1
+        },
+        {
+          "name": "performancePlanId",
+          "columns": 2
+        }
+      ]
+    },
+    {
+      "groupName": "Details",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "purpose",
+          "columns": 2
+        },
+        {
+          "name": "outcome",
+          "columns": 2
+        }
+      ]
+    },
+    {
+      "groupName": "Status",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "statusId",
+          "columns": 1
+        },
+        {
+          "name": "statusReason",
+          "columns": 1
+        }
+      ]
+    }
+  ],
+  "ReportingPeriod": [
+    {
+      "groupName": "Basic Information",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "name",
+          "columns": 2
+        },
+        {
+          "name": "reportingTypeId",
+          "columns": 1
+        },
+        {
+          "name": "startDateTime",
+          "columns": 1
+        }
+      ]
+    },
+    {
+      "groupName": "Schedule",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "endDateTime",
+          "columns": 2
+        },
+        {
+          "name": "statusId",
+          "columns": 1
+        },
+        {
+          "name": "statusReason",
+          "columns": 1
+        }
+      ]
+    }
+  ],
+  "StageInstance": [
+    {
+      "groupName": "Basic Information",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "name",
+          "columns": 2
+        },
+        {
+          "name": "stageId",
+          "columns": 1
+        },
+        {
+          "name": "interventionId",
+          "columns": 1
+        }
+      ]
+    },
+    {
+      "groupName": "Progress",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "dateStarted",
+          "columns": 1
+        },
+        {
+          "name": "dateCompleted",
+          "columns": 1
+        },
+        {
+          "name": "isDelayed",
+          "columns": 2
+        }
+      ]
+    },
+    {
+      "groupName": "Status",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "statusId",
+          "columns": 1
+        },
+        {
+          "name": "statusReason",
+          "columns": 1
+        }
+      ]
+    }
+  ],
+  "SubProgramme": [
+    {
+      "groupName": "Basic Information",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "name",
+          "columns": 2
+        },
+        {
+          "name": "code",
+          "columns": 1
+        },
+        {
+          "name": "programmeId",
+          "columns": 1
+        },
+        {
+          "name": "performancePlanId",
+          "columns": 2
+        }
+      ]
+    },
+    {
+      "groupName": "Details",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "description",
+          "columns": 2
+        },
+        {
+          "name": "output",
+          "columns": 2
+        }
+      ]
+    },
+    {
+      "groupName": "Status",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "statusId",
+          "columns": 1
+        },
+        {
+          "name": "statusReason",
+          "columns": 1
+        }
+      ]
+    }
+  ],
+  "SystemUser": [
+    {
+      "groupName": "Basic Information",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "firstName",
+          "columns": 1
+        },
+        {
+          "name": "lastName",
+          "columns": 1
+        },
+        {
+          "name": "email",
+          "columns": 2
+        },
+        {
+          "name": "mobileNumber",
+          "columns": 1
+        },
+        {
+          "name": "personId",
+          "columns": 1
+        }
+      ]
+    },
+    {
+      "groupName": "Security",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "systemUserTypeId",
+          "columns": 1
+        },
+        {
+          "name": "mfaTypeId",
+          "columns": 1
+        },
+        {
+          "name": "password",
+          "columns": 2
+        }
+      ]
+    },
+    {
+      "groupName": "Status",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "statusId",
+          "columns": 1
+        },
+        {
+          "name": "statusReason",
+          "columns": 1
+        }
+      ]
+    }
+  ],
+  "SystemUserRole": [
+    {
+      "groupName": "Basic Information",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "name",
+          "columns": 2
+        },
+        {
+          "name": "roleId",
+          "columns": 1
+        },
+        {
+          "name": "systemUserId",
+          "columns": 1
+        }
+      ]
+    },
+    {
+      "groupName": "Status",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "statusId",
+          "columns": 1
+        },
+        {
+          "name": "statusReason",
+          "columns": 1
+        }
+      ]
+    }
+  ]
+}

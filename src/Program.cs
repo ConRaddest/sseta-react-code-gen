@@ -8,21 +8,26 @@ namespace ReactCodegen
     class Program
     {
         // Input paths
-        const string swaggerInputPath = "io/input/swagger/swagger.json";
-        const string fieldLayoutInputPath = "io/input/form-layout/field-layout.json";
+        const string swaggerInputPath = "input/swagger/swagger.json";
+        const string fieldLayoutInputPath = "input/form-layout/field-layout.json";
 
         // Output paths — one folder per generator
-        const string servicesOutputDir = "io/output/services";
-        const string typesOutputDir = "io/output/types";
-        const string contextsOutputDir = "io/output/contexts";
-        const string formsOutputDir = "io/output/forms";
+        const string servicesOutputDir = "src/_output/services";
+        const string typesOutputDir = "src/_output/types";
+        const string contextsOutputDir = "src/_output/contexts";
+        const string formsOutputDir = "src/_output/forms";
+
+        // Database connection
+        const string dbConnectionString =
+            "server=localhost;database=PMVR;TrustServerCertificate=True;Integrated Security=True;";
 
         // Template paths
         const string serviceTemplatePath = "src/templates/services/api.service.ts";
         const string typeTemplatePath = "src/templates/types/api.type.ts";
+        const string enumTemplatePath = "src/templates/types/enums.ts";
 
         // Log path
-        const string logFilePath = "io/output/codegen-log.txt";
+        const string logFilePath = "src/_output/codegen-log.txt";
 
         // Backend API
         const string swaggerApiUrl = "https://localhost:7222/swagger/v1/swagger.json";
@@ -33,7 +38,7 @@ namespace ReactCodegen
         static async Task Main()
         {
             // Set up dual logging — output goes to both the console and a log file
-            Directory.CreateDirectory("io/output");
+            Directory.CreateDirectory("src/_output");
             _logWriter = new StreamWriter(logFilePath, false) { AutoFlush = true };
             _originalConsoleOut = Console.Out;
 
@@ -47,11 +52,11 @@ namespace ReactCodegen
 
             try
             {
-                // Fetch the latest swagger spec from the running backend and cache it to io/input/swagger/swagger.json
+                // Fetch the latest swagger spec from the running backend and cache it to input/swagger/swagger.json
                 Console.WriteLine($"Fetching swagger: {swaggerApiUrl}");
                 string swaggerJson = await FetchSwaggerFromApi();
 
-                Directory.CreateDirectory("io/input/swagger");
+                Directory.CreateDirectory("input/swagger");
                 await File.WriteAllTextAsync(swaggerInputPath, swaggerJson);
                 Console.WriteLine();
 
@@ -102,7 +107,7 @@ namespace ReactCodegen
         }
 
         // Parses the swagger spec and field layout, then orchestrates all code generators.
-        // Each generator writes into its own folder under io/output/.
+        // Each generator writes into its own folder under src/_output/.
         static async Task GenerateFrontendCode(string swaggerPath, string fieldLayoutPath)
         {
             string jsonString = File.ReadAllText(swaggerPath);
@@ -120,6 +125,7 @@ namespace ReactCodegen
                 Console.WriteLine($"OpenAPI Version: {jsonNode["openapi"]?.GetValue<string>()}");
                 Console.WriteLine($"Title:           {info["title"]?.GetValue<string>()}");
                 Console.WriteLine($"Version:         {info["version"]?.GetValue<string>()}");
+                Console.WriteLine("");
             }
 
             // paths = all API endpoints; schemas = all request/response models
@@ -146,6 +152,9 @@ namespace ReactCodegen
 
             Console.WriteLine("Generating types...");
             ApiTypeGenerator.Generate(paths, schemas!, typeTemplatePath, Path.Combine(typesOutputDir, "management-api.types.ts"));
+
+            Console.WriteLine("Generating enums...");
+            await EnumGenerator.Generate(dbConnectionString, enumTemplatePath, Path.Combine(typesOutputDir, "enums.ts"));
 
             // TODO: ContextGenerator.Generate(schemas, contextsOutputDir);
             // TODO: FormGenerator.Generate(schemas, fieldLayout, formsOutputDir);

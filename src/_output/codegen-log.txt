@@ -1,5 +1,5 @@
 =================================================================
-Code Generation Log - 2026-03-23 14:20:20
+Code Generation Log - 2026-03-23 15:08:01
 =================================================================
 
 Fetching swagger: https://localhost:7222/swagger/v1/swagger.json
@@ -7,13 +7,17 @@ Fetching swagger: https://localhost:7222/swagger/v1/swagger.json
 OpenAPI Version: 3.0.4
 Title:           Management API
 Version:         1.0
+
 Generating services...
   ✓ management-api.service.ts  (20 endpoints across 6 modules)
 Generating types...
   ✓ management-api.types.ts
+Generating enums...
+  ⚠ Skipping Settings.DBCodeGenWhitelist — could not find Id/Name columns.
+  ✓ enums.ts  (115 enums)
 
 Code generation completed successfully!
-  Services:  io/output/services
-  Types:     io/output/types
-  Contexts:  io/output/contexts
-  Forms:     io/output/forms
+  Services:  src/_output/services
+  Types:     src/_output/types
+  Contexts:  src/_output/contexts
+  Forms:     src/_output/forms

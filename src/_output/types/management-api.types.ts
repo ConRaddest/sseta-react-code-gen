@@ -46,32 +46,6 @@ export interface ADMIN_DepartmentType {
 
 // -- ADMIN / StaffRoleRequest --
 
-export interface ADMIN_StaffRoleRequestRetrieveResponse {
-  reviewedOn: string | null
-  createdOn: string
-  modifiedOn: string
-  deletedOn: string | null
-  staffRoleRequestId: number
-  requestedBySystemUserId: number
-  reviewedBySystemUserId: number | null
-  roleId: number
-  statusId: number
-  createdBySystemUserId: number
-  modifiedBySystemUserId: number
-  deletedBySystemUserId: number | null
-  name: string | null
-  requestedBySystemUserName: string | null
-  reviewedBySystemUserName: string | null
-  requestReason: string | null
-  rejectionReason: string | null
-  roleName: string | null
-  statusName: string | null
-  statusReason: string | null
-  createdBySystemUserName: string | null
-  modifiedBySystemUserName: string | null
-  deletedBySystemUserName: string | null
-}
-
 export interface ADMIN_StaffRoleRequest {
   reviewedOn: string | null
   createdOn: string

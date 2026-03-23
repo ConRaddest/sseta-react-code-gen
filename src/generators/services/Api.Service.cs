@@ -316,11 +316,7 @@ static class ApiServiceGenerator
                 string? rowSchemaName = rowRef?.Split('/').Last();
                 if (!string.IsNullOrEmpty(rowSchemaName))
                 {
-                    string rowName = Formatters.FormatTypeName(rowSchemaName);
-                    // Strip trailing "SearchResponse" to get the bare resource name
-                    if (rowName.EndsWith("SearchResponse"))
-                        rowName = rowName[..^"SearchResponse".Length];
-                    return rowName;
+                    return Formatters.FormatTypeName(rowSchemaName);
                 }
             }
         }

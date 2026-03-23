@@ -158,8 +158,9 @@ static class Formatters
     public static readonly string[] Modules = ["ADMIN", "PMVR", "SPI", "ECD", "SP", "B"];
 
     // Reformats a raw schema name into the MODULE_ResourceOperation{Request|Response} convention.
-    // e.g. SystemUserSPUpdateRequestModel → SP_SystemUserUpdateRequest
+    // e.g. SystemUserSPUpdateRequestModel   → SP_SystemUserUpdateRequest
     //      DepartmentTypeADMINSearchResponseModel → ADMIN_DepartmentTypeSearchResponse
+    //      StaffRoleRequestADMINRetrieveResponseModel → ADMIN_StaffRoleRequest  (same as search row)
     public static string FormatTypeName(string name)
     {
         if (name == "Boolean") return "boolean";
@@ -173,6 +174,13 @@ static class Formatters
             name = name[..^"Model".Length];
         if (name.EndsWith("RequestModel"))
             name = name[..^"Model".Length];
+
+        // RetrieveResponse and SearchResponse are both just the bare resource — strip the suffix
+        // so retrieve and search share the same type (e.g. ADMIN_StaffRoleRequest).
+        if (name.EndsWith("RetrieveResponse"))
+            name = name[..^"RetrieveResponse".Length];
+        if (name.EndsWith("SearchResponse"))
+            name = name[..^"SearchResponse".Length];
 
         string? foundModule = null;
         foreach (var mod in Modules)

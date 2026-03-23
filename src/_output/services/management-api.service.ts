@@ -10,7 +10,6 @@ import type {
   AUTH_ProfileResponse,
 
   ADMIN_DepartmentType,
-  ADMIN_StaffRoleRequestRetrieveResponse,
   ADMIN_StaffRoleRequest,
   ADMIN_StaffRoleRequestUpdateRequest,
 
@@ -125,7 +124,7 @@ export const ManagementApi = {
         },
     },
     StaffRoleRequest: {
-        retrieve: async (id: number): Promise<ApiResponse<ADMIN_StaffRoleRequestRetrieveResponse>> => {
+        retrieve: async (id: number): Promise<ApiResponse<ADMIN_StaffRoleRequest>> => {
           const response = await Client().get(`/management/ADMIN/StaffRoleRequest/Retrieve/${id}`)
           return response.data
         },

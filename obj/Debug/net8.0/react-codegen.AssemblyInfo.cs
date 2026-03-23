@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("react-codegen")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b933c85e06e476944bd0f1ffbeecba9385b0ab51")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+82edc2f061671b2a6671d0d0c3d56a12cc5a8a37")]
 [assembly: System.Reflection.AssemblyProductAttribute("react-codegen")]
 [assembly: System.Reflection.AssemblyTitleAttribute("react-codegen")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

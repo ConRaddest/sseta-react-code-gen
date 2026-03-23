@@ -177,10 +177,7 @@ static class ApiTypeGenerator
 
             if (!string.IsNullOrEmpty(rowSchemaName))
             {
-                // Strip "SearchResponse" suffix to get the bare resource name — matches the service output
                 string tsRowName = Formatters.FormatTypeName(rowSchemaName);
-                if (tsRowName.EndsWith("SearchResponse"))
-                    tsRowName = tsRowName[..^"SearchResponse".Length];
                 if (isAuth) tsRowName = Formatters.AddAuthPrefix(tsRowName);
 
                 if (emitted.Add(tsRowName))

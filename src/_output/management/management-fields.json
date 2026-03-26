@@ -1,0 +1,79 @@
+{
+  "Access": {
+    "StaffRoleRequest": {
+      "Create": [
+        "requestReason",
+        "name",
+        "rejectionReason",
+        "reviewedOn"
+      ],
+      "View": [
+        "reviewedOn",
+        "createdOn",
+        "modifiedOn",
+        "deletedOn",
+        "name",
+        "requestedBySystemUserName",
+        "reviewedBySystemUserName",
+        "requestReason",
+        "rejectionReason",
+        "roleName",
+        "statusName",
+        "createdBySystemUserName",
+        "modifiedBySystemUserName",
+        "deletedBySystemUserName"
+      ]
+    }
+  },
+  "Admin": {
+    "StaffRoleRequest": {
+      "View": [
+        "reviewedOn",
+        "createdOn",
+        "modifiedOn",
+        "deletedOn",
+        "name",
+        "requestedBySystemUserName",
+        "reviewedBySystemUserName",
+        "requestReason",
+        "rejectionReason",
+        "roleName",
+        "statusName",
+        "createdBySystemUserName",
+        "modifiedBySystemUserName",
+        "deletedBySystemUserName"
+      ],
+      "Update": [
+        "rejectionReason"
+      ]
+    }
+  },
+  "Ecd": {
+    "SystemUser": {
+      "Update": [
+        "mobileNumber"
+      ]
+    }
+  },
+  "Pmvr": {
+    "SystemUser": {
+      "Update": [
+        "mobileNumber"
+      ]
+    }
+  },
+  "Sp": {
+    "SystemUser": {
+      "Update": [
+        "mobileNumber"
+      ]
+    }
+  },
+  "Spi": {
+    "SystemUser": {
+      "Update": [
+        "mobileNumber"
+      ]
+    }
+  }
+}

@@ -3,7 +3,7 @@
 // !!--------------- CHANGES HERE WILL BE LOST ---------------!!
 // !!---------------------------------------------------------!!
 
-import { ApiResponse, FetchRequest, SearchResponse } from "@sseta/components"
+import { ApiResponse, FetchRequest, SearchResponse, ValidateResponse } from "@sseta/components"
 import axios, { AxiosInstance, AxiosProgressEvent } from "axios"
 
 // [[TYPE_IMPORTS]]

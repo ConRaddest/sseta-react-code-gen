@@ -397,6 +397,7 @@ export enum DepartmentTypeRole {
   PmvrSsetaAdmin = 18,
   PmvrManagementReports = 35,
   PmvrFinancialReports = 36,
+  BursariesAccessOfficer = 37,
 }
 
 export enum Designation {
@@ -1134,6 +1135,11 @@ export enum TableObject {
   OrganisationProvider = 248,
   RoleSchema = 249,
   StandardIndustrialClassification = 250,
+  Etqe = 251,
+  School = 252,
+  SchoolPhase = 253,
+  SchoolSector = 254,
+  SchoolStatus = 255,
 }
 
 export enum ReportObject {
@@ -1382,7 +1388,6 @@ export enum RoleSchema {
   BillingOfficerECDPartnerEcd = 37,
   BillingOfficerSPPartnerSp = 38,
   BillingOfficerSPIPartnerSpi = 39,
-  UnassignedPmvrManagementAdmin = 40,
   AccessOfficerBursariesPartnerB = 41,
   AccessOfficerECDPartnerEcd = 42,
   AccessOfficerSPPartnerSp = 43,
@@ -1479,6 +1484,30 @@ export enum SAQASubField {
   Procurement = 64,
   HigherEducationAndTraining = 65,
   MathematicalSciences = 66,
+}
+
+export enum SchoolPhase {
+  CombinedSchool = 1,
+  SchoolOfSkills = 2,
+  SpecialNeedsSchool = 3,
+  SecondarySchool = 4,
+  PrePrimarySchool = 5,
+  HospitalSchool = 6,
+  PrimarySchool = 7,
+  YouthTrainingCentre = 8,
+  IntermediateSchool = 9,
+}
+
+export enum SchoolSector {
+  Public = 1,
+  EarlyChildhoodDevelopmentCentre = 2,
+  Independent = 3,
+}
+
+export enum SchoolStatus {
+  PendingClose = 1,
+  PendingOpen = 2,
+  Open = 3,
 }
 
 export enum SETAType {

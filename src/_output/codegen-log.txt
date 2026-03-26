@@ -1,23 +1,94 @@
 =================================================================
-Code Generation Log - 2026-03-23 15:13:59
+Code Generation Log - 2026-03-26 13:14:04
 =================================================================
 
+=================================================================
+Portal: management
+=================================================================
 Fetching swagger: https://localhost:7222/swagger/v1/swagger.json
 
-OpenAPI Version: 3.0.4
-Title:           Management API
-Version:         1.0
+  OpenAPI Version: 3.0.4
+  Title:           Management API
+  Version:         1.0
 
-Generating services...
-  ✓ management-api.service.ts  (20 endpoints across 6 modules)
-Generating types...
-  ✓ management-api.types.ts
-Generating enums...
-  ⚠ Skipping Settings.DBCodeGenWhitelist — could not find Id/Name columns.
-  ✓ enums.ts  (115 enums)
+  Fields Manifest
+    ⚠ Skipping StaffRoleRequest.requestedBySystemUserId (no search endpoint)
+    ⚠ Skipping StaffRoleRequest.roleId (no search endpoint)
+    ⚠ Skipping StaffRoleRequest.reviewedBySystemUserId (no search endpoint)
+    6 resource(s) written to management-fields.json
 
-Code generation completed successfully!
-  Services:  src/_output/services
-  Types:     src/_output/types
-  Contexts:  src/_output/contexts
-  Forms:     src/_output/forms
+  Services
+    ✓ api.service.ts  (21 endpoints across 7 modules)
+
+  Types
+    ✓ api.types.ts
+
+  Enums
+    ⚠ Skipping Settings.DBCodeGenWhitelist (no id/name columns)
+    ✓ enums.ts  (118 enums)
+
+  Contexts
+    ✓ ACCESS/DepartmentType
+    ✓ ACCESS/StaffRoleRequest
+    ✓ ADMIN/StaffRoleRequest
+    ✓ B/Role
+    ✓ ECD/Role
+    ✓ ECD/SystemUser
+    ✓ PMVR/Role
+    ✓ PMVR/SystemUser
+    ✓ SP/Role
+    ✓ SP/SystemUser
+    ✓ SPI/Role
+    ✓ SPI/SystemUser
+    12 context(s) generated.
+
+  Create Forms
+    ✓ ACCESS/StaffRoleRequest
+    1 create form(s) generated.
+
+  Update Forms
+    ✓ ADMIN/StaffRoleRequest
+    ✓ ECD/SystemUser
+    ✓ PMVR/SystemUser
+    ✓ SP/SystemUser
+    ✓ SPI/SystemUser
+    5 update form(s) generated.
+
+  View Forms
+    ✓ ACCESS/StaffRoleRequest
+    ✓ ADMIN/StaffRoleRequest
+    2 view form(s) generated.
+
+  Delete Forms
+    ✓ ACCESS/StaffRoleRequest
+    1 delete form(s) generated.
+
+  Field Hooks
+    ⚠ Skipping StaffRoleRequest.requestedBySystemUserId (no search endpoint)
+    ⚠ Skipping StaffRoleRequest.roleId (no search endpoint)
+    ⚠ Skipping StaffRoleRequest.reviewedBySystemUserId (no search endpoint)
+    ✓ ACCESS/StaffRoleRequest
+    1 field hook(s) generated.
+
+  Layouts
+    ✓ ACCESS/StaffRoleRequest
+    1 layout(s) generated.
+
+  Completed generation:
+    ✓ Services:  src/_output/management\services
+    ✓ Types:     src/_output/management\types
+    ✓ Contexts:  src/_output/management\contexts
+    ✓ Forms:     src/_output/management\forms
+
+=================================================================
+Portal: partner
+=================================================================
+Fetching swagger: https://localhost:7223/swagger/v1/swagger.json
+  Skipping portal and continuing (ensure api is running and endpoints are correctly configured)
+
+=================================================================
+Portal: learner
+=================================================================
+Fetching swagger: https://localhost:7224/swagger/v1/swagger.json
+  Skipping portal and continuing (ensure api is running and endpoints are correctly configured)
+

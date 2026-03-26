@@ -94,7 +94,7 @@ static class ApiServiceGenerator
         // ---------------------------------------------------------------
         var sb = new StringBuilder();
 
-        // Derive the export name from the output file name (e.g. management-api.service.ts → ManagementApi)
+        // Derive the export name from the output file name (e.g. management-api.service.ts → Api)
         string exportName = Formatters.DeriveExportName(Path.GetFileName(outputPath));
 
         sb.AppendLine($"export const {exportName} = {{");
@@ -142,7 +142,7 @@ static class ApiServiceGenerator
             {
                 string rt = ResolveResponseType(ep.ResponseSchemaRef, schemas);
                 if (isAuth) rt = Formatters.AddAuthPrefix(rt);
-                if (rt != "unknown" && rt != "boolean" && !rt.StartsWith('"') && usedTypesSet.Add(rt))
+                if (rt != "unknown" && rt != "boolean" && !rt.StartsWith('"') && !IsStaticType(rt) && usedTypesSet.Add(rt))
                     group.Add(rt);
 
                 if (ep.RequestSchemaRef != null && !ep.RequestSchemaRef.EndsWith("SearchRequestModel"))
@@ -179,7 +179,7 @@ static class ApiServiceGenerator
         Directory.CreateDirectory(Path.GetDirectoryName(outputPath)!);
         File.WriteAllText(outputPath, output);
 
-        Console.WriteLine($"  ✓ {Path.GetFileName(outputPath)}  ({endpoints.Count} endpoints across {modules.Count} modules)");
+        Console.WriteLine($"    ✓ {Path.GetFileName(outputPath)}  ({endpoints.Count} endpoints across {modules.Count} modules)");
     }
 
     // ---------------------------------------------------------------
@@ -232,9 +232,17 @@ static class ApiServiceGenerator
                 break;
 
             case "update":
-                string updateUrl = relPath.Replace($"{{{pathParam}}}", $"${{{pathParam}}}");
-                lines.AppendLine($"      update: async ({pathParam}: number, payload: {requestType}): Promise<ApiResponse<{responseType}>> => {{");
-                lines.AppendLine($"        const response = await Client().put(`{updateUrl}`, payload)");
+                if (hasPathParam)
+                {
+                    string updateUrl = relPath.Replace($"{{{pathParam}}}", $"${{{pathParam}}}");
+                    lines.AppendLine($"      update: async ({pathParam}: number, payload: {requestType}): Promise<ApiResponse<{responseType}>> => {{");
+                    lines.AppendLine($"        const response = await Client().put(`{updateUrl}`, payload)");
+                }
+                else
+                {
+                    lines.AppendLine($"      update: async (payload: {requestType}): Promise<ApiResponse<{responseType}>> => {{");
+                    lines.AppendLine($"        const response = await Client().put(`{relPath}`, payload)");
+                }
                 lines.AppendLine($"        return response.data");
                 lines.Append($"      }},");
                 break;
@@ -289,45 +297,29 @@ static class ApiServiceGenerator
     // Type resolution helpers
     // ---------------------------------------------------------------
 
+    // Maps a schema name to its static @sseta/components type if one applies, otherwise null.
+    // Any schema ending in "ValidateResponseModel" maps to the shared ValidateResponse type.
+    static string? GetStaticTypeOverride(string schemaName) =>
+        schemaName.EndsWith("ValidateResponseModel") ? "ValidateResponse" : null;
+
+    // Returns true if the resolved TypeScript type name is a static type from @sseta/components
+    // and should not be included in the generated import block.
+    static bool IsStaticType(string tsTypeName) =>
+        tsTypeName == "ValidateResponse";
+
     // Resolves the response TypeScript type from a $ref.
     // Strips the SETAApiResponse envelope, then for search responses unwraps the
     // search envelope too — returning just the row model with "SearchResponse" stripped.
     // e.g. RoleSPSearchResponseSETAApiResponse → SP_Role  (used as SearchResponse<SP_Role>)
-    static string ResolveResponseType(string? schemaRef, JsonObject? schemas)
-    {
-        if (schemaRef == null) return "unknown";
-
-        string name = schemaRef.Split('/').Last();
-
-        // Unwrap outer SETAApiResponse
-        if (name.EndsWith("SETAApiResponse"))
-            name = name[..^"SETAApiResponse".Length];
-
-        // If the unwrapped schema is a search envelope (totalRows + searchResults),
-        // return the row model name with the "SearchResponse" suffix stripped
-        if (schemas != null)
-        {
-            var innerSchema = Formatters.FindSchema(schemas, name);
-            bool isSearchEnvelope = innerSchema?["properties"]?["searchResults"] != null
-                                 && innerSchema?["properties"]?["totalRows"] != null;
-            if (isSearchEnvelope)
-            {
-                string? rowRef = innerSchema!["properties"]!["searchResults"]!["items"]?["$ref"]?.GetValue<string>();
-                string? rowSchemaName = rowRef?.Split('/').Last();
-                if (!string.IsNullOrEmpty(rowSchemaName))
-                {
-                    return Formatters.FormatTypeName(rowSchemaName);
-                }
-            }
-        }
-
-        return Formatters.FormatTypeName(name);
-    }
+    // For primitive data payloads (e.g. BooleanSETAApiResponse) returns the primitive directly.
+    // For schemas listed in StaticTypeOverrides, returns the mapped static type name directly.
+    static string ResolveResponseType(string? schemaRef, JsonObject? schemas) =>
+        Formatters.ResolveResponseType(schemaRef, schemas);
 
     static string ResolveRequestType(string? schemaRef, string tag, string module, string operation)
     {
         if (schemaRef != null)
-            return Formatters.FormatTypeName(schemaRef.Split('/').Last());
+            return Formatters.ResolveRequestType(schemaRef);
 
         // Fallback: construct a conventional name
         return $"{module}_{tag}{Formatters.ToPascalCase(operation)}Request";

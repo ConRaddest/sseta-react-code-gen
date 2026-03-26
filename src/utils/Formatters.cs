@@ -70,12 +70,12 @@ static class Formatters
         return type switch
         {
             "integer" or "number" => "number",
-            "boolean"             => "boolean",
+            "boolean" => "boolean",
             "string" when format == "date-time" => "string",
-            "string"              => "string",
-            "array"               => "any[]",
-            "guid"                => "string",
-            _                     => "any"
+            "string" => "string",
+            "array" => "any[]",
+            "guid" => "string",
+            _ => "any"
         };
     }
 
@@ -112,10 +112,10 @@ static class Formatters
         string? type = propSchema["type"]?.GetValue<string>();
         return type switch
         {
-            "string"              => "\"\"",
+            "string" => "\"\"",
             "integer" or "number" => "0",
-            "boolean"             => "false",
-            _                     => "undefined"
+            "boolean" => "false",
+            _ => "undefined"
         };
     }
 
@@ -155,12 +155,20 @@ static class Formatters
     // ---------------------------------------------------------------
 
     // Known module tokens — ordered longest-first so "SPI" matches before "SP"
-    public static readonly string[] Modules = ["ADMIN", "PMVR", "SPI", "ECD", "SP", "B"];
+    public static readonly string[] Modules = ["ADMIN", "ACCESS", "PMVR", "SPI", "ECD", "SP", "B"];
 
-    // Reformats a raw schema name into the MODULE_ResourceOperation{Request|Response} convention.
-    // e.g. SystemUserSPUpdateRequestModel   → SP_SystemUserUpdateRequest
-    //      DepartmentTypeADMINSearchResponseModel → ADMIN_DepartmentTypeSearchResponse
-    //      StaffRoleRequestADMINRetrieveResponseModel → ADMIN_StaffRoleRequest  (same as search row)
+    // Fields that are always excluded from generated form layouts, field hooks, and select hooks.
+    // Status management is handled separately and should never appear in scaffolded forms.
+    public static readonly HashSet<string> ExcludedFormFields = new(StringComparer.OrdinalIgnoreCase)
+    {
+        "statusId",
+        "statusReason",
+    };
+
+    // Reformats a raw schema name into the ModuleResourceOperation{Request|Response} convention.
+    // e.g. SystemUserSPUpdateRequestModel   → SpSystemUserUpdateRequest
+    //      DepartmentTypeADMINSearchResponseModel → AdminDepartmentTypeSearchResponse
+    //      StaffRoleRequestADMINRetrieveResponseModel → AdminStaffRoleRequest  (same as search row)
     public static string FormatTypeName(string name)
     {
         if (name == "Boolean") return "boolean";
@@ -175,12 +183,11 @@ static class Formatters
         if (name.EndsWith("RequestModel"))
             name = name[..^"Model".Length];
 
-        // RetrieveResponse and SearchResponse are both just the bare resource — strip the suffix
-        // so retrieve and search share the same type (e.g. ADMIN_StaffRoleRequest).
+        // RetrieveResponse is the canonical base model — strip the suffix so it becomes
+        // the bare resource name (e.g. AdminStaffRoleRequest).
+        // SearchResponse is kept as a distinct type (e.g. AdminStaffRoleRequestSearchResponse).
         if (name.EndsWith("RetrieveResponse"))
             name = name[..^"RetrieveResponse".Length];
-        if (name.EndsWith("SearchResponse"))
-            name = name[..^"SearchResponse".Length];
 
         string? foundModule = null;
         foreach (var mod in Modules)
@@ -195,7 +202,7 @@ static class Formatters
         }
 
         if (foundModule != null)
-            name = $"{foundModule}_{name}";
+            name = ToPascalCase(foundModule.ToLower()) + name;
 
         return name;
     }
@@ -217,30 +224,62 @@ static class Formatters
         return null;
     }
 
-    // Adds AUTH_ prefix to types that have no module prefix (i.e. Auth section types).
+    // Adds "Auth" prefix to types that have no module prefix (i.e. Auth section types).
     // Leaves "unknown" and "boolean" sentinel values unchanged.
+    // Detects an existing module prefix by checking if the name starts with any known module (pascal-cased).
     public static string AddAuthPrefix(string name)
     {
         if (name == "unknown" || name == "boolean") return name;
-        if (name.Contains('_')) return name; // already has a module prefix
-        return $"AUTH_{name}";
+        foreach (var mod in Modules)
+            if (name.StartsWith(ToPascalCase(mod.ToLower()), StringComparison.Ordinal))
+                return name; // already has a module prefix
+        return $"Auth{name}";
     }
 
     // Maps a swagger primitive type string to its TypeScript equivalent.
     public static string MapPrimitive(string? type) => type switch
     {
         "integer" or "number" => "number",
-        "boolean"             => "boolean",
-        "string"              => "string",
-        _                     => "unknown"
+        "boolean" => "boolean",
+        "string" => "string",
+        _ => "unknown"
     };
 
     // Derives a PascalCase export name from a kebab-case file stem.
-    // e.g. "management-api.service.ts" → "ManagementApi"
+    // e.g. "management-api.service.ts" → "Api"
     public static string DeriveExportName(string fileName)
     {
         string stem = fileName.Replace(".service.ts", "").Replace(".ts", "");
         return string.Concat(stem.Split('-').Select(ToPascalCase));
+    }
+
+    // Returns true when a property is a FK reference (ParentTable: description) whose parent
+    // table has no Search endpoint — meaning no select can be populated for it.
+    // Such fields should be excluded from field hooks, layouts, and selects entirely.
+    public static bool IsUnsearchableFk(JsonObject? prop, HashSet<string>? searchableResources)
+    {
+        if (prop == null || searchableResources == null) return false;
+        string? desc = prop["description"]?.GetValue<string>();
+        if (string.IsNullOrEmpty(desc) || !desc.StartsWith("ParentTable:")) return false;
+        string parentTable = desc["ParentTable:".Length..];
+        return !searchableResources.Contains(parentTable);
+    }
+
+    // Returns the set of resource names that have a Search endpoint for the given module.
+    // Used to filter FK fields — only include a select when the parent table is searchable.
+    public static HashSet<string> BuildSearchableResources(JsonObject paths, string module)
+    {
+        var result = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+        foreach (var (rawPath, _) in paths)
+        {
+            var parts = rawPath.TrimStart('/').Split('/');
+            if (parts.Length < 5) continue;
+            if (parts[0] != "api" || parts[1] != "management") continue;
+            if (!string.Equals(parts[2], module, StringComparison.OrdinalIgnoreCase)) continue;
+            if (!string.Equals(parts[4], "Search", StringComparison.OrdinalIgnoreCase)) continue;
+            result.Add(parts[3]);
+        }
+        return result;
     }
 
     // Indents every non-empty line in a block by extraSpaces additional spaces.
@@ -248,5 +287,63 @@ static class Formatters
     {
         string indent = new string(' ', extraSpaces);
         return string.Join("\n", block.Split('\n').Select(l => l.Length > 0 ? indent + l : l));
+    }
+
+    // ---------------------------------------------------------------
+    // Shared response/request type resolution (used by service + context generators)
+    // ---------------------------------------------------------------
+
+    // Unwraps a $ref schema name through the SETAApiResponse envelope and search envelope,
+    // returning the final TypeScript type name ready for use in generated code.
+    public static string ResolveResponseType(string? schemaRef, JsonObject? schemas)
+    {
+        if (schemaRef == null) return "unknown";
+
+        string name = schemaRef.Split('/').Last();
+
+        // Primitive-data envelope (e.g. BooleanSETAApiResponse) — resolve directly
+        if (schemas != null && name.EndsWith("SETAApiResponse"))
+        {
+            var wrapperSchema = FindSchema(schemas, name);
+            var dataProp = wrapperSchema?["properties"]?["data"];
+            if (dataProp != null && dataProp["$ref"] == null)
+            {
+                string? primitiveType = dataProp["type"]?.GetValue<string>();
+                if (!string.IsNullOrEmpty(primitiveType))
+                    return MapPrimitive(primitiveType);
+            }
+        }
+
+        // Unwrap outer SETAApiResponse envelope
+        if (name.EndsWith("SETAApiResponse"))
+            name = name[..^"SETAApiResponse".Length];
+
+        // ValidateResponse → static type from @sseta/components
+        if (name.EndsWith("ValidateResponseModel") || name.EndsWith("ValidateResponse"))
+            return "ValidateResponse";
+
+        // Search envelope — return the row model type
+        if (schemas != null)
+        {
+            var innerSchema = FindSchema(schemas, name);
+            bool isSearchEnvelope = innerSchema?["properties"]?["searchResults"] != null
+                                 && innerSchema?["properties"]?["totalRows"] != null;
+            if (isSearchEnvelope)
+            {
+                string? rowRef = innerSchema!["properties"]!["searchResults"]!["items"]?["$ref"]?.GetValue<string>();
+                string? rowSchemaName = rowRef?.Split('/').Last();
+                if (!string.IsNullOrEmpty(rowSchemaName))
+                    return FormatTypeName(rowSchemaName);
+            }
+        }
+
+        return FormatTypeName(name);
+    }
+
+    // Resolves a request $ref to its TypeScript type name.
+    public static string ResolveRequestType(string? schemaRef)
+    {
+        if (schemaRef == null) return "unknown";
+        return FormatTypeName(schemaRef.Split('/').Last());
     }
 }

@@ -18,8 +18,18 @@ static class ApiTypeGenerator
 {
     static readonly HashSet<string> ExcludedTags = ["HealthCheck", "sso"];
 
-    // Schemas that are part of the FetchRequest contract — no need to re-emit
-    static readonly HashSet<string> SkippedSchemas = ["Filterbylist", "Orderbylist", "BooleanSETAApiResponse"];
+    // Exact schema names that are infrastructure / covered by @sseta/components contracts.
+    static readonly HashSet<string> SkippedSchemas =
+        ["Filterbylist", "Orderbylist", "BooleanSETAApiResponse"];
+
+    // Returns true if a schema should not be emitted as a TypeScript type.
+    // Covers exact matches (SkippedSchemas) and pattern-based rules:
+    //   - *ValidateResponseModel  → replaced by the static ValidateResponse from @sseta/components
+    //   - ValidationReason        → nested inside ValidateResponseModel, covered by the same static type
+    static bool IsSkippedSchema(string schemaName) =>
+        SkippedSchemas.Contains(schemaName)
+        || schemaName.EndsWith("ValidateResponseModel")
+        || schemaName == "ValidationReason";
 
     public static void Generate(JsonObject paths, JsonObject schemas, string templatePath, string outputPath)
     {
@@ -123,7 +133,7 @@ static class ApiTypeGenerator
         Directory.CreateDirectory(Path.GetDirectoryName(outputPath)!);
         File.WriteAllText(outputPath, output);
 
-        Console.WriteLine($"  ✓ {Path.GetFileName(outputPath)}");
+        Console.WriteLine($"    ✓ {Path.GetFileName(outputPath)}");
     }
 
     // ---------------------------------------------------------------
@@ -140,7 +150,7 @@ static class ApiTypeGenerator
     {
         // Request type — skip search requests (standard FetchRequest shape, covered by @sseta/components)
         bool isSearchRequest = requestSchemaName?.EndsWith("SearchRequestModel") ?? false;
-        if (!string.IsNullOrEmpty(requestSchemaName) && !SkippedSchemas.Contains(requestSchemaName) && !isSearchRequest)
+        if (!string.IsNullOrEmpty(requestSchemaName) && !IsSkippedSchema(requestSchemaName) && !isSearchRequest)
         {
             string tsName = Formatters.FormatTypeName(requestSchemaName);
             if (isAuth) tsName = Formatters.AddAuthPrefix(tsName);
@@ -153,6 +163,9 @@ static class ApiTypeGenerator
         // Response: unwrap the SETAApiResponse envelope to get the inner data schema
         string? innerName = UnwrapDataRef(responseSchemaName, schemas);
         if (string.IsNullOrEmpty(innerName)) return;
+
+        // Skip inner schemas replaced by static types from @sseta/components
+        if (IsSkippedSchema(innerName)) return;
 
         string tsTName = Formatters.FormatTypeName(innerName);
         if (isAuth) tsTName = Formatters.AddAuthPrefix(tsTName);
@@ -197,13 +210,14 @@ static class ApiTypeGenerator
     static void RenderType(StringBuilder sb, TypeEntry entry, JsonObject schemas, HashSet<string> emitted)
     {
         var schema = Formatters.FindSchema(schemas, entry.SchemaName);
+        bool isRequest = entry.SchemaName.EndsWith("RequestModel");
 
         // Collect nested types that need to be emitted after this one
         var nested = new List<(string TsName, string SchemaName)>();
 
         sb.AppendLine($"export interface {entry.TsName} {{");
         if (schema != null)
-            RenderProperties(sb, schema, schemas, entry.TsName, emitted, nested);
+            RenderProperties(sb, schema, schemas, entry.TsName, emitted, nested, isRequest);
         sb.AppendLine("}");
         sb.AppendLine();
 
@@ -222,14 +236,13 @@ static class ApiTypeGenerator
         JsonObject allSchemas,
         string parentTsName,
         HashSet<string> emitted,
-        List<(string TsName, string SchemaName)> nested)
+        List<(string TsName, string SchemaName)> nested,
+        bool isRequest = false)
     {
         var props = schema["properties"]?.AsObject();
         if (props == null) return;
 
-        var requiredArray = schema["required"]?.AsArray();
-        bool hasRequiredList = requiredArray != null;
-        var required = requiredArray
+        var required = schema["required"]?.AsArray()
             ?.Select(r => r?.GetValue<string>())
             .Where(r => r != null)
             .ToHashSet(StringComparer.Ordinal) ?? new HashSet<string?>();
@@ -243,17 +256,16 @@ static class ApiTypeGenerator
             string optMark;
             string nullSuffix;
 
-            if (hasRequiredList)
+            if (isRequest)
             {
-                // Request models: all fields are always present
-                // absent from required → | null (optional value, sent as null)
-                // nullable → | null
-                optMark = "";
-                nullSuffix = (!required.Contains(propName) || isNullable) ? " | null" : "";
+                bool isOptional = !required.Contains(propName) || isNullable;
+                // Request models: optional fields get ? and | null
+                optMark = isOptional ? "?" : "";
+                nullSuffix = isOptional ? " | null" : "";
             }
             else
             {
-                // Response models: API always sends every field, so no optional marker: ?
+                // Response models: API always sends every field, so no optional marker
                 //                  nullable fields are | null
                 optMark = "";
                 nullSuffix = isNullable ? " | null" : "";
@@ -331,11 +343,18 @@ static class ApiTypeGenerator
     // Schema helpers
     // ---------------------------------------------------------------
 
+    // Unwraps the inner data schema name from a SETAApiResponse envelope.
+    // Returns null when data is a primitive type (boolean, string, etc.) — no interface to emit.
     static string? UnwrapDataRef(string wrapperSchemaName, JsonObject schemas)
     {
         var wrapper = Formatters.FindSchema(schemas, wrapperSchemaName);
-        var dataRef = wrapper?["properties"]?["data"]?["$ref"]?.GetValue<string>();
-        return dataRef?.Split('/').Last();
+        var dataProp = wrapper?["properties"]?["data"];
+        if (dataProp == null) return null;
+
+        // Primitive data (e.g. BooleanSETAApiResponse) — no interface to emit
+        if (dataProp["$ref"] == null) return null;
+
+        return dataProp["$ref"]!.GetValue<string>().Split('/').Last();
     }
 
     // ---------------------------------------------------------------

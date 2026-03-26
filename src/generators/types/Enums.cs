@@ -54,7 +54,7 @@ static class EnumGenerator
 
         if (tableNames.Count == 0)
         {
-            Console.WriteLine("  ⚠ No tables found in Settings schema.");
+            Console.WriteLine("    ⚠ No tables found in Settings schema.");
             return;
         }
 
@@ -114,7 +114,7 @@ static class EnumGenerator
         Directory.CreateDirectory(Path.GetDirectoryName(outputPath)!);
         File.WriteAllText(outputPath, output);
 
-        Console.WriteLine($"  ✓ {Path.GetFileName(outputPath)}  ({enumCount} enums)");
+        Console.WriteLine($"    ✓ {Path.GetFileName(outputPath)}  ({enumCount} enums)");
     }
 
     // ---------------------------------------------------------------
@@ -204,7 +204,7 @@ static class EnumGenerator
 
         if (idCol == -1 || nameCol == -1)
         {
-            Console.WriteLine($"  ⚠ Skipping Settings.{table} — could not find Id/Name columns.");
+            Console.WriteLine($"    ⚠ Skipping Settings.{table} (no id/name columns)");
             return rows;
         }
 

@@ -12,6 +12,7 @@ import { ToastProvider } from "@/contexts/general/ToastContext"
 import { LoadingProvider } from "@/contexts/general/LoadingContext"
 import { DocumentProvider } from "@/contexts/general/DocumentContext"
 import { LegacyModalProvider } from "@/contexts/legacy/ModalContext"
+import { PageFilterProvider } from "@/contexts/general/PageFilterContext"
 // [[PROVIDER_IMPORTS]]
 
 const poppins = Poppins({
@@ -42,7 +43,9 @@ export default function RootLayout({
               <AuthProvider>
                 <HomeProvider>
                   <ToastProvider>
-                    {/* [[PROVIDERS]] */}
+                    <PageFilterProvider>
+                      {/* [[PROVIDERS]] */}
+                    </PageFilterProvider>
                   </ToastProvider>
                 </HomeProvider>
               </AuthProvider>

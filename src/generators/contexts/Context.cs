@@ -12,7 +12,7 @@ namespace ReactCodegen;
 // operation exists for the resource. All other operations are included only when present.
 static class ContextGenerator
 {
-    public static void Generate(JsonObject paths, JsonObject? schemas, string contextsOutputDir)
+    public static void Generate(JsonObject paths, JsonObject? schemas, string contextsOutputDir, HashSet<string>? blacklist = null, string? templatePath = null)
     {
         // module → resource → operations
         var modules = new SortedDictionary<string, SortedDictionary<string, ResourceOps>>(StringComparer.Ordinal);
@@ -28,7 +28,14 @@ static class ContextGenerator
 
             string module = parts[2];
             string resource = parts[3];
+
+            // Skip the whole resource when MODULE/Resource is blacklisted.
+            if (blacklist != null && blacklist.Contains($"{module}.{resource}")) continue;
             string operation = parts[4].ToLower();
+
+            // Skip this specific operation when MODULE/Resource/Operation is blacklisted.
+            // e.g. "ECD/SystemUser/Update" suppresses the update op from the context.
+            if (blacklist != null && blacklist.Contains($"{module}.{resource}.{parts[4]}")) continue;
 
             if (!modules.ContainsKey(module))
                 modules[module] = new SortedDictionary<string, ResourceOps>(StringComparer.Ordinal);
@@ -79,7 +86,7 @@ static class ContextGenerator
         {
             foreach (var (resource, ops) in resources)
             {
-                string output = RenderContext(module, resource, ops);
+                string output = ApplyTemplate(RenderContext(module, resource, ops), templatePath);
 
                 string dir = Path.Combine(contextsOutputDir, "resources", module.ToLower());
                 Directory.CreateDirectory(dir);
@@ -403,6 +410,11 @@ static class ContextGenerator
 
         return sb.ToString();
     }
+
+    static string ApplyTemplate(string content, string? templatePath) =>
+        templatePath != null && File.Exists(templatePath)
+            ? File.ReadAllText(templatePath).Replace("// [[CONTENT]]", content)
+            : content;
 
     // The search response type from swagger is the wrapper row type, e.g. AccessStaffRoleRequestSearchResponse.
     // It is already correctly named by FormatTypeName.

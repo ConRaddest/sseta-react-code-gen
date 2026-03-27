@@ -1,3 +1,8 @@
+// !!---------------------------------------------------------!!
+// !!-------- AUTO-GENERATED: Edit in code generator! --------!!
+// !!--------------- CHANGES HERE WILL BE LOST ---------------!!
+// !!---------------------------------------------------------!!
+
 "use client"
 
 import {
@@ -132,3 +137,4 @@ export function useAccessStaffRoleRequest() {
   }
   return context
 }
+

@@ -1,4 +1,10 @@
+// !!---------------------------------------------------------!!
+// !!-------- AUTO-GENERATED: Edit in code generator! --------!!
+// !!--------------- CHANGES HERE WILL BE LOST ---------------!!
+// !!---------------------------------------------------------!!
+
 import { FieldErrors } from "react-hook-form"
+import { FormLayout } from "@sseta/components"
 import { AdminStaffRoleRequestUpdateRequest } from "@/types/api.types"
 
 interface UseAdminStaffRoleRequestUpdateFieldsProps {
@@ -9,7 +15,7 @@ interface UseAdminStaffRoleRequestUpdateFieldsProps {
 export default function useAdminStaffRoleRequestUpdateFields(props: UseAdminStaffRoleRequestUpdateFieldsProps) {
   const { errors, disabledFields = [] } = props
 
-  return {
+  const fields = {
     rejectionReason: {
       props: {
         id: "staff-role-request-rejectionReason",
@@ -25,4 +31,17 @@ export default function useAdminStaffRoleRequestUpdateFields(props: UseAdminStaf
       },
     },
   }
+
+  const layout: FormLayout[] = [
+    {
+      groupName: "Additional Fields",
+      totalColumns: 2,
+      fields: [
+        { name: "rejectionReason", columns: 1, heading: "Rejection Reason" },
+      ],
+    },
+  ]
+
+  return { fields, layout }
 }
+

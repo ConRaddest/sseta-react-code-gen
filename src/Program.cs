@@ -5,52 +5,92 @@ namespace ReactCodegen
 {
     // Reads Swagger/OpenAPI specs from running backends and generates
     // TypeScript services, types, contexts, and form components for each portal.
+    // All configuration is loaded from input/codegen.config.json.
     class Program
     {
-        // Database connection (shared — enums are the same across portals)
-        const string dbConnectionString =
-            "server=localhost;database=PMVR;TrustServerCertificate=True;Integrated Security=True;";
-
-        // Template paths (shared)
-        const string serviceTemplatePath = "src/templates/services/api.service.ts";
-        const string typeTemplatePath = "src/templates/types/api.type.ts";
-        const string enumTemplatePath = "src/templates/types/enums.ts";
-
-        // Log path
-        const string logFilePath = "src/_output/codegen-log.txt";
-
-        // Portal configurations
-        static readonly PortalConfig[] Portals =
-        [
-            new PortalConfig(
-                Name:              "management",
-                SwaggerUrl:        "https://localhost:7222/swagger/v1/swagger.json",
-                SwaggerCachePath:  "input/swagger/management.json",
-                FieldLayoutPath:   "input/form-layout/field-layout.json",
-                OutputDir:         "src/_output/management"
-            ),
-            new PortalConfig(
-                Name:              "partner",
-                SwaggerUrl:        "https://localhost:7223/swagger/v1/swagger.json",
-                SwaggerCachePath:  "input/swagger/partner.json",
-                FieldLayoutPath:   "input/form-layout/field-layout.json",
-                OutputDir:         "src/_output/partner"
-            ),
-            new PortalConfig(
-                Name:              "learner",
-                SwaggerUrl:        "https://localhost:7224/swagger/v1/swagger.json",
-                SwaggerCachePath:  "input/swagger/learner.json",
-                FieldLayoutPath:   "input/form-layout/field-layout.json",
-                OutputDir:         "src/_output/learner"
-            ),
-        ];
+        const string configPath = "input/codegen.config.json";
 
         private static StreamWriter? _logWriter;
         private static TextWriter? _originalConsoleOut;
 
         static async Task Main()
         {
-            Directory.CreateDirectory("src/_output");
+            // ---------------------------------------------------------------
+            // Load config
+            // ---------------------------------------------------------------
+            if (!File.Exists(configPath))
+            {
+                Console.Error.WriteLine($"Config file not found: {configPath}");
+                return;
+            }
+
+            var configNode = JsonNode.Parse(File.ReadAllText(configPath));
+            if (configNode == null)
+            {
+                Console.Error.WriteLine("Failed to parse config file.");
+                return;
+            }
+
+            var inputs  = configNode["inputs"]  ?? throw new Exception("Missing inputs in config.");
+            var outputs = configNode["outputs"] ?? throw new Exception("Missing outputs in config.");
+
+            string dbConnectionString      = inputs["database"]?["connectionString"]?.GetValue<string>() ?? throw new Exception("Missing inputs.database.connectionString in config.");
+            var t = inputs["templates"] ?? throw new Exception("Missing inputs.templates in config.");
+            string T(string key) => t[key]?.GetValue<string>() ?? throw new Exception($"Missing inputs.templates.{key} in config.");
+
+            string serviceTemplatePath  = T("service");
+            string typeTemplatePath     = T("type");
+            string enumTemplatePath     = T("enum");
+            string createFormTemplate   = T("createForm");
+            string updateFormTemplate   = T("updateForm");
+            string viewFormTemplate     = T("viewForm");
+            string deleteFormTemplate   = T("deleteForm");
+            string useFieldsTemplate    = T("useFields");
+            string useLayoutTemplate    = T("useLayout");
+            string contextTemplate      = T("context");
+
+            string logFilePath     = outputs["log"]?.GetValue<string>()   ?? "src/_output/codegen-log.txt";
+            string enumsOutputPath = outputs["enums"]?.GetValue<string>() ?? throw new Exception("Missing outputs.enums in config.");
+
+            var portalsArray = configNode["portals"]?.AsArray()
+                ?? throw new Exception("Missing portals array in config.");
+
+            var portals = portalsArray
+                .Where(p => p != null)
+                .Select(p =>
+                {
+                    var i = p!["input"]  ?? throw new Exception($"Portal '{p["name"]}' missing input config.");
+                    var o = p["output"]  ?? throw new Exception($"Portal '{p["name"]}' missing output config.");
+                    string baseDir = o["baseDir"]?.GetValue<string>() ?? "";
+                    string Resolve(string key, string err)
+                    {
+                        var rel = o[key]?.GetValue<string>() ?? throw new Exception(err);
+                        return baseDir.Length > 0 ? Path.Combine(baseDir, rel) : rel;
+                    }
+                    return new PortalConfig(
+                        Name:             p["name"]?.GetValue<string>()               ?? throw new Exception("Portal missing name."),
+                        SwaggerUrl:       i["swaggerUrl"]?.GetValue<string>()         ?? throw new Exception("Portal missing input.swaggerUrl."),
+                        SwaggerCachePath: i["swaggerCachePath"]?.GetValue<string>()   ?? throw new Exception("Portal missing input.swaggerCachePath."),
+                        FieldLayoutPath:  i["fieldLayoutPath"]?.GetValue<string>()    ?? throw new Exception("Portal missing input.fieldLayoutPath."),
+                        Output: new PortalOutput(
+                            Services:       Resolve("services",       "Portal missing output.services."),
+                            Types:          Resolve("types",          "Portal missing output.types."),
+                            Contexts:       Resolve("contexts",       "Portal missing output.contexts."),
+                            Forms:          Resolve("forms",          "Portal missing output.forms."),
+                            FieldsManifest: Resolve("fieldsManifest", "Portal missing output.fieldsManifest.")
+                        ),
+                        Blacklist: (p["blacklist"]?.AsArray() ?? [])
+                                        .Select(e => e?.GetValue<string>() ?? "")
+                                        .Where(e => e.Length > 0)
+                                        .ToHashSet(StringComparer.OrdinalIgnoreCase)
+                    );
+                })
+                .ToArray();
+
+            // ---------------------------------------------------------------
+            // Setup logging
+            // ---------------------------------------------------------------
+            Directory.CreateDirectory(Path.GetDirectoryName(logFilePath)!);
             _logWriter = new StreamWriter(logFilePath, false) { AutoFlush = true };
             _originalConsoleOut = Console.Out;
 
@@ -64,7 +104,15 @@ namespace ReactCodegen
 
             try
             {
-                foreach (var portal in Portals)
+                Console.WriteLine($"=================================================================");
+                Console.WriteLine($"Shared");
+                Console.WriteLine($"=================================================================");
+                Console.WriteLine("  Enums");
+                await EnumGenerator.Generate(dbConnectionString, enumTemplatePath, enumsOutputPath);
+                Console.WriteLine($"    ✓ Enums: {enumsOutputPath}");
+                Console.WriteLine();
+
+                foreach (var portal in portals)
                 {
                     Console.WriteLine($"=================================================================");
                     Console.WriteLine($"Portal: {portal.Name}");
@@ -75,11 +123,11 @@ namespace ReactCodegen
                         Console.WriteLine($"Fetching swagger: {portal.SwaggerUrl}");
                         string swaggerJson = await FetchSwaggerFromApi(portal.SwaggerUrl);
 
-                        Directory.CreateDirectory("input/swagger");
+                        Directory.CreateDirectory(Path.GetDirectoryName(portal.SwaggerCachePath)!);
                         await File.WriteAllTextAsync(portal.SwaggerCachePath, swaggerJson);
                         Console.WriteLine();
 
-                        await GenerateFrontendCode(portal);
+                        await GenerateFrontendCode(portal, serviceTemplatePath, typeTemplatePath, createFormTemplate, updateFormTemplate, viewFormTemplate, deleteFormTemplate, useFieldsTemplate, useLayoutTemplate, contextTemplate);
                     }
                     catch
                     {
@@ -127,7 +175,17 @@ namespace ReactCodegen
             }
         }
 
-        static async Task GenerateFrontendCode(PortalConfig portal)
+        static async Task GenerateFrontendCode(
+            PortalConfig portal,
+            string serviceTemplatePath,
+            string typeTemplatePath,
+            string createFormTemplate,
+            string updateFormTemplate,
+            string viewFormTemplate,
+            string deleteFormTemplate,
+            string useFieldsTemplate,
+            string useLayoutTemplate,
+            string contextTemplate)
         {
             string jsonString = File.ReadAllText(portal.SwaggerCachePath);
             JsonNode? jsonNode = JsonNode.Parse(jsonString);
@@ -158,75 +216,73 @@ namespace ReactCodegen
 
             var fieldLayout = JsonNode.Parse(File.ReadAllText(portal.FieldLayoutPath));
 
-            string servicesOutputDir = Path.Combine(portal.OutputDir, "services");
-            string typesOutputDir = Path.Combine(portal.OutputDir, "types");
-            string contextsOutputDir = Path.Combine(portal.OutputDir, "contexts");
-            string formsOutputDir = Path.Combine(portal.OutputDir, "forms");
-
-            Directory.CreateDirectory(servicesOutputDir);
-            Directory.CreateDirectory(typesOutputDir);
-            Directory.CreateDirectory(contextsOutputDir);
-            Directory.CreateDirectory(formsOutputDir);
+            Directory.CreateDirectory(portal.Output.Services);
+            Directory.CreateDirectory(portal.Output.Types);
+            Directory.CreateDirectory(portal.Output.Contexts);
+            Directory.CreateDirectory(portal.Output.Forms);
+            Directory.CreateDirectory(Path.GetDirectoryName(portal.Output.FieldsManifest)!);
 
             Console.WriteLine("  Fields Manifest");
-            FieldsManifestGenerator.Generate(paths, schemas, fieldLayout?.AsObject(), Path.Combine(portal.OutputDir, $"{portal.Name}-fields.json"));
+            FieldsManifestGenerator.Generate(paths, schemas, fieldLayout?.AsObject(), portal.Output.FieldsManifest, portal.Blacklist);
             Console.WriteLine();
 
             Console.WriteLine("  Services");
-            ApiServiceGenerator.Generate(paths, schemas, serviceTemplatePath, Path.Combine(servicesOutputDir, "api.service.ts"));
+            ApiServiceGenerator.Generate(paths, schemas, serviceTemplatePath, Path.Combine(portal.Output.Services, "api.service.ts"));
             Console.WriteLine();
 
             Console.WriteLine("  Types");
-            ApiTypeGenerator.Generate(paths, schemas!, typeTemplatePath, Path.Combine(typesOutputDir, "api.types.ts"));
-            Console.WriteLine();
-
-            Console.WriteLine("  Enums");
-            await EnumGenerator.Generate(dbConnectionString, enumTemplatePath, Path.Combine(typesOutputDir, "enums.ts"));
+            ApiTypeGenerator.Generate(paths, schemas!, typeTemplatePath, Path.Combine(portal.Output.Types, "api.types.ts"));
             Console.WriteLine();
 
             Console.WriteLine("  Contexts");
-            ContextGenerator.Generate(paths, schemas, contextsOutputDir);
+            ContextGenerator.Generate(paths, schemas, portal.Output.Contexts, portal.Blacklist, contextTemplate);
             Console.WriteLine();
 
             Console.WriteLine("  Create Forms");
-            CreateFormGenerator.Generate(paths, schemas, formsOutputDir);
+            CreateFormGenerator.Generate(paths, schemas, portal.Output.Forms, portal.Blacklist, createFormTemplate);
             Console.WriteLine();
 
             Console.WriteLine("  Update Forms");
-            UpdateFormGenerator.Generate(paths, schemas, fieldLayout?.AsObject(), formsOutputDir);
+            UpdateFormGenerator.Generate(paths, schemas, fieldLayout?.AsObject(), portal.Output.Forms, portal.Blacklist, updateFormTemplate, useFieldsTemplate);
             Console.WriteLine();
 
             Console.WriteLine("  View Forms");
-            ViewFormGenerator.Generate(paths, schemas, fieldLayout?.AsObject(), formsOutputDir);
+            ViewFormGenerator.Generate(paths, schemas, fieldLayout?.AsObject(), portal.Output.Forms, portal.Blacklist, viewFormTemplate, useLayoutTemplate);
             Console.WriteLine();
 
             Console.WriteLine("  Delete Forms");
-            DeleteFormGenerator.Generate(paths, schemas, formsOutputDir);
+            DeleteFormGenerator.Generate(paths, schemas, portal.Output.Forms, portal.Blacklist, deleteFormTemplate);
             Console.WriteLine();
 
             Console.WriteLine("  Field Hooks");
-            UseFieldsGenerator.Generate(paths, schemas, fieldLayout?.AsObject(), formsOutputDir);
-            Console.WriteLine();
-
-            Console.WriteLine("  Layouts");
-            UseLayoutGenerator.Generate(paths, schemas, fieldLayout?.AsObject(), formsOutputDir);
+            UseFieldsGenerator.Generate(paths, schemas, fieldLayout?.AsObject(), portal.Output.Forms, portal.Blacklist, useFieldsTemplate);
             Console.WriteLine();
 
             Console.WriteLine($"  Completed generation:");
-            Console.WriteLine($"    ✓ Services:  {servicesOutputDir}");
-            Console.WriteLine($"    ✓ Types:     {typesOutputDir}");
-            Console.WriteLine($"    ✓ Contexts:  {contextsOutputDir}");
-            Console.WriteLine($"    ✓ Forms:     {formsOutputDir}");
+            Console.WriteLine($"    ✓ Services:       {portal.Output.Services}");
+            Console.WriteLine($"    ✓ Types:          {portal.Output.Types}");
+            Console.WriteLine($"    ✓ Contexts:       {portal.Output.Contexts}");
+            Console.WriteLine($"    ✓ Forms:           {portal.Output.Forms}");
+            Console.WriteLine($"    ✓ Fields Manifest: {portal.Output.FieldsManifest}");
 
             await Task.CompletedTask;
         }
     }
+
+    record PortalOutput(
+        string Services,
+        string Types,
+        string Contexts,
+        string Forms,
+        string FieldsManifest
+    );
 
     record PortalConfig(
         string Name,
         string SwaggerUrl,
         string SwaggerCachePath,
         string FieldLayoutPath,
-        string OutputDir
+        PortalOutput Output,
+        HashSet<string> Blacklist
     );
 }

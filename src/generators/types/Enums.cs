@@ -182,18 +182,22 @@ static class EnumGenerator
         await using var cmd = new SqlCommand(sql, conn);
         await using var reader = await cmd.ExecuteReaderAsync();
 
-        int idCol = -1, nameCol = -1, descCol = -1;
+        int idCol = -1, idColFallback = -1, nameCol = -1, descCol = -1;
+        string preferredIdCol = $"{table}Id";
 
         for (int i = 0; i < reader.FieldCount; i++)
         {
             string colName = reader.GetName(i);
             string colType = reader.GetFieldType(i).Name;
 
-            if (idCol == -1
-                && (colName.Equals("Id", StringComparison.OrdinalIgnoreCase)
-                    || colName.EndsWith("Id", StringComparison.OrdinalIgnoreCase))
-                && IsIntType(colType))
-                idCol = i;
+            if (IsIntType(colType))
+            {
+                if (colName.Equals(preferredIdCol, StringComparison.OrdinalIgnoreCase)
+                    || colName.Equals("Id", StringComparison.OrdinalIgnoreCase))
+                    idCol = i;
+                else if (idColFallback == -1 && colName.EndsWith("Id", StringComparison.OrdinalIgnoreCase))
+                    idColFallback = i;
+            }
 
             if (nameCol == -1 && colName.Equals("Name", StringComparison.OrdinalIgnoreCase))
                 nameCol = i;
@@ -201,6 +205,8 @@ static class EnumGenerator
             if (descCol == -1 && colName.Equals("Description", StringComparison.OrdinalIgnoreCase))
                 descCol = i;
         }
+
+        if (idCol == -1) idCol = idColFallback;
 
         if (idCol == -1 || nameCol == -1)
         {

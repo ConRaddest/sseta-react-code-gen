@@ -16,7 +16,10 @@ static class UpdateFormGenerator
         JsonObject paths,
         JsonObject? schemas,
         JsonObject? fieldLayout,
-        string formsOutputDir)
+        string formsOutputDir,
+        HashSet<string>? blacklist = null,
+        string? formTemplatePath = null,
+        string? fieldsTemplatePath = null)
     {
         var endpoints = new List<UpdateEndpoint>();
 
@@ -26,6 +29,7 @@ static class UpdateFormGenerator
             var parts = rawPath.TrimStart('/').Split('/');
             if (parts.Length < 5) continue;
             if (parts[0] != "api" || parts[1] != "management") continue;
+            if (blacklist != null && (blacklist.Contains($"{parts[2]}.{parts[3]}") || blacklist.Contains($"{parts[2]}.{parts[3]}.Update"))) continue;
             if (!string.Equals(parts[4], "Update", StringComparison.OrdinalIgnoreCase)) continue;
 
             string module   = parts[2];
@@ -72,15 +76,11 @@ static class UpdateFormGenerator
 
             // UpdateForm.tsx
             File.WriteAllText(Path.Combine(dir, $"{prefix}UpdateForm.tsx"),
-                RenderForm(ep, prefix, modulePascal));
+                ApplyTemplate(RenderForm(ep, prefix, modulePascal), formTemplatePath));
 
             // use{Prefix}UpdateFields.tsx
             File.WriteAllText(Path.Combine(dir, $"use{prefix}UpdateFields.tsx"),
-                RenderFields(prefix, ep.Resource, ep.RequestType, orderedFields, properties, requiredFields, fkFields, searchableResources));
-
-            // {Prefix}UpdateLayout.ts
-            File.WriteAllText(Path.Combine(dir, $"{prefix}UpdateLayout.ts"),
-                RenderLayout(prefix, ep.Resource, fieldLayout, properties, searchableResources));
+                ApplyTemplate(RenderFields(prefix, ep.Resource, ep.RequestType, orderedFields, properties, requiredFields, fkFields, fieldLayout, searchableResources), fieldsTemplatePath));
 
             Console.WriteLine($"    ✓ {ep.Module}/{ep.Resource}");
             count++;
@@ -108,7 +108,6 @@ static class UpdateFormGenerator
         sb.AppendLine("import { useToast } from \"@/contexts/general/ToastContext\"");
         sb.AppendLine($"import {{ {ep.RequestType} }} from \"{typesPath}\"");
         sb.AppendLine($"import use{prefix}UpdateFields from \"./use{prefix}UpdateFields\"");
-        sb.AppendLine($"import {prefix}UpdateLayout from \"./{prefix}UpdateLayout\"");
         sb.AppendLine();
 
         sb.AppendLine($"interface {prefix}UpdateFormProps {{");
@@ -155,7 +154,7 @@ static class UpdateFormGenerator
         sb.AppendLine("    mode: \"onBlur\",");
         sb.AppendLine("  })");
         sb.AppendLine();
-        sb.AppendLine($"  const fields = use{prefix}UpdateFields({{ errors, disabledFields, selectFilterBys, selectOrderBys }})");
+        sb.AppendLine($"  const {{ fields, layout }} = use{prefix}UpdateFields({{ errors, disabledFields, selectFilterBys, selectOrderBys }})");
         sb.AppendLine();
         sb.AppendLine("  useEffect(() => {");
         sb.AppendLine("    const fetchRecord = async () => {");
@@ -193,7 +192,7 @@ static class UpdateFormGenerator
         sb.AppendLine("      <FormTemplate");
         sb.AppendLine("        control={control}");
         sb.AppendLine("        fields={fields}");
-        sb.AppendLine($"        layout={{{prefix}UpdateLayout}}");
+        sb.AppendLine("        layout={layout}");
         sb.AppendLine("        hiddenFields={hiddenFields}");
         sb.AppendLine("        renderActionsInFooter={renderActionsInFooter}");
         sb.AppendLine("        isLoading={isSubmitting || isLoading}");
@@ -222,6 +221,7 @@ static class UpdateFormGenerator
         JsonObject? properties,
         HashSet<string> requiredFields,
         List<FkField> fkFields,
+        JsonObject? fieldLayout,
         HashSet<string>? searchableResources = null)
     {
         var sb = new StringBuilder();
@@ -231,11 +231,15 @@ static class UpdateFormGenerator
         sb.AppendLine("import { FieldErrors } from \"react-hook-form\"");
         if (hasSelects)
         {
-            sb.AppendLine("import { FilterBy, OrderBy, useSelect } from \"@sseta/components\"");
+            sb.AppendLine("import { FilterBy, OrderBy, FormLayout, useSelect } from \"@sseta/components\"");
             var seenContexts = new HashSet<string>();
             foreach (var fk in fkFields)
                 if (seenContexts.Add(fk.ContextName))
                     sb.AppendLine($"import {{ {fk.HookName} }} from \"{fk.ContextImportPath}\"");
+        }
+        else
+        {
+            sb.AppendLine("import { FormLayout } from \"@sseta/components\"");
         }
         sb.AppendLine($"import {{ {requestType} }} from \"@/types/api.types\"");
         sb.AppendLine();
@@ -301,7 +305,7 @@ static class UpdateFormGenerator
 
         var fkByField = fkFields.ToDictionary(f => f.FieldName, StringComparer.OrdinalIgnoreCase);
 
-        sb.AppendLine("  return {");
+        sb.AppendLine("  const fields = {");
 
         foreach (var fieldName in orderedFields)
         {
@@ -356,37 +360,30 @@ static class UpdateFormGenerator
         }
 
         sb.AppendLine("  }");
-        sb.AppendLine("}");
-
-        return sb.ToString();
-    }
-
-    static string RenderLayout(string prefix, string resource, JsonObject? fieldLayout, JsonObject? properties, HashSet<string>? searchableResources = null)
-    {
-        var sb = new StringBuilder();
-        sb.AppendLine("import { FormLayout } from \"@sseta/components\"");
         sb.AppendLine();
-        sb.AppendLine($"const {prefix}UpdateLayout: FormLayout[] = [");
 
-        var groups = UseLayoutGenerator.BuildGroups(resource, fieldLayout, properties, searchableResources: searchableResources);
+        // Inline layout
+        var groups = Formatters.BuildLayoutGroups(resource, fieldLayout, properties, searchableResources: searchableResources);
+        sb.AppendLine("  const layout: FormLayout[] = [");
         foreach (var group in groups)
         {
-            sb.AppendLine("  {");
-            sb.AppendLine($"    groupName: \"{group.GroupName}\",");
-            sb.AppendLine($"    totalColumns: {group.TotalColumns},");
-            sb.AppendLine("    fields: [");
+            sb.AppendLine("    {");
+            sb.AppendLine($"      groupName: \"{group.GroupName}\",");
+            sb.AppendLine($"      totalColumns: {group.TotalColumns},");
+            sb.AppendLine("      fields: [");
             foreach (var field in group.Fields)
             {
                 string typeFragment = field.Type != null ? $", type: \"{field.Type}\"" : "";
-                sb.AppendLine($"      {{ name: \"{field.Name}\", columns: {field.Columns}, heading: \"{field.Heading}\"{typeFragment} }},");
+                sb.AppendLine($"        {{ name: \"{field.Name}\", columns: {field.Columns}, heading: \"{field.Heading}\"{typeFragment} }},");
             }
-            sb.AppendLine("    ],");
-            sb.AppendLine("  },");
+            sb.AppendLine("      ],");
+            sb.AppendLine("    },");
         }
-
-        sb.AppendLine("]");
+        sb.AppendLine("  ]");
         sb.AppendLine();
-        sb.AppendLine($"export default {prefix}UpdateLayout");
+
+        sb.AppendLine("  return { fields, layout }");
+        sb.AppendLine("}");
 
         return sb.ToString();
     }
@@ -402,6 +399,11 @@ static class UpdateFormGenerator
             _ => $"Enter {heading}..."
         };
     }
+
+    static string ApplyTemplate(string content, string? templatePath) =>
+        templatePath != null && File.Exists(templatePath)
+            ? File.ReadAllText(templatePath).Replace("// [[CONTENT]]", content)
+            : content;
 
     record UpdateEndpoint(string Module, string Resource, string RequestType, string ResponseType);
 }

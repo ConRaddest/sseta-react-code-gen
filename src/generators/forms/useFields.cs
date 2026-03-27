@@ -12,7 +12,9 @@ static class UseFieldsGenerator
         JsonObject paths,
         JsonObject? schemas,
         JsonObject? fieldLayout,
-        string formsOutputDir)
+        string formsOutputDir,
+        HashSet<string>? blacklist = null,
+        string? templatePath = null)
     {
         var createEndpoints = new List<(string Module, string Resource, string RequestType)>();
 
@@ -22,6 +24,7 @@ static class UseFieldsGenerator
             var parts = rawPath.TrimStart('/').Split('/');
             if (parts.Length < 5) continue;
             if (parts[0] != "api" || parts[1] != "management") continue;
+            if (blacklist != null && (blacklist.Contains($"{parts[2]}.{parts[3]}") || blacklist.Contains($"{parts[2]}.{parts[3]}.Create"))) continue;
             if (!string.Equals(parts[4], "Create", StringComparison.OrdinalIgnoreCase)) continue;
 
             string module = parts[2];
@@ -60,7 +63,7 @@ static class UseFieldsGenerator
             var orderedFields = GetOrderedFields(resource, fieldLayout, properties, searchableResources);
             var fkFields = CollectFkFields(module, modulePascal, orderedFields, properties, searchableResources);
 
-            string content = Render(prefix, modulePascal, resource, requestType, orderedFields, properties, requiredFields, fkFields, searchableResources);
+            string content = ApplyTemplate(Render(prefix, modulePascal, resource, requestType, orderedFields, properties, requiredFields, fkFields, fieldLayout, searchableResources), templatePath);
             File.WriteAllText(Path.Combine(dir, $"use{prefix}CreateFields.tsx"), content);
 
             Console.WriteLine($"    ✓ {module}/{resource}");
@@ -71,7 +74,6 @@ static class UseFieldsGenerator
     }
 
     // Returns field names ordered by the field layout, with any extra schema fields appended.
-    // Internal so UpdateFormGenerator and UseLayoutGenerator can reuse it.
     internal static List<string> GetOrderedFields(string resource, JsonObject? fieldLayout, JsonObject? properties, HashSet<string>? searchableResources = null)
     {
         var ordered = new List<string>();
@@ -169,6 +171,7 @@ static class UseFieldsGenerator
         JsonObject? properties,
         HashSet<string> requiredFields,
         List<FkField> fkFields,
+        JsonObject? fieldLayout,
         HashSet<string>? searchableResources = null)
     {
         var sb = new StringBuilder();
@@ -179,11 +182,15 @@ static class UseFieldsGenerator
         sb.AppendLine("import { FieldErrors } from \"react-hook-form\"");
         if (hasSelects)
         {
-            sb.AppendLine("import { FilterBy, OrderBy, useSelect } from \"@sseta/components\"");
+            sb.AppendLine("import { FilterBy, OrderBy, FormLayout, useSelect } from \"@sseta/components\"");
             var seenContexts = new HashSet<string>();
             foreach (var fk in fkFields)
                 if (seenContexts.Add(fk.ContextName))
                     sb.AppendLine($"import {{ {fk.HookName} }} from \"{fk.ContextImportPath}\"");
+        }
+        else
+        {
+            sb.AppendLine("import { FormLayout } from \"@sseta/components\"");
         }
         sb.AppendLine($"import {{ {requestType} }} from \"@/types/api.types\"");
         sb.AppendLine();
@@ -251,7 +258,7 @@ static class UseFieldsGenerator
 
         var fkByField = fkFields.ToDictionary(f => f.FieldName, StringComparer.OrdinalIgnoreCase);
 
-        sb.AppendLine("  return {");
+        sb.AppendLine("  const fields = {");
 
         foreach (var fieldName in orderedFields)
         {
@@ -306,6 +313,29 @@ static class UseFieldsGenerator
         }
 
         sb.AppendLine("  }");
+        sb.AppendLine();
+
+        // Inline layout
+        var groups = Formatters.BuildLayoutGroups(resource, fieldLayout, properties, searchableResources: searchableResources);
+        sb.AppendLine("  const layout: FormLayout[] = [");
+        foreach (var group in groups)
+        {
+            sb.AppendLine("    {");
+            sb.AppendLine($"      groupName: \"{group.GroupName}\",");
+            sb.AppendLine($"      totalColumns: {group.TotalColumns},");
+            sb.AppendLine("      fields: [");
+            foreach (var field in group.Fields)
+            {
+                string typeFragment = field.Type != null ? $", type: \"{field.Type}\"" : "";
+                sb.AppendLine($"        {{ name: \"{field.Name}\", columns: {field.Columns}, heading: \"{field.Heading}\"{typeFragment} }},");
+            }
+            sb.AppendLine("      ],");
+            sb.AppendLine("    },");
+        }
+        sb.AppendLine("  ]");
+        sb.AppendLine();
+
+        sb.AppendLine("  return { fields, layout }");
         sb.AppendLine("}");
 
         return sb.ToString();
@@ -376,6 +406,11 @@ static class UseFieldsGenerator
 
         return fkFields;
     }
+
+    static string ApplyTemplate(string content, string? templatePath) =>
+        templatePath != null && File.Exists(templatePath)
+            ? File.ReadAllText(templatePath).Replace("// [[CONTENT]]", content)
+            : content;
 }
 
 public record FkField(

@@ -1,4 +1,10 @@
+// !!---------------------------------------------------------!!
+// !!-------- AUTO-GENERATED: Edit in code generator! --------!!
+// !!--------------- CHANGES HERE WILL BE LOST ---------------!!
+// !!---------------------------------------------------------!!
+
 import { FieldErrors } from "react-hook-form"
+import { FormLayout } from "@sseta/components"
 import { AccessStaffRoleRequestCreateRequest } from "@/types/api.types"
 
 interface UseAccessStaffRoleRequestCreateFieldsProps {
@@ -9,7 +15,7 @@ interface UseAccessStaffRoleRequestCreateFieldsProps {
 export default function useAccessStaffRoleRequestCreateFields(props: UseAccessStaffRoleRequestCreateFieldsProps) {
   const { errors, disabledFields = [] } = props
 
-  return {
+  const fields = {
     requestReason: {
       props: {
         id: "staff-role-request-requestReason",
@@ -66,4 +72,20 @@ export default function useAccessStaffRoleRequestCreateFields(props: UseAccessSt
       rules: { },
     },
   }
+
+  const layout: FormLayout[] = [
+    {
+      groupName: "Additional Fields",
+      totalColumns: 2,
+      fields: [
+        { name: "requestReason", columns: 1, heading: "Request Reason" },
+        { name: "name", columns: 1, heading: "Name" },
+        { name: "rejectionReason", columns: 1, heading: "Rejection Reason" },
+        { name: "reviewedOn", columns: 1, heading: "Reviewed On", type: "datetime" },
+      ],
+    },
+  ]
+
+  return { fields, layout }
 }
+

@@ -1,3 +1,8 @@
+// !!---------------------------------------------------------!!
+// !!-------- AUTO-GENERATED: Edit in code generator! --------!!
+// !!--------------- CHANGES HERE WILL BE LOST ---------------!!
+// !!---------------------------------------------------------!!
+
 "use client"
 
 import { useState, useEffect } from "react"
@@ -7,7 +12,6 @@ import { useAccessStaffRoleRequest } from "@/contexts/resources/access/AccessSta
 import { useToast } from "@/contexts/general/ToastContext"
 import { AccessStaffRoleRequestCreateRequest } from "@/types/api.types"
 import useAccessStaffRoleRequestCreateFields from "./useAccessStaffRoleRequestCreateFields"
-import AccessStaffRoleRequestCreateLayout from "./AccessStaffRoleRequestCreateLayout"
 
 interface AccessStaffRoleRequestCreateFormProps {
   defaultValues?: Partial<AccessStaffRoleRequestCreateRequest>
@@ -50,7 +54,7 @@ export default function AccessStaffRoleRequestCreateForm(props: AccessStaffRoleR
     mode: "onBlur",
   })
 
-  const fields = useAccessStaffRoleRequestCreateFields({ errors, disabledFields, selectFilterBys, selectOrderBys })
+  const { fields, layout } = useAccessStaffRoleRequestCreateFields({ errors, disabledFields, selectFilterBys, selectOrderBys })
 
   useEffect(() => {
     if (defaultValues && Object.keys(defaultValues).length > 0) {
@@ -78,7 +82,7 @@ export default function AccessStaffRoleRequestCreateForm(props: AccessStaffRoleR
       <FormTemplate
         control={control}
         fields={fields}
-        layout={AccessStaffRoleRequestCreateLayout}
+        layout={layout}
         hiddenFields={hiddenFields}
         renderActionsInFooter={renderActionsInFooter}
         isLoading={isSubmitting || isLoading}

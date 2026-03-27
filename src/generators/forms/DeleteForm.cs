@@ -12,7 +12,9 @@ static class DeleteFormGenerator
     public static void Generate(
         JsonObject paths,
         JsonObject? schemas,
-        string formsOutputDir)
+        string formsOutputDir,
+        HashSet<string>? blacklist = null,
+        string? templatePath = null)
     {
         var endpoints = new List<DeleteEndpoint>();
 
@@ -22,6 +24,7 @@ static class DeleteFormGenerator
             var parts = rawPath.TrimStart('/').Split('/');
             if (parts.Length < 5) continue;
             if (parts[0] != "api" || parts[1] != "management") continue;
+            if (blacklist != null && (blacklist.Contains($"{parts[2]}.{parts[3]}") || blacklist.Contains($"{parts[2]}.{parts[3]}.Delete"))) continue;
             if (!string.Equals(parts[4], "Delete", StringComparison.OrdinalIgnoreCase)) continue;
 
             string module   = parts[2];
@@ -45,7 +48,7 @@ static class DeleteFormGenerator
             Directory.CreateDirectory(dir);
 
             File.WriteAllText(Path.Combine(dir, $"{prefix}DeleteForm.tsx"),
-                RenderForm(ep, prefix));
+                ApplyTemplate(RenderForm(ep, prefix), templatePath));
 
             Console.WriteLine($"    ✓ {ep.Module}/{ep.Resource}");
             count++;
@@ -150,6 +153,11 @@ static class DeleteFormGenerator
 
         return sb.ToString();
     }
+
+    static string ApplyTemplate(string content, string? templatePath) =>
+        templatePath != null && File.Exists(templatePath)
+            ? File.ReadAllText(templatePath).Replace("// [[CONTENT]]", content)
+            : content;
 
     record DeleteEndpoint(string Module, string Resource);
 }

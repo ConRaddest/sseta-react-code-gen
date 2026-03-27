@@ -1,10 +1,15 @@
+// !!---------------------------------------------------------!!
+// !!-------- AUTO-GENERATED: Edit in code generator! --------!!
+// !!--------------- CHANGES HERE WILL BE LOST ---------------!!
+// !!---------------------------------------------------------!!
+
 "use client"
 
 import { useState, useEffect } from "react"
 import { ViewTemplate } from "@sseta/components"
 import { useAccessStaffRoleRequest } from "@/contexts/resources/access/AccessStaffRoleRequestContext"
 import { AccessStaffRoleRequest } from "@/types/api.types"
-import AccessStaffRoleRequestViewLayout from "./AccessStaffRoleRequestViewLayout"
+import useAccessStaffRoleRequestViewFields from "./useAccessStaffRoleRequestViewFields"
 
 interface AccessStaffRoleRequestViewFormProps {
   staffRoleRequestId: number
@@ -21,6 +26,7 @@ export default function AccessStaffRoleRequestViewForm(props: AccessStaffRoleReq
   const isLoading = loadingOverride ?? loading
 
   const { retrieve } = useAccessStaffRoleRequest()
+  const { layout } = useAccessStaffRoleRequestViewFields()
 
   useEffect(() => {
     const fetchRecord = async () => {
@@ -39,7 +45,7 @@ export default function AccessStaffRoleRequestViewForm(props: AccessStaffRoleReq
 
   return (
     <ViewTemplate
-      layout={AccessStaffRoleRequestViewLayout}
+      layout={layout}
       record={record}
       isLoading={isLoading}
       hiddenFields={hiddenFields}

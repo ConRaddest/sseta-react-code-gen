@@ -1,0 +1,81 @@
+{
+  "inputs": {
+    "database": {
+      "connectionString": "server=localhost;database=PMVR;TrustServerCertificate=True;Integrated Security=True;"
+    },
+    "templates": {
+      "service": "src/templates/services/api.service.ts",
+      "type": "src/templates/types/api.type.ts",
+      "enum": "src/templates/types/enums.ts",
+      "createForm": "src/templates/forms/CreateForm.tsx",
+      "updateForm": "src/templates/forms/UpdateForm.tsx",
+      "viewForm": "src/templates/forms/ViewForm.tsx",
+      "deleteForm": "src/templates/forms/DeleteForm.tsx",
+      "useFields": "src/templates/forms/useFields.tsx",
+      "useLayout": "src/templates/forms/useLayout.ts",
+      "context": "src/templates/contexts/Context.tsx"
+    }
+  },
+  "outputs": {
+    "log": "src/_output/codegen-log.txt",
+    "enums": "src/_output/enums.ts"
+  },
+  "portals": [
+    {
+      "name": "management",
+      "input": {
+        "swaggerUrl": "https://localhost:7222/swagger/v1/swagger.json",
+        "swaggerCachePath": "input/swagger/management-swagger.json",
+        "fieldLayoutPath": "input/form-layout/management-layout.json"
+      },
+      "output": {
+        "baseDir": "src/_output/management",
+        "services": "services",
+        "types": "types",
+        "contexts": "contexts",
+        "forms": "forms",
+        "fieldsManifest": "management-fields.json"
+      },
+      "blacklist": [
+        "ECD.SystemUser.Update",
+        "PMVR.SystemUser.Update",
+        "SP.SystemUser.Update",
+        "SPI.SystemUser.Update"
+      ]
+    },
+    {
+      "name": "partner",
+      "input": {
+        "swaggerUrl": "https://localhost:7223/swagger/v1/swagger.json",
+        "swaggerCachePath": "input/swagger/partner-swagger.json",
+        "fieldLayoutPath": "input/form-layout/partner-layout.json"
+      },
+      "output": {
+        "baseDir": "src/_output/partner",
+        "services": "services",
+        "types": "types",
+        "contexts": "contexts",
+        "forms": "forms",
+        "fieldsManifest": "partner-fields.json"
+      },
+      "blacklist": []
+    },
+    {
+      "name": "learner",
+      "input": {
+        "swaggerUrl": "https://localhost:7224/swagger/v1/swagger.json",
+        "swaggerCachePath": "input/swagger/learner-swagger.json",
+        "fieldLayoutPath": "input/form-layout/learner-layout.json"
+      },
+      "output": {
+        "baseDir": "src/_output/learner",
+        "services": "services",
+        "types": "types",
+        "contexts": "contexts",
+        "forms": "forms",
+        "fieldsManifest": "learner-fields.json"
+      },
+      "blacklist": []
+    }
+  ]
+}

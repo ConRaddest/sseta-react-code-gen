@@ -5,7 +5,7 @@ namespace ReactCodegen;
 
 // Generates, for every resource that has a Retrieve endpoint:
 //   {Prefix}ViewForm.tsx
-//   {Prefix}ViewLayout.ts
+//   use{Prefix}ViewFields.ts
 //
 // Output path: {formsOutputDir}/{module-lower}-{kebab-resource}/view/
 static class ViewFormGenerator
@@ -14,7 +14,10 @@ static class ViewFormGenerator
         JsonObject paths,
         JsonObject? schemas,
         JsonObject? fieldLayout,
-        string formsOutputDir)
+        string formsOutputDir,
+        HashSet<string>? blacklist = null,
+        string? formTemplatePath = null,
+        string? layoutTemplatePath = null)
     {
         var endpoints = new List<ViewEndpoint>();
 
@@ -24,6 +27,7 @@ static class ViewFormGenerator
             var parts = rawPath.TrimStart('/').Split('/');
             if (parts.Length < 5) continue;
             if (parts[0] != "api" || parts[1] != "management") continue;
+            if (blacklist != null && (blacklist.Contains($"{parts[2]}.{parts[3]}") || blacklist.Contains($"{parts[2]}.{parts[3]}.View"))) continue;
             if (!string.Equals(parts[4], "Retrieve", StringComparison.OrdinalIgnoreCase)) continue;
 
             string module   = parts[2];
@@ -57,12 +61,13 @@ static class ViewFormGenerator
 
             var properties = retrieveSchema?["properties"]?.AsObject();
 
-            File.WriteAllText(Path.Combine(dir, $"{prefix}ViewForm.tsx"),
-                RenderForm(ep, prefix));
-
             var searchableResources = Formatters.BuildSearchableResources(paths, ep.Module);
-            File.WriteAllText(Path.Combine(dir, $"{prefix}ViewLayout.ts"),
-                RenderLayout(prefix, ep.Resource, fieldLayout, properties, searchableResources));
+
+            File.WriteAllText(Path.Combine(dir, $"{prefix}ViewForm.tsx"),
+                ApplyTemplate(RenderForm(ep, prefix), formTemplatePath));
+
+            File.WriteAllText(Path.Combine(dir, $"use{prefix}ViewFields.ts"),
+                ApplyTemplate(RenderViewFields(prefix, ep.Resource, fieldLayout, properties, searchableResources), layoutTemplatePath));
 
             Console.WriteLine($"    ✓ {ep.Module}/{ep.Resource}");
             count++;
@@ -87,7 +92,7 @@ static class ViewFormGenerator
         sb.AppendLine("import { ViewTemplate } from \"@sseta/components\"");
         sb.AppendLine($"import {{ {contextHook} }} from \"{contextPath}\"");
         sb.AppendLine($"import {{ {ep.ResponseType} }} from \"{typesPath}\"");
-        sb.AppendLine($"import {prefix}ViewLayout from \"./{prefix}ViewLayout\"");
+        sb.AppendLine($"import use{prefix}ViewFields from \"./use{prefix}ViewFields\"");
         sb.AppendLine();
 
         sb.AppendLine($"interface {prefix}ViewFormProps {{");
@@ -106,6 +111,7 @@ static class ViewFormGenerator
         sb.AppendLine("  const isLoading = loadingOverride ?? loading");
         sb.AppendLine();
         sb.AppendLine($"  const {{ retrieve }} = {contextHook}()");
+        sb.AppendLine($"  const {{ layout }} = use{prefix}ViewFields()");
         sb.AppendLine();
         sb.AppendLine("  useEffect(() => {");
         sb.AppendLine("    const fetchRecord = async () => {");
@@ -124,7 +130,7 @@ static class ViewFormGenerator
         sb.AppendLine();
         sb.AppendLine("  return (");
         sb.AppendLine("    <ViewTemplate");
-        sb.AppendLine($"      layout={{{prefix}ViewLayout}}");
+        sb.AppendLine("      layout={layout}");
         sb.AppendLine("      record={record}");
         sb.AppendLine("      isLoading={isLoading}");
         sb.AppendLine("      hiddenFields={hiddenFields}");
@@ -136,35 +142,42 @@ static class ViewFormGenerator
         return sb.ToString();
     }
 
-    static string RenderLayout(string prefix, string resource, JsonObject? fieldLayout, JsonObject? properties, HashSet<string>? searchableResources = null)
+    static string RenderViewFields(string prefix, string resource, JsonObject? fieldLayout, JsonObject? properties, HashSet<string>? searchableResources = null)
     {
         var sb = new StringBuilder();
         sb.AppendLine("import { FormLayout } from \"@sseta/components\"");
         sb.AppendLine();
-        sb.AppendLine($"const {prefix}ViewLayout: FormLayout[] = [");
 
-        var groups = UseLayoutGenerator.BuildGroups(resource, fieldLayout, properties, excludeFkFields: true, searchableResources: searchableResources);
+        sb.AppendLine($"export default function use{prefix}ViewFields() {{");
+
+        var groups = Formatters.BuildLayoutGroups(resource, fieldLayout, properties, excludeFkFields: true, searchableResources: searchableResources);
+        sb.AppendLine("  const layout: FormLayout[] = [");
         foreach (var group in groups)
         {
-            sb.AppendLine("  {");
-            sb.AppendLine($"    groupName: \"{group.GroupName}\",");
-            sb.AppendLine($"    totalColumns: {group.TotalColumns},");
-            sb.AppendLine("    fields: [");
+            sb.AppendLine("    {");
+            sb.AppendLine($"      groupName: \"{group.GroupName}\",");
+            sb.AppendLine($"      totalColumns: {group.TotalColumns},");
+            sb.AppendLine("      fields: [");
             foreach (var field in group.Fields)
             {
                 string typeFragment = field.Type != null ? $", type: \"{field.Type}\"" : "";
-                sb.AppendLine($"      {{ name: \"{field.Name}\", columns: {field.Columns}, heading: \"{field.Heading}\"{typeFragment} }},");
+                sb.AppendLine($"        {{ name: \"{field.Name}\", columns: {field.Columns}, heading: \"{field.Heading}\"{typeFragment} }},");
             }
-            sb.AppendLine("    ],");
-            sb.AppendLine("  },");
+            sb.AppendLine("      ],");
+            sb.AppendLine("    },");
         }
-
-        sb.AppendLine("]");
+        sb.AppendLine("  ]");
         sb.AppendLine();
-        sb.AppendLine($"export default {prefix}ViewLayout");
+        sb.AppendLine("  return { layout }");
+        sb.AppendLine("}");
 
         return sb.ToString();
     }
+
+    static string ApplyTemplate(string content, string? templatePath) =>
+        templatePath != null && File.Exists(templatePath)
+            ? File.ReadAllText(templatePath).Replace("// [[CONTENT]]", content)
+            : content;
 
     record ViewEndpoint(string Module, string Resource, string ResponseType);
 }

@@ -47,33 +47,5 @@
         "rejectionReason"
       ]
     }
-  },
-  "Ecd": {
-    "SystemUser": {
-      "Update": [
-        "mobileNumber"
-      ]
-    }
-  },
-  "Pmvr": {
-    "SystemUser": {
-      "Update": [
-        "mobileNumber"
-      ]
-    }
-  },
-  "Sp": {
-    "SystemUser": {
-      "Update": [
-        "mobileNumber"
-      ]
-    }
-  },
-  "Spi": {
-    "SystemUser": {
-      "Update": [
-        "mobileNumber"
-      ]
-    }
   }
 }

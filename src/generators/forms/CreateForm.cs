@@ -15,7 +15,9 @@ static class CreateFormGenerator
     public static void Generate(
         JsonObject paths,
         JsonObject? schemas,
-        string formsOutputDir)
+        string formsOutputDir,
+        HashSet<string>? blacklist = null,
+        string? templatePath = null)
     {
         // Collect every (module, resource) pair that has a Create endpoint
         var createEndpoints = new List<CreateEndpoint>();
@@ -28,6 +30,7 @@ static class CreateFormGenerator
             var parts = rawPath.TrimStart('/').Split('/');
             if (parts.Length < 5) continue;
             if (parts[0] != "api" || parts[1] != "management") continue;
+            if (blacklist != null && (blacklist.Contains($"{parts[2]}.{parts[3]}") || blacklist.Contains($"{parts[2]}.{parts[3]}.Create"))) continue;
             if (!string.Equals(parts[4], "Create", StringComparison.OrdinalIgnoreCase)) continue;
 
             string module = parts[2];
@@ -50,7 +53,7 @@ static class CreateFormGenerator
 
         foreach (var ep in createEndpoints)
         {
-            string output = RenderCreateForm(ep);
+            string output = ApplyTemplate(RenderCreateForm(ep), templatePath);
 
             string kebabResource = Formatters.ToKebabCase(ep.Resource);
             string dir = Path.Combine(formsOutputDir, ep.Module.ToLower(), kebabResource, "create");
@@ -104,7 +107,6 @@ static class CreateFormGenerator
         sb.AppendLine("import { useToast } from \"@/contexts/general/ToastContext\"");
         sb.AppendLine($"import {{ {requestType} }} from \"{typesImportPath}\"");
         sb.AppendLine($"import use{prefix}CreateFields from \"./use{prefix}CreateFields\"");
-        sb.AppendLine($"import {prefix}CreateLayout from \"./{prefix}CreateLayout\"");
         sb.AppendLine();
 
         // Props interface
@@ -154,7 +156,7 @@ static class CreateFormGenerator
         sb.AppendLine("    mode: \"onBlur\",");
         sb.AppendLine("  })");
         sb.AppendLine();
-        sb.AppendLine($"  const fields = use{prefix}CreateFields({{ errors, disabledFields, selectFilterBys, selectOrderBys }})");
+        sb.AppendLine($"  const {{ fields, layout }} = use{prefix}CreateFields({{ errors, disabledFields, selectFilterBys, selectOrderBys }})");
         sb.AppendLine();
         sb.AppendLine("  useEffect(() => {");
         sb.AppendLine("    if (defaultValues && Object.keys(defaultValues).length > 0) {");
@@ -185,7 +187,7 @@ static class CreateFormGenerator
         sb.AppendLine("      <FormTemplate");
         sb.AppendLine("        control={control}");
         sb.AppendLine("        fields={fields}");
-        sb.AppendLine($"        layout={{{prefix}CreateLayout}}");
+        sb.AppendLine("        layout={layout}");
         sb.AppendLine("        hiddenFields={hiddenFields}");
         sb.AppendLine("        renderActionsInFooter={renderActionsInFooter}");
         sb.AppendLine("        isLoading={isSubmitting || isLoading}");
@@ -205,6 +207,11 @@ static class CreateFormGenerator
 
         return sb.ToString();
     }
+
+    static string ApplyTemplate(string content, string? templatePath) =>
+        templatePath != null && File.Exists(templatePath)
+            ? File.ReadAllText(templatePath).Replace("// [[CONTENT]]", content)
+            : content;
 
     record CreateEndpoint(string Module, string Resource, string RequestType, string ResponseType);
 }

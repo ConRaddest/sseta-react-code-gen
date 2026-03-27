@@ -1,3 +1,8 @@
+// !!---------------------------------------------------------!!
+// !!-------- AUTO-GENERATED: Edit in code generator! --------!!
+// !!--------------- CHANGES HERE WILL BE LOST ---------------!!
+// !!---------------------------------------------------------!!
+
 "use client"
 
 import { useState, useEffect } from "react"
@@ -7,7 +12,6 @@ import { useAdminStaffRoleRequest } from "@/contexts/resources/admin/AdminStaffR
 import { useToast } from "@/contexts/general/ToastContext"
 import { AdminStaffRoleRequestUpdateRequest } from "@/types/api.types"
 import useAdminStaffRoleRequestUpdateFields from "./useAdminStaffRoleRequestUpdateFields"
-import AdminStaffRoleRequestUpdateLayout from "./AdminStaffRoleRequestUpdateLayout"
 
 interface AdminStaffRoleRequestUpdateFormProps {
   staffRoleRequestId: number
@@ -52,7 +56,7 @@ export default function AdminStaffRoleRequestUpdateForm(props: AdminStaffRoleReq
     mode: "onBlur",
   })
 
-  const fields = useAdminStaffRoleRequestUpdateFields({ errors, disabledFields, selectFilterBys, selectOrderBys })
+  const { fields, layout } = useAdminStaffRoleRequestUpdateFields({ errors, disabledFields, selectFilterBys, selectOrderBys })
 
   useEffect(() => {
     const fetchRecord = async () => {
@@ -90,7 +94,7 @@ export default function AdminStaffRoleRequestUpdateForm(props: AdminStaffRoleReq
       <FormTemplate
         control={control}
         fields={fields}
-        layout={AdminStaffRoleRequestUpdateLayout}
+        layout={layout}
         hiddenFields={hiddenFields}
         renderActionsInFooter={renderActionsInFooter}
         isLoading={isSubmitting || isLoading}

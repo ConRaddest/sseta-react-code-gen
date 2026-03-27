@@ -346,4 +346,111 @@ static class Formatters
         if (schemaRef == null) return "unknown";
         return FormatTypeName(schemaRef.Split('/').Last());
     }
+
+    // Builds the ordered list of layout groups for a resource, driven by field-layout.json.
+    // Fields not covered by the layout are appended in an "Additional Fields" group.
+    public static List<LayoutGroup> BuildLayoutGroups(string resource, JsonObject? fieldLayout, JsonObject? properties, bool excludeFkFields = false, HashSet<string>? searchableResources = null)
+    {
+        var groups = new List<LayoutGroup>();
+        var seen = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+        string pkField = GetIdFieldName(resource);
+
+        if (fieldLayout != null && fieldLayout[resource] is JsonArray layoutGroups)
+        {
+            foreach (var groupNode in layoutGroups)
+            {
+                if (groupNode == null) continue;
+                string groupName = groupNode["groupName"]?.GetValue<string>() ?? "";
+                int totalColumns = groupNode["totalColumns"]?.GetValue<int>() ?? 2;
+                var fieldsArray = groupNode["fields"]?.AsArray();
+                if (fieldsArray == null) continue;
+
+                var fields = new List<LayoutField>();
+                foreach (var fieldNode in fieldsArray)
+                {
+                    string? name = fieldNode?["name"]?.GetValue<string>();
+                    int columns = fieldNode?["columns"]?.GetValue<int>() ?? 1;
+                    if (string.IsNullOrEmpty(name)) continue;
+                    if (ExcludedFormFields.Contains(name)) continue;
+                    if (name.Equals(pkField, StringComparison.OrdinalIgnoreCase)) continue;
+                    if (excludeFkFields && name.EndsWith("Id", StringComparison.OrdinalIgnoreCase)) continue;
+                    if (properties != null && !properties.ContainsKey(name)) continue;
+                    if (IsUnsearchableFk(properties?[name]?.AsObject(), searchableResources))
+                    {
+                        if (excludeFkFields) Console.WriteLine($"    ⚠ {resource}.{name} — excluded from view (no search endpoint for parent table)");
+                        continue;
+                    }
+
+                    string heading = GetFieldHeading(name);
+                    string? type = properties != null ? GetLayoutType(name, properties[name]?.AsObject(), searchableResources) : null;
+
+                    fields.Add(new LayoutField(name, columns, heading, type));
+                    seen.Add(name);
+                }
+
+                if (fields.Count > 0)
+                    groups.Add(new LayoutGroup(groupName, totalColumns, fields));
+            }
+        }
+
+        // Append remaining schema fields not covered by the layout
+        if (properties != null)
+        {
+            var remaining = new List<LayoutField>();
+            foreach (var (key, val) in properties)
+            {
+                if (seen.Contains(key)) continue;
+                if (ExcludedFormFields.Contains(key)) continue;
+                if (key.Equals(pkField, StringComparison.OrdinalIgnoreCase)) continue;
+                if (excludeFkFields && key.EndsWith("Id", StringComparison.OrdinalIgnoreCase)) continue;
+                if (IsUnsearchableFk(val?.AsObject(), searchableResources))
+                {
+                    if (excludeFkFields) Console.WriteLine($"    ⚠ {resource}.{key} — excluded from view (no search endpoint for parent table)");
+                    continue;
+                }
+                string heading = GetFieldHeading(key);
+                string? type = GetLayoutType(key, val?.AsObject(), searchableResources);
+                remaining.Add(new LayoutField(key, 1, heading, type));
+            }
+
+            if (remaining.Count > 0)
+                groups.Add(new LayoutGroup("Additional Fields", 2, remaining));
+        }
+
+        return groups;
+    }
+
+    // Returns the layout type string for a field, or null for plain text (omitted in output).
+    public static string? GetLayoutType(string fieldName, JsonObject? prop, HashSet<string>? searchableResources = null)
+    {
+        if (prop == null) return null;
+
+        string lower = fieldName.ToLower();
+        string? desc = prop["description"]?.GetValue<string>();
+        string? type = prop["type"]?.GetValue<string>();
+        string? format = prop["format"]?.GetValue<string>();
+        int? maxLength = prop["maxLength"]?.GetValue<int>();
+
+        if (!string.IsNullOrEmpty(desc) && desc.StartsWith("ParentTable:"))
+        {
+            string parentTable = desc["ParentTable:".Length..];
+            if (searchableResources == null || searchableResources.Contains(parentTable)) return "select";
+        }
+        if (!string.IsNullOrEmpty(desc) && desc.StartsWith("FieldType:Currency")) return "currency";
+        if (lower.Contains("mobilenumber") || lower.Contains("phone")) return "phone";
+        if (lower.Contains("identitynumber") || lower.Contains("idnumber")) return null;
+
+        return type switch
+        {
+            "integer" or "number" => "number",
+            "string" when format == "date-time" => "datetime",
+            "string" when format == "date" => "date",
+            "string" when maxLength > 500 => "textarea",
+            "boolean" => "checkbox",
+            _ => null
+        };
+    }
 }
+
+public record LayoutGroup(string GroupName, int TotalColumns, List<LayoutField> Fields);
+public record LayoutField(string Name, int Columns, string Heading, string? Type);

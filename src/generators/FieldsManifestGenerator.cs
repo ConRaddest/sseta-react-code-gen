@@ -12,7 +12,7 @@ namespace ReactCodegen;
 // Output: src/_output/{portal}/{portal}-fields.json
 static class FieldsManifestGenerator
 {
-    public static void Generate(JsonObject paths, JsonObject? schemas, JsonObject? fieldLayout, string outputPath)
+    public static void Generate(JsonObject paths, JsonObject? schemas, JsonObject? fieldLayout, string outputPath, HashSet<string>? blacklist = null)
     {
         // module (pascal) → resource → operation → fields in layout order
         var manifest = new SortedDictionary<string, SortedDictionary<string, Dictionary<string, List<string>>>>(StringComparer.Ordinal);
@@ -34,6 +34,11 @@ static class FieldsManifestGenerator
             if (!string.Equals(op, "Create",   StringComparison.OrdinalIgnoreCase) &&
                 !string.Equals(op, "Update",   StringComparison.OrdinalIgnoreCase) &&
                 !string.Equals(op, "Retrieve", StringComparison.OrdinalIgnoreCase))
+                continue;
+
+            // Map Retrieve → View to match blacklist convention used by form generators
+            string blacklistOp = string.Equals(op, "Retrieve", StringComparison.OrdinalIgnoreCase) ? "View" : op;
+            if (blacklist != null && (blacklist.Contains($"{module}.{resource}") || blacklist.Contains($"{module}.{resource}.{blacklistOp}")))
                 continue;
 
             string key = $"{module}|{resource}|{op}";
@@ -65,7 +70,7 @@ static class FieldsManifestGenerator
                 var (retrieveSchema, properties) = ResolveRetrieveProperties(pathNode.AsObject(), schemas, resource, module);
                 if (properties != null)
                 {
-                    var groups = UseLayoutGenerator.BuildGroups(resource, fieldLayout, properties, excludeFkFields: true, searchableResources: searchableResources);
+                    var groups = Formatters.BuildLayoutGroups(resource, fieldLayout, properties, excludeFkFields: true, searchableResources: searchableResources);
                     fields = groups.SelectMany(g => g.Fields.Select(f => f.Name)).ToList();
                 }
             }

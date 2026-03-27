@@ -32,17 +32,17 @@ static class UpdateFormGenerator
             if (blacklist != null && (blacklist.Contains($"{parts[2]}.{parts[3]}") || blacklist.Contains($"{parts[2]}.{parts[3]}.Update"))) continue;
             if (!string.Equals(parts[4], "Update", StringComparison.OrdinalIgnoreCase)) continue;
 
-            string module   = parts[2];
+            string module = parts[2];
             string resource = parts[3];
 
             foreach (var (method, opNode) in pathNode.AsObject())
             {
                 if (opNode == null) continue;
 
-                string? requestRef  = opNode["requestBody"]?["content"]?["application/json"]?["schema"]?["$ref"]?.GetValue<string>();
+                string? requestRef = opNode["requestBody"]?["content"]?["application/json"]?["schema"]?["$ref"]?.GetValue<string>();
                 string? responseRef = opNode["responses"]?["200"]?["content"]?["application/json"]?["schema"]?["$ref"]?.GetValue<string>();
 
-                string requestType  = requestRef  != null ? Formatters.FormatTypeName(requestRef.Split('/').Last())  : $"{module}_{resource}UpdateRequest";
+                string requestType = requestRef != null ? Formatters.FormatTypeName(requestRef.Split('/').Last()) : $"{module}_{resource}UpdateRequest";
                 string responseType = responseRef != null ? Formatters.FormatTypeName(responseRef.Split('/').Last()) : $"{module}_{resource}UpdateResponse";
 
                 endpoints.Add(new UpdateEndpoint(module, resource, requestType, responseType));
@@ -53,7 +53,7 @@ static class UpdateFormGenerator
         foreach (var ep in endpoints)
         {
             string modulePascal = Formatters.ToPascalCase(ep.Module.ToLower());
-            string prefix       = modulePascal + ep.Resource;
+            string prefix = modulePascal + ep.Resource;
             string kebabResource = Formatters.ToKebabCase(ep.Resource);
             string dir = Path.Combine(formsOutputDir, ep.Module.ToLower(), kebabResource, "update");
             Directory.CreateDirectory(dir);
@@ -91,11 +91,11 @@ static class UpdateFormGenerator
 
     static string RenderForm(UpdateEndpoint ep, string prefix, string modulePascal)
     {
-        string displayName  = Formatters.ToTitleCase(ep.Resource);
-        string contextHook  = $"use{prefix}";
-        string contextPath  = $"@/contexts/resources/{ep.Module.ToLower()}/{prefix}Context";
-        string idField      = Formatters.GetIdFieldName(ep.Resource);
-        string typesPath    = "@/types/api.types";
+        string displayName = Formatters.ToTitleCase(ep.Resource);
+        string contextHook = $"use{prefix}";
+        string contextPath = $"@/contexts/resources/{ep.Module.ToLower()}/{prefix}Context";
+        string idField = Formatters.GetIdFieldName(ep.Resource);
+        string typesPath = "@/types/api.types";
 
         var sb = new StringBuilder();
 
@@ -187,26 +187,25 @@ static class UpdateFormGenerator
         sb.AppendLine("  }");
         sb.AppendLine();
         sb.AppendLine("  return (");
-        sb.AppendLine("    <div className=\"flex flex-col flex-1 min-h-0\">");
+        sb.AppendLine("    <FormTemplate");
+        sb.AppendLine("      control={control}");
+        sb.AppendLine("      fields={fields}");
+        sb.AppendLine("      layout={layout}");
+        sb.AppendLine("      hiddenFields={hiddenFields}");
+        sb.AppendLine("      renderActionsInFooter={renderActionsInFooter}");
+        sb.AppendLine("      isLoading={isSubmitting || isLoading}");
+        sb.AppendLine("      onSubmit={handleSubmit(onSubmit)}");
+        sb.AppendLine("      className={className}");
+        sb.AppendLine("      actions={");
+        sb.AppendLine("        <div className=\"flex md:flex-row flex-col gap-2\">");
+        sb.AppendLine("          <Button loading={isSubmitting} type=\"submit\" variant=\"orange\" size=\"mlg\" className=\"w-full md:w-40\">");
+        sb.AppendLine("            Submit");
+        sb.AppendLine("          </Button>");
+        sb.AppendLine("        </div>");
+        sb.AppendLine("      }");
+        sb.AppendLine("    >");
         sb.AppendLine("      <FormValidationErrors errors={apiErrors} className=\"mx-auto max-w-4xl w-full mb-4\" />");
-        sb.AppendLine("      <FormTemplate");
-        sb.AppendLine("        control={control}");
-        sb.AppendLine("        fields={fields}");
-        sb.AppendLine("        layout={layout}");
-        sb.AppendLine("        hiddenFields={hiddenFields}");
-        sb.AppendLine("        renderActionsInFooter={renderActionsInFooter}");
-        sb.AppendLine("        isLoading={isSubmitting || isLoading}");
-        sb.AppendLine("        onSubmit={handleSubmit(onSubmit)}");
-        sb.AppendLine("        className={className}");
-        sb.AppendLine("        actions={");
-        sb.AppendLine("          <div className=\"flex md:flex-row flex-col gap-2\">");
-        sb.AppendLine("            <Button loading={isSubmitting} type=\"submit\" variant=\"orange\" size=\"mlg\" className=\"w-full md:w-40\">");
-        sb.AppendLine("              Save");
-        sb.AppendLine("            </Button>");
-        sb.AppendLine("          </div>");
-        sb.AppendLine("        }");
-        sb.AppendLine("      />");
-        sb.AppendLine("    </div>");
+        sb.AppendLine("    </FormTemplate>");
         sb.AppendLine("  )");
         sb.AppendLine("}");
 
@@ -311,9 +310,9 @@ static class UpdateFormGenerator
             string camel = Formatters.ToCamelCase(fieldName);
             string fieldType = UseFieldsGenerator.GetFieldType(fieldName, prop, searchableResources);
             string outputType = fieldType == "idnumber" ? "text" : fieldType;
-            string heading = Formatters.GetFieldHeading(fieldName);
-            string placeholder = GetPlaceholder(fieldName, fieldType);
             bool isRequired = requiredFields.Contains(fieldName);
+            string heading = Formatters.GetFieldHeading(fieldName) + (isRequired ? "" : " (Optional)");
+            string placeholder = GetPlaceholder(fieldName, fieldType);
             bool isSelect = fieldType == "select";
             fkByField.TryGetValue(fieldName, out var fk);
 

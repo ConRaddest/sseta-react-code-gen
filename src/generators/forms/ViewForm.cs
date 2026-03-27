@@ -150,7 +150,7 @@ static class ViewFormGenerator
 
         sb.AppendLine($"export default function use{prefix}ViewFields() {{");
 
-        var groups = Formatters.BuildLayoutGroups(resource, fieldLayout, properties, excludeFkFields: true, searchableResources: searchableResources);
+        var groups = Formatters.BuildLayoutGroups(resource, fieldLayout, properties, excludeFkFields: true, searchableResources: searchableResources, extraExclusions: Formatters.ExcludedViewFields);
         sb.AppendLine("  const layout: FormLayout[] = [");
         foreach (var group in groups)
         {

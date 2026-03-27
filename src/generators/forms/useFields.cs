@@ -143,7 +143,7 @@ static class UseFieldsGenerator
             "integer" or "number" => "number",
             "string" when format == "date-time" => "datetime",
             "string" when format == "date" => "date",
-            "string" when maxLength > 500 => "textarea",
+            "string" when maxLength >= 250 => "textarea",
             "string" => "text",
             "boolean" => "checkbox",
             _ => "text"
@@ -263,9 +263,9 @@ static class UseFieldsGenerator
             string camel = Formatters.ToCamelCase(fieldName);
             string fieldType = GetFieldType(fieldName, prop, searchableResources);
             string outputType = fieldType == "idnumber" ? "text" : fieldType;
-            string heading = Formatters.GetFieldHeading(fieldName);
-            string placeholder = GetPlaceholder(fieldName, fieldType);
             bool isRequired = requiredFields.Contains(fieldName);
+            string heading = Formatters.GetFieldHeading(fieldName) + (isRequired ? "" : " (Optional)");
+            string placeholder = GetPlaceholder(fieldName, fieldType);
             bool isSelect = fieldType == "select";
             fkByField.TryGetValue(fieldName, out var fk);
 

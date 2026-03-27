@@ -165,6 +165,20 @@ static class Formatters
         "statusReason",
     };
 
+    // Fields excluded from view field hooks — audit/tracking fields that are never useful to display.
+    public static readonly HashSet<string> ExcludedViewFields = new(StringComparer.OrdinalIgnoreCase)
+    {
+        "modifiedOn",
+        "createdOn",
+        "deletedOn",
+        "modifiedBySystemUserId",
+        "createdBySystemUserId",
+        "deletedBySystemUserId",
+        "modifiedBySystemUserName",
+        "createdBySystemUserName",
+        "deletedBySystemUserName",
+    };
+
     // Reformats a raw schema name into the ModuleResourceOperation{Request|Response} convention.
     // e.g. SystemUserSPUpdateRequestModel   → SpSystemUserUpdateRequest
     //      DepartmentTypeADMINSearchResponseModel → AdminDepartmentTypeSearchResponse
@@ -349,7 +363,7 @@ static class Formatters
 
     // Builds the ordered list of layout groups for a resource, driven by field-layout.json.
     // Fields not covered by the layout are appended in an "Additional Fields" group.
-    public static List<LayoutGroup> BuildLayoutGroups(string resource, JsonObject? fieldLayout, JsonObject? properties, bool excludeFkFields = false, HashSet<string>? searchableResources = null)
+    public static List<LayoutGroup> BuildLayoutGroups(string resource, JsonObject? fieldLayout, JsonObject? properties, bool excludeFkFields = false, HashSet<string>? searchableResources = null, HashSet<string>? extraExclusions = null)
     {
         var groups = new List<LayoutGroup>();
         var seen = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
@@ -372,6 +386,7 @@ static class Formatters
                     int columns = fieldNode?["columns"]?.GetValue<int>() ?? 1;
                     if (string.IsNullOrEmpty(name)) continue;
                     if (ExcludedFormFields.Contains(name)) continue;
+                    if (extraExclusions != null && extraExclusions.Contains(name)) continue;
                     if (name.Equals(pkField, StringComparison.OrdinalIgnoreCase)) continue;
                     if (excludeFkFields && name.EndsWith("Id", StringComparison.OrdinalIgnoreCase)) continue;
                     if (properties != null && !properties.ContainsKey(name)) continue;
@@ -393,14 +408,15 @@ static class Formatters
             }
         }
 
-        // Append remaining schema fields not covered by the layout
+        // Append remaining schema fields not covered by the layout, with default ordering.
         if (properties != null)
         {
-            var remaining = new List<LayoutField>();
+            var remaining = new List<(LayoutField Field, int Order)>();
             foreach (var (key, val) in properties)
             {
                 if (seen.Contains(key)) continue;
                 if (ExcludedFormFields.Contains(key)) continue;
+                if (extraExclusions != null && extraExclusions.Contains(key)) continue;
                 if (key.Equals(pkField, StringComparison.OrdinalIgnoreCase)) continue;
                 if (excludeFkFields && key.EndsWith("Id", StringComparison.OrdinalIgnoreCase)) continue;
                 if (IsUnsearchableFk(val?.AsObject(), searchableResources))
@@ -410,11 +426,30 @@ static class Formatters
                 }
                 string heading = GetFieldHeading(key);
                 string? type = GetLayoutType(key, val?.AsObject(), searchableResources);
-                remaining.Add(new LayoutField(key, 1, heading, type));
+
+                // Ordering: name/title first, then selects, then text/number, then dates, then textareas, then booleans
+                string lower = key.ToLower();
+                int order = type switch
+                {
+                    "select"   => 1,
+                    "date"     => 3,
+                    "datetime" => 3,
+                    "textarea" => 4,
+                    "checkbox" => 5,
+                    _          => 2,
+                };
+                if (lower.Contains("name") || lower.Contains("title")) order = 0;
+
+                int columns = 2;
+
+                remaining.Add((new LayoutField(key, columns, heading, type), order));
             }
 
             if (remaining.Count > 0)
-                groups.Add(new LayoutGroup("Additional Fields", 2, remaining));
+            {
+                var sorted = remaining.OrderBy(x => x.Order).Select(x => x.Field).ToList();
+                groups.Add(new LayoutGroup("Additional Fields", 2, sorted));
+            }
         }
 
         return groups;

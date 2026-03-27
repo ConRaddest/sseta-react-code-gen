@@ -181,6 +181,79 @@
         }
       }
     },
+    "/api/management/ADMIN/Role/Search": {
+      "post": {
+        "tags": [
+          "Role"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RoleADMINSearchRequestModel"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RoleADMINSearchRequestModel"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/RoleADMINSearchRequestModel"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/RoleADMINSearchRequestModel"
+              }
+            },
+            "text/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/RoleADMINSearchRequestModel"
+              }
+            },
+            "application/*+xml": {
+              "schema": {
+                "$ref": "#/components/schemas/RoleADMINSearchRequestModel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/RoleADMINSearchResponseSETAApiResponse"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RoleADMINSearchResponseSETAApiResponse"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RoleADMINSearchResponseSETAApiResponse"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/RoleADMINSearchResponseSETAApiResponse"
+                }
+              },
+              "text/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/RoleADMINSearchResponseSETAApiResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/management/B/Role/Search": {
       "post": {
         "tags": [
@@ -1690,6 +1763,82 @@
         },
         "additionalProperties": false
       },
+      "RoleADMINSearchRequestModel": {
+        "required": [
+          "filterByList",
+          "orderByList",
+          "pageNumber",
+          "pageSize"
+        ],
+        "type": "object",
+        "properties": {
+          "pageNumber": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "pageSize": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "filterByList": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Filterbylist"
+            }
+          },
+          "orderByList": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Orderbylist"
+            }
+          }
+        },
+        "additionalProperties": false
+      },
+      "RoleADMINSearchResponse": {
+        "type": "object",
+        "properties": {
+          "totalRows": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "searchResults": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/RoleADMINSearchResponseModel"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "RoleADMINSearchResponseModel": {
+        "type": "object",
+        "properties": {
+          "roleId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "RoleADMINSearchResponseSETAApiResponse": {
+        "type": "object",
+        "properties": {
+          "errorMessage": {
+            "type": "string",
+            "nullable": true
+          },
+          "data": {
+            "$ref": "#/components/schemas/RoleADMINSearchResponse"
+          }
+        },
+        "additionalProperties": false
+      },
       "RoleBSearchRequestModel": {
         "required": [
           "filterByList",
@@ -2075,8 +2224,7 @@
           "requestedBySystemUserId",
           "requestReason",
           "roleId",
-          "statusId",
-          "statusReason"
+          "statusId"
         ],
         "type": "object",
         "properties": {
@@ -2099,11 +2247,6 @@
             "type": "integer",
             "description": "ParentTable:Status",
             "format": "int64"
-          },
-          "statusReason": {
-            "maxLength": 100,
-            "minLength": 0,
-            "type": "string"
           },
           "name": {
             "maxLength": 250,

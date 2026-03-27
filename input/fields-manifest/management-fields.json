@@ -8,40 +8,40 @@
         "reviewedOn"
       ],
       "View": [
-        "reviewedOn",
-        "createdOn",
-        "modifiedOn",
-        "deletedOn",
         "name",
         "requestedBySystemUserName",
         "reviewedBySystemUserName",
-        "requestReason",
-        "rejectionReason",
         "roleName",
         "statusName",
         "createdBySystemUserName",
         "modifiedBySystemUserName",
-        "deletedBySystemUserName"
+        "deletedBySystemUserName",
+        "requestReason",
+        "rejectionReason",
+        "reviewedOn",
+        "createdOn",
+        "modifiedOn",
+        "deletedOn"
       ]
     }
   },
   "Admin": {
     "StaffRoleRequest": {
       "View": [
-        "reviewedOn",
-        "createdOn",
-        "modifiedOn",
-        "deletedOn",
         "name",
         "requestedBySystemUserName",
         "reviewedBySystemUserName",
-        "requestReason",
-        "rejectionReason",
         "roleName",
         "statusName",
         "createdBySystemUserName",
         "modifiedBySystemUserName",
-        "deletedBySystemUserName"
+        "deletedBySystemUserName",
+        "requestReason",
+        "rejectionReason",
+        "reviewedOn",
+        "createdOn",
+        "modifiedOn",
+        "deletedOn"
       ],
       "Update": [
         "rejectionReason"

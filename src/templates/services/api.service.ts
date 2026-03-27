@@ -1,5 +1,5 @@
 // !!---------------------------------------------------!!
-// !!------- AUTO-GENERATED: [[DATETIME]] -------!!
+// !!---------- AUTO-GENERATED: Do not edit! -----------!!
 // !!---------------------------------------------------!!
 
 import { ApiResponse, FetchRequest, SearchResponse, ValidateResponse } from "@sseta/components"

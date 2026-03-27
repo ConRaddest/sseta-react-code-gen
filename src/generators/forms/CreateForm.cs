@@ -153,7 +153,7 @@ static class CreateFormGenerator
         sb.AppendLine("    reset,");
         sb.AppendLine("    formState: { errors, isSubmitting },");
         sb.AppendLine($"  }} = useForm<{requestType}>({{");
-        sb.AppendLine("    mode: \"onBlur\",");
+        sb.AppendLine("    mode: \"onChange\",");
         sb.AppendLine("  })");
         sb.AppendLine();
         sb.AppendLine($"  const {{ fields, layout }} = use{prefix}CreateFields({{ errors, disabledFields, selectFilterBys, selectOrderBys }})");
@@ -209,9 +209,7 @@ static class CreateFormGenerator
 
     static string ApplyTemplate(string content, string? templatePath) =>
         templatePath != null && File.Exists(templatePath)
-            ? File.ReadAllText(templatePath)
-                .Replace("// [[CONTENT]]", content)
-                .Replace("[[DATETIME]]", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"))
+            ? File.ReadAllText(templatePath).Replace("// [[CONTENT]]", content)
             : content;
 
     record CreateEndpoint(string Module, string Resource, string RequestType, string ResponseType);

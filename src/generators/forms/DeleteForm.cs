@@ -134,9 +134,7 @@ static class DeleteFormGenerator
 
     static string ApplyTemplate(string content, string? templatePath) =>
         templatePath != null && File.Exists(templatePath)
-            ? File.ReadAllText(templatePath)
-                .Replace("// [[CONTENT]]", content)
-                .Replace("[[DATETIME]]", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"))
+            ? File.ReadAllText(templatePath).Replace("// [[CONTENT]]", content)
             : content;
 
     record DeleteEndpoint(string Module, string Resource);

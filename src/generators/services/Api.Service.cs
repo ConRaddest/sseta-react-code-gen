@@ -174,8 +174,7 @@ static class ApiServiceGenerator
         string template = File.ReadAllText(templatePath);
         string output = template
             .Replace("// [[API_EXPORT]]", sb.ToString().TrimEnd())
-            .Replace("// [[TYPE_IMPORTS]]", typeImportLine)
-            .Replace("[[DATETIME]]", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
+            .Replace("// [[TYPE_IMPORTS]]", typeImportLine);
 
         Directory.CreateDirectory(Path.GetDirectoryName(outputPath)!);
         File.WriteAllText(outputPath, output);

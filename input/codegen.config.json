@@ -18,7 +18,7 @@
   },
   "outputs": {
     "log": "src/_output/codegen-log.txt",
-    "enums": "src/_output/enums.ts"
+    "enums": "C:/DEV/PMIS/react-frontend-v2/component-library/src/types/enums.ts"
   },
   "portals": [
     {
@@ -26,15 +26,17 @@
       "input": {
         "swaggerUrl": "https://localhost:7222/swagger/v1/swagger.json",
         "swaggerCachePath": "input/swagger/management-swagger.json",
-        "fieldLayoutPath": "input/form-layout/management-layout.json"
+        "fieldLayoutPath": "input/form-layout/management-layout.json",
+        "providerLayout": "src/templates/providers/management-layout.tsx"
       },
       "output": {
-        "baseDir": "src/_output/management",
+        "baseDir": "C:/DEV/PMIS/react-frontend-v2/management-portal/src",
         "services": "services",
         "types": "types",
         "contexts": "contexts",
         "forms": "forms",
-        "fieldsManifest": "management-fields.json"
+        "app": "app",
+        "fieldsManifest": "../../code-gen/input/fields-manifest/management-fields.json"
       },
       "blacklist": [
         "ECD.SystemUser.Update",
@@ -48,15 +50,17 @@
       "input": {
         "swaggerUrl": "https://localhost:7223/swagger/v1/swagger.json",
         "swaggerCachePath": "input/swagger/partner-swagger.json",
-        "fieldLayoutPath": "input/form-layout/partner-layout.json"
+        "fieldLayoutPath": "input/form-layout/partner-layout.json",
+        "providerLayout": "src/templates/providers/partner-layout.tsx"
       },
       "output": {
-        "baseDir": "src/_output/partner",
+        "baseDir": "C:/DEV/PMIS/react-frontend-v2/partner-portal/src",
         "services": "services",
         "types": "types",
         "contexts": "contexts",
         "forms": "forms",
-        "fieldsManifest": "partner-fields.json"
+        "app": "app",
+        "fieldsManifest": "../../code-gen/input/fields-manifest/partner-fields.json"
       },
       "blacklist": []
     },
@@ -65,15 +69,17 @@
       "input": {
         "swaggerUrl": "https://localhost:7224/swagger/v1/swagger.json",
         "swaggerCachePath": "input/swagger/learner-swagger.json",
-        "fieldLayoutPath": "input/form-layout/learner-layout.json"
+        "fieldLayoutPath": "input/form-layout/learner-layout.json",
+        "providerLayout": "src/templates/providers/learner-layout.tsx"
       },
       "output": {
-        "baseDir": "src/_output/learner",
+        "baseDir": "C:/DEV/PMIS/react-frontend-v2/learner-portal/src",
         "services": "services",
         "types": "types",
         "contexts": "contexts",
         "forms": "forms",
-        "fieldsManifest": "learner-fields.json"
+        "app": "app",
+        "fieldsManifest": "../../code-gen/input/fields-manifest/learner-fields.json"
       },
       "blacklist": []
     }

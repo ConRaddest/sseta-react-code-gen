@@ -239,27 +239,22 @@ static class UpdateFormGenerator
         }
         else
         {
-            sb.AppendLine("import { FormLayout } from \"@sseta/components\"");
+            sb.AppendLine("import { FilterBy, OrderBy, FormLayout } from \"@sseta/components\"");
         }
         sb.AppendLine($"import {{ {requestType} }} from \"@/types/api.types\"");
         sb.AppendLine();
 
+        // Props interface — always includes selectFilterBys/selectOrderBys for a stable contract
         sb.AppendLine($"interface Use{prefix}UpdateFieldsProps {{");
         sb.AppendLine($"  errors: FieldErrors<{requestType}>");
         sb.AppendLine("  disabledFields?: string[]");
-        if (hasSelects)
-        {
-            sb.AppendLine("  selectFilterBys?: Record<string, FilterBy[]>");
-            sb.AppendLine("  selectOrderBys?: Record<string, OrderBy[]>");
-        }
+        sb.AppendLine("  selectFilterBys?: Record<string, FilterBy[]>");
+        sb.AppendLine("  selectOrderBys?: Record<string, OrderBy[]>");
         sb.AppendLine("}");
         sb.AppendLine();
 
         sb.AppendLine($"export default function use{prefix}UpdateFields(props: Use{prefix}UpdateFieldsProps) {{");
-        if (hasSelects)
-            sb.AppendLine($"  const {{ errors, disabledFields = [], selectFilterBys = {{}}, selectOrderBys = {{}} }} = props");
-        else
-            sb.AppendLine("  const { errors, disabledFields = [] } = props");
+        sb.AppendLine($"  const {{ errors, disabledFields = [], selectFilterBys = {{}}, selectOrderBys = {{}} }} = props");
         sb.AppendLine();
 
         if (hasSelects)

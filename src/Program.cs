@@ -46,8 +46,8 @@ namespace ReactCodegen
             string viewFormTemplate     = T("viewForm");
             string deleteFormTemplate   = T("deleteForm");
             string useFieldsTemplate    = T("useFields");
-            string useLayoutTemplate    = T("useLayout");
-            string contextTemplate      = T("context");
+            string useLayoutTemplate = T("useLayout");
+            string contextTemplate   = T("context");
 
             string logFilePath     = outputs["log"]?.GetValue<string>()   ?? "src/_output/codegen-log.txt";
             string enumsOutputPath = outputs["enums"]?.GetValue<string>() ?? throw new Exception("Missing outputs.enums in config.");
@@ -61,22 +61,24 @@ namespace ReactCodegen
                 {
                     var i = p!["input"]  ?? throw new Exception($"Portal '{p["name"]}' missing input config.");
                     var o = p["output"]  ?? throw new Exception($"Portal '{p["name"]}' missing output config.");
-                    string baseDir = o["baseDir"]?.GetValue<string>() ?? "";
+                    string baseDir = o["baseDir"]?.GetValue<string>() ?? throw new Exception($"Portal '{p["name"]}' missing output.baseDir.");
                     string Resolve(string key, string err)
                     {
                         var rel = o[key]?.GetValue<string>() ?? throw new Exception(err);
-                        return baseDir.Length > 0 ? Path.Combine(baseDir, rel) : rel;
+                        return Path.Combine(baseDir, rel);
                     }
                     return new PortalConfig(
-                        Name:             p["name"]?.GetValue<string>()               ?? throw new Exception("Portal missing name."),
-                        SwaggerUrl:       i["swaggerUrl"]?.GetValue<string>()         ?? throw new Exception("Portal missing input.swaggerUrl."),
-                        SwaggerCachePath: i["swaggerCachePath"]?.GetValue<string>()   ?? throw new Exception("Portal missing input.swaggerCachePath."),
-                        FieldLayoutPath:  i["fieldLayoutPath"]?.GetValue<string>()    ?? throw new Exception("Portal missing input.fieldLayoutPath."),
+                        Name:                 p["name"]?.GetValue<string>()             ?? throw new Exception("Portal missing name."),
+                        SwaggerUrl:           i["swaggerUrl"]?.GetValue<string>()       ?? throw new Exception("Portal missing input.swaggerUrl."),
+                        SwaggerCachePath:     i["swaggerCachePath"]?.GetValue<string>() ?? throw new Exception("Portal missing input.swaggerCachePath."),
+                        FieldLayoutPath:      i["fieldLayoutPath"]?.GetValue<string>()  ?? throw new Exception("Portal missing input.fieldLayoutPath."),
+                        ProviderLayoutTemplate: i["providerLayout"]?.GetValue<string>() ?? throw new Exception("Portal missing input.providerLayout."),
                         Output: new PortalOutput(
                             Services:       Resolve("services",       "Portal missing output.services."),
                             Types:          Resolve("types",          "Portal missing output.types."),
                             Contexts:       Resolve("contexts",       "Portal missing output.contexts."),
                             Forms:          Resolve("forms",          "Portal missing output.forms."),
+                            App:            Resolve("app",            "Portal missing output.app."),
                             FieldsManifest: Resolve("fieldsManifest", "Portal missing output.fieldsManifest.")
                         ),
                         Blacklist: (p["blacklist"]?.AsArray() ?? [])
@@ -220,6 +222,7 @@ namespace ReactCodegen
             Directory.CreateDirectory(portal.Output.Types);
             Directory.CreateDirectory(portal.Output.Contexts);
             Directory.CreateDirectory(portal.Output.Forms);
+            Directory.CreateDirectory(portal.Output.App);
             Directory.CreateDirectory(Path.GetDirectoryName(portal.Output.FieldsManifest)!);
 
             Console.WriteLine("  Fields Manifest");
@@ -258,11 +261,16 @@ namespace ReactCodegen
             UseFieldsGenerator.Generate(paths, schemas, fieldLayout?.AsObject(), portal.Output.Forms, portal.Blacklist, useFieldsTemplate);
             Console.WriteLine();
 
+            Console.WriteLine("  Provider Layout");
+            ProviderLayoutGenerator.Generate(paths, portal.Output.App, portal.ProviderLayoutTemplate, portal.Blacklist);
+            Console.WriteLine();
+
             Console.WriteLine($"  Completed generation:");
             Console.WriteLine($"    ✓ Services:       {portal.Output.Services}");
             Console.WriteLine($"    ✓ Types:          {portal.Output.Types}");
             Console.WriteLine($"    ✓ Contexts:       {portal.Output.Contexts}");
-            Console.WriteLine($"    ✓ Forms:           {portal.Output.Forms}");
+            Console.WriteLine($"    ✓ Forms:          {portal.Output.Forms}");
+            Console.WriteLine($"    ✓ App:            {portal.Output.App}");
             Console.WriteLine($"    ✓ Fields Manifest: {portal.Output.FieldsManifest}");
 
             await Task.CompletedTask;
@@ -274,6 +282,7 @@ namespace ReactCodegen
         string Types,
         string Contexts,
         string Forms,
+        string App,
         string FieldsManifest
     );
 
@@ -282,6 +291,7 @@ namespace ReactCodegen
         string SwaggerUrl,
         string SwaggerCachePath,
         string FieldLayoutPath,
+        string ProviderLayoutTemplate,
         PortalOutput Output,
         HashSet<string> Blacklist
     );

@@ -59,20 +59,20 @@ static class DeleteFormGenerator
 
     static string RenderForm(DeleteEndpoint ep, string prefix)
     {
-        string contextHook  = $"use{prefix}";
-        string contextPath  = $"@/contexts/resources/{ep.Module.ToLower()}/{prefix}Context";
-        string idField      = Formatters.GetIdFieldName(ep.Resource);
-        string displayName  = Formatters.ToTitleCase(ep.Resource);
+        string contextHook = $"use{prefix}";
+        string contextPath = $"@/contexts/resources/{ep.Module.ToLower()}/{prefix}Context";
+        string idField     = Formatters.GetIdFieldName(ep.Resource);
+        string displayName = Formatters.ToTitleCase(ep.Resource);
 
         var sb = new StringBuilder();
 
         sb.AppendLine("\"use client\"");
         sb.AppendLine();
-        sb.AppendLine("import { useState, useEffect } from \"react\"");
-        sb.AppendLine("import { DeleteTemplate, ViewTemplate, extractApiErrors } from \"@sseta/components\"");
+        sb.AppendLine("import { useState } from \"react\"");
+        sb.AppendLine("import { DeleteTemplate, extractApiErrors } from \"@sseta/components\"");
         sb.AppendLine($"import {{ {contextHook} }} from \"{contextPath}\"");
         sb.AppendLine("import { useToast } from \"@/contexts/general/ToastContext\"");
-        sb.AppendLine($"import {prefix}ViewLayout from \"../view/{prefix}ViewLayout\"");
+        sb.AppendLine($"import {prefix}ViewForm from \"../view/{prefix}ViewForm\"");
         sb.AppendLine();
 
         sb.AppendLine($"interface {prefix}DeleteFormProps {{");
@@ -91,35 +91,16 @@ static class DeleteFormGenerator
         sb.AppendLine("    hiddenFields,");
         sb.AppendLine("    renderActionsInFooter = true,");
         sb.AppendLine("    className = \"px-6 py-4\",");
-        sb.AppendLine("    loading: loadingOverride,");
+        sb.AppendLine("    loading,");
         sb.AppendLine("    onDeleted,");
         sb.AppendLine("  } = props");
         sb.AppendLine();
-        sb.AppendLine("  const [record, setRecord] = useState<any>(null)");
-        sb.AppendLine("  const [loading, setLoading] = useState(false)");
         sb.AppendLine("  const [apiError, setApiError] = useState<string | undefined>()");
-        sb.AppendLine("  const isLoading = loadingOverride ?? loading");
         sb.AppendLine();
-        sb.AppendLine($"  const {{ retrieve, destroy }} = {contextHook}()");
+        sb.AppendLine($"  const {{ destroy }} = {contextHook}()");
         sb.AppendLine("  const { showToast } = useToast()");
         sb.AppendLine();
-        sb.AppendLine("  useEffect(() => {");
-        sb.AppendLine("    const fetchRecord = async () => {");
-        sb.AppendLine("      setLoading(true)");
-        sb.AppendLine("      try {");
-        sb.AppendLine($"        const result = await retrieve({idField})");
-        sb.AppendLine("        if (result) setRecord(result)");
-        sb.AppendLine("      } catch (error) {");
-        sb.AppendLine($"        console.error(\"Failed to fetch {displayName.ToLower()}:\", error)");
-        sb.AppendLine("      } finally {");
-        sb.AppendLine("        setLoading(false)");
-        sb.AppendLine("      }");
-        sb.AppendLine("    }");
-        sb.AppendLine("    fetchRecord()");
-        sb.AppendLine("  }, [])");
-        sb.AppendLine();
         sb.AppendLine("  const onDelete = async () => {");
-        sb.AppendLine("    setLoading(true)");
         sb.AppendLine("    setApiError(undefined)");
         sb.AppendLine("    try {");
         sb.AppendLine($"      await destroy({idField})");
@@ -127,8 +108,6 @@ static class DeleteFormGenerator
         sb.AppendLine($"      onDeleted?.({idField})");
         sb.AppendLine("    } catch (error: any) {");
         sb.AppendLine("      setApiError(extractApiErrors(error)[0])");
-        sb.AppendLine("    } finally {");
-        sb.AppendLine("      setLoading(false)");
         sb.AppendLine("    }");
         sb.AppendLine("  }");
         sb.AppendLine();
@@ -137,15 +116,14 @@ static class DeleteFormGenerator
         sb.AppendLine($"      entityName=\"{displayName}\"");
         sb.AppendLine("      onDelete={onDelete}");
         sb.AppendLine("      renderActionsInFooter={renderActionsInFooter}");
-        sb.AppendLine("      loading={isLoading}");
+        sb.AppendLine("      loading={loading}");
         sb.AppendLine("      errorMessage={apiError}");
         sb.AppendLine("      className={className}");
         sb.AppendLine("    >");
-        sb.AppendLine("      <ViewTemplate");
-        sb.AppendLine($"        layout={{{prefix}ViewLayout}}");
-        sb.AppendLine("        record={record}");
-        sb.AppendLine("        isLoading={isLoading}");
+        sb.AppendLine($"      <{prefix}ViewForm");
+        sb.AppendLine($"        {idField}={{{idField}}}");
         sb.AppendLine("        hiddenFields={hiddenFields}");
+        sb.AppendLine("        className=\"p-0\"");
         sb.AppendLine("      />");
         sb.AppendLine("    </DeleteTemplate>");
         sb.AppendLine("  )");

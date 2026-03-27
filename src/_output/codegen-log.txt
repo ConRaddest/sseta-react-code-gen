@@ -1,5 +1,5 @@
 =================================================================
-Code Generation Log - 2026-03-27 14:19:52
+Code Generation Log - 2026-03-27 14:54:20
 =================================================================
 
 =================================================================
@@ -8,7 +8,7 @@ Shared
   Enums
     ⚠ Skipping Settings.DBCodeGenWhitelist (no id/name columns)
     ✓ enums.ts  (118 enums)
-    ✓ Enums: src/_output/enums.ts
+    ✓ Enums: C:/DEV/PMIS/react-frontend-v2/component-library/src/types/enums.ts
 
 =================================================================
 Portal: management
@@ -66,12 +66,16 @@ Fetching swagger: https://localhost:7222/swagger/v1/swagger.json
     ✓ ACCESS/StaffRoleRequest
     1 field hook(s) generated.
 
+  Provider Layout
+    ✓ layout.tsx  (8 provider(s))
+
   Completed generation:
-    ✓ Services:       src/_output/management\services
-    ✓ Types:          src/_output/management\types
-    ✓ Contexts:       src/_output/management\contexts
-    ✓ Forms:           src/_output/management\forms
-    ✓ Fields Manifest: src/_output/management\management-fields.json
+    ✓ Services:       C:/DEV/PMIS/react-frontend-v2/management-portal/src\services
+    ✓ Types:          C:/DEV/PMIS/react-frontend-v2/management-portal/src\types
+    ✓ Contexts:       C:/DEV/PMIS/react-frontend-v2/management-portal/src\contexts
+    ✓ Forms:          C:/DEV/PMIS/react-frontend-v2/management-portal/src\forms
+    ✓ App:            C:/DEV/PMIS/react-frontend-v2/management-portal/src\app
+    ✓ Fields Manifest: C:/DEV/PMIS/react-frontend-v2/management-portal/src\../../code-gen/input/fields-manifest/management-fields.json
 
 =================================================================
 Portal: partner

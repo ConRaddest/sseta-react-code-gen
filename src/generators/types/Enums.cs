@@ -109,7 +109,9 @@ static class EnumGenerator
         // 3. Write output
         // ---------------------------------------------------------------
         string template = File.ReadAllText(templatePath);
-        string output = template.Replace("// [[ENUMS]]", sb.ToString().TrimEnd());
+        string output = template
+            .Replace("// [[ENUMS]]", sb.ToString().TrimEnd())
+            .Replace("[[DATETIME]]", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
 
         Directory.CreateDirectory(Path.GetDirectoryName(outputPath)!);
         File.WriteAllText(outputPath, output);

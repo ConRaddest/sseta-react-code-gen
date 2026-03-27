@@ -396,7 +396,9 @@ static class UpdateFormGenerator
 
     static string ApplyTemplate(string content, string? templatePath) =>
         templatePath != null && File.Exists(templatePath)
-            ? File.ReadAllText(templatePath).Replace("// [[CONTENT]]", content)
+            ? File.ReadAllText(templatePath)
+                .Replace("// [[CONTENT]]", content)
+                .Replace("[[DATETIME]]", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"))
             : content;
 
     record UpdateEndpoint(string Module, string Resource, string RequestType, string ResponseType);

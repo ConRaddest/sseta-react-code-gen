@@ -74,7 +74,8 @@ static class ProviderLayoutGenerator
         string template = File.ReadAllText(templatePath);
         string output = template
             .Replace("// [[PROVIDER_IMPORTS]]", imports.ToString().TrimEnd())
-            .Replace("                    {/* [[PROVIDERS]] */}", nestedJsx);
+            .Replace("                    {/* [[PROVIDERS]] */}", nestedJsx)
+            .Replace("[[DATETIME]]", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
 
         Directory.CreateDirectory(appOutputDir);
         File.WriteAllText(Path.Combine(appOutputDir, "layout.tsx"), output);

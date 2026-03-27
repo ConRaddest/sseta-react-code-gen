@@ -128,7 +128,9 @@ static class ApiTypeGenerator
         }
 
         string template = File.ReadAllText(templatePath);
-        string output = template.Replace("// [[TYPES]]", sb.ToString().TrimEnd());
+        string output = template
+            .Replace("// [[TYPES]]", sb.ToString().TrimEnd())
+            .Replace("[[DATETIME]]", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
 
         Directory.CreateDirectory(Path.GetDirectoryName(outputPath)!);
         File.WriteAllText(outputPath, output);

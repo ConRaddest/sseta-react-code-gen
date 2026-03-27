@@ -413,7 +413,9 @@ static class ContextGenerator
 
     static string ApplyTemplate(string content, string? templatePath) =>
         templatePath != null && File.Exists(templatePath)
-            ? File.ReadAllText(templatePath).Replace("// [[CONTENT]]", content)
+            ? File.ReadAllText(templatePath)
+                .Replace("// [[CONTENT]]", content)
+                .Replace("[[DATETIME]]", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"))
             : content;
 
     // The search response type from swagger is the wrapper row type, e.g. AccessStaffRoleRequestSearchResponse.

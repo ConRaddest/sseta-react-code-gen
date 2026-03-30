@@ -3,25 +3,7 @@
     "StaffRoleRequest": {
       "Create": [
         "requestReason",
-        "name",
-        "rejectionReason",
-        "reviewedOn"
-      ],
-      "View": [
-        "name",
-        "requestedBySystemUserName",
-        "reviewedBySystemUserName",
-        "roleName",
-        "statusName",
-        "createdBySystemUserName",
-        "modifiedBySystemUserName",
-        "deletedBySystemUserName",
-        "requestReason",
-        "rejectionReason",
-        "reviewedOn",
-        "createdOn",
-        "modifiedOn",
-        "deletedOn"
+        "roleId"
       ]
     }
   },

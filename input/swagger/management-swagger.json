@@ -181,6 +181,79 @@
         }
       }
     },
+    "/api/management/ACCESS/Role/Search": {
+      "post": {
+        "tags": [
+          "Role"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RoleACCESSSearchRequestModel"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RoleACCESSSearchRequestModel"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/RoleACCESSSearchRequestModel"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/RoleACCESSSearchRequestModel"
+              }
+            },
+            "text/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/RoleACCESSSearchRequestModel"
+              }
+            },
+            "application/*+xml": {
+              "schema": {
+                "$ref": "#/components/schemas/RoleACCESSSearchRequestModel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/RoleACCESSSearchResponseSETAApiResponse"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RoleACCESSSearchResponseSETAApiResponse"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RoleACCESSSearchResponseSETAApiResponse"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/RoleACCESSSearchResponseSETAApiResponse"
+                }
+              },
+              "text/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/RoleACCESSSearchResponseSETAApiResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/management/ADMIN/Role/Search": {
       "post": {
         "tags": [
@@ -685,106 +758,6 @@
               "text/xml": {
                 "schema": {
                   "$ref": "#/components/schemas/StaffRoleRequestACCESSCreateResponseModelSETAApiResponse"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/management/ACCESS/StaffRoleRequest/Delete/{id}": {
-      "delete": {
-        "tags": [
-          "StaffRoleRequest"
-        ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int64"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/BooleanSETAApiResponse"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/BooleanSETAApiResponse"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/BooleanSETAApiResponse"
-                }
-              },
-              "application/xml": {
-                "schema": {
-                  "$ref": "#/components/schemas/BooleanSETAApiResponse"
-                }
-              },
-              "text/xml": {
-                "schema": {
-                  "$ref": "#/components/schemas/BooleanSETAApiResponse"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/management/ACCESS/StaffRoleRequest/Retrieve/{id}": {
-      "get": {
-        "tags": [
-          "StaffRoleRequest"
-        ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int64"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/StaffRoleRequestACCESSRetrieveResponseModelSETAApiResponse"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/StaffRoleRequestACCESSRetrieveResponseModelSETAApiResponse"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/StaffRoleRequestACCESSRetrieveResponseModelSETAApiResponse"
-                }
-              },
-              "application/xml": {
-                "schema": {
-                  "$ref": "#/components/schemas/StaffRoleRequestACCESSRetrieveResponseModelSETAApiResponse"
-                }
-              },
-              "text/xml": {
-                "schema": {
-                  "$ref": "#/components/schemas/StaffRoleRequestACCESSRetrieveResponseModelSETAApiResponse"
                 }
               }
             }
@@ -1763,6 +1736,82 @@
         },
         "additionalProperties": false
       },
+      "RoleACCESSSearchRequestModel": {
+        "required": [
+          "filterByList",
+          "orderByList",
+          "pageNumber",
+          "pageSize"
+        ],
+        "type": "object",
+        "properties": {
+          "pageNumber": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "pageSize": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "filterByList": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Filterbylist"
+            }
+          },
+          "orderByList": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Orderbylist"
+            }
+          }
+        },
+        "additionalProperties": false
+      },
+      "RoleACCESSSearchResponse": {
+        "type": "object",
+        "properties": {
+          "totalRows": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "searchResults": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/RoleACCESSSearchResponseModel"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "RoleACCESSSearchResponseModel": {
+        "type": "object",
+        "properties": {
+          "roleId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "RoleACCESSSearchResponseSETAApiResponse": {
+        "type": "object",
+        "properties": {
+          "errorMessage": {
+            "type": "string",
+            "nullable": true
+          },
+          "data": {
+            "$ref": "#/components/schemas/RoleACCESSSearchResponse"
+          }
+        },
+        "additionalProperties": false
+      },
       "RoleADMINSearchRequestModel": {
         "required": [
           "filterByList",
@@ -2221,18 +2270,12 @@
       },
       "StaffRoleRequestACCESSCreateRequestModel": {
         "required": [
-          "requestedBySystemUserId",
           "requestReason",
           "roleId",
           "statusId"
         ],
         "type": "object",
         "properties": {
-          "requestedBySystemUserId": {
-            "type": "integer",
-            "description": "ParentTable:SystemUser",
-            "format": "int64"
-          },
           "requestReason": {
             "maxLength": 250,
             "minLength": 0,
@@ -2247,29 +2290,6 @@
             "type": "integer",
             "description": "ParentTable:Status",
             "format": "int64"
-          },
-          "name": {
-            "maxLength": 250,
-            "minLength": 0,
-            "type": "string",
-            "nullable": true
-          },
-          "reviewedBySystemUserId": {
-            "type": "integer",
-            "description": "ParentTable:SystemUser",
-            "format": "int64",
-            "nullable": true
-          },
-          "rejectionReason": {
-            "maxLength": 250,
-            "minLength": 0,
-            "type": "string",
-            "nullable": true
-          },
-          "reviewedOn": {
-            "type": "string",
-            "format": "date-time",
-            "nullable": true
           }
         },
         "additionalProperties": false
@@ -2294,128 +2314,6 @@
           },
           "data": {
             "$ref": "#/components/schemas/StaffRoleRequestACCESSCreateResponseModel"
-          }
-        },
-        "additionalProperties": false
-      },
-      "StaffRoleRequestACCESSRetrieveResponseModel": {
-        "type": "object",
-        "properties": {
-          "reviewedOn": {
-            "type": "string",
-            "format": "date-time",
-            "nullable": true
-          },
-          "createdOn": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "modifiedOn": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "deletedOn": {
-            "type": "string",
-            "format": "date-time",
-            "nullable": true
-          },
-          "staffRoleRequestId": {
-            "type": "integer",
-            "format": "int64"
-          },
-          "requestedBySystemUserId": {
-            "type": "integer",
-            "description": "ParentTable:SystemUser",
-            "format": "int64"
-          },
-          "reviewedBySystemUserId": {
-            "type": "integer",
-            "description": "ParentTable:SystemUser",
-            "format": "int64",
-            "nullable": true
-          },
-          "roleId": {
-            "type": "integer",
-            "description": "ParentTable:Role",
-            "format": "int64"
-          },
-          "statusId": {
-            "type": "integer",
-            "description": "ParentTable:Status",
-            "format": "int64"
-          },
-          "createdBySystemUserId": {
-            "type": "integer",
-            "description": "ParentTable:SystemUser",
-            "format": "int64"
-          },
-          "modifiedBySystemUserId": {
-            "type": "integer",
-            "description": "ParentTable:SystemUser",
-            "format": "int64"
-          },
-          "deletedBySystemUserId": {
-            "type": "integer",
-            "description": "ParentTable:SystemUser",
-            "format": "int64",
-            "nullable": true
-          },
-          "name": {
-            "type": "string",
-            "nullable": true
-          },
-          "requestedBySystemUserName": {
-            "type": "string",
-            "nullable": true
-          },
-          "reviewedBySystemUserName": {
-            "type": "string",
-            "nullable": true
-          },
-          "requestReason": {
-            "type": "string",
-            "nullable": true
-          },
-          "rejectionReason": {
-            "type": "string",
-            "nullable": true
-          },
-          "roleName": {
-            "type": "string",
-            "nullable": true
-          },
-          "statusName": {
-            "type": "string",
-            "nullable": true
-          },
-          "statusReason": {
-            "type": "string",
-            "nullable": true
-          },
-          "createdBySystemUserName": {
-            "type": "string",
-            "nullable": true
-          },
-          "modifiedBySystemUserName": {
-            "type": "string",
-            "nullable": true
-          },
-          "deletedBySystemUserName": {
-            "type": "string",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
-      "StaffRoleRequestACCESSRetrieveResponseModelSETAApiResponse": {
-        "type": "object",
-        "properties": {
-          "errorMessage": {
-            "type": "string",
-            "nullable": true
-          },
-          "data": {
-            "$ref": "#/components/schemas/StaffRoleRequestACCESSRetrieveResponseModel"
           }
         },
         "additionalProperties": false

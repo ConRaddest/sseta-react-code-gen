@@ -1,5 +1,5 @@
 =================================================================
-Code Generation Log - 2026-03-27 20:48:22
+Code Generation Log - 2026-03-30 09:31:13
 =================================================================
 
 =================================================================
@@ -20,19 +20,17 @@ Fetching swagger: https://localhost:7222/swagger/v1/swagger.json
   Version:         1.0
 
   Fields Manifest
-    ⚠ Skipping StaffRoleRequest.requestedBySystemUserId (no search endpoint)
-    ⚠ Skipping StaffRoleRequest.roleId (no search endpoint)
-    ⚠ Skipping StaffRoleRequest.reviewedBySystemUserId (no search endpoint)
     2 resource(s) written to management-fields.json
 
   Services
-    ✓ api.service.ts  (22 endpoints across 7 modules)
+    ✓ api.service.ts  (21 endpoints across 7 modules)
 
   Types
     ✓ api.types.ts
 
   Contexts
     ✓ ACCESS/DepartmentType
+    ✓ ACCESS/Role
     ✓ ACCESS/StaffRoleRequest
     ✓ ADMIN/Role
     ✓ ADMIN/StaffRoleRequest
@@ -41,7 +39,7 @@ Fetching swagger: https://localhost:7222/swagger/v1/swagger.json
     ✓ PMVR/Role
     ✓ SP/Role
     ✓ SPI/Role
-    9 context(s) generated.
+    10 context(s) generated.
 
   Create Forms
     ✓ ACCESS/StaffRoleRequest
@@ -52,23 +50,18 @@ Fetching swagger: https://localhost:7222/swagger/v1/swagger.json
     1 update form(s) generated.
 
   View Forms
-    ✓ ACCESS/StaffRoleRequest
     ✓ ADMIN/StaffRoleRequest
-    2 view form(s) generated.
+    1 view form(s) generated.
 
   Delete Forms
-    ✓ ACCESS/StaffRoleRequest
-    1 delete form(s) generated.
+    0 delete form(s) generated.
 
   Field Hooks
-    ⚠ Skipping StaffRoleRequest.requestedBySystemUserId (no search endpoint)
-    ⚠ Skipping StaffRoleRequest.roleId (no search endpoint)
-    ⚠ Skipping StaffRoleRequest.reviewedBySystemUserId (no search endpoint)
     ✓ ACCESS/StaffRoleRequest
     1 field hook(s) generated.
 
   Provider Layout
-    ✓ layout.tsx  (9 provider(s))
+    ✓ layout.tsx  (10 provider(s))
 
   Completed generation:
     ✓ Services:       C:/DEV/PMIS/react-frontend-v2/management-portal/src\services

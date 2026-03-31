@@ -1,0 +1,29 @@
+{
+  "B": {
+    "PartnerRoleRequest": {
+      "Create": [
+        "name",
+        "requestReason"
+      ],
+      "View": [
+        "name",
+        "organisationName",
+        "requestedBySystemUserName",
+        "reviewedBySystemUserName",
+        "createdBySystemUserName",
+        "modifiedBySystemUserName",
+        "deletedBySystemUserName",
+        "requestReason",
+        "rejectionReason",
+        "reviewedOn",
+        "createdOn",
+        "modifiedOn",
+        "deletedOn"
+      ],
+      "Update": [
+        "name",
+        "requestReason"
+      ]
+    }
+  }
+}

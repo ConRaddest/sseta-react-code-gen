@@ -12,7 +12,7 @@ namespace ReactCodegen;
 // operation exists for the resource. All other operations are included only when present.
 static class ContextGenerator
 {
-    public static void Generate(JsonObject paths, JsonObject? schemas, string contextsOutputDir, HashSet<string>? blacklist = null, string? templatePath = null)
+    public static void Generate(JsonObject paths, JsonObject? schemas, string contextsOutputDir, HashSet<string>? blacklist = null, string? templatePath = null, string apiPrefix = "management")
     {
         // module → resource → operations
         var modules = new SortedDictionary<string, SortedDictionary<string, ResourceOps>>(StringComparer.Ordinal);
@@ -22,9 +22,9 @@ static class ContextGenerator
             if (pathNode == null) continue;
 
             var parts = rawPath.TrimStart('/').Split('/');
-            // /api/management/{MODULE}/{Resource}/{Operation}
+            // /api/{apiPrefix}/{MODULE}/{Resource}/{Operation}
             if (parts.Length < 5) continue;
-            if (parts[0] != "api" || parts[1] != "management") continue;
+            if (parts[0] != "api" || parts[1] != apiPrefix) continue;
 
             string module = parts[2];
             string resource = parts[3];

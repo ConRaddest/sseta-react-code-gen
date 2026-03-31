@@ -7,8 +7,8 @@ namespace ReactCodegen;
 //
 // URL convention assumed:
 //   /api/Auth/{Operation}                              → Auth group (flat)
-//   /api/management/{MODULE}/{Resource}/{Operation}    → module → resource groups
-//   /api/management/{MODULE}/{Resource}/{Operation}/{id}
+//   /api/{apiPrefix}/{MODULE}/{Resource}/{Operation}   → module → resource groups
+//   /api/{apiPrefix}/{MODULE}/{Resource}/{Operation}/{id}
 //
 // Excluded tags: HealthCheck, sso
 static class ApiServiceGenerator
@@ -18,7 +18,7 @@ static class ApiServiceGenerator
     // Auth paths that are handled externally and should not be generated
     static readonly HashSet<string> ExcludedPaths = ["/api/Auth/sso/login", "/api/Auth/sso/callback"];
 
-    public static void Generate(JsonObject paths, JsonObject? schemas, string templatePath, string outputPath)
+    public static void Generate(JsonObject paths, JsonObject? schemas, string templatePath, string outputPath, string apiPrefix = "management")
     {
         // ---------------------------------------------------------------
         // 1. Parse every path into a structured endpoint list
@@ -63,18 +63,19 @@ static class ApiServiceGenerator
         }
 
         // ---------------------------------------------------------------
-        // 2. Group: Auth (flat) vs management (module → resource)
+        // 2. Group: Auth (flat) vs module/resource
         // ---------------------------------------------------------------
         var authEndpoints = endpoints.Where(e => e.RawPath.StartsWith("/api/Auth/")).ToList();
 
         // module → resource → endpoints
         var modules = new SortedDictionary<string, SortedDictionary<string, List<Endpoint>>>(StringComparer.Ordinal);
+        string modulePrefixFilter = $"/api/{apiPrefix}/";
 
-        foreach (var ep in endpoints.Where(e => e.RawPath.StartsWith("/api/management/")))
+        foreach (var ep in endpoints.Where(e => e.RawPath.StartsWith(modulePrefixFilter)))
         {
-            // /api/management/{MODULE}/{Resource}/...
+            // /api/{apiPrefix}/{MODULE}/{Resource}/...
             var parts = ep.RawPath.TrimStart('/').Split('/');
-            // parts[0]=api, [1]=management, [2]=MODULE, [3]=Resource, [4]=Operation, [5]={id}?
+            // parts[0]=api, [1]=apiPrefix, [2]=MODULE, [3]=Resource, [4]=Operation, [5]={id}?
             if (parts.Length < 5) continue;
 
             string module = parts[2];
@@ -161,6 +162,18 @@ static class ApiServiceGenerator
         foreach (var (_, resources) in modules)
             collectGroup(resources.Values.SelectMany(e => e), isAuth: false);
 
+        // Determine which @sseta/components types are actually used
+        bool usesFetchRequest    = endpoints.Any(e => e.RawPath.EndsWith("/Search", StringComparison.OrdinalIgnoreCase) && !ExcludedPaths.Contains(e.RawPath));
+        bool usesSearchResponse  = usesFetchRequest;
+        bool usesValidateResponse = endpoints.Any(e =>
+            ResolveResponseType(e.ResponseSchemaRef, schemas) == "ValidateResponse");
+
+        var ssetaImports = new List<string> { "ApiResponse" };
+        if (usesFetchRequest)    ssetaImports.Add("FetchRequest");
+        if (usesSearchResponse)  ssetaImports.Add("SearchResponse");
+        if (usesValidateResponse) ssetaImports.Add("ValidateResponse");
+        string ssetaImportLine = $"import {{ {string.Join(", ", ssetaImports)} }} from \"@sseta/components\"";
+
         // Derive the types file name from the service output file name
         // e.g. management-api.service.ts → management-api.types
         string typesFileName = Path.GetFileName(outputPath).Replace(".service.ts", ".types");
@@ -173,6 +186,7 @@ static class ApiServiceGenerator
         // ---------------------------------------------------------------
         string template = File.ReadAllText(templatePath);
         string output = template
+            .Replace("// [[SSETA_IMPORTS]]", ssetaImportLine)
             .Replace("// [[API_EXPORT]]", sb.ToString().TrimEnd())
             .Replace("// [[TYPE_IMPORTS]]", typeImportLine);
 
@@ -195,21 +209,32 @@ static class ApiServiceGenerator
 
         string responseType = Formatters.AddAuthPrefix(ResolveResponseType(ep.ResponseSchemaRef, schemas));
 
-        return ep.Method switch
+        if (ep.Method == "get")
         {
-            "get" => $"    {operation}: async (): Promise<ApiResponse<{responseType}>> => {{\n" +
-                     $"      const response = await Client().get(\"{relPath}\")\n" +
-                     $"      return response.data\n" +
-                     $"    }},",
-            _ => $"    // {operation}: unsupported method {ep.Method}"
-        };
+            return $"    {operation}: async (): Promise<ApiResponse<{responseType}>> => {{\n" +
+                   $"      const response = await Client().get(\"{relPath}\")\n" +
+                   $"      return response.data\n" +
+                   $"    }},";
+        }
+
+        // POST / PUT — resolve the request type
+        string requestType = ep.RequestSchemaRef != null
+            ? Formatters.AddAuthPrefix(Formatters.ResolveRequestType(ep.RequestSchemaRef))
+            : "unknown";
+
+        string httpMethod = ep.Method == "put" ? "put" : "post";
+
+        return $"    {operation}: async (payload: {requestType}): Promise<ApiResponse<{responseType}>> => {{\n" +
+               $"      const response = await Client().{httpMethod}(\"{relPath}\", payload)\n" +
+               $"      return response.data\n" +
+               $"    }},";
     }
 
     static string RenderManagementMethod(Endpoint ep, JsonObject? schemas)
     {
-        // /api/management/{MODULE}/{Resource}/{Operation}/{id}?
+        // /api/{apiPrefix}/{MODULE}/{Resource}/{Operation}/{id}?
         var parts = ep.RawPath.TrimStart('/').Split('/');
-        // parts: api, management, MODULE, Resource, Operation, {id}?
+        // parts: api, apiPrefix, MODULE, Resource, Operation, {id}?
         string operation = Formatters.ToCamelCase(parts[4]);
         bool hasPathParam = parts.Length > 5 && parts[5].StartsWith("{");
         string pathParam = hasPathParam ? ep.PathParams.FirstOrDefault() ?? "id" : "";

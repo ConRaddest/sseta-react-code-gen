@@ -79,7 +79,7 @@ export default function AccessStaffRoleRequestCreateForm(props: AccessStaffRoleR
     <div className="flex flex-col flex-1 min-h-0">
       <FormValidationErrors errors={apiErrors} className="mx-auto max-w-4xl w-full mb-4" />
       <FormTemplate
-        control={control}
+        control={control as any}
         fields={fields}
         layout={layout}
         hiddenFields={hiddenFields}

@@ -17,7 +17,8 @@ static class ViewFormGenerator
         string formsOutputDir,
         HashSet<string>? blacklist = null,
         string? formTemplatePath = null,
-        string? layoutTemplatePath = null)
+        string? layoutTemplatePath = null,
+        string apiPrefix = "management")
     {
         var endpoints = new List<ViewEndpoint>();
 
@@ -26,7 +27,7 @@ static class ViewFormGenerator
             if (pathNode == null) continue;
             var parts = rawPath.TrimStart('/').Split('/');
             if (parts.Length < 5) continue;
-            if (parts[0] != "api" || parts[1] != "management") continue;
+            if (parts[0] != "api" || parts[1] != apiPrefix) continue;
             if (blacklist != null && (blacklist.Contains($"{parts[2]}.{parts[3]}") || blacklist.Contains($"{parts[2]}.{parts[3]}.View"))) continue;
             if (!string.Equals(parts[4], "Retrieve", StringComparison.OrdinalIgnoreCase)) continue;
 
@@ -61,7 +62,7 @@ static class ViewFormGenerator
 
             var properties = retrieveSchema?["properties"]?.AsObject();
 
-            var searchableResources = Formatters.BuildSearchableResources(paths, ep.Module);
+            var searchableResources = Formatters.BuildSearchableResources(paths, ep.Module, apiPrefix);
 
             File.WriteAllText(Path.Combine(dir, $"{prefix}ViewForm.tsx"),
                 ApplyTemplate(RenderForm(ep, prefix), formTemplatePath));

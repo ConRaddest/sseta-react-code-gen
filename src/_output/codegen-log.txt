@@ -1,5 +1,5 @@
 =================================================================
-Code Generation Log - 2026-03-30 09:31:13
+Code Generation Log - 2026-03-31 10:19:01
 =================================================================
 
 =================================================================
@@ -74,8 +74,61 @@ Fetching swagger: https://localhost:7222/swagger/v1/swagger.json
 =================================================================
 Portal: partner
 =================================================================
-Fetching swagger: https://localhost:7223/swagger/v1/swagger.json
-  Skipping portal and continuing (ensure api is running and endpoints are correctly configured)
+Fetching swagger: https://localhost:7132/swagger/v1/swagger.json
+
+  OpenAPI Version: 3.0.4
+  Title:           Partner API
+  Version:         1.0
+
+  Fields Manifest
+    ⚠ Skipping PartnerRoleRequest.organisationId (no search endpoint)
+    ⚠ Skipping PartnerRoleRequest.organisationId (no search endpoint)
+    1 resource(s) written to partner-fields.json
+
+  Services
+    ✓ api.service.ts  (13 endpoints across 2 modules)
+
+  Types
+    ✓ api.types.ts
+
+  Contexts
+    ✓ B/PartnerRoleRequest
+    ✓ B/PersonType
+    ✓ ECD/PersonType
+    3 context(s) generated.
+
+  Create Forms
+    ✓ B/PartnerRoleRequest
+    1 create form(s) generated.
+
+  Update Forms
+    ⚠ Skipping PartnerRoleRequest.organisationId (no search endpoint)
+    ✓ B/PartnerRoleRequest
+    1 update form(s) generated.
+
+  View Forms
+    ✓ B/PartnerRoleRequest
+    1 view form(s) generated.
+
+  Delete Forms
+    ✓ B/PartnerRoleRequest
+    1 delete form(s) generated.
+
+  Field Hooks
+    ⚠ Skipping PartnerRoleRequest.organisationId (no search endpoint)
+    ✓ B/PartnerRoleRequest
+    1 field hook(s) generated.
+
+  Provider Layout
+    ✓ layout.tsx  (3 provider(s))
+
+  Completed generation:
+    ✓ Services:       C:/DEV/PMIS/react-frontend-v2/partner-portal/src\services
+    ✓ Types:          C:/DEV/PMIS/react-frontend-v2/partner-portal/src\types
+    ✓ Contexts:       C:/DEV/PMIS/react-frontend-v2/partner-portal/src\contexts
+    ✓ Forms:          C:/DEV/PMIS/react-frontend-v2/partner-portal/src\forms
+    ✓ App:            C:/DEV/PMIS/react-frontend-v2/partner-portal/src\app
+    ✓ Fields Manifest: C:/DEV/PMIS/react-frontend-v2/partner-portal/src\../../code-gen/input/fields-manifest/partner-fields.json
 
 =================================================================
 Portal: learner

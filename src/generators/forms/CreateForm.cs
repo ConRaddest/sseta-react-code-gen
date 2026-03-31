@@ -17,7 +17,8 @@ static class CreateFormGenerator
         JsonObject? schemas,
         string formsOutputDir,
         HashSet<string>? blacklist = null,
-        string? templatePath = null)
+        string? templatePath = null,
+        string apiPrefix = "management")
     {
         // Collect every (module, resource) pair that has a Create endpoint
         var createEndpoints = new List<CreateEndpoint>();
@@ -26,10 +27,10 @@ static class CreateFormGenerator
         {
             if (pathNode == null) continue;
 
-            // Only management paths: /api/management/{MODULE}/{Resource}/Create
+            // Only portal paths: /api/{apiPrefix}/{MODULE}/{Resource}/Create
             var parts = rawPath.TrimStart('/').Split('/');
             if (parts.Length < 5) continue;
-            if (parts[0] != "api" || parts[1] != "management") continue;
+            if (parts[0] != "api" || parts[1] != apiPrefix) continue;
             if (blacklist != null && (blacklist.Contains($"{parts[2]}.{parts[3]}") || blacklist.Contains($"{parts[2]}.{parts[3]}.Create"))) continue;
             if (!string.Equals(parts[4], "Create", StringComparison.OrdinalIgnoreCase)) continue;
 
@@ -90,9 +91,8 @@ static class CreateFormGenerator
         // Derive the id field, e.g. "staffRoleRequestId"
         string idField = Formatters.GetIdFieldName(resource);
 
-        // Determine what the create() return value looks like.
-        // If the response type ends in "CreateResponse" it likely has an id field.
-        bool hasIdInResponse = responseType.EndsWith("CreateResponse");
+        // Create responses always return the id of the created record.
+        bool hasIdInResponse = true;
 
         string typesImportPath = "@/types/api.types";
 
@@ -183,7 +183,7 @@ static class CreateFormGenerator
         sb.AppendLine();
         sb.AppendLine("  return (");
         sb.AppendLine("    <FormTemplate");
-        sb.AppendLine("      control={control}");
+        sb.AppendLine("      control={control as any}");
         sb.AppendLine("      fields={fields}");
         sb.AppendLine("      layout={layout}");
         sb.AppendLine("      hiddenFields={hiddenFields}");

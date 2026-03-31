@@ -14,7 +14,8 @@ static class UseFieldsGenerator
         JsonObject? fieldLayout,
         string formsOutputDir,
         HashSet<string>? blacklist = null,
-        string? templatePath = null)
+        string? templatePath = null,
+        string apiPrefix = "management")
     {
         var createEndpoints = new List<(string Module, string Resource, string RequestType)>();
 
@@ -23,7 +24,7 @@ static class UseFieldsGenerator
             if (pathNode == null) continue;
             var parts = rawPath.TrimStart('/').Split('/');
             if (parts.Length < 5) continue;
-            if (parts[0] != "api" || parts[1] != "management") continue;
+            if (parts[0] != "api" || parts[1] != apiPrefix) continue;
             if (blacklist != null && (blacklist.Contains($"{parts[2]}.{parts[3]}") || blacklist.Contains($"{parts[2]}.{parts[3]}.Create"))) continue;
             if (!string.Equals(parts[4], "Create", StringComparison.OrdinalIgnoreCase)) continue;
 
@@ -59,7 +60,7 @@ static class UseFieldsGenerator
                 foreach (var r in requiredArray)
                     if (r?.GetValue<string>() is string s) requiredFields.Add(s);
 
-            var searchableResources = Formatters.BuildSearchableResources(paths, module);
+            var searchableResources = Formatters.BuildSearchableResources(paths, module, apiPrefix);
             var orderedFields = GetOrderedFields(resource, fieldLayout, properties, searchableResources);
             var fkFields = CollectFkFields(module, modulePascal, orderedFields, properties, searchableResources);
 

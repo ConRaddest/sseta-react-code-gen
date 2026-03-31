@@ -47,8 +47,9 @@
     },
     {
       "name": "partner",
+      "apiPrefix": "partner",
       "input": {
-        "swaggerUrl": "https://localhost:7223/swagger/v1/swagger.json",
+        "swaggerUrl": "https://localhost:7132/swagger/v1/swagger.json",
         "swaggerCachePath": "input/swagger/partner-swagger.json",
         "fieldLayoutPath": "input/form-layout/partner-layout.json",
         "providerLayout": "src/templates/providers/partner-layout.tsx"

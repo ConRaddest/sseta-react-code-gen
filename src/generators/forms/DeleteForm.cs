@@ -14,7 +14,8 @@ static class DeleteFormGenerator
         JsonObject? schemas,
         string formsOutputDir,
         HashSet<string>? blacklist = null,
-        string? templatePath = null)
+        string? templatePath = null,
+        string apiPrefix = "management")
     {
         var endpoints = new List<DeleteEndpoint>();
 
@@ -23,7 +24,7 @@ static class DeleteFormGenerator
             if (pathNode == null) continue;
             var parts = rawPath.TrimStart('/').Split('/');
             if (parts.Length < 5) continue;
-            if (parts[0] != "api" || parts[1] != "management") continue;
+            if (parts[0] != "api" || parts[1] != apiPrefix) continue;
             if (blacklist != null && (blacklist.Contains($"{parts[2]}.{parts[3]}") || blacklist.Contains($"{parts[2]}.{parts[3]}.Delete"))) continue;
             if (!string.Equals(parts[4], "Delete", StringComparison.OrdinalIgnoreCase)) continue;
 

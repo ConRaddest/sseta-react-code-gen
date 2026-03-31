@@ -19,7 +19,8 @@ static class UpdateFormGenerator
         string formsOutputDir,
         HashSet<string>? blacklist = null,
         string? formTemplatePath = null,
-        string? fieldsTemplatePath = null)
+        string? fieldsTemplatePath = null,
+        string apiPrefix = "management")
     {
         var endpoints = new List<UpdateEndpoint>();
 
@@ -28,7 +29,7 @@ static class UpdateFormGenerator
             if (pathNode == null) continue;
             var parts = rawPath.TrimStart('/').Split('/');
             if (parts.Length < 5) continue;
-            if (parts[0] != "api" || parts[1] != "management") continue;
+            if (parts[0] != "api" || parts[1] != apiPrefix) continue;
             if (blacklist != null && (blacklist.Contains($"{parts[2]}.{parts[3]}") || blacklist.Contains($"{parts[2]}.{parts[3]}.Update"))) continue;
             if (!string.Equals(parts[4], "Update", StringComparison.OrdinalIgnoreCase)) continue;
 
@@ -70,7 +71,7 @@ static class UpdateFormGenerator
                 foreach (var r in requiredArray)
                     if (r?.GetValue<string>() is string s) requiredFields.Add(s);
 
-            var searchableResources = Formatters.BuildSearchableResources(paths, ep.Module);
+            var searchableResources = Formatters.BuildSearchableResources(paths, ep.Module, apiPrefix);
             var orderedFields = UseFieldsGenerator.GetOrderedFields(ep.Resource, fieldLayout, properties, searchableResources);
             var fkFields = UseFieldsGenerator.CollectFkFields(ep.Module, modulePascal, orderedFields, properties, searchableResources);
 
@@ -162,7 +163,7 @@ static class UpdateFormGenerator
         sb.AppendLine("      try {");
         sb.AppendLine($"        const record = await retrieve({idField})");
         sb.AppendLine("        if (!record) return");
-        sb.AppendLine("        reset({ ...record, ...defaultValues })");
+        sb.AppendLine("        reset({ ...(record as any), ...defaultValues })");
         sb.AppendLine("      } catch (error) {");
         sb.AppendLine($"        console.error(\"Failed to fetch {Formatters.ToTitleCase(ep.Resource).ToLower()}:\", error)");
         sb.AppendLine("      } finally {");
@@ -188,7 +189,7 @@ static class UpdateFormGenerator
         sb.AppendLine();
         sb.AppendLine("  return (");
         sb.AppendLine("    <FormTemplate");
-        sb.AppendLine("      control={control}");
+        sb.AppendLine("      control={control as any}");
         sb.AppendLine("      fields={fields}");
         sb.AppendLine("      layout={layout}");
         sb.AppendLine("      hiddenFields={hiddenFields}");

@@ -69,6 +69,7 @@ namespace ReactCodegen
                     }
                     return new PortalConfig(
                         Name:                 p["name"]?.GetValue<string>()             ?? throw new Exception("Portal missing name."),
+                        ApiPrefix:            p["apiPrefix"]?.GetValue<string>()        ?? "management",
                         SwaggerUrl:           i["swaggerUrl"]?.GetValue<string>()       ?? throw new Exception("Portal missing input.swaggerUrl."),
                         SwaggerCachePath:     i["swaggerCachePath"]?.GetValue<string>() ?? throw new Exception("Portal missing input.swaggerCachePath."),
                         FieldLayoutPath:      i["fieldLayoutPath"]?.GetValue<string>()  ?? throw new Exception("Portal missing input.fieldLayoutPath."),
@@ -226,11 +227,11 @@ namespace ReactCodegen
             Directory.CreateDirectory(Path.GetDirectoryName(portal.Output.FieldsManifest)!);
 
             Console.WriteLine("  Fields Manifest");
-            FieldsManifestGenerator.Generate(paths, schemas, fieldLayout?.AsObject(), portal.Output.FieldsManifest, portal.Blacklist);
+            FieldsManifestGenerator.Generate(paths, schemas, fieldLayout?.AsObject(), portal.Output.FieldsManifest, portal.Blacklist, portal.ApiPrefix);
             Console.WriteLine();
 
             Console.WriteLine("  Services");
-            ApiServiceGenerator.Generate(paths, schemas, serviceTemplatePath, Path.Combine(portal.Output.Services, "api.service.ts"));
+            ApiServiceGenerator.Generate(paths, schemas, serviceTemplatePath, Path.Combine(portal.Output.Services, "api.service.ts"), portal.ApiPrefix);
             Console.WriteLine();
 
             Console.WriteLine("  Types");
@@ -238,31 +239,31 @@ namespace ReactCodegen
             Console.WriteLine();
 
             Console.WriteLine("  Contexts");
-            ContextGenerator.Generate(paths, schemas, portal.Output.Contexts, portal.Blacklist, contextTemplate);
+            ContextGenerator.Generate(paths, schemas, portal.Output.Contexts, portal.Blacklist, contextTemplate, portal.ApiPrefix);
             Console.WriteLine();
 
             Console.WriteLine("  Create Forms");
-            CreateFormGenerator.Generate(paths, schemas, portal.Output.Forms, portal.Blacklist, createFormTemplate);
+            CreateFormGenerator.Generate(paths, schemas, portal.Output.Forms, portal.Blacklist, createFormTemplate, portal.ApiPrefix);
             Console.WriteLine();
 
             Console.WriteLine("  Update Forms");
-            UpdateFormGenerator.Generate(paths, schemas, fieldLayout?.AsObject(), portal.Output.Forms, portal.Blacklist, updateFormTemplate, useFieldsTemplate);
+            UpdateFormGenerator.Generate(paths, schemas, fieldLayout?.AsObject(), portal.Output.Forms, portal.Blacklist, updateFormTemplate, useFieldsTemplate, portal.ApiPrefix);
             Console.WriteLine();
 
             Console.WriteLine("  View Forms");
-            ViewFormGenerator.Generate(paths, schemas, fieldLayout?.AsObject(), portal.Output.Forms, portal.Blacklist, viewFormTemplate, useLayoutTemplate);
+            ViewFormGenerator.Generate(paths, schemas, fieldLayout?.AsObject(), portal.Output.Forms, portal.Blacklist, viewFormTemplate, useLayoutTemplate, portal.ApiPrefix);
             Console.WriteLine();
 
             Console.WriteLine("  Delete Forms");
-            DeleteFormGenerator.Generate(paths, schemas, portal.Output.Forms, portal.Blacklist, deleteFormTemplate);
+            DeleteFormGenerator.Generate(paths, schemas, portal.Output.Forms, portal.Blacklist, deleteFormTemplate, portal.ApiPrefix);
             Console.WriteLine();
 
             Console.WriteLine("  Field Hooks");
-            UseFieldsGenerator.Generate(paths, schemas, fieldLayout?.AsObject(), portal.Output.Forms, portal.Blacklist, useFieldsTemplate);
+            UseFieldsGenerator.Generate(paths, schemas, fieldLayout?.AsObject(), portal.Output.Forms, portal.Blacklist, useFieldsTemplate, portal.ApiPrefix);
             Console.WriteLine();
 
             Console.WriteLine("  Provider Layout");
-            ProviderLayoutGenerator.Generate(paths, portal.Output.App, portal.ProviderLayoutTemplate, portal.Blacklist);
+            ProviderLayoutGenerator.Generate(paths, portal.Output.App, portal.ProviderLayoutTemplate, portal.Blacklist, portal.ApiPrefix);
             Console.WriteLine();
 
             Console.WriteLine($"  Completed generation:");
@@ -288,6 +289,7 @@ namespace ReactCodegen
 
     record PortalConfig(
         string Name,
+        string ApiPrefix,
         string SwaggerUrl,
         string SwaggerCachePath,
         string FieldLayoutPath,

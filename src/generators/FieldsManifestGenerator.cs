@@ -12,7 +12,7 @@ namespace ReactCodegen;
 // Output: src/_output/{portal}/{portal}-fields.json
 static class FieldsManifestGenerator
 {
-    public static void Generate(JsonObject paths, JsonObject? schemas, JsonObject? fieldLayout, string outputPath, HashSet<string>? blacklist = null)
+    public static void Generate(JsonObject paths, JsonObject? schemas, JsonObject? fieldLayout, string outputPath, HashSet<string>? blacklist = null, string apiPrefix = "management")
     {
         // module (pascal) → resource → operation → fields in layout order
         var manifest = new SortedDictionary<string, SortedDictionary<string, Dictionary<string, List<string>>>>(StringComparer.Ordinal);
@@ -25,7 +25,7 @@ static class FieldsManifestGenerator
             if (pathNode == null) continue;
             var parts = rawPath.TrimStart('/').Split('/');
             if (parts.Length < 5) continue;
-            if (parts[0] != "api" || parts[1] != "management") continue;
+            if (parts[0] != "api" || parts[1] != apiPrefix) continue;
 
             string module   = parts[2];
             string resource = parts[3];
@@ -45,7 +45,7 @@ static class FieldsManifestGenerator
             if (!seen.Add(key)) continue;
 
             string modulePascal = Formatters.ToPascalCase(module.ToLower());
-            var searchableResources = Formatters.BuildSearchableResources(paths, module);
+            var searchableResources = Formatters.BuildSearchableResources(paths, module, apiPrefix);
 
             List<string>? fields = null;
 

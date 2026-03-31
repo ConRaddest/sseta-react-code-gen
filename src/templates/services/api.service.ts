@@ -2,7 +2,7 @@
 // !!---------- AUTO-GENERATED: Do not edit! -----------!!
 // !!---------------------------------------------------!!
 
-import { ApiResponse, FetchRequest, SearchResponse, ValidateResponse } from "@sseta/components"
+// [[SSETA_IMPORTS]]
 import axios, { AxiosInstance, AxiosProgressEvent } from "axios"
 
 // [[TYPE_IMPORTS]]

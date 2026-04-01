@@ -204,7 +204,7 @@ static class ApiTypeGenerator
     }
 
     // ---------------------------------------------------------------
-    // Render a single type entry — also emits any inlined nested types
+    // Render a single type entry — nested object types are inlined as anonymous types
     // ---------------------------------------------------------------
 
     static void RenderType(StringBuilder sb, TypeEntry entry, JsonObject schemas, HashSet<string> emitted)
@@ -212,18 +212,11 @@ static class ApiTypeGenerator
         var schema = Formatters.FindSchema(schemas, entry.SchemaName);
         bool isRequest = entry.SchemaName.EndsWith("RequestModel");
 
-        // Collect nested types that need to be emitted after this one
-        var nested = new List<(string TsName, string SchemaName)>();
-
         sb.AppendLine($"export interface {entry.TsName} {{");
         if (schema != null)
-            RenderProperties(sb, schema, schemas, entry.TsName, emitted, nested, isRequest);
+            RenderProperties(sb, schema, schemas, emitted, isRequest, indentLevel: 1);
         sb.AppendLine("}");
         sb.AppendLine();
-
-        // Emit nested types immediately after the parent
-        foreach (var (nestedTsName, nestedSchemaName) in nested)
-            RenderType(sb, new TypeEntry(nestedTsName, nestedSchemaName, EntryKind.Direct), schemas, emitted);
     }
 
     // ---------------------------------------------------------------
@@ -234,10 +227,9 @@ static class ApiTypeGenerator
         StringBuilder sb,
         JsonObject schema,
         JsonObject allSchemas,
-        string parentTsName,
         HashSet<string> emitted,
-        List<(string TsName, string SchemaName)> nested,
-        bool isRequest = false)
+        bool isRequest = false,
+        int indentLevel = 1)
     {
         var props = schema["properties"]?.AsObject();
         if (props == null) return;
@@ -246,6 +238,8 @@ static class ApiTypeGenerator
             ?.Select(r => r?.GetValue<string>())
             .Where(r => r != null)
             .ToHashSet(StringComparer.Ordinal) ?? new HashSet<string?>();
+
+        string propIndent = new string(' ', indentLevel * 2);
 
         foreach (var (propName, propNode) in props)
         {
@@ -270,35 +264,23 @@ static class ApiTypeGenerator
                 optMark = "";
                 nullSuffix = isNullable ? " | null" : "";
             }
-            string tsType = ResolvePropertyType(propNode.AsObject(), allSchemas, parentTsName, emitted, nested);
-            sb.AppendLine($"  {propName}{optMark}: {tsType}{nullSuffix}");
+            string tsType = ResolvePropertyType(propNode.AsObject(), allSchemas, emitted, indentLevel);
+            sb.AppendLine($"{propIndent}{propName}{optMark}: {tsType}{nullSuffix}");
         }
     }
 
     static string ResolvePropertyType(
         JsonObject prop,
         JsonObject allSchemas,
-        string parentTsName,
         HashSet<string> emitted,
-        List<(string TsName, string SchemaName)> nested)
+        int indentLevel)
     {
-        // $ref — if the referenced type is not already emitted, nest it under the parent
+        // $ref — inline the referenced type as an anonymous object
         var refVal = prop["$ref"]?.GetValue<string>();
         if (!string.IsNullOrEmpty(refVal))
         {
             string refSchemaName = refVal.Split('/').Last();
-            string refTsName = Formatters.FormatTypeName(refSchemaName);
-
-            if (!emitted.Contains(refTsName))
-            {
-                // Nest as {ParentTsName}{RefTsName}
-                string nestedTsName = parentTsName + refTsName;
-                if (emitted.Add(nestedTsName))
-                    nested.Add((nestedTsName, refSchemaName));
-                return nestedTsName;
-            }
-
-            return refTsName;
+            return RenderInlineType(refSchemaName, allSchemas, emitted, indentLevel);
         }
 
         string? type = prop["type"]?.GetValue<string>();
@@ -310,17 +292,7 @@ static class ApiTypeGenerator
             if (!string.IsNullOrEmpty(itemRef))
             {
                 string refSchemaName = itemRef.Split('/').Last();
-                string refTsName = Formatters.FormatTypeName(refSchemaName);
-
-                if (!emitted.Contains(refTsName))
-                {
-                    string nestedTsName = parentTsName + refTsName;
-                    if (emitted.Add(nestedTsName))
-                        nested.Add((nestedTsName, refSchemaName));
-                    return $"{nestedTsName}[]";
-                }
-
-                return $"{refTsName}[]";
+                return $"{RenderInlineType(refSchemaName, allSchemas, emitted, indentLevel)}[]";
             }
 
             string itemType = prop["items"]?["type"]?.GetValue<string>() ?? "unknown";
@@ -337,6 +309,40 @@ static class ApiTypeGenerator
         if (format == "date-time") return "string";
 
         return Formatters.MapPrimitive(type);
+    }
+
+    // Recursively renders an anonymous inline object type string for the given schema.
+    // indentLevel: the nesting level of the property that holds this type (1 = top-level interface body).
+    static string RenderInlineType(string schemaName, JsonObject allSchemas, HashSet<string> emitted, int indentLevel)
+    {
+        var schema = Formatters.FindSchema(allSchemas, schemaName);
+        var props = schema?["properties"]?.AsObject();
+        if (props == null) return "unknown";
+
+        string propIndent  = new string(' ', (indentLevel + 1) * 2);
+        string closeIndent = new string(' ', indentLevel * 2);
+
+        var sb = new StringBuilder();
+        sb.AppendLine("{");
+
+        var required = schema?["required"]?.AsArray()
+            ?.Select(r => r?.GetValue<string>())
+            .Where(r => r != null)
+            .ToHashSet(StringComparer.Ordinal) ?? new HashSet<string?>();
+
+        foreach (var (propName, propNode) in props)
+        {
+            if (propNode == null) continue;
+
+            bool isNullable = propNode["nullable"]?.GetValue<bool>() ?? false;
+            string nullSuffix = isNullable ? " | null" : "";
+
+            string tsType = ResolvePropertyType(propNode.AsObject(), allSchemas, emitted, indentLevel + 1);
+            sb.AppendLine($"{propIndent}{propName}: {tsType}{nullSuffix}");
+        }
+
+        sb.Append($"{closeIndent}}}");
+        return sb.ToString();
     }
 
     // ---------------------------------------------------------------

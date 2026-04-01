@@ -2822,7 +2822,6 @@
       "StaffRoleRequestADMINValidateRequestModel": {
         "required": [
           "staffRoleRequestId",
-          "suppressValidationStepResults",
           "targetStatusId"
         ],
         "type": "object",
@@ -2834,9 +2833,6 @@
           "targetStatusId": {
             "type": "integer",
             "format": "int64"
-          },
-          "suppressValidationStepResults": {
-            "type": "boolean"
           }
         },
         "additionalProperties": false
@@ -2845,8 +2841,7 @@
         "type": "object",
         "properties": {
           "validationPassed": {
-            "type": "boolean",
-            "nullable": true
+            "type": "boolean"
           },
           "validationReasons": {
             "type": "array",
@@ -2922,7 +2917,7 @@
       "ValidationReason": {
         "type": "object",
         "properties": {
-          "validationStep": {
+          "validationTest": {
             "type": "string",
             "nullable": true
           },

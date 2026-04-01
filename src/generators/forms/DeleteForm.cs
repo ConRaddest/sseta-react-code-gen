@@ -17,6 +17,17 @@ static class DeleteFormGenerator
         string? templatePath = null,
         string apiPrefix = "management")
     {
+        // Collect resources that have a Retrieve (view) endpoint — delete forms require it.
+        var viewResources = new HashSet<string>(StringComparer.Ordinal);
+        foreach (var (rawPath, _) in paths)
+        {
+            var parts = rawPath.TrimStart('/').Split('/');
+            if (parts.Length < 5) continue;
+            if (parts[0] != "api" || parts[1] != apiPrefix) continue;
+            if (string.Equals(parts[4], "Retrieve", StringComparison.OrdinalIgnoreCase))
+                viewResources.Add($"{parts[2]}.{parts[3]}");
+        }
+
         var endpoints = new List<DeleteEndpoint>();
 
         foreach (var (rawPath, pathNode) in paths)
@@ -28,8 +39,14 @@ static class DeleteFormGenerator
             if (blacklist != null && (blacklist.Contains($"{parts[2]}.{parts[3]}") || blacklist.Contains($"{parts[2]}.{parts[3]}.Delete"))) continue;
             if (!string.Equals(parts[4], "Delete", StringComparison.OrdinalIgnoreCase)) continue;
 
-            string module   = parts[2];
+            string module = parts[2];
             string resource = parts[3];
+
+            if (!viewResources.Contains($"{module}.{resource}"))
+            {
+                Console.WriteLine($"    ⚠ Skipping: {module}/{resource} delete form — no view/retrieve endpoint found.");
+                continue;
+            }
 
             foreach (var (_, opNode) in pathNode.AsObject())
             {
@@ -42,8 +59,8 @@ static class DeleteFormGenerator
         int count = 0;
         foreach (var ep in endpoints)
         {
-            string modulePascal  = Formatters.ToPascalCase(ep.Module.ToLower());
-            string prefix        = modulePascal + ep.Resource;
+            string modulePascal = Formatters.ToPascalCase(ep.Module.ToLower());
+            string prefix = modulePascal + ep.Resource;
             string kebabResource = Formatters.ToKebabCase(ep.Resource);
             string dir = Path.Combine(formsOutputDir, ep.Module.ToLower(), kebabResource, "delete");
             Directory.CreateDirectory(dir);
@@ -62,7 +79,7 @@ static class DeleteFormGenerator
     {
         string contextHook = $"use{prefix}";
         string contextPath = $"@/contexts/resources/{ep.Module.ToLower()}/{prefix}Context";
-        string idField     = Formatters.GetIdFieldName(ep.Resource);
+        string idField = Formatters.GetIdFieldName(ep.Resource);
         string displayName = Formatters.ToTitleCase(ep.Resource);
 
         var sb = new StringBuilder();

@@ -22,6 +22,17 @@ static class UpdateFormGenerator
         string? fieldsTemplatePath = null,
         string apiPrefix = "management")
     {
+        // Collect resources that have a Retrieve (view) endpoint — update forms require it.
+        var viewResources = new HashSet<string>(StringComparer.Ordinal);
+        foreach (var (rawPath, _) in paths)
+        {
+            var parts = rawPath.TrimStart('/').Split('/');
+            if (parts.Length < 5) continue;
+            if (parts[0] != "api" || parts[1] != apiPrefix) continue;
+            if (string.Equals(parts[4], "Retrieve", StringComparison.OrdinalIgnoreCase))
+                viewResources.Add($"{parts[2]}.{parts[3]}");
+        }
+
         var endpoints = new List<UpdateEndpoint>();
 
         foreach (var (rawPath, pathNode) in paths)
@@ -35,6 +46,12 @@ static class UpdateFormGenerator
 
             string module = parts[2];
             string resource = parts[3];
+
+            if (!viewResources.Contains($"{module}.{resource}"))
+            {
+                Console.WriteLine($"    ⚠ Skipping: {module}/{resource} update form — no view/retrieve endpoint found.");
+                continue;
+            }
 
             foreach (var (method, opNode) in pathNode.AsObject())
             {

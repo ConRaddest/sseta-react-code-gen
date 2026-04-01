@@ -1,5 +1,5 @@
 =================================================================
-Code Generation Log - 2026-04-01 10:00:51
+Code Generation Log - 2026-04-01 15:18:16
 =================================================================
 
 =================================================================
@@ -83,44 +83,76 @@ Fetching swagger: https://localhost:7132/swagger/v1/swagger.json
   Fields Manifest
     ⚠ Skipping PartnerRoleRequest.organisationId (no search endpoint)
     ⚠ Skipping PartnerRoleRequest.organisationId (no search endpoint)
-    1 resource(s) written to partner-fields.json
+    ⚠ Skipping PartnerRoleRequestOrganisationPerson.organisationId (no search endpoint)
+    ⚠ Skipping PartnerRoleRequestOrganisationPerson.organisationId (no search endpoint)
+    ⚠ Skipping PartnerRoleRequestPersonOrganisationPersonType.partnerRoleRequestOrganisationPersonId (no search endpoint)
+    4 resource(s) written to partner-fields.json
 
   Services
-    ✓ api.service.ts  (13 endpoints across 2 modules)
+    ✓ api.service.ts  (40 endpoints across 2 modules)
 
   Types
     ✓ api.types.ts
 
   Contexts
+    ✓ B/AgeBracket
+    ✓ B/Citizenship
+    ✓ B/City
+    ✓ B/CommunityType
+    ✓ B/DisabilityRating
+    ✓ B/EconomicType
+    ✓ B/EquityCode
+    ✓ B/Gender
+    ✓ B/IdentityType
+    ✓ B/Language
+    ✓ B/MunicipalityLocal
+    ✓ B/Nationality
     ✓ B/PartnerRoleRequest
+    ✓ B/PartnerRoleRequestOrganisationPerson
+    ✓ B/PartnerRoleRequestPersonOrganisationPersonType
+    ✓ B/Person
     ✓ B/PersonType
+    ✓ B/Province
+    ✓ B/StatsSaArea
+    ✓ B/Title
     ✓ ECD/PersonType
-    3 context(s) generated.
+    21 context(s) generated.
 
   Create Forms
     ✓ B/PartnerRoleRequest
-    1 create form(s) generated.
+    ✓ B/PartnerRoleRequestOrganisationPerson
+    ✓ B/PartnerRoleRequestPersonOrganisationPersonType
+    3 create form(s) generated.
 
   Update Forms
     ⚠ Skipping PartnerRoleRequest.organisationId (no search endpoint)
     ✓ B/PartnerRoleRequest
-    1 update form(s) generated.
+    ⚠ Skipping PartnerRoleRequestOrganisationPerson.organisationId (no search endpoint)
+    ✓ B/PartnerRoleRequestOrganisationPerson
+    2 update form(s) generated.
 
   View Forms
     ✓ B/PartnerRoleRequest
-    1 view form(s) generated.
+    ✓ B/PartnerRoleRequestOrganisationPerson
+    ✓ B/Person
+    3 view form(s) generated.
 
   Delete Forms
-    ✓ B/PartnerRoleRequest
+    ⚠ Skipping: B/PartnerRoleRequestPersonOrganisationPersonType delete form — no view/retrieve endpoint found.
+    ✓ B/PartnerRoleRequestOrganisationPerson
     1 delete form(s) generated.
 
   Field Hooks
     ⚠ Skipping PartnerRoleRequest.organisationId (no search endpoint)
     ✓ B/PartnerRoleRequest
-    1 field hook(s) generated.
+    ⚠ Skipping PartnerRoleRequestOrganisationPerson.organisationId (no search endpoint)
+    ✓ B/PartnerRoleRequestOrganisationPerson
+    ⚠ Skipping PartnerRoleRequestPersonOrganisationPersonType.partnerRoleRequestOrganisationPersonId (no search endpoint)
+    ✓ B/PartnerRoleRequestPersonOrganisationPersonType
+    3 field hook(s) generated.
 
   Provider Layout
-    ✓ layout.tsx  (3 provider(s))
+    ✓ layout.tsx  (21 provider(s))
 
   Completed generation:
     ✓ Services:       C:/DEV/PMIS/react-frontend-v2/partner-portal/src\services

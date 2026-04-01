@@ -199,9 +199,15 @@ static class Formatters
 
         // RetrieveResponse is the canonical base model — strip the suffix so it becomes
         // the bare resource name (e.g. AdminStaffRoleRequest).
+        // For auth types (no module prefix) the Response suffix is re-added after module
+        // processing so the name stays consistent (e.g. AuthPersonAuthResponse).
         // SearchResponse is kept as a distinct type (e.g. AdminStaffRoleRequestSearchResponse).
+        bool strippedRetrieveResponse = false;
         if (name.EndsWith("RetrieveResponse"))
+        {
             name = name[..^"RetrieveResponse".Length];
+            strippedRetrieveResponse = true;
+        }
 
         string? foundModule = null;
         foreach (var mod in Modules)
@@ -217,6 +223,8 @@ static class Formatters
 
         if (foundModule != null)
             name = ToPascalCase(foundModule.ToLower()) + name;
+        else if (strippedRetrieveResponse)
+            name += "Response";
 
         return name;
     }

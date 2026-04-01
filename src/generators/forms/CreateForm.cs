@@ -135,7 +135,7 @@ static class CreateFormGenerator
         sb.AppendLine("    selectFilterBys = {},");
         sb.AppendLine("    selectOrderBys = {},");
         sb.AppendLine("    renderActionsInFooter = true,");
-        sb.AppendLine("    className = \"px-6 py-4\",");
+        sb.AppendLine("    className = \"px-2 sm:px-6 py-3\",");
         sb.AppendLine("    loading: loadingOverride,");
         sb.AppendLine("    onCreated,");
         sb.AppendLine("  } = props");
@@ -194,7 +194,7 @@ static class CreateFormGenerator
         sb.AppendLine("      actions={");
         sb.AppendLine("        <div className=\"flex md:flex-row flex-col gap-2\">");
         sb.AppendLine("          <Button loading={isSubmitting} type=\"submit\" variant=\"orange\" size=\"mlg\" className=\"w-full md:w-40\">");
-        sb.AppendLine("            Submit");
+        sb.AppendLine("            Save");
         sb.AppendLine("          </Button>");
         sb.AppendLine("        </div>");
         sb.AppendLine("      }");

@@ -139,12 +139,15 @@ static class UseFieldsGenerator
         if (lower.Contains("mobilenumber") || lower.Contains("phone")) return "phone";
         if (lower.Contains("identitynumber") || lower.Contains("idnumber")) return "idnumber";
 
+        string[] textareaKeywords = ["reason", "comment", "note", "description", "remarks", "feedback", "summary", "detail", "message", "explanation"];
+        if (type == "string" && textareaKeywords.Any(lower.Contains)) return "textarea";
+
         return type switch
         {
             "integer" or "number" => "number",
             "string" when format == "date-time" => "datetime",
             "string" when format == "date" => "date",
-            "string" when maxLength >= 250 => "textarea",
+            "string" when maxLength >= 500 => "textarea",
             "string" => "text",
             "boolean" => "checkbox",
             _ => "text"

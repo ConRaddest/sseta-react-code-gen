@@ -94,7 +94,7 @@ static class UpdateFormGenerator
 
             // UpdateForm.tsx
             File.WriteAllText(Path.Combine(dir, $"{prefix}UpdateForm.tsx"),
-                ApplyTemplate(RenderForm(ep, prefix, modulePascal), formTemplatePath));
+                ApplyTemplate(RenderForm(ep, prefix, modulePascal, fkFields), formTemplatePath));
 
             // use{Prefix}UpdateFields.tsx
             File.WriteAllText(Path.Combine(dir, $"use{prefix}UpdateFields.tsx"),
@@ -107,7 +107,7 @@ static class UpdateFormGenerator
         Console.WriteLine($"    {count} update form(s) generated.");
     }
 
-    static string RenderForm(UpdateEndpoint ep, string prefix, string modulePascal)
+    static string RenderForm(UpdateEndpoint ep, string prefix, string modulePascal, List<FkField> fkFields)
     {
         string displayName = Formatters.ToTitleCase(ep.Resource);
         string contextHook = $"use{prefix}";
@@ -119,12 +119,13 @@ static class UpdateFormGenerator
 
         sb.AppendLine("\"use client\"");
         sb.AppendLine();
-        sb.AppendLine("import { useState, useEffect } from \"react\"");
+        sb.AppendLine("import { ReactNode, useState, useEffect } from \"react\"");
         sb.AppendLine("import { SubmitHandler, useForm } from \"react-hook-form\"");
         sb.AppendLine("import { Button, FormTemplate, FormValidationErrors, FilterBy, OrderBy, extractApiErrors } from \"@sseta/components\"");
         sb.AppendLine($"import {{ {contextHook} }} from \"{contextPath}\"");
         sb.AppendLine("import { useToast } from \"@/contexts/general/ToastContext\"");
-        sb.AppendLine($"import {{ {ep.RequestType} }} from \"{typesPath}\"");
+        string entityType = $"{prefix}";
+        sb.AppendLine($"import {{ {entityType}, {ep.RequestType} }} from \"{typesPath}\"");
         sb.AppendLine($"import use{prefix}UpdateFields from \"./use{prefix}UpdateFields\"");
         sb.AppendLine();
 
@@ -139,6 +140,8 @@ static class UpdateFormGenerator
         sb.AppendLine("  className?: string");
         sb.AppendLine("  loading?: boolean");
         sb.AppendLine($"  onUpdated?: ({idField}: number) => void");
+        sb.AppendLine($"  onRecordLoaded?: (record: {entityType}) => void");
+        sb.AppendLine("  children?: ReactNode");
         sb.AppendLine("}");
         sb.AppendLine();
 
@@ -154,10 +157,15 @@ static class UpdateFormGenerator
         sb.AppendLine("    className = \"px-2 sm:px-6 py-3\",");
         sb.AppendLine("    loading: loadingOverride,");
         sb.AppendLine("    onUpdated,");
+        sb.AppendLine("    onRecordLoaded,");
+        sb.AppendLine("    children,");
         sb.AppendLine("  } = props");
         sb.AppendLine();
         sb.AppendLine("  const [apiErrors, setApiErrors] = useState<string[]>([])");
+        sb.AppendLine("  const [scrollTrigger, setScrollTrigger] = useState(0)");
         sb.AppendLine("  const [loading, setLoading] = useState(false)");
+        if (fkFields.Count > 0)
+            sb.AppendLine("  const [selectedLabels, setSelectedLabels] = useState<Record<string, string | null>>({})");
         sb.AppendLine("  const isLoading = loadingOverride ?? loading");
         sb.AppendLine();
         sb.AppendLine($"  const {{ retrieve, update }} = {contextHook}()");
@@ -172,7 +180,8 @@ static class UpdateFormGenerator
         sb.AppendLine("    mode: \"onChange\",");
         sb.AppendLine("  })");
         sb.AppendLine();
-        sb.AppendLine($"  const {{ fields, layout }} = use{prefix}UpdateFields({{ errors, disabledFields, selectFilterBys, selectOrderBys }})");
+        string selectedLabelsArg = fkFields.Count > 0 ? ", selectedLabels" : "";
+        sb.AppendLine($"  const {{ fields, layout }} = use{prefix}UpdateFields({{ errors, disabledFields, selectFilterBys, selectOrderBys{selectedLabelsArg} }})");
         sb.AppendLine();
         sb.AppendLine("  useEffect(() => {");
         sb.AppendLine("    const fetchRecord = async () => {");
@@ -181,6 +190,19 @@ static class UpdateFormGenerator
         sb.AppendLine($"        const record = await retrieve({idField})");
         sb.AppendLine("        if (!record) return");
         sb.AppendLine("        reset({ ...(record as any), ...defaultValues })");
+        sb.AppendLine("        onRecordLoaded?.(record)");
+        if (fkFields.Count > 0)
+        {
+            sb.AppendLine("        setSelectedLabels({");
+            foreach (var fk in fkFields)
+            {
+                string labelField = fk.FieldName.EndsWith("Id", StringComparison.OrdinalIgnoreCase)
+                    ? fk.FieldName[..^2] + "Name"
+                    : fk.FieldName + "Name";
+                sb.AppendLine($"          {fk.FieldName}: record.{labelField},");
+            }
+            sb.AppendLine("        })");
+        }
         sb.AppendLine("      } catch (error) {");
         sb.AppendLine($"        console.error(\"Failed to fetch {Formatters.ToTitleCase(ep.Resource).ToLower()}:\", error)");
         sb.AppendLine("      } finally {");
@@ -199,6 +221,7 @@ static class UpdateFormGenerator
         sb.AppendLine($"      onUpdated?.({idField})");
         sb.AppendLine("    } catch (error: any) {");
         sb.AppendLine("      setApiErrors(extractApiErrors(error))");
+        sb.AppendLine("      setScrollTrigger((t) => t + 1)");
         sb.AppendLine("    } finally {");
         sb.AppendLine("      setLoading(false)");
         sb.AppendLine("    }");
@@ -214,6 +237,7 @@ static class UpdateFormGenerator
         sb.AppendLine("      isLoading={isSubmitting || isLoading}");
         sb.AppendLine("      onSubmit={handleSubmit(onSubmit)}");
         sb.AppendLine("      className={className}");
+        sb.AppendLine("      scrollToTopTrigger={scrollTrigger}");
         sb.AppendLine("      actions={");
         sb.AppendLine("        <div className=\"flex md:flex-row flex-col gap-2\">");
         sb.AppendLine("          <Button loading={isSubmitting} type=\"submit\" variant=\"orange\" size=\"mlg\" className=\"w-full md:w-40\">");
@@ -223,6 +247,7 @@ static class UpdateFormGenerator
         sb.AppendLine("      }");
         sb.AppendLine("    >");
         sb.AppendLine("      <FormValidationErrors errors={apiErrors} className=\"mx-auto max-w-4xl w-full mb-4\" />");
+        sb.AppendLine("      {children}");
         sb.AppendLine("    </FormTemplate>");
         sb.AppendLine("  )");
         sb.AppendLine("}");
@@ -267,11 +292,16 @@ static class UpdateFormGenerator
         sb.AppendLine("  disabledFields?: string[]");
         sb.AppendLine("  selectFilterBys?: Record<string, FilterBy[]>");
         sb.AppendLine("  selectOrderBys?: Record<string, OrderBy[]>");
+        if (hasSelects)
+            sb.AppendLine("  selectedLabels?: Record<string, string | null | undefined>");
         sb.AppendLine("}");
         sb.AppendLine();
 
         sb.AppendLine($"export default function use{prefix}UpdateFields(props: Use{prefix}UpdateFieldsProps) {{");
-        sb.AppendLine($"  const {{ errors, disabledFields = [], selectFilterBys = {{}}, selectOrderBys = {{}} }} = props");
+        if (hasSelects)
+            sb.AppendLine($"  const {{ errors, disabledFields = [], selectFilterBys = {{}}, selectOrderBys = {{}}, selectedLabels = {{}} }} = props");
+        else
+            sb.AppendLine($"  const {{ errors, disabledFields = [], selectFilterBys = {{}}, selectOrderBys = {{}} }} = props");
         sb.AppendLine();
 
         if (hasSelects)
@@ -305,7 +335,7 @@ static class UpdateFormGenerator
                 sb.AppendLine($"      loadMoreItems: loadMore{sharedPluralPascal},");
                 sb.AppendLine("    },");
                 sb.AppendLine("    {");
-                sb.AppendLine($"      idField: \"{fk.FieldName}\",");
+                sb.AppendLine($"      idField: \"{Formatters.GetIdFieldName(fk.ParentTable)}\",");
                 sb.AppendLine("      searchColumns: [\"name\"],");
                 sb.AppendLine($"      filterBys: selectFilterBys.{fk.FieldName},");
                 sb.AppendLine($"      orderBys: selectOrderBys.{fk.FieldName},");
@@ -347,7 +377,10 @@ static class UpdateFormGenerator
             else
                 sb.AppendLine($"        error: errors.{camel},");
             if (fk != null)
+            {
+                sb.AppendLine($"        selectedLabel: selectedLabels.{camel} ?? undefined,");
                 sb.AppendLine($"        ...{fk.SelectVar},");
+            }
             sb.AppendLine("      },");
 
             sb.Append("      rules: {");

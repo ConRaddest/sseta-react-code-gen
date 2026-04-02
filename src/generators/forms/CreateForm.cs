@@ -100,7 +100,7 @@ static class CreateFormGenerator
 
         sb.AppendLine("\"use client\"");
         sb.AppendLine();
-        sb.AppendLine("import { useState, useEffect } from \"react\"");
+        sb.AppendLine("import { ReactNode, useState, useEffect } from \"react\"");
         sb.AppendLine("import { SubmitHandler, useForm } from \"react-hook-form\"");
         sb.AppendLine("import { Button, FormTemplate, FormValidationErrors, FilterBy, OrderBy, extractApiErrors } from \"@sseta/components\"");
         sb.AppendLine($"import {{ {contextHook} }} from \"{contextPath}\"");
@@ -123,6 +123,7 @@ static class CreateFormGenerator
             sb.AppendLine($"  onCreated?: ({idField}: number) => void");
         else
             sb.AppendLine("  onCreated?: () => void");
+        sb.AppendLine("  children?: ReactNode");
         sb.AppendLine("}");
         sb.AppendLine();
 
@@ -138,9 +139,11 @@ static class CreateFormGenerator
         sb.AppendLine("    className = \"px-2 sm:px-6 py-3\",");
         sb.AppendLine("    loading: loadingOverride,");
         sb.AppendLine("    onCreated,");
+        sb.AppendLine("    children,");
         sb.AppendLine("  } = props");
         sb.AppendLine();
         sb.AppendLine("  const [apiErrors, setApiErrors] = useState<string[]>([])");
+        sb.AppendLine("  const [scrollTrigger, setScrollTrigger] = useState(0)");
         sb.AppendLine("  const [loading, setLoading] = useState(false)");
         sb.AppendLine("  const isLoading = loadingOverride ?? loading");
         sb.AppendLine();
@@ -176,6 +179,7 @@ static class CreateFormGenerator
             sb.AppendLine("      onCreated?.()");
         sb.AppendLine("    } catch (error: any) {");
         sb.AppendLine("      setApiErrors(extractApiErrors(error))");
+        sb.AppendLine("      setScrollTrigger((t) => t + 1)");
         sb.AppendLine("    } finally {");
         sb.AppendLine("      setLoading(false)");
         sb.AppendLine("    }");
@@ -191,6 +195,7 @@ static class CreateFormGenerator
         sb.AppendLine("      isLoading={isSubmitting || isLoading}");
         sb.AppendLine("      onSubmit={handleSubmit(onSubmit)}");
         sb.AppendLine("      className={className}");
+        sb.AppendLine("      scrollToTopTrigger={scrollTrigger}");
         sb.AppendLine("      actions={");
         sb.AppendLine("        <div className=\"flex md:flex-row flex-col gap-2\">");
         sb.AppendLine("          <Button loading={isSubmitting} type=\"submit\" variant=\"orange\" size=\"mlg\" className=\"w-full md:w-40\">");
@@ -200,6 +205,7 @@ static class CreateFormGenerator
         sb.AppendLine("      }");
         sb.AppendLine("    >");
         sb.AppendLine("      <FormValidationErrors errors={apiErrors} className=\"mx-auto max-w-4xl w-full mb-4\" />");
+        sb.AppendLine("      {children}");
         sb.AppendLine("    </FormTemplate>");
         sb.AppendLine("  )");
         sb.AppendLine("}");

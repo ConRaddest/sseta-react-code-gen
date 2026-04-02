@@ -288,6 +288,14 @@ static class ApiServiceGenerator
                 lines.Append($"      }},");
                 break;
 
+            case "summary":
+                string summaryUrl = relPath.Replace($"{{{pathParam}}}", $"${{{pathParam}}}");
+                lines.AppendLine($"      summary: async ({pathParam}: number): Promise<ApiResponse<{responseType}>> => {{");
+                lines.AppendLine($"        const response = await Client().get(`{summaryUrl}`)");
+                lines.AppendLine($"        return response.data");
+                lines.Append($"      }},");
+                break;
+
             case "search":
                 lines.AppendLine($"      search: async (payload: FetchRequest): Promise<ApiResponse<SearchResponse<{responseType}>>> => {{");
                 lines.AppendLine($"        const response = await Client().post(`{relPath}`, payload)");

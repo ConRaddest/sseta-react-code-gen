@@ -77,6 +77,9 @@ static class ContextGenerator
                     case "validate":
                         ops.Validate = new OpInfo(requestType, responseType);
                         break;
+                    case "summary":
+                        ops.Summary = new OpInfo(requestType, responseType);
+                        break;
                 }
             }
         }
@@ -115,6 +118,7 @@ static class ContextGenerator
         bool hasDelete = ops.Delete != null;
         bool hasSubmit = ops.Submit != null;
         bool hasValidate = ops.Validate != null;
+        bool hasSummary = ops.Summary != null;
 
         // Resolve entity type (from retrieve response, fallback to prefix)
         string entityType = hasRetrieve ? ops.Retrieve!.ResponseType : prefix;
@@ -148,6 +152,7 @@ static class ContextGenerator
         if (hasDelete) TryAdd(ops.Delete!.RequestType);
         if (hasSubmit) TryAdd(ops.Submit!.RequestType);
         if (hasValidate) TryAdd(ops.Validate!.RequestType);
+        if (hasSummary) TryAdd(ops.Summary!.ResponseType);
 
         if (typeImports.Count > 0)
         {
@@ -175,9 +180,18 @@ static class ContextGenerator
             sb.AppendLine("  totalRows: number");
             sb.AppendLine("  lastSearchTerm: string");
             sb.AppendLine("  lastFetchRequest: FetchRequest | null");
+        }
+        if (hasSummary)
+        {
+            sb.AppendLine($"  summaryData: {ops.Summary!.ResponseType} | null");
+            sb.AppendLine("  summaryLoading: boolean");
+        }
+        if (hasSearch || hasSummary)
+        {
             sb.AppendLine();
             sb.AppendLine("  // Operations");
-            sb.AppendLine("  fetchItems: (fetchRequest: FetchRequest, shouldMerge?: boolean) => Promise<void>");
+            if (hasSearch)
+                sb.AppendLine("  fetchItems: (fetchRequest: FetchRequest, shouldMerge?: boolean) => Promise<void>");
         }
         else
         {
@@ -195,6 +209,8 @@ static class ContextGenerator
             sb.AppendLine($"  submit: (data: {ops.Submit!.RequestType}) => Promise<boolean>");
         if (hasValidate)
             sb.AppendLine($"  validate: (data: {ops.Validate!.RequestType}) => Promise<ValidateResponse | null>");
+        if (hasSummary)
+            sb.AppendLine($"  summary: ({idField}: number) => Promise<{ops.Summary!.ResponseType} | null>");
         if (hasSearch)
         {
             sb.AppendLine("  loadMoreItems: () => Promise<void>");
@@ -215,18 +231,26 @@ static class ContextGenerator
 
         // Initial state
         sb.Append("  const [state, setState] = useState<any>(");
-        if (hasSearch)
+        if (hasSearch || hasSummary)
         {
             sb.AppendLine("{");
-            sb.AppendLine("    items: [],");
-            sb.AppendLine("    totalRows: 0,");
-            sb.AppendLine("    lastSearchTerm: \"\",");
-            sb.AppendLine("    lastFetchRequest: {");
-            sb.AppendLine("      pageNumber: 1,");
-            sb.AppendLine("      pageSize: DEFAULT_PAGE_SIZE,");
-            sb.AppendLine("      orderByList: [],");
-            sb.AppendLine("      filterByList: [],");
-            sb.AppendLine("    },");
+            if (hasSearch)
+            {
+                sb.AppendLine("    items: [],");
+                sb.AppendLine("    totalRows: 0,");
+                sb.AppendLine("    lastSearchTerm: \"\",");
+                sb.AppendLine("    lastFetchRequest: {");
+                sb.AppendLine("      pageNumber: 1,");
+                sb.AppendLine("      pageSize: DEFAULT_PAGE_SIZE,");
+                sb.AppendLine("      orderByList: [],");
+                sb.AppendLine("      filterByList: [],");
+                sb.AppendLine("    },");
+            }
+            if (hasSummary)
+            {
+                sb.AppendLine("    summaryData: null,");
+                sb.AppendLine("    summaryLoading: false,");
+            }
             sb.AppendLine("  })");
         }
         else
@@ -360,6 +384,24 @@ static class ContextGenerator
             sb.AppendLine();
         }
 
+        // summary
+        if (hasSummary)
+        {
+            sb.AppendLine($"  const summary = async ({idField}: number): Promise<{ops.Summary!.ResponseType} | null> => {{");
+            sb.AppendLine("    try {");
+            sb.AppendLine("      setState((prev: any) => ({ ...prev, summaryLoading: true }))");
+            sb.AppendLine($"      const response = await {apiPath}.summary({idField})");
+            sb.AppendLine("      setState((prev: any) => ({ ...prev, summaryData: response.data, summaryLoading: false }))");
+            sb.AppendLine("      return response.data");
+            sb.AppendLine("    } catch (error) {");
+            sb.AppendLine("      setState((prev: any) => ({ ...prev, summaryLoading: false }))");
+            sb.AppendLine("      console.error(error)");
+            sb.AppendLine("      throw error");
+            sb.AppendLine("    }");
+            sb.AppendLine("  }");
+            sb.AppendLine();
+        }
+
         // search helpers
         if (hasSearch)
         {
@@ -385,6 +427,7 @@ static class ContextGenerator
         if (hasDelete) sb.AppendLine("        destroy,");
         if (hasSubmit) sb.AppendLine("        submit,");
         if (hasValidate) sb.AppendLine("        validate,");
+        if (hasSummary) sb.AppendLine("        summary,");
         if (hasSearch)
         {
             sb.AppendLine("        loadMoreItems,");
@@ -431,6 +474,7 @@ static class ContextGenerator
         public OpInfo? Delete { get; set; }
         public OpInfo? Submit { get; set; }
         public OpInfo? Validate { get; set; }
+        public OpInfo? Summary { get; set; }
     }
 
     record OpInfo(string RequestType, string ResponseType);

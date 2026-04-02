@@ -2,7 +2,6 @@
   "B": {
     "PartnerRoleRequest": {
       "Create": [
-        "name",
         "requestReason"
       ],
       "View": [
@@ -21,23 +20,17 @@
         "deletedOn"
       ],
       "Update": [
-        "name",
         "requestReason"
       ]
     },
     "PartnerRoleRequestOrganisationPerson": {
       "Create": [
-        "name",
         "partnerRoleRequestId",
         "titleId",
         "firstName",
         "lastName",
         "identityNumber",
         "identityTypeId",
-        "dateOfBirth",
-        "age",
-        "ageBracketId",
-        "genderId",
         "equityCodeId",
         "nationalityId",
         "economicTypeId",
@@ -113,17 +106,12 @@
         "deletedOn"
       ],
       "Update": [
-        "name",
         "partnerRoleRequestId",
         "titleId",
         "firstName",
         "lastName",
         "identityNumber",
         "identityTypeId",
-        "dateOfBirth",
-        "age",
-        "ageBracketId",
-        "genderId",
         "equityCodeId",
         "nationalityId",
         "economicTypeId",
@@ -154,7 +142,6 @@
     },
     "PartnerRoleRequestPersonOrganisationPersonType": {
       "Create": [
-        "name",
         "personTypeId"
       ]
     },

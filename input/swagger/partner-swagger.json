@@ -1428,6 +1428,56 @@
         }
       }
     },
+    "/api/partner/B/PartnerRoleRequest/Delete/{id}": {
+      "delete": {
+        "tags": [
+          "PartnerRoleRequest"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/BooleanSETAApiResponse"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BooleanSETAApiResponse"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BooleanSETAApiResponse"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/BooleanSETAApiResponse"
+                }
+              },
+              "text/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/BooleanSETAApiResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/partner/B/PartnerRoleRequest/Retrieve/{id}": {
       "get": {
         "tags": [
@@ -3848,6 +3898,11 @@
             "type": "string",
             "nullable": true
           },
+          "personId": {
+            "type": "integer",
+            "format": "int64",
+            "nullable": true
+          },
           "partnerRoleRequestOrganisationPersonTypes": {
             "type": "array",
             "items": {
@@ -3862,6 +3917,10 @@
         "type": "object",
         "properties": {
           "partnerRoleRequestPersonOrganisationPersonTypeId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "personTypeId": {
             "type": "integer",
             "format": "int64"
           },
@@ -3900,18 +3959,12 @@
       },
       "PartnerRoleRequestBCreateRequestModel": {
         "required": [
-          "name",
           "organisationId",
           "requestReason",
           "statusId"
         ],
         "type": "object",
         "properties": {
-          "name": {
-            "maxLength": 250,
-            "minLength": 0,
-            "type": "string"
-          },
           "requestReason": {
             "maxLength": 250,
             "minLength": 0,
@@ -4264,7 +4317,6 @@
       },
       "PartnerRoleRequestBUpdateRequestModel": {
         "required": [
-          "name",
           "organisationId",
           "partnerRoleRequestId",
           "requestReason"
@@ -4274,11 +4326,6 @@
           "partnerRoleRequestId": {
             "type": "integer",
             "format": "int64"
-          },
-          "name": {
-            "maxLength": 250,
-            "minLength": 0,
-            "type": "string"
           },
           "requestReason": {
             "maxLength": 250,
@@ -4342,23 +4389,18 @@
       },
       "PartnerRoleRequestOrganisationPersonBCreateRequestModel": {
         "required": [
-          "age",
-          "ageBracketId",
           "cityId",
           "communicatingDisabilityRatingId",
           "communityTypeId",
-          "dateOfBirth",
           "economicTypeId",
           "email",
           "equityCodeId",
           "firstName",
-          "genderId",
           "hearingDisabilityRatingId",
           "homeLanguageId",
           "identityNumber",
           "identityTypeId",
           "lastName",
-          "name",
           "nationalityId",
           "organisationId",
           "partnerRoleRequestId",
@@ -4371,11 +4413,6 @@
         ],
         "type": "object",
         "properties": {
-          "name": {
-            "maxLength": 250,
-            "minLength": 0,
-            "type": "string"
-          },
           "partnerRoleRequestId": {
             "type": "integer",
             "description": "ParentTable:PartnerRoleRequest",
@@ -4409,24 +4446,6 @@
           "identityTypeId": {
             "type": "integer",
             "description": "ParentTable:IdentityType",
-            "format": "int64"
-          },
-          "dateOfBirth": {
-            "type": "string",
-            "format": "date"
-          },
-          "age": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "ageBracketId": {
-            "type": "integer",
-            "description": "ParentTable:AgeBracket",
-            "format": "int64"
-          },
-          "genderId": {
-            "type": "integer",
-            "description": "ParentTable:Gender",
             "format": "int64"
           },
           "equityCodeId": {
@@ -4955,23 +4974,18 @@
       },
       "PartnerRoleRequestOrganisationPersonBUpdateRequestModel": {
         "required": [
-          "age",
-          "ageBracketId",
           "cityId",
           "communicatingDisabilityRatingId",
           "communityTypeId",
-          "dateOfBirth",
           "economicTypeId",
           "email",
           "equityCodeId",
           "firstName",
-          "genderId",
           "hearingDisabilityRatingId",
           "homeLanguageId",
           "identityNumber",
           "identityTypeId",
           "lastName",
-          "name",
           "nationalityId",
           "organisationId",
           "partnerRoleRequestId",
@@ -4988,11 +5002,6 @@
           "partnerRoleRequestOrganisationPersonId": {
             "type": "integer",
             "format": "int64"
-          },
-          "name": {
-            "maxLength": 250,
-            "minLength": 0,
-            "type": "string"
           },
           "partnerRoleRequestId": {
             "type": "integer",
@@ -5027,24 +5036,6 @@
           "identityTypeId": {
             "type": "integer",
             "description": "ParentTable:IdentityType",
-            "format": "int64"
-          },
-          "dateOfBirth": {
-            "type": "string",
-            "format": "date"
-          },
-          "age": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "ageBracketId": {
-            "type": "integer",
-            "description": "ParentTable:AgeBracket",
-            "format": "int64"
-          },
-          "genderId": {
-            "type": "integer",
-            "description": "ParentTable:Gender",
             "format": "int64"
           },
           "equityCodeId": {
@@ -5194,17 +5185,11 @@
       },
       "PartnerRoleRequestPersonOrganisationPersonTypeBCreateRequestModel": {
         "required": [
-          "name",
           "partnerRoleRequestOrganisationPersonId",
           "personTypeId"
         ],
         "type": "object",
         "properties": {
-          "name": {
-            "maxLength": 250,
-            "minLength": 0,
-            "type": "string"
-          },
           "partnerRoleRequestOrganisationPersonId": {
             "type": "integer",
             "description": "ParentTable:PartnerRoleRequestOrganisationPerson",
@@ -5313,11 +5298,24 @@
             "type": "integer",
             "format": "int64"
           },
-          "identityNumber": {
+          "systemUserId": {
+            "type": "integer",
+            "format": "int64",
+            "nullable": true
+          },
+          "firstName": {
             "type": "string",
             "nullable": true
           },
-          "registrationCode": {
+          "lastName": {
+            "type": "string",
+            "nullable": true
+          },
+          "email": {
+            "type": "string",
+            "nullable": true
+          },
+          "mobilePhone": {
             "type": "string",
             "nullable": true
           }

@@ -182,19 +182,26 @@ static class UseFieldsGenerator
         bool hasSelects = fkFields.Count > 0;
         string kebabResource = Formatters.ToKebabCase(resource);
 
+        // Detect which custom validators are needed
+        bool needsPhoneValidator = orderedFields.Any(f =>
+            properties?.ContainsKey(f) == true && GetFieldType(f, properties[f]!.AsObject()!, searchableResources) == "phone");
+        bool needsIdNumberValidator = orderedFields.Any(f =>
+            properties?.ContainsKey(f) == true && GetFieldType(f, properties[f]!.AsObject()!, searchableResources) == "idnumber");
+
+        var componentLibImports = new List<string> { "FilterBy", "OrderBy", "FormLayout" };
+        if (hasSelects) componentLibImports.Add("useSelect");
+        if (needsPhoneValidator) componentLibImports.Add("validatePhoneNumber");
+        if (needsIdNumberValidator) componentLibImports.Add("validateSAIdNumber");
+
         // Imports
         sb.AppendLine("import { FieldErrors } from \"react-hook-form\"");
+        sb.AppendLine($"import {{ {string.Join(", ", componentLibImports)} }} from \"@sseta/components\"");
         if (hasSelects)
         {
-            sb.AppendLine("import { FilterBy, OrderBy, FormLayout, useSelect } from \"@sseta/components\"");
             var seenContexts = new HashSet<string>();
             foreach (var fk in fkFields)
                 if (seenContexts.Add(fk.ContextName))
                     sb.AppendLine($"import {{ {fk.HookName} }} from \"{fk.ContextImportPath}\"");
-        }
-        else
-        {
-            sb.AppendLine("import { FilterBy, OrderBy, FormLayout } from \"@sseta/components\"");
         }
         sb.AppendLine($"import {{ {requestType} }} from \"@/types/api.types\"");
         sb.AppendLine();
@@ -244,7 +251,7 @@ static class UseFieldsGenerator
                 sb.AppendLine($"      loadMoreItems: loadMore{sharedPluralPascal},");
                 sb.AppendLine("    },");
                 sb.AppendLine("    {");
-                sb.AppendLine($"      idField: \"{fk.FieldName}\",");
+                sb.AppendLine($"      idField: \"{Formatters.GetIdFieldName(fk.ParentTable)}\",");
                 sb.AppendLine("      searchColumns: [\"name\"],");
                 sb.AppendLine($"      filterBys: selectFilterBys.{fk.FieldName},");
                 sb.AppendLine($"      orderBys: selectOrderBys.{fk.FieldName},");
@@ -271,6 +278,7 @@ static class UseFieldsGenerator
             string heading = Formatters.GetFieldHeading(fieldName) + (isRequired ? "" : " (Optional)");
             string placeholder = GetPlaceholder(fieldName, fieldType);
             bool isSelect = fieldType == "select";
+            bool isEmailField = fieldName.Equals("Email", StringComparison.OrdinalIgnoreCase);
             fkByField.TryGetValue(fieldName, out var fk);
 
             sb.AppendLine($"    {camel}: {{");
@@ -287,6 +295,8 @@ static class UseFieldsGenerator
                 sb.AppendLine($"        error: errors.{camel},");
             if (fk != null)
                 sb.AppendLine($"        ...{fk.SelectVar},");
+            if ((fieldType == "date" || fieldType == "datetime") && string.Equals(fieldName, "dateOfBirth", StringComparison.OrdinalIgnoreCase))
+                sb.AppendLine("        maxDate: new Date(),");
             sb.AppendLine("      },");
 
             sb.Append("      rules: {");
@@ -295,6 +305,12 @@ static class UseFieldsGenerator
                 ruleParts.Add("required: \"Please fill in this field.\"");
             if ((fieldType == "text" || fieldType == "textarea") && prop["maxLength"]?.GetValue<int>() is int maxLen && maxLen > 0)
                 ruleParts.Add($"maxLength: {{ value: {maxLen}, message: \"Must be less than {maxLen} characters.\" }}");
+            if (fieldType == "phone")
+                ruleParts.Add("validate: validatePhoneNumber");
+            if (fieldType == "idnumber")
+                ruleParts.Add("validate: validateSAIdNumber");
+            if (isEmailField)
+                ruleParts.Add("pattern: { value: /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/, message: \"Please enter a valid email address.\" }");
             if (ruleParts.Count > 0)
             {
                 sb.AppendLine();

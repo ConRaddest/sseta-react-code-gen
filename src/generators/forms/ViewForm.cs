@@ -89,7 +89,7 @@ static class ViewFormGenerator
 
         sb.AppendLine("\"use client\"");
         sb.AppendLine();
-        sb.AppendLine("import { useState, useEffect } from \"react\"");
+        sb.AppendLine("import { ReactNode, useState, useEffect } from \"react\"");
         sb.AppendLine("import { ViewTemplate } from \"@sseta/components\"");
         sb.AppendLine($"import {{ {contextHook} }} from \"{contextPath}\"");
         sb.AppendLine($"import {{ {ep.ResponseType} }} from \"{typesPath}\"");
@@ -101,11 +101,12 @@ static class ViewFormGenerator
         sb.AppendLine("  hiddenFields?: string[]");
         sb.AppendLine("  className?: string");
         sb.AppendLine("  loading?: boolean");
+        sb.AppendLine("  children?: ReactNode");
         sb.AppendLine("}");
         sb.AppendLine();
 
         sb.AppendLine($"export default function {prefix}ViewForm(props: {prefix}ViewFormProps) {{");
-        sb.AppendLine($"  const {{ {idField}, hiddenFields, className = \"px-6 py-4\", loading: loadingOverride }} = props");
+        sb.AppendLine($"  const {{ {idField}, hiddenFields, className = \"px-6 py-4\", loading: loadingOverride, children }} = props");
         sb.AppendLine();
         sb.AppendLine($"  const [record, setRecord] = useState<{ep.ResponseType} | null>(null)");
         sb.AppendLine("  const [loading, setLoading] = useState(false)");
@@ -136,7 +137,9 @@ static class ViewFormGenerator
         sb.AppendLine("      isLoading={isLoading}");
         sb.AppendLine("      hiddenFields={hiddenFields}");
         sb.AppendLine("      className={className}");
-        sb.AppendLine("    />");
+        sb.AppendLine("    >");
+        sb.AppendLine("      {children}");
+        sb.AppendLine("    </ViewTemplate>");
         sb.AppendLine("  )");
         sb.AppendLine("}");
 

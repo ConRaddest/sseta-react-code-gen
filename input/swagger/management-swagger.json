@@ -181,6 +181,152 @@
         }
       }
     },
+    "/api/management/B/Organisation/Submit": {
+      "post": {
+        "tags": [
+          "Organisation"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OrganisationBSubmitRequestModel"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OrganisationBSubmitRequestModel"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/OrganisationBSubmitRequestModel"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/OrganisationBSubmitRequestModel"
+              }
+            },
+            "text/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/OrganisationBSubmitRequestModel"
+              }
+            },
+            "application/*+xml": {
+              "schema": {
+                "$ref": "#/components/schemas/OrganisationBSubmitRequestModel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/BooleanSETAApiResponse"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BooleanSETAApiResponse"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BooleanSETAApiResponse"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/BooleanSETAApiResponse"
+                }
+              },
+              "text/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/BooleanSETAApiResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/management/B/Organisation/Validate": {
+      "post": {
+        "tags": [
+          "Organisation"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OrganisationBValidateRequestModel"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OrganisationBValidateRequestModel"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/OrganisationBValidateRequestModel"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/OrganisationBValidateRequestModel"
+              }
+            },
+            "text/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/OrganisationBValidateRequestModel"
+              }
+            },
+            "application/*+xml": {
+              "schema": {
+                "$ref": "#/components/schemas/OrganisationBValidateRequestModel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrganisationBValidateResponseModelSETAApiResponse"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrganisationBValidateResponseModelSETAApiResponse"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrganisationBValidateResponseModelSETAApiResponse"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrganisationBValidateResponseModelSETAApiResponse"
+                }
+              },
+              "text/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrganisationBValidateResponseModelSETAApiResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/management/ACCESS/Role/Search": {
       "post": {
         "tags": [
@@ -1602,6 +1748,76 @@
           },
           "isDescending": {
             "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      },
+      "OrganisationBSubmitRequestModel": {
+        "required": [
+          "organisationId",
+          "targetStatusId"
+        ],
+        "type": "object",
+        "properties": {
+          "organisationId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "targetStatusId": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
+        "additionalProperties": false
+      },
+      "OrganisationBValidateRequestModel": {
+        "required": [
+          "departmentTypeId",
+          "organisationId",
+          "targetStatusId"
+        ],
+        "type": "object",
+        "properties": {
+          "organisationId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "targetStatusId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "departmentTypeId": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
+        "additionalProperties": false
+      },
+      "OrganisationBValidateResponseModel": {
+        "type": "object",
+        "properties": {
+          "validationPassed": {
+            "type": "boolean"
+          },
+          "validationReasons": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ValidationReason"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "OrganisationBValidateResponseModelSETAApiResponse": {
+        "type": "object",
+        "properties": {
+          "errorMessage": {
+            "type": "string",
+            "nullable": true
+          },
+          "data": {
+            "$ref": "#/components/schemas/OrganisationBValidateResponseModel"
           }
         },
         "additionalProperties": false

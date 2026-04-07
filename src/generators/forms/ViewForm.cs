@@ -64,10 +64,10 @@ static class ViewFormGenerator
 
             var searchableResources = Formatters.BuildSearchableResources(paths, ep.Module, apiPrefix);
 
-            File.WriteAllText(Path.Combine(dir, $"{prefix}ViewForm.tsx"),
+            File.WriteAllText(Path.Combine(dir, $"ViewForm.tsx"),
                 ApplyTemplate(RenderForm(ep, prefix), formTemplatePath));
 
-            File.WriteAllText(Path.Combine(dir, $"use{prefix}ViewFields.ts"),
+            File.WriteAllText(Path.Combine(dir, $"useViewFields.ts"),
                 ApplyTemplate(RenderViewFields(prefix, ep.Resource, fieldLayout, properties, searchableResources), layoutTemplatePath));
 
             Console.WriteLine($"    ✓ {ep.Module}/{ep.Resource}");
@@ -93,10 +93,10 @@ static class ViewFormGenerator
         sb.AppendLine("import { ViewTemplate } from \"@sseta/components\"");
         sb.AppendLine($"import {{ {contextHook} }} from \"{contextPath}\"");
         sb.AppendLine($"import {{ {ep.ResponseType} }} from \"{typesPath}\"");
-        sb.AppendLine($"import use{prefix}ViewFields from \"./use{prefix}ViewFields\"");
+        sb.AppendLine($"import use{prefix}View from \"./useViewFields\"");
         sb.AppendLine();
 
-        sb.AppendLine($"interface {prefix}ViewFormProps {{");
+        sb.AppendLine($"interface {prefix}ViewProps {{");
         sb.AppendLine($"  {idField}: number");
         sb.AppendLine("  hiddenFields?: string[]");
         sb.AppendLine("  className?: string");
@@ -105,7 +105,7 @@ static class ViewFormGenerator
         sb.AppendLine("}");
         sb.AppendLine();
 
-        sb.AppendLine($"export default function {prefix}ViewForm(props: {prefix}ViewFormProps) {{");
+        sb.AppendLine($"export default function {prefix}View(props: {prefix}ViewProps) {{");
         sb.AppendLine($"  const {{ {idField}, hiddenFields, className = \"px-6 py-4\", loading: loadingOverride, children }} = props");
         sb.AppendLine();
         sb.AppendLine($"  const [record, setRecord] = useState<{ep.ResponseType} | null>(null)");
@@ -113,7 +113,7 @@ static class ViewFormGenerator
         sb.AppendLine("  const isLoading = loadingOverride ?? loading");
         sb.AppendLine();
         sb.AppendLine($"  const {{ retrieve }} = {contextHook}()");
-        sb.AppendLine($"  const {{ layout }} = use{prefix}ViewFields()");
+        sb.AppendLine($"  const {{ layout }} = use{prefix}View()");
         sb.AppendLine();
         sb.AppendLine("  useEffect(() => {");
         sb.AppendLine("    const fetchRecord = async () => {");
@@ -152,7 +152,7 @@ static class ViewFormGenerator
         sb.AppendLine("import { FormLayout } from \"@sseta/components\"");
         sb.AppendLine();
 
-        sb.AppendLine($"export default function use{prefix}ViewFields() {{");
+        sb.AppendLine($"export default function use{prefix}View() {{");
 
         var groups = Formatters.BuildLayoutGroups(resource, fieldLayout, properties, excludeFkFields: true, searchableResources: searchableResources, extraExclusions: Formatters.ExcludedViewFields);
         sb.AppendLine("  const layout: FormLayout[] = [");

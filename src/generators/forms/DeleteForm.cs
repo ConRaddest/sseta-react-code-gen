@@ -65,7 +65,7 @@ static class DeleteFormGenerator
             string dir = Path.Combine(formsOutputDir, ep.Module.ToLower(), kebabResource, "delete");
             Directory.CreateDirectory(dir);
 
-            File.WriteAllText(Path.Combine(dir, $"{prefix}DeleteForm.tsx"),
+            File.WriteAllText(Path.Combine(dir, $"DeleteForm.tsx"),
                 ApplyTemplate(RenderForm(ep, prefix), templatePath));
 
             Console.WriteLine($"    ✓ {ep.Module}/{ep.Resource}");
@@ -90,10 +90,10 @@ static class DeleteFormGenerator
         sb.AppendLine("import { DeleteTemplate, extractApiErrors } from \"@sseta/components\"");
         sb.AppendLine($"import {{ {contextHook} }} from \"{contextPath}\"");
         sb.AppendLine("import { useToast } from \"@/contexts/general/ToastContext\"");
-        sb.AppendLine($"import {prefix}ViewForm from \"../view/{prefix}ViewForm\"");
+        sb.AppendLine($"import {prefix}View from \"../view/ViewForm\"");
         sb.AppendLine();
 
-        sb.AppendLine($"interface {prefix}DeleteFormProps {{");
+        sb.AppendLine($"interface {prefix}DeleteProps {{");
         sb.AppendLine($"  {idField}: number");
         sb.AppendLine("  hiddenFields?: string[]");
         sb.AppendLine("  renderActionsInFooter?: boolean");
@@ -103,7 +103,7 @@ static class DeleteFormGenerator
         sb.AppendLine("}");
         sb.AppendLine();
 
-        sb.AppendLine($"export default function {prefix}DeleteForm(props: {prefix}DeleteFormProps) {{");
+        sb.AppendLine($"export default function {prefix}Delete(props: {prefix}DeleteProps) {{");
         sb.AppendLine("  const {");
         sb.AppendLine($"    {idField},");
         sb.AppendLine("    hiddenFields,");
@@ -145,7 +145,7 @@ static class DeleteFormGenerator
         sb.AppendLine("      scrollToTopTrigger={scrollTrigger}");
         sb.AppendLine("      className={className}");
         sb.AppendLine("    >");
-        sb.AppendLine($"      <{prefix}ViewForm");
+        sb.AppendLine($"      <{prefix}View");
         sb.AppendLine($"        {idField}={{{idField}}}");
         sb.AppendLine("        hiddenFields={hiddenFields}");
         sb.AppendLine("        className=\"p-0\"");

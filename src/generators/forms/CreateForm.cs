@@ -61,7 +61,7 @@ static class CreateFormGenerator
             Directory.CreateDirectory(dir);
 
             string prefix = Formatters.ToPascalCase(ep.Module.ToLower()) + ep.Resource;
-            string filePath = Path.Combine(dir, $"{prefix}CreateForm.tsx");
+            string filePath = Path.Combine(dir, $"CreateForm.tsx");
             File.WriteAllText(filePath, output);
 
             Console.WriteLine($"    ✓ {ep.Module}/{ep.Resource}");
@@ -106,11 +106,11 @@ static class CreateFormGenerator
         sb.AppendLine($"import {{ {contextHook} }} from \"{contextPath}\"");
         sb.AppendLine("import { useToast } from \"@/contexts/general/ToastContext\"");
         sb.AppendLine($"import {{ {requestType} }} from \"{typesImportPath}\"");
-        sb.AppendLine($"import use{prefix}CreateFields from \"./use{prefix}CreateFields\"");
+        sb.AppendLine($"import use{prefix}Create from \"./useCreateFields\"");
         sb.AppendLine();
 
         // Props interface
-        sb.AppendLine($"interface {prefix}CreateFormProps {{");
+        sb.AppendLine($"interface {prefix}CreateProps {{");
         sb.AppendLine($"  defaultValues?: Partial<{requestType}>");
         sb.AppendLine("  disabledFields?: string[]");
         sb.AppendLine("  hiddenFields?: string[]");
@@ -128,7 +128,7 @@ static class CreateFormGenerator
         sb.AppendLine();
 
         // Component
-        sb.AppendLine($"export default function {prefix}CreateForm(props: {prefix}CreateFormProps) {{");
+        sb.AppendLine($"export default function {prefix}Create(props: {prefix}CreateProps) {{");
         sb.AppendLine("  const {");
         sb.AppendLine("    defaultValues,");
         sb.AppendLine("    disabledFields,");
@@ -159,7 +159,7 @@ static class CreateFormGenerator
         sb.AppendLine("    mode: \"onChange\",");
         sb.AppendLine("  })");
         sb.AppendLine();
-        sb.AppendLine($"  const {{ fields, layout }} = use{prefix}CreateFields({{ errors, disabledFields, selectFilterBys, selectOrderBys }})");
+        sb.AppendLine($"  const {{ fields, layout }} = use{prefix}Create({{ errors, disabledFields, selectFilterBys, selectOrderBys }})");
         sb.AppendLine();
         sb.AppendLine("  useEffect(() => {");
         sb.AppendLine("    if (defaultValues && Object.keys(defaultValues).length > 0) {");

@@ -93,11 +93,11 @@ static class UpdateFormGenerator
             var fkFields = UseFieldsGenerator.CollectFkFields(ep.Module, modulePascal, orderedFields, properties, searchableResources);
 
             // UpdateForm.tsx
-            File.WriteAllText(Path.Combine(dir, $"{prefix}UpdateForm.tsx"),
+            File.WriteAllText(Path.Combine(dir, $"UpdateForm.tsx"),
                 ApplyTemplate(RenderForm(ep, prefix, modulePascal, fkFields), formTemplatePath));
 
-            // use{Prefix}UpdateFields.tsx
-            File.WriteAllText(Path.Combine(dir, $"use{prefix}UpdateFields.tsx"),
+            // useUpdateFields.tsx
+            File.WriteAllText(Path.Combine(dir, $"useUpdateFields.tsx"),
                 ApplyTemplate(RenderFields(prefix, ep.Resource, ep.RequestType, orderedFields, properties, requiredFields, fkFields, fieldLayout, searchableResources), fieldsTemplatePath));
 
             Console.WriteLine($"    ✓ {ep.Module}/{ep.Resource}");
@@ -126,10 +126,10 @@ static class UpdateFormGenerator
         sb.AppendLine("import { useToast } from \"@/contexts/general/ToastContext\"");
         string entityType = $"{prefix}";
         sb.AppendLine($"import {{ {entityType}, {ep.RequestType} }} from \"{typesPath}\"");
-        sb.AppendLine($"import use{prefix}UpdateFields from \"./use{prefix}UpdateFields\"");
+        sb.AppendLine($"import use{prefix}Update from \"./useUpdateFields\"");
         sb.AppendLine();
 
-        sb.AppendLine($"interface {prefix}UpdateFormProps {{");
+        sb.AppendLine($"interface {prefix}UpdateProps {{");
         sb.AppendLine($"  {idField}: number");
         sb.AppendLine($"  defaultValues?: Partial<{ep.RequestType}>");
         sb.AppendLine("  disabledFields?: string[]");
@@ -145,7 +145,7 @@ static class UpdateFormGenerator
         sb.AppendLine("}");
         sb.AppendLine();
 
-        sb.AppendLine($"export default function {prefix}UpdateForm(props: {prefix}UpdateFormProps) {{");
+        sb.AppendLine($"export default function {prefix}Update(props: {prefix}UpdateProps) {{");
         sb.AppendLine("  const {");
         sb.AppendLine($"    {idField},");
         sb.AppendLine("    defaultValues,");
@@ -181,7 +181,7 @@ static class UpdateFormGenerator
         sb.AppendLine("  })");
         sb.AppendLine();
         string selectedLabelsArg = fkFields.Count > 0 ? ", selectedLabels" : "";
-        sb.AppendLine($"  const {{ fields, layout }} = use{prefix}UpdateFields({{ errors, disabledFields, selectFilterBys, selectOrderBys{selectedLabelsArg} }})");
+        sb.AppendLine($"  const {{ fields, layout }} = use{prefix}Update({{ errors, disabledFields, selectFilterBys, selectOrderBys{selectedLabelsArg} }})");
         sb.AppendLine();
         sb.AppendLine("  useEffect(() => {");
         sb.AppendLine("    const fetchRecord = async () => {");
@@ -287,7 +287,7 @@ static class UpdateFormGenerator
         sb.AppendLine();
 
         // Props interface — always includes selectFilterBys/selectOrderBys for a stable contract
-        sb.AppendLine($"interface Use{prefix}UpdateFieldsProps {{");
+        sb.AppendLine($"interface Use{prefix}UpdateProps {{");
         sb.AppendLine($"  errors: FieldErrors<{requestType}>");
         sb.AppendLine("  disabledFields?: string[]");
         sb.AppendLine("  selectFilterBys?: Record<string, FilterBy[]>");
@@ -297,7 +297,7 @@ static class UpdateFormGenerator
         sb.AppendLine("}");
         sb.AppendLine();
 
-        sb.AppendLine($"export default function use{prefix}UpdateFields(props: Use{prefix}UpdateFieldsProps) {{");
+        sb.AppendLine($"export default function use{prefix}Update(props: Use{prefix}UpdateProps) {{");
         if (hasSelects)
             sb.AppendLine($"  const {{ errors, disabledFields = [], selectFilterBys = {{}}, selectOrderBys = {{}}, selectedLabels = {{}} }} = props");
         else

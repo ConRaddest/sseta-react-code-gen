@@ -65,7 +65,7 @@ static class UseFieldsGenerator
             var fkFields = CollectFkFields(module, modulePascal, orderedFields, properties, searchableResources);
 
             string content = ApplyTemplate(Render(prefix, modulePascal, resource, requestType, orderedFields, properties, requiredFields, fkFields, fieldLayout, searchableResources), templatePath);
-            File.WriteAllText(Path.Combine(dir, $"use{prefix}CreateFields.tsx"), content);
+            File.WriteAllText(Path.Combine(dir, $"useCreateFields.tsx"), content);
 
             Console.WriteLine($"    ✓ {module}/{resource}");
             count++;
@@ -207,7 +207,7 @@ static class UseFieldsGenerator
         sb.AppendLine();
 
         // Props interface — always includes selectFilterBys/selectOrderBys for a stable contract
-        sb.AppendLine($"interface Use{prefix}CreateFieldsProps {{");
+        sb.AppendLine($"interface Use{prefix}CreateProps {{");
         sb.AppendLine($"  errors: FieldErrors<{requestType}>");
         sb.AppendLine("  disabledFields?: string[]");
         sb.AppendLine("  selectFilterBys?: Record<string, FilterBy[]>");
@@ -216,7 +216,7 @@ static class UseFieldsGenerator
         sb.AppendLine();
 
         // Hook signature
-        sb.AppendLine($"export default function use{prefix}CreateFields(props: Use{prefix}CreateFieldsProps) {{");
+        sb.AppendLine($"export default function use{prefix}Create(props: Use{prefix}CreateProps) {{");
         sb.AppendLine($"  const {{ errors, disabledFields = [], selectFilterBys = {{}}, selectOrderBys = {{}} }} = props");
         sb.AppendLine();
 

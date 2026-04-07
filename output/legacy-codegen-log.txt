@@ -1,0 +1,613 @@
+=================================================================
+Legacy Code Generation Log - 2026-04-07 12:23:34
+=================================================================
+
+Fetching swagger: https://localhost:7050/swagger/v1/swagger.json
+
+OpenAPI Version: 3.0.4
+Title:           SSETA.API
+Version:         1.0
+
+=================================================================
+Reports & Pages (management portal only)
+=================================================================
+  Generating OPERATIONAL reporting types, services & pages
+  ✓ Accredited Interventions
+  ✓ Bursary Applications
+  ✓ Bursaries Contract Status
+  ✓ HEI Evidence
+  ✓ HEI Participation
+  ✓ HEI Submission Statistics
+  ✓ Bursary Application Evidence
+  ✓ Successfully Vetted Applications
+  ✓ Career Development Events
+  ✓ Career Development Practitioners
+  ✓ Career Development Workshops
+  ✓ CB Os NG Os NP Os Trade Union
+  ✓ Centres Of Specialisation
+  ✓ Completed WBL Absorbed
+  ✓ Development Support
+  ✓ Discretionary Grant
+  ✓ Firms
+  ✓ Infrastructure Development
+  ✓ Learning Programmes Complete
+  ✓ Learning Programmes Enrolled
+  ✓ Lecturers Awarded Bursaries
+  ✓ Lecturer Skills Programmes
+  ✓ Rural Development Projects
+  ✓ SETA Employer Partnerships
+  ✓ SETA Good Governance
+  ✓ SETA Offices Established
+  ✓ Staff Development
+  ✓ Tracer Studies
+  ✓ Trained
+  ✓ Trained On Entrepreneurship
+  ✓ TVETHEICET Partnerships
+  ✓ TVET Placement
+  ✓ UI Layout Example
+  ✓ Events By Organisation
+  Generating SETMIS reporting types, services & pages
+  ✓ SETMIS Provider
+  ✓ SETMIS Employer
+  ✓ SETMIS Non NQF Intervention
+  ✓ SETMIS Person
+  ✓ SETMIS Person Designation
+  ✓ SETMIS Learnership Enrolment
+  ✓ SETMIS Qualification Enrolment
+  ✓ SETMIS Non NQF Intervention Enrolment
+  ✓ SETMIS Unit Standard Enrolment
+  ✓ SETMIS Trade Test
+  ✓ SETMIS Internship Placement
+
+=================================================================
+Portal: C:/DEV/PMIS/react-frontend-v2/management-portal/src
+=================================================================
+  Generating services, types and field-hooks for 205 resources:
+    ✓ AgeBracket
+    ✓ Allowance
+    ✓ AllowanceType
+    ✓ AlternateIdentityType
+    ✓ ApplicantType
+    ✓ Application
+    ✓ ApplicationType
+    ✓ Approval
+    ✓ ApprovalStatus
+    ✓ ApprovalStep
+    ✓ ApprovalType
+    ✓ Area
+    ✓ Attendee
+    ⚠ sso: skipped
+    ✓ AuthenticationType
+    ✓ BursaryApplicant
+    ✓ BursaryApplicantAppeal
+    ✓ BursaryApplicantAppealTimeline
+    ✓ BursaryApplicantEducation
+    ✓ BursaryApplicantEmployment
+    ✓ BursaryApplicantInstitution
+    ✓ BursaryApplicantQualification
+    ✓ BursaryApplicantRejectionReason
+    ✓ CalculationType
+    ✓ Checklist
+    ✓ ChecklistInstance
+    ✓ ChecklistOption
+    ✓ Citizenship
+    ✓ City
+    ✓ CommunityType
+    ✓ Country
+    ✓ DemographicType
+    ✓ DepartmentType
+    ✓ Designation
+    ✓ DesignationStructureStatus
+    ✓ Disability
+    ✓ DisabilityRating
+    ✓ Disbursement
+    ✓ DisbursementType
+    ⚠ Document: skipped
+    ✓ DocumentSignature
+    ✓ DocumentType
+    ✓ Dossier
+    ✓ DossierDocumentType
+    ✓ EconomicType
+    ✓ EconomicTypeInterventionType
+    ✓ EducationTrainingQualityEntity
+    ✓ ElectronicLearningApplicant
+    ✓ EmployerApprovalStatus
+    ✓ EnrolmentStatus
+    ✓ EnrolmentStatusReason
+    ✓ EnrolmentType
+    ✓ EquipmentCategory
+    ✓ EquipmentCategoryGroup
+    ✓ EquityCode
+    ✓ ETQE
+    ✓ Evaluation
+    ✓ EvaluationCriteria
+    ✓ EvaluationResult
+    ✓ EvaluationScore
+    ✓ EvaluationTemplate
+    ✓ EvaluationTemplateCriteria
+    ✓ Event
+    ✓ EventFormat
+    ✓ EventRequest
+    ✓ EventSource
+    ✓ EventType
+    ✓ EventVenue
+    ✓ EvidenceType
+    ✓ FeasibilityType
+    ✓ FieldOfStudy
+    ✓ FundingCap
+    ✓ FundingType
+    ✓ Gender
+    ✓ GlobalConfiguration
+    ✓ IdentityType
+    ✓ ImpactType
+    ✓ Indicator
+    ✓ IndicatorAchievement
+    ✓ IndicatorDescriptor
+    ✓ IndicatorEmpowerment
+    ✓ IndicatorEvidence
+    ✓ IndicatorIssue
+    ✓ IndicatorResult
+    ✓ InputType
+    ✓ InternshipStatus
+    ✓ Intervention
+    ✓ InterventionIndicator
+    ✓ InterventionOrganisation
+    ✓ InterventionOrganisationLearnerList
+    ✓ InterventionType
+    ✓ Language
+    ✓ LearningProgrammeType
+    ✓ LevelOfStudy
+    ✓ MfaType
+    ✓ MimeType
+    ✓ MunicipalityDistrict
+    ✓ MunicipalityLocal
+    ✓ Nationality
+    ✓ NonNQFInterventionStatus
+    ✓ Notification
+    ✓ NotificationTemplate
+    ✓ NotificationType
+    ✓ NQFLevel
+    ✓ NQFSubFramework
+    ✓ Object
+    ✓ ObjectType
+    ✓ Occupation
+    ✓ Organisation
+    ✓ OrganisationEmployer
+    ✓ OrganisationFundingCap
+    ✓ OrganisationInvoice
+    ✓ OrganisationPerson
+    ✓ OrganisationProvider
+    ✓ OrganisationType
+    ✓ PartOf
+    ✓ PaymentFrequency
+    ✓ PerformancePlan
+    ✓ Permission
+    ✓ Person
+    ✓ PersonOrganisationPersonType
+    ✓ PersonType
+    ✓ PersonTypeRole
+    ✓ POPIActStatus
+    ✓ PortalOrigin
+    ✓ PriorityFieldOfStudy
+    ✓ Programme
+    ✓ ProviderClass
+    ✓ ProviderStatus
+    ✓ ProviderType
+    ✓ Province
+    ✓ QualificationLevel
+    ✓ Quarter
+    ✓ RecommendationType
+    ✓ RejectionCategory
+    ✓ RejectionReason
+    ✓ ReportingPeriod
+    ✓ ReportingType
+    ✓ RiskRating
+    ✓ Role
+    ✓ RoleObject
+    ⚠ RoleObjectManagement: skipped
+    ✓ SAQAField
+    ✓ SAQALearningProgramme
+    ✓ SAQAQualification
+    ✓ SAQASubField
+    ✓ School
+    ✓ SchoolPhase
+    ✓ SchoolSector
+    ✓ SchoolStatus
+    ✓ SETAType
+    ✓ SourceSystem
+    ✓ Stage
+    ✓ StageDependency
+    ✓ StageInstance
+    ✓ StandardIndustrialClassification
+    ✓ StatsSaArea
+    ✓ Status
+    ✓ StatusCascadeRule
+    ✓ StatusObject
+    ✓ StatusObjectPermission
+    ✓ SubProgramme
+    ✓ SupportType
+    ✓ SystemUser
+    ✓ SystemUserRole
+    ✓ SystemUserType
+    ✓ Template
+    ✓ TemplateType
+    ✓ Title
+    ✓ TradeTestResult
+    ✓ TradeTestResultReason
+    ✓ YearOfStudy
+  Generating utils
+    ✓ loadSettings.ts
+  Completed:
+    ✓ Services:    C:/DEV/PMIS/react-frontend-v2/management-portal/src\services\legacy
+    ✓ Types:       C:/DEV/PMIS/react-frontend-v2/management-portal/src\types\legacy
+    ✓ Field hooks: C:/DEV/PMIS/react-frontend-v2/management-portal/src\field-hooks\legacy
+    ✓ Utils:       C:/DEV/PMIS/react-frontend-v2/management-portal/src\utils\legacy
+
+=================================================================
+Portal: C:/DEV/PMIS/react-frontend-v2/partner-portal/src
+=================================================================
+  Generating services, types and field-hooks for 205 resources:
+    ✓ AgeBracket
+    ✓ Allowance
+    ✓ AllowanceType
+    ✓ AlternateIdentityType
+    ✓ ApplicantType
+    ✓ Application
+    ✓ ApplicationType
+    ✓ Approval
+    ✓ ApprovalStatus
+    ✓ ApprovalStep
+    ✓ ApprovalType
+    ✓ Area
+    ✓ Attendee
+    ⚠ sso: skipped
+    ✓ AuthenticationType
+    ✓ BursaryApplicant
+    ✓ BursaryApplicantAppeal
+    ✓ BursaryApplicantAppealTimeline
+    ✓ BursaryApplicantEducation
+    ✓ BursaryApplicantEmployment
+    ✓ BursaryApplicantInstitution
+    ✓ BursaryApplicantQualification
+    ✓ BursaryApplicantRejectionReason
+    ✓ CalculationType
+    ✓ Checklist
+    ✓ ChecklistInstance
+    ✓ ChecklistOption
+    ✓ Citizenship
+    ✓ City
+    ✓ CommunityType
+    ✓ Country
+    ✓ DemographicType
+    ✓ DepartmentType
+    ✓ Designation
+    ✓ DesignationStructureStatus
+    ✓ Disability
+    ✓ DisabilityRating
+    ✓ Disbursement
+    ✓ DisbursementType
+    ⚠ Document: skipped
+    ✓ DocumentSignature
+    ✓ DocumentType
+    ✓ Dossier
+    ✓ DossierDocumentType
+    ✓ EconomicType
+    ✓ EconomicTypeInterventionType
+    ✓ EducationTrainingQualityEntity
+    ✓ ElectronicLearningApplicant
+    ✓ EmployerApprovalStatus
+    ✓ EnrolmentStatus
+    ✓ EnrolmentStatusReason
+    ✓ EnrolmentType
+    ✓ EquipmentCategory
+    ✓ EquipmentCategoryGroup
+    ✓ EquityCode
+    ✓ ETQE
+    ✓ Evaluation
+    ✓ EvaluationCriteria
+    ✓ EvaluationResult
+    ✓ EvaluationScore
+    ✓ EvaluationTemplate
+    ✓ EvaluationTemplateCriteria
+    ✓ Event
+    ✓ EventFormat
+    ✓ EventRequest
+    ✓ EventSource
+    ✓ EventType
+    ✓ EventVenue
+    ✓ EvidenceType
+    ✓ FeasibilityType
+    ✓ FieldOfStudy
+    ✓ FundingCap
+    ✓ FundingType
+    ✓ Gender
+    ✓ GlobalConfiguration
+    ✓ IdentityType
+    ✓ ImpactType
+    ✓ Indicator
+    ✓ IndicatorAchievement
+    ✓ IndicatorDescriptor
+    ✓ IndicatorEmpowerment
+    ✓ IndicatorEvidence
+    ✓ IndicatorIssue
+    ✓ IndicatorResult
+    ✓ InputType
+    ✓ InternshipStatus
+    ✓ Intervention
+    ✓ InterventionIndicator
+    ✓ InterventionOrganisation
+    ✓ InterventionOrganisationLearnerList
+    ✓ InterventionType
+    ✓ Language
+    ✓ LearningProgrammeType
+    ✓ LevelOfStudy
+    ✓ MfaType
+    ✓ MimeType
+    ✓ MunicipalityDistrict
+    ✓ MunicipalityLocal
+    ✓ Nationality
+    ✓ NonNQFInterventionStatus
+    ✓ Notification
+    ✓ NotificationTemplate
+    ✓ NotificationType
+    ✓ NQFLevel
+    ✓ NQFSubFramework
+    ✓ Object
+    ✓ ObjectType
+    ✓ Occupation
+    ✓ Organisation
+    ✓ OrganisationEmployer
+    ✓ OrganisationFundingCap
+    ✓ OrganisationInvoice
+    ✓ OrganisationPerson
+    ✓ OrganisationProvider
+    ✓ OrganisationType
+    ✓ PartOf
+    ✓ PaymentFrequency
+    ✓ PerformancePlan
+    ✓ Permission
+    ✓ Person
+    ✓ PersonOrganisationPersonType
+    ✓ PersonType
+    ✓ PersonTypeRole
+    ✓ POPIActStatus
+    ✓ PortalOrigin
+    ✓ PriorityFieldOfStudy
+    ✓ Programme
+    ✓ ProviderClass
+    ✓ ProviderStatus
+    ✓ ProviderType
+    ✓ Province
+    ✓ QualificationLevel
+    ✓ Quarter
+    ✓ RecommendationType
+    ✓ RejectionCategory
+    ✓ RejectionReason
+    ✓ ReportingPeriod
+    ✓ ReportingType
+    ✓ RiskRating
+    ✓ Role
+    ✓ RoleObject
+    ⚠ RoleObjectManagement: skipped
+    ✓ SAQAField
+    ✓ SAQALearningProgramme
+    ✓ SAQAQualification
+    ✓ SAQASubField
+    ✓ School
+    ✓ SchoolPhase
+    ✓ SchoolSector
+    ✓ SchoolStatus
+    ✓ SETAType
+    ✓ SourceSystem
+    ✓ Stage
+    ✓ StageDependency
+    ✓ StageInstance
+    ✓ StandardIndustrialClassification
+    ✓ StatsSaArea
+    ✓ Status
+    ✓ StatusCascadeRule
+    ✓ StatusObject
+    ✓ StatusObjectPermission
+    ✓ SubProgramme
+    ✓ SupportType
+    ✓ SystemUser
+    ✓ SystemUserRole
+    ✓ SystemUserType
+    ✓ Template
+    ✓ TemplateType
+    ✓ Title
+    ✓ TradeTestResult
+    ✓ TradeTestResultReason
+    ✓ YearOfStudy
+  Generating utils
+    ✓ loadSettings.ts
+  Completed:
+    ✓ Services:    C:/DEV/PMIS/react-frontend-v2/partner-portal/src\services\legacy
+    ✓ Types:       C:/DEV/PMIS/react-frontend-v2/partner-portal/src\types\legacy
+    ✓ Field hooks: C:/DEV/PMIS/react-frontend-v2/partner-portal/src\field-hooks\legacy
+    ✓ Utils:       C:/DEV/PMIS/react-frontend-v2/partner-portal/src\utils\legacy
+
+=================================================================
+Portal: C:/DEV/PMIS/react-frontend-v2/learner-portal/src
+=================================================================
+  Generating services, types and field-hooks for 205 resources:
+    ✓ AgeBracket
+    ✓ Allowance
+    ✓ AllowanceType
+    ✓ AlternateIdentityType
+    ✓ ApplicantType
+    ✓ Application
+    ✓ ApplicationType
+    ✓ Approval
+    ✓ ApprovalStatus
+    ✓ ApprovalStep
+    ✓ ApprovalType
+    ✓ Area
+    ✓ Attendee
+    ⚠ sso: skipped
+    ✓ AuthenticationType
+    ✓ BursaryApplicant
+    ✓ BursaryApplicantAppeal
+    ✓ BursaryApplicantAppealTimeline
+    ✓ BursaryApplicantEducation
+    ✓ BursaryApplicantEmployment
+    ✓ BursaryApplicantInstitution
+    ✓ BursaryApplicantQualification
+    ✓ BursaryApplicantRejectionReason
+    ✓ CalculationType
+    ✓ Checklist
+    ✓ ChecklistInstance
+    ✓ ChecklistOption
+    ✓ Citizenship
+    ✓ City
+    ✓ CommunityType
+    ✓ Country
+    ✓ DemographicType
+    ✓ DepartmentType
+    ✓ Designation
+    ✓ DesignationStructureStatus
+    ✓ Disability
+    ✓ DisabilityRating
+    ✓ Disbursement
+    ✓ DisbursementType
+    ⚠ Document: skipped
+    ✓ DocumentSignature
+    ✓ DocumentType
+    ✓ Dossier
+    ✓ DossierDocumentType
+    ✓ EconomicType
+    ✓ EconomicTypeInterventionType
+    ✓ EducationTrainingQualityEntity
+    ✓ ElectronicLearningApplicant
+    ✓ EmployerApprovalStatus
+    ✓ EnrolmentStatus
+    ✓ EnrolmentStatusReason
+    ✓ EnrolmentType
+    ✓ EquipmentCategory
+    ✓ EquipmentCategoryGroup
+    ✓ EquityCode
+    ✓ ETQE
+    ✓ Evaluation
+    ✓ EvaluationCriteria
+    ✓ EvaluationResult
+    ✓ EvaluationScore
+    ✓ EvaluationTemplate
+    ✓ EvaluationTemplateCriteria
+    ✓ Event
+    ✓ EventFormat
+    ✓ EventRequest
+    ✓ EventSource
+    ✓ EventType
+    ✓ EventVenue
+    ✓ EvidenceType
+    ✓ FeasibilityType
+    ✓ FieldOfStudy
+    ✓ FundingCap
+    ✓ FundingType
+    ✓ Gender
+    ✓ GlobalConfiguration
+    ✓ IdentityType
+    ✓ ImpactType
+    ✓ Indicator
+    ✓ IndicatorAchievement
+    ✓ IndicatorDescriptor
+    ✓ IndicatorEmpowerment
+    ✓ IndicatorEvidence
+    ✓ IndicatorIssue
+    ✓ IndicatorResult
+    ✓ InputType
+    ✓ InternshipStatus
+    ✓ Intervention
+    ✓ InterventionIndicator
+    ✓ InterventionOrganisation
+    ✓ InterventionOrganisationLearnerList
+    ✓ InterventionType
+    ✓ Language
+    ✓ LearningProgrammeType
+    ✓ LevelOfStudy
+    ✓ MfaType
+    ✓ MimeType
+    ✓ MunicipalityDistrict
+    ✓ MunicipalityLocal
+    ✓ Nationality
+    ✓ NonNQFInterventionStatus
+    ✓ Notification
+    ✓ NotificationTemplate
+    ✓ NotificationType
+    ✓ NQFLevel
+    ✓ NQFSubFramework
+    ✓ Object
+    ✓ ObjectType
+    ✓ Occupation
+    ✓ Organisation
+    ✓ OrganisationEmployer
+    ✓ OrganisationFundingCap
+    ✓ OrganisationInvoice
+    ✓ OrganisationPerson
+    ✓ OrganisationProvider
+    ✓ OrganisationType
+    ✓ PartOf
+    ✓ PaymentFrequency
+    ✓ PerformancePlan
+    ✓ Permission
+    ✓ Person
+    ✓ PersonOrganisationPersonType
+    ✓ PersonType
+    ✓ PersonTypeRole
+    ✓ POPIActStatus
+    ✓ PortalOrigin
+    ✓ PriorityFieldOfStudy
+    ✓ Programme
+    ✓ ProviderClass
+    ✓ ProviderStatus
+    ✓ ProviderType
+    ✓ Province
+    ✓ QualificationLevel
+    ✓ Quarter
+    ✓ RecommendationType
+    ✓ RejectionCategory
+    ✓ RejectionReason
+    ✓ ReportingPeriod
+    ✓ ReportingType
+    ✓ RiskRating
+    ✓ Role
+    ✓ RoleObject
+    ⚠ RoleObjectManagement: skipped
+    ✓ SAQAField
+    ✓ SAQALearningProgramme
+    ✓ SAQAQualification
+    ✓ SAQASubField
+    ✓ School
+    ✓ SchoolPhase
+    ✓ SchoolSector
+    ✓ SchoolStatus
+    ✓ SETAType
+    ✓ SourceSystem
+    ✓ Stage
+    ✓ StageDependency
+    ✓ StageInstance
+    ✓ StandardIndustrialClassification
+    ✓ StatsSaArea
+    ✓ Status
+    ✓ StatusCascadeRule
+    ✓ StatusObject
+    ✓ StatusObjectPermission
+    ✓ SubProgramme
+    ✓ SupportType
+    ✓ SystemUser
+    ✓ SystemUserRole
+    ✓ SystemUserType
+    ✓ Template
+    ✓ TemplateType
+    ✓ Title
+    ✓ TradeTestResult
+    ✓ TradeTestResultReason
+    ✓ YearOfStudy
+  Generating utils
+    ✓ loadSettings.ts
+  Completed:
+    ✓ Services:    C:/DEV/PMIS/react-frontend-v2/learner-portal/src\services\legacy
+    ✓ Types:       C:/DEV/PMIS/react-frontend-v2/learner-portal/src\types\legacy
+    ✓ Field hooks: C:/DEV/PMIS/react-frontend-v2/learner-portal/src\field-hooks\legacy
+    ✓ Utils:       C:/DEV/PMIS/react-frontend-v2/learner-portal/src\utils\legacy
+

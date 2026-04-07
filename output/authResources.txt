@@ -1,0 +1,11 @@
+Signup
+Login
+Logout
+LoginMFA
+PasswordReset
+PasswordUpdate
+Profile
+ValidateOrganisationPersonRegistration
+OrganisationPersonRegister
+ValidateBursaryApplicantRegistration
+BursaryApplicantRegister

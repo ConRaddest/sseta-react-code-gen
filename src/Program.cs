@@ -13,8 +13,15 @@ namespace ReactCodegen
         private static StreamWriter? _logWriter;
         private static TextWriter? _originalConsoleOut;
 
-        static async Task Main()
+        static async Task Main(string[] args)
         {
+            // Dispatch to legacy mode if requested
+            if (args.Length > 0 && args[0].Equals("legacy", StringComparison.OrdinalIgnoreCase))
+            {
+                await ReactCodegen.Legacy.LegacyProgram.RunAsync();
+                return;
+            }
+
             // ---------------------------------------------------------------
             // Load config
             // ---------------------------------------------------------------

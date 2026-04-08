@@ -22,6 +22,74 @@
       ]
     }
   },
+  "B": {
+    "PartnerRoleRequest": {
+      "View": [
+        "name",
+        "organisationName",
+        "requestedBySystemUserName",
+        "reviewedBySystemUserName",
+        "createdBySystemUserName",
+        "modifiedBySystemUserName",
+        "deletedBySystemUserName",
+        "requestReason",
+        "rejectionReason",
+        "reviewedOn",
+        "createdOn",
+        "modifiedOn",
+        "deletedOn"
+      ]
+    },
+    "PartnerRoleRequestOrganisationPerson": {
+      "View": [
+        "name",
+        "partnerRoleRequestName",
+        "personName",
+        "organisationName",
+        "titleName",
+        "firstName",
+        "middleName",
+        "lastName",
+        "identityTypeName",
+        "ageBracketName",
+        "genderName",
+        "equityCodeName",
+        "citizenshipName",
+        "nationalityName",
+        "economicTypeName",
+        "homeLanguageName",
+        "statsSaAreaName",
+        "cityName",
+        "provinceName",
+        "municipalityLocalName",
+        "communityTypeName",
+        "communicatingDisabilityRatingName",
+        "hearingDisabilityRatingName",
+        "rememberingDisabilityRatingName",
+        "seeingDisabilityRatingName",
+        "selfCareDisabilityRatingName",
+        "walkingDisabilityRatingName",
+        "statusName",
+        "createdBySystemUserName",
+        "modifiedBySystemUserName",
+        "deletedBySystemUserName",
+        "age",
+        "identityNumber",
+        "email",
+        "mobilePhone",
+        "homePhone",
+        "businessPhone",
+        "faxNumber",
+        "homeAddressLineOne",
+        "homeAddressLineTwo",
+        "postalCode",
+        "dateOfBirth",
+        "createdOn",
+        "modifiedOn",
+        "deletedOn"
+      ]
+    }
+  },
   "Portal": {
     "StaffRoleRequest": {
       "Create": [

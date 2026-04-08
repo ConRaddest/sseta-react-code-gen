@@ -18,8 +18,9 @@ static class ApiServiceGenerator
     // Auth paths that are handled externally and should not be generated
     static readonly HashSet<string> ExcludedPaths = ["/api/Auth/sso/login", "/api/Auth/sso/callback"];
 
-    public static void Generate(JsonObject paths, JsonObject? schemas, string templatePath, string outputPath, string apiPrefix = "management")
+    public static void Generate(JsonObject paths, JsonObject? schemas, string templatePath, string outputPath, HashSet<string>? apiPrefixes = null)
     {
+        apiPrefixes ??= ["management"];
         // ---------------------------------------------------------------
         // 1. Parse every path into a structured endpoint list
         // ---------------------------------------------------------------
@@ -69,9 +70,8 @@ static class ApiServiceGenerator
 
         // module → resource → endpoints
         var modules = new SortedDictionary<string, SortedDictionary<string, List<Endpoint>>>(StringComparer.Ordinal);
-        string modulePrefixFilter = $"/api/{apiPrefix}/";
 
-        foreach (var ep in endpoints.Where(e => e.RawPath.StartsWith(modulePrefixFilter)))
+        foreach (var ep in endpoints.Where(e => apiPrefixes.Any(p => e.RawPath.StartsWith($"/api/{p}/"))))
         {
             // /api/{apiPrefix}/{MODULE}/{Resource}/...
             var parts = ep.RawPath.TrimStart('/').Split('/');

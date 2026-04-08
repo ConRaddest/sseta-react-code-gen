@@ -20,15 +20,16 @@ static class UpdateFormGenerator
         HashSet<string>? blacklist = null,
         string? formTemplatePath = null,
         string? fieldsTemplatePath = null,
-        string apiPrefix = "management")
+        HashSet<string>? apiPrefixes = null)
     {
+        apiPrefixes ??= ["management"];
         // Collect resources that have a Retrieve (view) endpoint — update forms require it.
         var viewResources = new HashSet<string>(StringComparer.Ordinal);
         foreach (var (rawPath, _) in paths)
         {
             var parts = rawPath.TrimStart('/').Split('/');
             if (parts.Length < 5) continue;
-            if (parts[0] != "api" || parts[1] != apiPrefix) continue;
+            if (parts[0] != "api" || !apiPrefixes.Contains(parts[1])) continue;
             if (string.Equals(parts[4], "Retrieve", StringComparison.OrdinalIgnoreCase))
                 viewResources.Add($"{parts[2]}.{parts[3]}");
         }
@@ -40,7 +41,7 @@ static class UpdateFormGenerator
             if (pathNode == null) continue;
             var parts = rawPath.TrimStart('/').Split('/');
             if (parts.Length < 5) continue;
-            if (parts[0] != "api" || parts[1] != apiPrefix) continue;
+            if (parts[0] != "api" || !apiPrefixes.Contains(parts[1])) continue;
             if (blacklist != null && (blacklist.Contains($"{parts[2]}.{parts[3]}") || blacklist.Contains($"{parts[2]}.{parts[3]}.Update"))) continue;
             if (!string.Equals(parts[4], "Update", StringComparison.OrdinalIgnoreCase)) continue;
 
@@ -88,7 +89,7 @@ static class UpdateFormGenerator
                 foreach (var r in requiredArray)
                     if (r?.GetValue<string>() is string s) requiredFields.Add(s);
 
-            var searchableResources = Formatters.BuildSearchableResources(paths, ep.Module, apiPrefix);
+            var searchableResources = Formatters.BuildSearchableResources(paths, ep.Module, apiPrefixes);
             var orderedFields = UseFieldsGenerator.GetOrderedFields(ep.Resource, fieldLayout, properties, searchableResources);
             var fkFields = UseFieldsGenerator.CollectFkFields(ep.Module, modulePascal, orderedFields, properties, searchableResources);
 

@@ -18,8 +18,9 @@ static class ViewFormGenerator
         HashSet<string>? blacklist = null,
         string? formTemplatePath = null,
         string? layoutTemplatePath = null,
-        string apiPrefix = "management")
+        HashSet<string>? apiPrefixes = null)
     {
+        apiPrefixes ??= ["management"];
         var endpoints = new List<ViewEndpoint>();
 
         foreach (var (rawPath, pathNode) in paths)
@@ -27,7 +28,7 @@ static class ViewFormGenerator
             if (pathNode == null) continue;
             var parts = rawPath.TrimStart('/').Split('/');
             if (parts.Length < 5) continue;
-            if (parts[0] != "api" || parts[1] != apiPrefix) continue;
+            if (parts[0] != "api" || !apiPrefixes.Contains(parts[1])) continue;
             if (blacklist != null && (blacklist.Contains($"{parts[2]}.{parts[3]}") || blacklist.Contains($"{parts[2]}.{parts[3]}.View"))) continue;
             if (!string.Equals(parts[4], "Retrieve", StringComparison.OrdinalIgnoreCase)) continue;
 
@@ -62,7 +63,7 @@ static class ViewFormGenerator
 
             var properties = retrieveSchema?["properties"]?.AsObject();
 
-            var searchableResources = Formatters.BuildSearchableResources(paths, ep.Module, apiPrefix);
+            var searchableResources = Formatters.BuildSearchableResources(paths, ep.Module, apiPrefixes);
 
             File.WriteAllText(Path.Combine(dir, $"ViewForm.tsx"),
                 ApplyTemplate(RenderForm(ep, prefix), formTemplatePath));

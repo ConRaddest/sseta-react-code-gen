@@ -15,15 +15,16 @@ static class DeleteFormGenerator
         string formsOutputDir,
         HashSet<string>? blacklist = null,
         string? templatePath = null,
-        string apiPrefix = "management")
+        HashSet<string>? apiPrefixes = null)
     {
+        apiPrefixes ??= ["management"];
         // Collect resources that have a Retrieve (view) endpoint — delete forms require it.
         var viewResources = new HashSet<string>(StringComparer.Ordinal);
         foreach (var (rawPath, _) in paths)
         {
             var parts = rawPath.TrimStart('/').Split('/');
             if (parts.Length < 5) continue;
-            if (parts[0] != "api" || parts[1] != apiPrefix) continue;
+            if (parts[0] != "api" || !apiPrefixes.Contains(parts[1])) continue;
             if (string.Equals(parts[4], "Retrieve", StringComparison.OrdinalIgnoreCase))
                 viewResources.Add($"{parts[2]}.{parts[3]}");
         }
@@ -35,7 +36,7 @@ static class DeleteFormGenerator
             if (pathNode == null) continue;
             var parts = rawPath.TrimStart('/').Split('/');
             if (parts.Length < 5) continue;
-            if (parts[0] != "api" || parts[1] != apiPrefix) continue;
+            if (parts[0] != "api" || !apiPrefixes.Contains(parts[1])) continue;
             if (blacklist != null && (blacklist.Contains($"{parts[2]}.{parts[3]}") || blacklist.Contains($"{parts[2]}.{parts[3]}.Delete"))) continue;
             if (!string.Equals(parts[4], "Delete", StringComparison.OrdinalIgnoreCase)) continue;
 

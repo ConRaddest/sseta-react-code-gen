@@ -80,9 +80,17 @@ namespace ReactCodegen
                         var rel = o[key]?.GetValue<string>() ?? throw new Exception(err);
                         return Path.Combine(baseDir, rel);
                     }
+                    string primaryPrefix = p["apiPrefix"]?.GetValue<string>() ?? "management";
+                    var additionalPrefixes = (p["additionalPrefixes"]?.AsArray() ?? [])
+                        .Select(x => x?.GetValue<string>() ?? "")
+                        .Where(x => x.Length > 0)
+                        .ToHashSet(StringComparer.OrdinalIgnoreCase);
+                    var allPrefixes = new HashSet<string>(additionalPrefixes, StringComparer.OrdinalIgnoreCase) { primaryPrefix };
+
                     return new PortalConfig(
                         Name:                 p["name"]?.GetValue<string>()             ?? throw new Exception("Portal missing name."),
-                        ApiPrefix:            p["apiPrefix"]?.GetValue<string>()        ?? "management",
+                        ApiPrefix:            primaryPrefix,
+                        ApiPrefixes:          allPrefixes,
                         SwaggerUrl:           i["swaggerUrl"]?.GetValue<string>()       ?? throw new Exception("Portal missing input.swaggerUrl."),
                         SwaggerCachePath:     i["swaggerCachePath"]?.GetValue<string>() ?? throw new Exception("Portal missing input.swaggerCachePath."),
                         FieldLayoutPath:      i["fieldLayoutPath"]?.GetValue<string>()  ?? throw new Exception("Portal missing input.fieldLayoutPath."),
@@ -240,11 +248,11 @@ namespace ReactCodegen
             Directory.CreateDirectory(Path.GetDirectoryName(portal.Output.FieldsManifest)!);
 
             Console.WriteLine("  Fields Manifest");
-            FieldsManifestGenerator.Generate(paths, schemas, fieldLayout?.AsObject(), portal.Output.FieldsManifest, portal.Blacklist, portal.ApiPrefix);
+            FieldsManifestGenerator.Generate(paths, schemas, fieldLayout?.AsObject(), portal.Output.FieldsManifest, portal.Blacklist, portal.ApiPrefixes);
             Console.WriteLine();
 
             Console.WriteLine("  Services");
-            ApiServiceGenerator.Generate(paths, schemas, serviceTemplatePath, Path.Combine(portal.Output.Services, "api.service.ts"), portal.ApiPrefix);
+            ApiServiceGenerator.Generate(paths, schemas, serviceTemplatePath, Path.Combine(portal.Output.Services, "api.service.ts"), portal.ApiPrefixes);
             Console.WriteLine();
 
             Console.WriteLine("  Types");
@@ -252,31 +260,31 @@ namespace ReactCodegen
             Console.WriteLine();
 
             Console.WriteLine("  Contexts");
-            ContextGenerator.Generate(paths, schemas, portal.Output.Contexts, portal.Blacklist, contextTemplate, portal.ApiPrefix);
+            ContextGenerator.Generate(paths, schemas, portal.Output.Contexts, portal.Blacklist, contextTemplate, portal.ApiPrefixes);
             Console.WriteLine();
 
             Console.WriteLine("  Create Forms");
-            CreateFormGenerator.Generate(paths, schemas, portal.Output.Forms, portal.Blacklist, createFormTemplate, portal.ApiPrefix);
+            CreateFormGenerator.Generate(paths, schemas, portal.Output.Forms, portal.Blacklist, createFormTemplate, portal.ApiPrefixes);
             Console.WriteLine();
 
             Console.WriteLine("  Update Forms");
-            UpdateFormGenerator.Generate(paths, schemas, fieldLayout?.AsObject(), portal.Output.Forms, portal.Blacklist, updateFormTemplate, useFieldsTemplate, portal.ApiPrefix);
+            UpdateFormGenerator.Generate(paths, schemas, fieldLayout?.AsObject(), portal.Output.Forms, portal.Blacklist, updateFormTemplate, useFieldsTemplate, portal.ApiPrefixes);
             Console.WriteLine();
 
             Console.WriteLine("  View Forms");
-            ViewFormGenerator.Generate(paths, schemas, fieldLayout?.AsObject(), portal.Output.Forms, portal.Blacklist, viewFormTemplate, useLayoutTemplate, portal.ApiPrefix);
+            ViewFormGenerator.Generate(paths, schemas, fieldLayout?.AsObject(), portal.Output.Forms, portal.Blacklist, viewFormTemplate, useLayoutTemplate, portal.ApiPrefixes);
             Console.WriteLine();
 
             Console.WriteLine("  Delete Forms");
-            DeleteFormGenerator.Generate(paths, schemas, portal.Output.Forms, portal.Blacklist, deleteFormTemplate, portal.ApiPrefix);
+            DeleteFormGenerator.Generate(paths, schemas, portal.Output.Forms, portal.Blacklist, deleteFormTemplate, portal.ApiPrefixes);
             Console.WriteLine();
 
             Console.WriteLine("  Field Hooks");
-            UseFieldsGenerator.Generate(paths, schemas, fieldLayout?.AsObject(), portal.Output.Forms, portal.Blacklist, useFieldsTemplate, portal.ApiPrefix);
+            UseFieldsGenerator.Generate(paths, schemas, fieldLayout?.AsObject(), portal.Output.Forms, portal.Blacklist, useFieldsTemplate, portal.ApiPrefixes);
             Console.WriteLine();
 
             Console.WriteLine("  Provider Layout");
-            ProviderLayoutGenerator.Generate(paths, portal.Output.App, portal.ProviderLayoutTemplate, portal.Blacklist, portal.ApiPrefix);
+            ProviderLayoutGenerator.Generate(paths, portal.Output.App, portal.ProviderLayoutTemplate, portal.Blacklist, portal.ApiPrefixes);
             Console.WriteLine();
 
             Console.WriteLine($"  Completed generation:");
@@ -303,6 +311,7 @@ namespace ReactCodegen
     record PortalConfig(
         string Name,
         string ApiPrefix,
+        HashSet<string> ApiPrefixes,
         string SwaggerUrl,
         string SwaggerCachePath,
         string FieldLayoutPath,

@@ -1,5 +1,5 @@
 =================================================================
-Code Generation Log - 2026-04-08 14:59:57
+Code Generation Log - 2026-04-08 15:56:49
 =================================================================
 
 =================================================================
@@ -20,7 +20,7 @@ Fetching swagger: https://localhost:7222/swagger/v1/swagger.json
   Version:         1.0
 
   Fields Manifest
-    2 resource(s) written to management-fields.json
+    4 resource(s) written to management-fields.json
 
   Services
     ✓ api.service.ts  (26 endpoints across 7 modules)
@@ -33,6 +33,7 @@ Fetching swagger: https://localhost:7222/swagger/v1/swagger.json
     ✓ ADMIN/StaffRoleRequest
     ✓ B/Organisation
     ✓ B/PartnerRoleRequest
+    ✓ B/PartnerRoleRequestOrganisationPerson
     ✓ B/Role
     ✓ ECD/Role
     ✓ PMVR/Role
@@ -41,7 +42,7 @@ Fetching swagger: https://localhost:7222/swagger/v1/swagger.json
     ✓ PORTAL/StaffRoleRequest
     ✓ SP/Role
     ✓ SPI/Role
-    12 context(s) generated.
+    13 context(s) generated.
 
   Create Forms
     ✓ PORTAL/StaffRoleRequest
@@ -52,8 +53,10 @@ Fetching swagger: https://localhost:7222/swagger/v1/swagger.json
     1 update form(s) generated.
 
   View Forms
+    ✓ B/PartnerRoleRequest
+    ✓ B/PartnerRoleRequestOrganisationPerson
     ✓ ADMIN/StaffRoleRequest
-    1 view form(s) generated.
+    3 view form(s) generated.
 
   Delete Forms
     0 delete form(s) generated.
@@ -63,7 +66,7 @@ Fetching swagger: https://localhost:7222/swagger/v1/swagger.json
     1 field hook(s) generated.
 
   Provider Layout
-    ✓ layout.tsx  (12 provider(s))
+    ✓ layout.tsx  (13 provider(s))
 
   Completed generation:
     ✓ Services:       C:/DEV/PMIS/react-frontend-v2/management-portal/src\services

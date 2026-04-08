@@ -290,14 +290,15 @@ static class Formatters
 
     // Returns the set of resource names that have a Search endpoint for the given module.
     // Used to filter FK fields — only include a select when the parent table is searchable.
-    public static HashSet<string> BuildSearchableResources(JsonObject paths, string module, string apiPrefix = "management")
+    public static HashSet<string> BuildSearchableResources(JsonObject paths, string module, HashSet<string>? apiPrefixes = null)
     {
+        apiPrefixes ??= ["management"];
         var result = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
         foreach (var (rawPath, _) in paths)
         {
             var parts = rawPath.TrimStart('/').Split('/');
             if (parts.Length < 5) continue;
-            if (parts[0] != "api" || parts[1] != apiPrefix) continue;
+            if (parts[0] != "api" || !apiPrefixes.Contains(parts[1])) continue;
             if (!string.Equals(parts[2], module, StringComparison.OrdinalIgnoreCase)) continue;
             if (!string.Equals(parts[4], "Search", StringComparison.OrdinalIgnoreCase)) continue;
             result.Add(parts[3]);

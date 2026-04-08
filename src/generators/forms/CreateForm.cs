@@ -18,8 +18,9 @@ static class CreateFormGenerator
         string formsOutputDir,
         HashSet<string>? blacklist = null,
         string? templatePath = null,
-        string apiPrefix = "management")
+        HashSet<string>? apiPrefixes = null)
     {
+        apiPrefixes ??= ["management"];
         // Collect every (module, resource) pair that has a Create endpoint
         var createEndpoints = new List<CreateEndpoint>();
 
@@ -30,7 +31,7 @@ static class CreateFormGenerator
             // Only portal paths: /api/{apiPrefix}/{MODULE}/{Resource}/Create
             var parts = rawPath.TrimStart('/').Split('/');
             if (parts.Length < 5) continue;
-            if (parts[0] != "api" || parts[1] != apiPrefix) continue;
+            if (parts[0] != "api" || !apiPrefixes.Contains(parts[1])) continue;
             if (blacklist != null && (blacklist.Contains($"{parts[2]}.{parts[3]}") || blacklist.Contains($"{parts[2]}.{parts[3]}.Create"))) continue;
             if (!string.Equals(parts[4], "Create", StringComparison.OrdinalIgnoreCase)) continue;
 

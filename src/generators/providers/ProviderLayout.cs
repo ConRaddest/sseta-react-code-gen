@@ -19,8 +19,9 @@ static class ProviderLayoutGenerator
         string appOutputDir,
         string templatePath,
         HashSet<string>? blacklist = null,
-        string apiPrefix = "management")
+        HashSet<string>? apiPrefixes = null)
     {
+        apiPrefixes ??= ["management"];
         // Collect module/resource pairs that will have a generated context — mirroring
         // the same blacklist logic as ContextGenerator so the two stay in sync.
         // A resource is included only if it has at least one non-blacklisted operation.
@@ -36,7 +37,7 @@ static class ProviderLayoutGenerator
         {
             var parts = rawPath.TrimStart('/').Split('/');
             if (parts.Length < 5) continue;
-            if (parts[0] != "api" || parts[1] != apiPrefix) continue;
+            if (parts[0] != "api" || !apiPrefixes.Contains(parts[1])) continue;
 
             string module    = parts[2];
             string resource  = parts[3];

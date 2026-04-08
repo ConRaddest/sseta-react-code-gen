@@ -1,5 +1,6 @@
 {
   "inputs": {
+    "modules": ["ADMIN", "PORTAL", "PMVR", "SPI", "ECD", "SP", "B"],
     "database": {
       "connectionString": "server=localhost;database=PMVR;TrustServerCertificate=True;Integrated Security=True;"
     },
@@ -38,12 +39,7 @@
         "app": "app",
         "fieldsManifest": "../../code-gen/input/fields-manifest/management-fields.json"
       },
-      "blacklist": [
-        "ECD.SystemUser.Update",
-        "PMVR.SystemUser.Update",
-        "SP.SystemUser.Update",
-        "SPI.SystemUser.Update"
-      ]
+      "blacklist": ["PORTAL.SystemUser.Update"]
     },
     {
       "name": "partner",

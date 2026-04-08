@@ -1,12 +1,4 @@
 {
-  "Access": {
-    "StaffRoleRequest": {
-      "Create": [
-        "requestReason",
-        "roleId"
-      ]
-    }
-  },
   "Admin": {
     "StaffRoleRequest": {
       "View": [
@@ -27,6 +19,14 @@
       ],
       "Update": [
         "rejectionReason"
+      ]
+    }
+  },
+  "Portal": {
+    "StaffRoleRequest": {
+      "Create": [
+        "requestReason",
+        "roleId"
       ]
     }
   }

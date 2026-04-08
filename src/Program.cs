@@ -41,6 +41,12 @@ namespace ReactCodegen
             var inputs  = configNode["inputs"]  ?? throw new Exception("Missing inputs in config.");
             var outputs = configNode["outputs"] ?? throw new Exception("Missing outputs in config.");
 
+            Formatters.Modules = inputs["modules"]?.AsArray()
+                .Select(m => m?.GetValue<string>() ?? "")
+                .Where(m => m.Length > 0)
+                .ToArray()
+                ?? throw new Exception("Missing inputs.modules in config.");
+
             string dbConnectionString      = inputs["database"]?["connectionString"]?.GetValue<string>() ?? throw new Exception("Missing inputs.database.connectionString in config.");
             var t = inputs["templates"] ?? throw new Exception("Missing inputs.templates in config.");
             string T(string key) => t[key]?.GetValue<string>() ?? throw new Exception($"Missing inputs.templates.{key} in config.");

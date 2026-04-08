@@ -155,7 +155,8 @@ static class Formatters
     // ---------------------------------------------------------------
 
     // Known module tokens — ordered longest-first so "SPI" matches before "SP"
-    public static readonly string[] Modules = ["ADMIN", "ACCESS", "PMVR", "SPI", "ECD", "SP", "B"];
+    // Populated at startup from codegen.config.json inputs.modules
+    public static string[] Modules { get; set; } = [];
 
     // Fields that are always excluded from generated form layouts, field hooks, and select hooks.
     // Status management is handled separately and should never appear in scaffolded forms.
@@ -439,12 +440,12 @@ static class Formatters
                 string lower = key.ToLower();
                 int order = type switch
                 {
-                    "select"   => 1,
-                    "date"     => 3,
+                    "select" => 1,
+                    "date" => 3,
                     "datetime" => 3,
                     "textarea" => 4,
                     "checkbox" => 5,
-                    _          => 2,
+                    _ => 2,
                 };
                 if (lower.Contains("name") || lower.Contains("title")) order = 0;
 

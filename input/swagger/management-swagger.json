@@ -96,7 +96,7 @@
         }
       }
     },
-    "/api/management/ACCESS/DepartmentType/Search": {
+    "/api/management/PORTAL/DepartmentType/Search": {
       "post": {
         "tags": [
           "DepartmentType"
@@ -105,32 +105,32 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/DepartmentTypeACCESSSearchRequestModel"
+                "$ref": "#/components/schemas/DepartmentTypePORTALSearchRequestModel"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/DepartmentTypeACCESSSearchRequestModel"
+                "$ref": "#/components/schemas/DepartmentTypePORTALSearchRequestModel"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/DepartmentTypeACCESSSearchRequestModel"
+                "$ref": "#/components/schemas/DepartmentTypePORTALSearchRequestModel"
               }
             },
             "application/xml": {
               "schema": {
-                "$ref": "#/components/schemas/DepartmentTypeACCESSSearchRequestModel"
+                "$ref": "#/components/schemas/DepartmentTypePORTALSearchRequestModel"
               }
             },
             "text/xml": {
               "schema": {
-                "$ref": "#/components/schemas/DepartmentTypeACCESSSearchRequestModel"
+                "$ref": "#/components/schemas/DepartmentTypePORTALSearchRequestModel"
               }
             },
             "application/*+xml": {
               "schema": {
-                "$ref": "#/components/schemas/DepartmentTypeACCESSSearchRequestModel"
+                "$ref": "#/components/schemas/DepartmentTypePORTALSearchRequestModel"
               }
             }
           }
@@ -141,27 +141,27 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "$ref": "#/components/schemas/DepartmentTypeACCESSSearchResponseSETAApiResponse"
+                  "$ref": "#/components/schemas/DepartmentTypePORTALSearchResponseSETAApiResponse"
                 }
               },
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/DepartmentTypeACCESSSearchResponseSETAApiResponse"
+                  "$ref": "#/components/schemas/DepartmentTypePORTALSearchResponseSETAApiResponse"
                 }
               },
               "text/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/DepartmentTypeACCESSSearchResponseSETAApiResponse"
+                  "$ref": "#/components/schemas/DepartmentTypePORTALSearchResponseSETAApiResponse"
                 }
               },
               "application/xml": {
                 "schema": {
-                  "$ref": "#/components/schemas/DepartmentTypeACCESSSearchResponseSETAApiResponse"
+                  "$ref": "#/components/schemas/DepartmentTypePORTALSearchResponseSETAApiResponse"
                 }
               },
               "text/xml": {
                 "schema": {
-                  "$ref": "#/components/schemas/DepartmentTypeACCESSSearchResponseSETAApiResponse"
+                  "$ref": "#/components/schemas/DepartmentTypePORTALSearchResponseSETAApiResponse"
                 }
               }
             }
@@ -327,41 +327,91 @@
         }
       }
     },
-    "/api/management/ACCESS/Role/Search": {
+    "/api/partner/B/PartnerRoleRequest/Retrieve/{id}": {
+      "get": {
+        "tags": [
+          "PartnerRoleRequest"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/PartnerRoleRequestBRetrieveResponseModelSETAApiResponse"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PartnerRoleRequestBRetrieveResponseModelSETAApiResponse"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PartnerRoleRequestBRetrieveResponseModelSETAApiResponse"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/PartnerRoleRequestBRetrieveResponseModelSETAApiResponse"
+                }
+              },
+              "text/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/PartnerRoleRequestBRetrieveResponseModelSETAApiResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/partner/B/PartnerRoleRequest/Search": {
       "post": {
         "tags": [
-          "Role"
+          "PartnerRoleRequest"
         ],
         "requestBody": {
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/RoleACCESSSearchRequestModel"
+                "$ref": "#/components/schemas/PartnerRoleRequestBSearchRequestModel"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/RoleACCESSSearchRequestModel"
+                "$ref": "#/components/schemas/PartnerRoleRequestBSearchRequestModel"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/RoleACCESSSearchRequestModel"
+                "$ref": "#/components/schemas/PartnerRoleRequestBSearchRequestModel"
               }
             },
             "application/xml": {
               "schema": {
-                "$ref": "#/components/schemas/RoleACCESSSearchRequestModel"
+                "$ref": "#/components/schemas/PartnerRoleRequestBSearchRequestModel"
               }
             },
             "text/xml": {
               "schema": {
-                "$ref": "#/components/schemas/RoleACCESSSearchRequestModel"
+                "$ref": "#/components/schemas/PartnerRoleRequestBSearchRequestModel"
               }
             },
             "application/*+xml": {
               "schema": {
-                "$ref": "#/components/schemas/RoleACCESSSearchRequestModel"
+                "$ref": "#/components/schemas/PartnerRoleRequestBSearchRequestModel"
               }
             }
           }
@@ -372,27 +422,223 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "$ref": "#/components/schemas/RoleACCESSSearchResponseSETAApiResponse"
+                  "$ref": "#/components/schemas/PartnerRoleRequestBSearchResponseSETAApiResponse"
                 }
               },
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/RoleACCESSSearchResponseSETAApiResponse"
+                  "$ref": "#/components/schemas/PartnerRoleRequestBSearchResponseSETAApiResponse"
                 }
               },
               "text/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/RoleACCESSSearchResponseSETAApiResponse"
+                  "$ref": "#/components/schemas/PartnerRoleRequestBSearchResponseSETAApiResponse"
                 }
               },
               "application/xml": {
                 "schema": {
-                  "$ref": "#/components/schemas/RoleACCESSSearchResponseSETAApiResponse"
+                  "$ref": "#/components/schemas/PartnerRoleRequestBSearchResponseSETAApiResponse"
                 }
               },
               "text/xml": {
                 "schema": {
-                  "$ref": "#/components/schemas/RoleACCESSSearchResponseSETAApiResponse"
+                  "$ref": "#/components/schemas/PartnerRoleRequestBSearchResponseSETAApiResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/partner/B/PartnerRoleRequest/Submit": {
+      "post": {
+        "tags": [
+          "PartnerRoleRequest"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PartnerRoleRequestBSubmitRequestModel"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PartnerRoleRequestBSubmitRequestModel"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/PartnerRoleRequestBSubmitRequestModel"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/PartnerRoleRequestBSubmitRequestModel"
+              }
+            },
+            "text/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/PartnerRoleRequestBSubmitRequestModel"
+              }
+            },
+            "application/*+xml": {
+              "schema": {
+                "$ref": "#/components/schemas/PartnerRoleRequestBSubmitRequestModel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/BooleanSETAApiResponse"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BooleanSETAApiResponse"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BooleanSETAApiResponse"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/BooleanSETAApiResponse"
+                }
+              },
+              "text/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/BooleanSETAApiResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/partner/B/PartnerRoleRequest/Validate": {
+      "post": {
+        "tags": [
+          "PartnerRoleRequest"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PartnerRoleRequestBValidateRequestModel"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PartnerRoleRequestBValidateRequestModel"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/PartnerRoleRequestBValidateRequestModel"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/PartnerRoleRequestBValidateRequestModel"
+              }
+            },
+            "text/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/PartnerRoleRequestBValidateRequestModel"
+              }
+            },
+            "application/*+xml": {
+              "schema": {
+                "$ref": "#/components/schemas/PartnerRoleRequestBValidateRequestModel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/PartnerRoleRequestBValidateResponseModelSETAApiResponse"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PartnerRoleRequestBValidateResponseModelSETAApiResponse"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PartnerRoleRequestBValidateResponseModelSETAApiResponse"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/PartnerRoleRequestBValidateResponseModelSETAApiResponse"
+                }
+              },
+              "text/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/PartnerRoleRequestBValidateResponseModelSETAApiResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/partner/B/PartnerRoleRequestOrganisationPerson/Retrieve/{id}": {
+      "get": {
+        "tags": [
+          "PartnerRoleRequestOrganisationPerson"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/PartnerRoleRequestOrganisationPersonBRetrieveResponseModelSETAApiResponse"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PartnerRoleRequestOrganisationPersonBRetrieveResponseModelSETAApiResponse"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PartnerRoleRequestOrganisationPersonBRetrieveResponseModelSETAApiResponse"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/PartnerRoleRequestOrganisationPersonBRetrieveResponseModelSETAApiResponse"
+                }
+              },
+              "text/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/PartnerRoleRequestOrganisationPersonBRetrieveResponseModelSETAApiResponse"
                 }
               }
             }
@@ -692,6 +938,79 @@
         }
       }
     },
+    "/api/management/PORTAL/Role/Search": {
+      "post": {
+        "tags": [
+          "Role"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RolePORTALSearchRequestModel"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RolePORTALSearchRequestModel"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/RolePORTALSearchRequestModel"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/RolePORTALSearchRequestModel"
+              }
+            },
+            "text/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/RolePORTALSearchRequestModel"
+              }
+            },
+            "application/*+xml": {
+              "schema": {
+                "$ref": "#/components/schemas/RolePORTALSearchRequestModel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/RolePORTALSearchResponseSETAApiResponse"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RolePORTALSearchResponseSETAApiResponse"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RolePORTALSearchResponseSETAApiResponse"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/RolePORTALSearchResponseSETAApiResponse"
+                }
+              },
+              "text/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/RolePORTALSearchResponseSETAApiResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/management/SP/Role/Search": {
       "post": {
         "tags": [
@@ -831,152 +1150,6 @@
               "text/xml": {
                 "schema": {
                   "$ref": "#/components/schemas/RoleSPISearchResponseSETAApiResponse"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/management/ACCESS/StaffRoleRequest/Create": {
-      "post": {
-        "tags": [
-          "StaffRoleRequest"
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/StaffRoleRequestACCESSCreateRequestModel"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/StaffRoleRequestACCESSCreateRequestModel"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/StaffRoleRequestACCESSCreateRequestModel"
-              }
-            },
-            "application/xml": {
-              "schema": {
-                "$ref": "#/components/schemas/StaffRoleRequestACCESSCreateRequestModel"
-              }
-            },
-            "text/xml": {
-              "schema": {
-                "$ref": "#/components/schemas/StaffRoleRequestACCESSCreateRequestModel"
-              }
-            },
-            "application/*+xml": {
-              "schema": {
-                "$ref": "#/components/schemas/StaffRoleRequestACCESSCreateRequestModel"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/StaffRoleRequestACCESSCreateResponseModelSETAApiResponse"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/StaffRoleRequestACCESSCreateResponseModelSETAApiResponse"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/StaffRoleRequestACCESSCreateResponseModelSETAApiResponse"
-                }
-              },
-              "application/xml": {
-                "schema": {
-                  "$ref": "#/components/schemas/StaffRoleRequestACCESSCreateResponseModelSETAApiResponse"
-                }
-              },
-              "text/xml": {
-                "schema": {
-                  "$ref": "#/components/schemas/StaffRoleRequestACCESSCreateResponseModelSETAApiResponse"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/management/ACCESS/StaffRoleRequest/Search": {
-      "post": {
-        "tags": [
-          "StaffRoleRequest"
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/StaffRoleRequestACCESSSearchRequestModel"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/StaffRoleRequestACCESSSearchRequestModel"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/StaffRoleRequestACCESSSearchRequestModel"
-              }
-            },
-            "application/xml": {
-              "schema": {
-                "$ref": "#/components/schemas/StaffRoleRequestACCESSSearchRequestModel"
-              }
-            },
-            "text/xml": {
-              "schema": {
-                "$ref": "#/components/schemas/StaffRoleRequestACCESSSearchRequestModel"
-              }
-            },
-            "application/*+xml": {
-              "schema": {
-                "$ref": "#/components/schemas/StaffRoleRequestACCESSSearchRequestModel"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/StaffRoleRequestACCESSSearchResponseSETAApiResponse"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/StaffRoleRequestACCESSSearchResponseSETAApiResponse"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/StaffRoleRequestACCESSSearchResponseSETAApiResponse"
-                }
-              },
-              "application/xml": {
-                "schema": {
-                  "$ref": "#/components/schemas/StaffRoleRequestACCESSSearchResponseSETAApiResponse"
-                }
-              },
-              "text/xml": {
-                "schema": {
-                  "$ref": "#/components/schemas/StaffRoleRequestACCESSSearchResponseSETAApiResponse"
                 }
               }
             }
@@ -1326,41 +1499,41 @@
         }
       }
     },
-    "/api/management/ECD/SystemUser/Update": {
-      "put": {
+    "/api/management/PORTAL/StaffRoleRequest/Create": {
+      "post": {
         "tags": [
-          "SystemUser"
+          "StaffRoleRequest"
         ],
         "requestBody": {
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/SystemUserECDUpdateRequestModel"
+                "$ref": "#/components/schemas/StaffRoleRequestPORTALCreateRequestModel"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/SystemUserECDUpdateRequestModel"
+                "$ref": "#/components/schemas/StaffRoleRequestPORTALCreateRequestModel"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/SystemUserECDUpdateRequestModel"
+                "$ref": "#/components/schemas/StaffRoleRequestPORTALCreateRequestModel"
               }
             },
             "application/xml": {
               "schema": {
-                "$ref": "#/components/schemas/SystemUserECDUpdateRequestModel"
+                "$ref": "#/components/schemas/StaffRoleRequestPORTALCreateRequestModel"
               }
             },
             "text/xml": {
               "schema": {
-                "$ref": "#/components/schemas/SystemUserECDUpdateRequestModel"
+                "$ref": "#/components/schemas/StaffRoleRequestPORTALCreateRequestModel"
               }
             },
             "application/*+xml": {
               "schema": {
-                "$ref": "#/components/schemas/SystemUserECDUpdateRequestModel"
+                "$ref": "#/components/schemas/StaffRoleRequestPORTALCreateRequestModel"
               }
             }
           }
@@ -1371,27 +1544,27 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "$ref": "#/components/schemas/BooleanSETAApiResponse"
+                  "$ref": "#/components/schemas/StaffRoleRequestPORTALCreateResponseModelSETAApiResponse"
                 }
               },
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/BooleanSETAApiResponse"
+                  "$ref": "#/components/schemas/StaffRoleRequestPORTALCreateResponseModelSETAApiResponse"
                 }
               },
               "text/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/BooleanSETAApiResponse"
+                  "$ref": "#/components/schemas/StaffRoleRequestPORTALCreateResponseModelSETAApiResponse"
                 }
               },
               "application/xml": {
                 "schema": {
-                  "$ref": "#/components/schemas/BooleanSETAApiResponse"
+                  "$ref": "#/components/schemas/StaffRoleRequestPORTALCreateResponseModelSETAApiResponse"
                 }
               },
               "text/xml": {
                 "schema": {
-                  "$ref": "#/components/schemas/BooleanSETAApiResponse"
+                  "$ref": "#/components/schemas/StaffRoleRequestPORTALCreateResponseModelSETAApiResponse"
                 }
               }
             }
@@ -1399,41 +1572,41 @@
         }
       }
     },
-    "/api/management/PMVR/SystemUser/Update": {
-      "put": {
+    "/api/management/PORTAL/StaffRoleRequest/Search": {
+      "post": {
         "tags": [
-          "SystemUser"
+          "StaffRoleRequest"
         ],
         "requestBody": {
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/SystemUserPMVRUpdateRequestModel"
+                "$ref": "#/components/schemas/StaffRoleRequestPORTALSearchRequestModel"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/SystemUserPMVRUpdateRequestModel"
+                "$ref": "#/components/schemas/StaffRoleRequestPORTALSearchRequestModel"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/SystemUserPMVRUpdateRequestModel"
+                "$ref": "#/components/schemas/StaffRoleRequestPORTALSearchRequestModel"
               }
             },
             "application/xml": {
               "schema": {
-                "$ref": "#/components/schemas/SystemUserPMVRUpdateRequestModel"
+                "$ref": "#/components/schemas/StaffRoleRequestPORTALSearchRequestModel"
               }
             },
             "text/xml": {
               "schema": {
-                "$ref": "#/components/schemas/SystemUserPMVRUpdateRequestModel"
+                "$ref": "#/components/schemas/StaffRoleRequestPORTALSearchRequestModel"
               }
             },
             "application/*+xml": {
               "schema": {
-                "$ref": "#/components/schemas/SystemUserPMVRUpdateRequestModel"
+                "$ref": "#/components/schemas/StaffRoleRequestPORTALSearchRequestModel"
               }
             }
           }
@@ -1444,27 +1617,27 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "$ref": "#/components/schemas/BooleanSETAApiResponse"
+                  "$ref": "#/components/schemas/StaffRoleRequestPORTALSearchResponseSETAApiResponse"
                 }
               },
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/BooleanSETAApiResponse"
+                  "$ref": "#/components/schemas/StaffRoleRequestPORTALSearchResponseSETAApiResponse"
                 }
               },
               "text/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/BooleanSETAApiResponse"
+                  "$ref": "#/components/schemas/StaffRoleRequestPORTALSearchResponseSETAApiResponse"
                 }
               },
               "application/xml": {
                 "schema": {
-                  "$ref": "#/components/schemas/BooleanSETAApiResponse"
+                  "$ref": "#/components/schemas/StaffRoleRequestPORTALSearchResponseSETAApiResponse"
                 }
               },
               "text/xml": {
                 "schema": {
-                  "$ref": "#/components/schemas/BooleanSETAApiResponse"
+                  "$ref": "#/components/schemas/StaffRoleRequestPORTALSearchResponseSETAApiResponse"
                 }
               }
             }
@@ -1472,72 +1645,49 @@
         }
       }
     },
-    "/api/management/SP/SystemUser/Update": {
-      "put": {
+    "/api/management/B/PartnerRoleRequest/Summary/{id}": {
+      "get": {
         "tags": [
-          "SystemUser"
+          "Summaries"
         ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/SystemUserSPUpdateRequestModel"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/SystemUserSPUpdateRequestModel"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/SystemUserSPUpdateRequestModel"
-              }
-            },
-            "application/xml": {
-              "schema": {
-                "$ref": "#/components/schemas/SystemUserSPUpdateRequestModel"
-              }
-            },
-            "text/xml": {
-              "schema": {
-                "$ref": "#/components/schemas/SystemUserSPUpdateRequestModel"
-              }
-            },
-            "application/*+xml": {
-              "schema": {
-                "$ref": "#/components/schemas/SystemUserSPUpdateRequestModel"
-              }
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
             }
           }
-        },
+        ],
         "responses": {
           "200": {
             "description": "OK",
             "content": {
               "text/plain": {
                 "schema": {
-                  "$ref": "#/components/schemas/BooleanSETAApiResponse"
+                  "$ref": "#/components/schemas/PartnerBRoleRequestSummaryResponseSETAApiResponse"
                 }
               },
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/BooleanSETAApiResponse"
+                  "$ref": "#/components/schemas/PartnerBRoleRequestSummaryResponseSETAApiResponse"
                 }
               },
               "text/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/BooleanSETAApiResponse"
+                  "$ref": "#/components/schemas/PartnerBRoleRequestSummaryResponseSETAApiResponse"
                 }
               },
               "application/xml": {
                 "schema": {
-                  "$ref": "#/components/schemas/BooleanSETAApiResponse"
+                  "$ref": "#/components/schemas/PartnerBRoleRequestSummaryResponseSETAApiResponse"
                 }
               },
               "text/xml": {
                 "schema": {
-                  "$ref": "#/components/schemas/BooleanSETAApiResponse"
+                  "$ref": "#/components/schemas/PartnerBRoleRequestSummaryResponseSETAApiResponse"
                 }
               }
             }
@@ -1545,7 +1695,7 @@
         }
       }
     },
-    "/api/management/SPI/SystemUser/Update": {
+    "/api/management/PORTAL/SystemUser/Update": {
       "put": {
         "tags": [
           "SystemUser"
@@ -1554,32 +1704,32 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/SystemUserSPIUpdateRequestModel"
+                "$ref": "#/components/schemas/SystemUserPORTALUpdateRequestModel"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/SystemUserSPIUpdateRequestModel"
+                "$ref": "#/components/schemas/SystemUserPORTALUpdateRequestModel"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/SystemUserSPIUpdateRequestModel"
+                "$ref": "#/components/schemas/SystemUserPORTALUpdateRequestModel"
               }
             },
             "application/xml": {
               "schema": {
-                "$ref": "#/components/schemas/SystemUserSPIUpdateRequestModel"
+                "$ref": "#/components/schemas/SystemUserPORTALUpdateRequestModel"
               }
             },
             "text/xml": {
               "schema": {
-                "$ref": "#/components/schemas/SystemUserSPIUpdateRequestModel"
+                "$ref": "#/components/schemas/SystemUserPORTALUpdateRequestModel"
               }
             },
             "application/*+xml": {
               "schema": {
-                "$ref": "#/components/schemas/SystemUserSPIUpdateRequestModel"
+                "$ref": "#/components/schemas/SystemUserPORTALUpdateRequestModel"
               }
             }
           }
@@ -1634,7 +1784,7 @@
         },
         "additionalProperties": false
       },
-      "DepartmentTypeACCESSSearchRequestModel": {
+      "DepartmentTypePORTALSearchRequestModel": {
         "required": [
           "filterByList",
           "orderByList",
@@ -1666,7 +1816,7 @@
         },
         "additionalProperties": false
       },
-      "DepartmentTypeACCESSSearchResponse": {
+      "DepartmentTypePORTALSearchResponse": {
         "type": "object",
         "properties": {
           "totalRows": {
@@ -1676,14 +1826,14 @@
           "searchResults": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/DepartmentTypeACCESSSearchResponseModel"
+              "$ref": "#/components/schemas/DepartmentTypePORTALSearchResponseModel"
             },
             "nullable": true
           }
         },
         "additionalProperties": false
       },
-      "DepartmentTypeACCESSSearchResponseModel": {
+      "DepartmentTypePORTALSearchResponseModel": {
         "type": "object",
         "properties": {
           "departmentTypeId": {
@@ -1697,7 +1847,7 @@
         },
         "additionalProperties": false
       },
-      "DepartmentTypeACCESSSearchResponseSETAApiResponse": {
+      "DepartmentTypePORTALSearchResponseSETAApiResponse": {
         "type": "object",
         "properties": {
           "errorMessage": {
@@ -1705,7 +1855,7 @@
             "nullable": true
           },
           "data": {
-            "$ref": "#/components/schemas/DepartmentTypeACCESSSearchResponse"
+            "$ref": "#/components/schemas/DepartmentTypePORTALSearchResponse"
           }
         },
         "additionalProperties": false
@@ -1818,6 +1968,789 @@
           },
           "data": {
             "$ref": "#/components/schemas/OrganisationBValidateResponseModel"
+          }
+        },
+        "additionalProperties": false
+      },
+      "PartnerBRoleRequestOrganisationPerson": {
+        "type": "object",
+        "properties": {
+          "partnerRoleRequestOrganisationPersonId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "email": {
+            "type": "string",
+            "nullable": true
+          },
+          "identityNumber": {
+            "type": "string",
+            "nullable": true
+          },
+          "personId": {
+            "type": "integer",
+            "format": "int64",
+            "nullable": true
+          },
+          "partnerRoleRequestOrganisationPersonTypes": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PartnerBRoleRequestOrganisationPersonType"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "PartnerBRoleRequestOrganisationPersonType": {
+        "type": "object",
+        "properties": {
+          "partnerRoleRequestPersonOrganisationPersonTypeId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "personTypeId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "personTypeName": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "PartnerBRoleRequestSummaryResponse": {
+        "type": "object",
+        "properties": {
+          "partnerRoleRequestOrganisationPersons": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PartnerBRoleRequestOrganisationPerson"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "PartnerBRoleRequestSummaryResponseSETAApiResponse": {
+        "type": "object",
+        "properties": {
+          "errorMessage": {
+            "type": "string",
+            "nullable": true
+          },
+          "data": {
+            "$ref": "#/components/schemas/PartnerBRoleRequestSummaryResponse"
+          }
+        },
+        "additionalProperties": false
+      },
+      "PartnerRoleRequestBRetrieveResponseModel": {
+        "type": "object",
+        "properties": {
+          "reviewedOn": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "createdOn": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "modifiedOn": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "deletedOn": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "partnerRoleRequestId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "organisationId": {
+            "type": "integer",
+            "description": "ParentTable:Organisation",
+            "format": "int64"
+          },
+          "requestedBySystemUserId": {
+            "type": "integer",
+            "description": "ParentTable:SystemUser",
+            "format": "int64"
+          },
+          "reviewedBySystemUserId": {
+            "type": "integer",
+            "description": "ParentTable:SystemUser",
+            "format": "int64",
+            "nullable": true
+          },
+          "departmentTypeId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "statusId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "createdBySystemUserId": {
+            "type": "integer",
+            "description": "ParentTable:SystemUser",
+            "format": "int64"
+          },
+          "modifiedBySystemUserId": {
+            "type": "integer",
+            "description": "ParentTable:SystemUser",
+            "format": "int64"
+          },
+          "deletedBySystemUserId": {
+            "type": "integer",
+            "description": "ParentTable:SystemUser",
+            "format": "int64",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "organisationName": {
+            "type": "string",
+            "nullable": true
+          },
+          "requestedBySystemUserName": {
+            "type": "string",
+            "nullable": true
+          },
+          "reviewedBySystemUserName": {
+            "type": "string",
+            "nullable": true
+          },
+          "requestReason": {
+            "type": "string",
+            "nullable": true
+          },
+          "rejectionReason": {
+            "type": "string",
+            "nullable": true
+          },
+          "statusReason": {
+            "type": "string",
+            "nullable": true
+          },
+          "createdBySystemUserName": {
+            "type": "string",
+            "nullable": true
+          },
+          "modifiedBySystemUserName": {
+            "type": "string",
+            "nullable": true
+          },
+          "deletedBySystemUserName": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "PartnerRoleRequestBRetrieveResponseModelSETAApiResponse": {
+        "type": "object",
+        "properties": {
+          "errorMessage": {
+            "type": "string",
+            "nullable": true
+          },
+          "data": {
+            "$ref": "#/components/schemas/PartnerRoleRequestBRetrieveResponseModel"
+          }
+        },
+        "additionalProperties": false
+      },
+      "PartnerRoleRequestBSearchRequestModel": {
+        "required": [
+          "filterByList",
+          "orderByList",
+          "pageNumber",
+          "pageSize"
+        ],
+        "type": "object",
+        "properties": {
+          "pageNumber": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "pageSize": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "filterByList": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Filterbylist"
+            }
+          },
+          "orderByList": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Orderbylist"
+            }
+          }
+        },
+        "additionalProperties": false
+      },
+      "PartnerRoleRequestBSearchResponse": {
+        "type": "object",
+        "properties": {
+          "totalRows": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "searchResults": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PartnerRoleRequestBSearchResponseModel"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "PartnerRoleRequestBSearchResponseModel": {
+        "type": "object",
+        "properties": {
+          "reviewedOn": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "createdOn": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "modifiedOn": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "deletedOn": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "partnerRoleRequestId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "organisationId": {
+            "type": "integer",
+            "description": "ParentTable:Organisation",
+            "format": "int64"
+          },
+          "requestedBySystemUserId": {
+            "type": "integer",
+            "description": "ParentTable:SystemUser",
+            "format": "int64"
+          },
+          "reviewedBySystemUserId": {
+            "type": "integer",
+            "description": "ParentTable:SystemUser",
+            "format": "int64",
+            "nullable": true
+          },
+          "departmentTypeId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "statusId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "createdBySystemUserId": {
+            "type": "integer",
+            "description": "ParentTable:SystemUser",
+            "format": "int64"
+          },
+          "modifiedBySystemUserId": {
+            "type": "integer",
+            "description": "ParentTable:SystemUser",
+            "format": "int64"
+          },
+          "deletedBySystemUserId": {
+            "type": "integer",
+            "description": "ParentTable:SystemUser",
+            "format": "int64",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "organisationName": {
+            "type": "string",
+            "nullable": true
+          },
+          "requestedBySystemUserName": {
+            "type": "string",
+            "nullable": true
+          },
+          "reviewedBySystemUserName": {
+            "type": "string",
+            "nullable": true
+          },
+          "requestReason": {
+            "type": "string",
+            "nullable": true
+          },
+          "rejectionReason": {
+            "type": "string",
+            "nullable": true
+          },
+          "statusReason": {
+            "type": "string",
+            "nullable": true
+          },
+          "createdBySystemUserName": {
+            "type": "string",
+            "nullable": true
+          },
+          "modifiedBySystemUserName": {
+            "type": "string",
+            "nullable": true
+          },
+          "deletedBySystemUserName": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "PartnerRoleRequestBSearchResponseSETAApiResponse": {
+        "type": "object",
+        "properties": {
+          "errorMessage": {
+            "type": "string",
+            "nullable": true
+          },
+          "data": {
+            "$ref": "#/components/schemas/PartnerRoleRequestBSearchResponse"
+          }
+        },
+        "additionalProperties": false
+      },
+      "PartnerRoleRequestBSubmitRequestModel": {
+        "required": [
+          "partnerRoleRequestId",
+          "targetStatusId"
+        ],
+        "type": "object",
+        "properties": {
+          "partnerRoleRequestId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "targetStatusId": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
+        "additionalProperties": false
+      },
+      "PartnerRoleRequestBValidateRequestModel": {
+        "required": [
+          "partnerRoleRequestId",
+          "targetStatusId"
+        ],
+        "type": "object",
+        "properties": {
+          "partnerRoleRequestId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "targetStatusId": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
+        "additionalProperties": false
+      },
+      "PartnerRoleRequestBValidateResponseModel": {
+        "type": "object",
+        "properties": {
+          "validationPassed": {
+            "type": "boolean"
+          },
+          "validationReasons": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ValidationReason"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "PartnerRoleRequestBValidateResponseModelSETAApiResponse": {
+        "type": "object",
+        "properties": {
+          "errorMessage": {
+            "type": "string",
+            "nullable": true
+          },
+          "data": {
+            "$ref": "#/components/schemas/PartnerRoleRequestBValidateResponseModel"
+          }
+        },
+        "additionalProperties": false
+      },
+      "PartnerRoleRequestOrganisationPersonBRetrieveResponseModel": {
+        "type": "object",
+        "properties": {
+          "dateOfBirth": {
+            "type": "string",
+            "format": "date"
+          },
+          "createdOn": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "modifiedOn": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "deletedOn": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "age": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "partnerRoleRequestOrganisationPersonId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "partnerRoleRequestId": {
+            "type": "integer",
+            "description": "ParentTable:PartnerRoleRequest",
+            "format": "int64"
+          },
+          "personId": {
+            "type": "integer",
+            "description": "ParentTable:Person",
+            "format": "int64",
+            "nullable": true
+          },
+          "organisationId": {
+            "type": "integer",
+            "description": "ParentTable:Organisation",
+            "format": "int64"
+          },
+          "titleId": {
+            "type": "integer",
+            "description": "ParentTable:Title",
+            "format": "int64"
+          },
+          "identityTypeId": {
+            "type": "integer",
+            "description": "ParentTable:IdentityType",
+            "format": "int64"
+          },
+          "ageBracketId": {
+            "type": "integer",
+            "description": "ParentTable:AgeBracket",
+            "format": "int64"
+          },
+          "genderId": {
+            "type": "integer",
+            "description": "ParentTable:Gender",
+            "format": "int64"
+          },
+          "equityCodeId": {
+            "type": "integer",
+            "description": "ParentTable:EquityCode",
+            "format": "int64"
+          },
+          "citizenshipId": {
+            "type": "integer",
+            "description": "ParentTable:Citizenship",
+            "format": "int64",
+            "nullable": true
+          },
+          "nationalityId": {
+            "type": "integer",
+            "description": "ParentTable:Nationality",
+            "format": "int64"
+          },
+          "economicTypeId": {
+            "type": "integer",
+            "description": "ParentTable:EconomicType",
+            "format": "int64"
+          },
+          "homeLanguageId": {
+            "type": "integer",
+            "description": "ParentTable:Language",
+            "format": "int64"
+          },
+          "statsSaAreaId": {
+            "type": "integer",
+            "description": "ParentTable:StatsSaArea",
+            "format": "int64",
+            "nullable": true
+          },
+          "cityId": {
+            "type": "integer",
+            "description": "ParentTable:City",
+            "format": "int64"
+          },
+          "provinceId": {
+            "type": "integer",
+            "description": "ParentTable:Province",
+            "format": "int64"
+          },
+          "municipalityLocalId": {
+            "type": "integer",
+            "description": "ParentTable:MunicipalityLocal",
+            "format": "int64",
+            "nullable": true
+          },
+          "communityTypeId": {
+            "type": "integer",
+            "description": "ParentTable:CommunityType",
+            "format": "int64"
+          },
+          "communicatingDisabilityRatingId": {
+            "type": "integer",
+            "description": "ParentTable:DisabilityRating",
+            "format": "int64"
+          },
+          "hearingDisabilityRatingId": {
+            "type": "integer",
+            "description": "ParentTable:DisabilityRating",
+            "format": "int64"
+          },
+          "rememberingDisabilityRatingId": {
+            "type": "integer",
+            "description": "ParentTable:DisabilityRating",
+            "format": "int64"
+          },
+          "seeingDisabilityRatingId": {
+            "type": "integer",
+            "description": "ParentTable:DisabilityRating",
+            "format": "int64"
+          },
+          "selfCareDisabilityRatingId": {
+            "type": "integer",
+            "description": "ParentTable:DisabilityRating",
+            "format": "int64"
+          },
+          "walkingDisabilityRatingId": {
+            "type": "integer",
+            "description": "ParentTable:DisabilityRating",
+            "format": "int64"
+          },
+          "statusId": {
+            "type": "integer",
+            "description": "ParentTable:Status",
+            "format": "int64",
+            "nullable": true
+          },
+          "createdBySystemUserId": {
+            "type": "integer",
+            "description": "ParentTable:SystemUser",
+            "format": "int64"
+          },
+          "modifiedBySystemUserId": {
+            "type": "integer",
+            "description": "ParentTable:SystemUser",
+            "format": "int64"
+          },
+          "deletedBySystemUserId": {
+            "type": "integer",
+            "description": "ParentTable:SystemUser",
+            "format": "int64",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "partnerRoleRequestName": {
+            "type": "string",
+            "nullable": true
+          },
+          "personName": {
+            "type": "string",
+            "nullable": true
+          },
+          "organisationName": {
+            "type": "string",
+            "nullable": true
+          },
+          "titleName": {
+            "type": "string",
+            "nullable": true
+          },
+          "firstName": {
+            "type": "string",
+            "nullable": true
+          },
+          "middleName": {
+            "type": "string",
+            "nullable": true
+          },
+          "lastName": {
+            "type": "string",
+            "nullable": true
+          },
+          "identityNumber": {
+            "type": "string",
+            "nullable": true
+          },
+          "identityTypeName": {
+            "type": "string",
+            "nullable": true
+          },
+          "ageBracketName": {
+            "type": "string",
+            "nullable": true
+          },
+          "genderName": {
+            "type": "string",
+            "nullable": true
+          },
+          "equityCodeName": {
+            "type": "string",
+            "nullable": true
+          },
+          "citizenshipName": {
+            "type": "string",
+            "nullable": true
+          },
+          "nationalityName": {
+            "type": "string",
+            "nullable": true
+          },
+          "economicTypeName": {
+            "type": "string",
+            "nullable": true
+          },
+          "homeLanguageName": {
+            "type": "string",
+            "nullable": true
+          },
+          "email": {
+            "type": "string",
+            "nullable": true
+          },
+          "mobilePhone": {
+            "type": "string",
+            "nullable": true
+          },
+          "homePhone": {
+            "type": "string",
+            "nullable": true
+          },
+          "businessPhone": {
+            "type": "string",
+            "nullable": true
+          },
+          "faxNumber": {
+            "type": "string",
+            "nullable": true
+          },
+          "homeAddressLineOne": {
+            "type": "string",
+            "nullable": true
+          },
+          "homeAddressLineTwo": {
+            "type": "string",
+            "nullable": true
+          },
+          "postalCode": {
+            "type": "string",
+            "nullable": true
+          },
+          "statsSaAreaName": {
+            "type": "string",
+            "nullable": true
+          },
+          "cityName": {
+            "type": "string",
+            "nullable": true
+          },
+          "provinceName": {
+            "type": "string",
+            "nullable": true
+          },
+          "municipalityLocalName": {
+            "type": "string",
+            "nullable": true
+          },
+          "communityTypeName": {
+            "type": "string",
+            "nullable": true
+          },
+          "communicatingDisabilityRatingName": {
+            "type": "string",
+            "nullable": true
+          },
+          "hearingDisabilityRatingName": {
+            "type": "string",
+            "nullable": true
+          },
+          "rememberingDisabilityRatingName": {
+            "type": "string",
+            "nullable": true
+          },
+          "seeingDisabilityRatingName": {
+            "type": "string",
+            "nullable": true
+          },
+          "selfCareDisabilityRatingName": {
+            "type": "string",
+            "nullable": true
+          },
+          "walkingDisabilityRatingName": {
+            "type": "string",
+            "nullable": true
+          },
+          "statusName": {
+            "type": "string",
+            "nullable": true
+          },
+          "statusReason": {
+            "type": "string",
+            "nullable": true
+          },
+          "createdBySystemUserName": {
+            "type": "string",
+            "nullable": true
+          },
+          "modifiedBySystemUserName": {
+            "type": "string",
+            "nullable": true
+          },
+          "deletedBySystemUserName": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "PartnerRoleRequestOrganisationPersonBRetrieveResponseModelSETAApiResponse": {
+        "type": "object",
+        "properties": {
+          "errorMessage": {
+            "type": "string",
+            "nullable": true
+          },
+          "data": {
+            "$ref": "#/components/schemas/PartnerRoleRequestOrganisationPersonBRetrieveResponseModel"
           }
         },
         "additionalProperties": false
@@ -1948,82 +2881,6 @@
           "roleName": {
             "type": "string",
             "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
-      "RoleACCESSSearchRequestModel": {
-        "required": [
-          "filterByList",
-          "orderByList",
-          "pageNumber",
-          "pageSize"
-        ],
-        "type": "object",
-        "properties": {
-          "pageNumber": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "pageSize": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "filterByList": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/Filterbylist"
-            }
-          },
-          "orderByList": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/Orderbylist"
-            }
-          }
-        },
-        "additionalProperties": false
-      },
-      "RoleACCESSSearchResponse": {
-        "type": "object",
-        "properties": {
-          "totalRows": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "searchResults": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/RoleACCESSSearchResponseModel"
-            },
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
-      "RoleACCESSSearchResponseModel": {
-        "type": "object",
-        "properties": {
-          "roleId": {
-            "type": "integer",
-            "format": "int64"
-          },
-          "name": {
-            "type": "string",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
-      "RoleACCESSSearchResponseSETAApiResponse": {
-        "type": "object",
-        "properties": {
-          "errorMessage": {
-            "type": "string",
-            "nullable": true
-          },
-          "data": {
-            "$ref": "#/components/schemas/RoleACCESSSearchResponse"
           }
         },
         "additionalProperties": false
@@ -2332,6 +3189,82 @@
         },
         "additionalProperties": false
       },
+      "RolePORTALSearchRequestModel": {
+        "required": [
+          "filterByList",
+          "orderByList",
+          "pageNumber",
+          "pageSize"
+        ],
+        "type": "object",
+        "properties": {
+          "pageNumber": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "pageSize": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "filterByList": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Filterbylist"
+            }
+          },
+          "orderByList": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Orderbylist"
+            }
+          }
+        },
+        "additionalProperties": false
+      },
+      "RolePORTALSearchResponse": {
+        "type": "object",
+        "properties": {
+          "totalRows": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "searchResults": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/RolePORTALSearchResponseModel"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "RolePORTALSearchResponseModel": {
+        "type": "object",
+        "properties": {
+          "roleId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "RolePORTALSearchResponseSETAApiResponse": {
+        "type": "object",
+        "properties": {
+          "errorMessage": {
+            "type": "string",
+            "nullable": true
+          },
+          "data": {
+            "$ref": "#/components/schemas/RolePORTALSearchResponse"
+          }
+        },
+        "additionalProperties": false
+      },
       "RoleSPISearchRequestModel": {
         "required": [
           "filterByList",
@@ -2480,227 +3413,6 @@
           },
           "data": {
             "$ref": "#/components/schemas/RoleSPSearchResponse"
-          }
-        },
-        "additionalProperties": false
-      },
-      "StaffRoleRequestACCESSCreateRequestModel": {
-        "required": [
-          "requestReason",
-          "roleId",
-          "statusId"
-        ],
-        "type": "object",
-        "properties": {
-          "requestReason": {
-            "maxLength": 250,
-            "minLength": 0,
-            "type": "string"
-          },
-          "roleId": {
-            "type": "integer",
-            "description": "ParentTable:Role",
-            "format": "int64"
-          },
-          "statusId": {
-            "type": "integer",
-            "description": "ParentTable:Status",
-            "format": "int64"
-          }
-        },
-        "additionalProperties": false
-      },
-      "StaffRoleRequestACCESSCreateResponseModel": {
-        "type": "object",
-        "properties": {
-          "staffRoleRequestId": {
-            "type": "integer",
-            "format": "int64",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
-      "StaffRoleRequestACCESSCreateResponseModelSETAApiResponse": {
-        "type": "object",
-        "properties": {
-          "errorMessage": {
-            "type": "string",
-            "nullable": true
-          },
-          "data": {
-            "$ref": "#/components/schemas/StaffRoleRequestACCESSCreateResponseModel"
-          }
-        },
-        "additionalProperties": false
-      },
-      "StaffRoleRequestACCESSSearchRequestModel": {
-        "required": [
-          "filterByList",
-          "orderByList",
-          "pageNumber",
-          "pageSize"
-        ],
-        "type": "object",
-        "properties": {
-          "pageNumber": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "pageSize": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "filterByList": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/Filterbylist"
-            }
-          },
-          "orderByList": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/Orderbylist"
-            }
-          }
-        },
-        "additionalProperties": false
-      },
-      "StaffRoleRequestACCESSSearchResponse": {
-        "type": "object",
-        "properties": {
-          "totalRows": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "searchResults": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/StaffRoleRequestACCESSSearchResponseModel"
-            },
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
-      "StaffRoleRequestACCESSSearchResponseModel": {
-        "type": "object",
-        "properties": {
-          "reviewedOn": {
-            "type": "string",
-            "format": "date-time",
-            "nullable": true
-          },
-          "createdOn": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "modifiedOn": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "deletedOn": {
-            "type": "string",
-            "format": "date-time",
-            "nullable": true
-          },
-          "staffRoleRequestId": {
-            "type": "integer",
-            "format": "int64"
-          },
-          "requestedBySystemUserId": {
-            "type": "integer",
-            "description": "ParentTable:SystemUser",
-            "format": "int64"
-          },
-          "reviewedBySystemUserId": {
-            "type": "integer",
-            "description": "ParentTable:SystemUser",
-            "format": "int64",
-            "nullable": true
-          },
-          "roleId": {
-            "type": "integer",
-            "description": "ParentTable:Role",
-            "format": "int64"
-          },
-          "statusId": {
-            "type": "integer",
-            "description": "ParentTable:Status",
-            "format": "int64"
-          },
-          "createdBySystemUserId": {
-            "type": "integer",
-            "description": "ParentTable:SystemUser",
-            "format": "int64"
-          },
-          "modifiedBySystemUserId": {
-            "type": "integer",
-            "description": "ParentTable:SystemUser",
-            "format": "int64"
-          },
-          "deletedBySystemUserId": {
-            "type": "integer",
-            "description": "ParentTable:SystemUser",
-            "format": "int64",
-            "nullable": true
-          },
-          "name": {
-            "type": "string",
-            "nullable": true
-          },
-          "requestedBySystemUserName": {
-            "type": "string",
-            "nullable": true
-          },
-          "reviewedBySystemUserName": {
-            "type": "string",
-            "nullable": true
-          },
-          "requestReason": {
-            "type": "string",
-            "nullable": true
-          },
-          "rejectionReason": {
-            "type": "string",
-            "nullable": true
-          },
-          "roleName": {
-            "type": "string",
-            "nullable": true
-          },
-          "statusName": {
-            "type": "string",
-            "nullable": true
-          },
-          "statusReason": {
-            "type": "string",
-            "nullable": true
-          },
-          "createdBySystemUserName": {
-            "type": "string",
-            "nullable": true
-          },
-          "modifiedBySystemUserName": {
-            "type": "string",
-            "nullable": true
-          },
-          "deletedBySystemUserName": {
-            "type": "string",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
-      "StaffRoleRequestACCESSSearchResponseSETAApiResponse": {
-        "type": "object",
-        "properties": {
-          "errorMessage": {
-            "type": "string",
-            "nullable": true
-          },
-          "data": {
-            "$ref": "#/components/schemas/StaffRoleRequestACCESSSearchResponse"
           }
         },
         "additionalProperties": false
@@ -3082,43 +3794,228 @@
         },
         "additionalProperties": false
       },
-      "SystemUserECDUpdateRequestModel": {
+      "StaffRoleRequestPORTALCreateRequestModel": {
+        "required": [
+          "requestReason",
+          "roleId",
+          "statusId"
+        ],
         "type": "object",
         "properties": {
-          "mobileNumber": {
-            "maxLength": 13,
+          "requestReason": {
+            "maxLength": 250,
             "minLength": 0,
+            "type": "string"
+          },
+          "roleId": {
+            "type": "integer",
+            "description": "ParentTable:Role",
+            "format": "int64"
+          },
+          "statusId": {
+            "type": "integer",
+            "description": "ParentTable:Status",
+            "format": "int64"
+          }
+        },
+        "additionalProperties": false
+      },
+      "StaffRoleRequestPORTALCreateResponseModel": {
+        "type": "object",
+        "properties": {
+          "staffRoleRequestId": {
+            "type": "integer",
+            "format": "int64",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "StaffRoleRequestPORTALCreateResponseModelSETAApiResponse": {
+        "type": "object",
+        "properties": {
+          "errorMessage": {
+            "type": "string",
+            "nullable": true
+          },
+          "data": {
+            "$ref": "#/components/schemas/StaffRoleRequestPORTALCreateResponseModel"
+          }
+        },
+        "additionalProperties": false
+      },
+      "StaffRoleRequestPORTALSearchRequestModel": {
+        "required": [
+          "filterByList",
+          "orderByList",
+          "pageNumber",
+          "pageSize"
+        ],
+        "type": "object",
+        "properties": {
+          "pageNumber": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "pageSize": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "filterByList": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Filterbylist"
+            }
+          },
+          "orderByList": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Orderbylist"
+            }
+          }
+        },
+        "additionalProperties": false
+      },
+      "StaffRoleRequestPORTALSearchResponse": {
+        "type": "object",
+        "properties": {
+          "totalRows": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "searchResults": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/StaffRoleRequestPORTALSearchResponseModel"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "StaffRoleRequestPORTALSearchResponseModel": {
+        "type": "object",
+        "properties": {
+          "reviewedOn": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "createdOn": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "modifiedOn": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "deletedOn": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "staffRoleRequestId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "requestedBySystemUserId": {
+            "type": "integer",
+            "description": "ParentTable:SystemUser",
+            "format": "int64"
+          },
+          "reviewedBySystemUserId": {
+            "type": "integer",
+            "description": "ParentTable:SystemUser",
+            "format": "int64",
+            "nullable": true
+          },
+          "roleId": {
+            "type": "integer",
+            "description": "ParentTable:Role",
+            "format": "int64"
+          },
+          "statusId": {
+            "type": "integer",
+            "description": "ParentTable:Status",
+            "format": "int64"
+          },
+          "createdBySystemUserId": {
+            "type": "integer",
+            "description": "ParentTable:SystemUser",
+            "format": "int64"
+          },
+          "modifiedBySystemUserId": {
+            "type": "integer",
+            "description": "ParentTable:SystemUser",
+            "format": "int64"
+          },
+          "deletedBySystemUserId": {
+            "type": "integer",
+            "description": "ParentTable:SystemUser",
+            "format": "int64",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "requestedBySystemUserName": {
+            "type": "string",
+            "nullable": true
+          },
+          "reviewedBySystemUserName": {
+            "type": "string",
+            "nullable": true
+          },
+          "requestReason": {
+            "type": "string",
+            "nullable": true
+          },
+          "rejectionReason": {
+            "type": "string",
+            "nullable": true
+          },
+          "roleName": {
+            "type": "string",
+            "nullable": true
+          },
+          "statusName": {
+            "type": "string",
+            "nullable": true
+          },
+          "statusReason": {
+            "type": "string",
+            "nullable": true
+          },
+          "createdBySystemUserName": {
+            "type": "string",
+            "nullable": true
+          },
+          "modifiedBySystemUserName": {
+            "type": "string",
+            "nullable": true
+          },
+          "deletedBySystemUserName": {
             "type": "string",
             "nullable": true
           }
         },
         "additionalProperties": false
       },
-      "SystemUserPMVRUpdateRequestModel": {
+      "StaffRoleRequestPORTALSearchResponseSETAApiResponse": {
         "type": "object",
         "properties": {
-          "mobileNumber": {
-            "maxLength": 13,
-            "minLength": 0,
+          "errorMessage": {
             "type": "string",
             "nullable": true
+          },
+          "data": {
+            "$ref": "#/components/schemas/StaffRoleRequestPORTALSearchResponse"
           }
         },
         "additionalProperties": false
       },
-      "SystemUserSPIUpdateRequestModel": {
-        "type": "object",
-        "properties": {
-          "mobileNumber": {
-            "maxLength": 13,
-            "minLength": 0,
-            "type": "string",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
-      "SystemUserSPUpdateRequestModel": {
+      "SystemUserPORTALUpdateRequestModel": {
         "type": "object",
         "properties": {
           "mobileNumber": {

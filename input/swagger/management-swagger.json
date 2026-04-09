@@ -646,6 +646,79 @@
         }
       }
     },
+    "/api/management/ECD/Organisation/Submit": {
+      "post": {
+        "tags": [
+          "Organisation"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OrganisationECDSubmitRequestModel"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OrganisationECDSubmitRequestModel"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/OrganisationECDSubmitRequestModel"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/OrganisationECDSubmitRequestModel"
+              }
+            },
+            "text/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/OrganisationECDSubmitRequestModel"
+              }
+            },
+            "application/*+xml": {
+              "schema": {
+                "$ref": "#/components/schemas/OrganisationECDSubmitRequestModel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/BooleanSETAApiResponse"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BooleanSETAApiResponse"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BooleanSETAApiResponse"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/BooleanSETAApiResponse"
+                }
+              },
+              "text/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/BooleanSETAApiResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/management/ECD/Organisation/Update": {
       "put": {
         "tags": [
@@ -712,6 +785,79 @@
               "text/xml": {
                 "schema": {
                   "$ref": "#/components/schemas/BooleanSETAApiResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/management/ECD/Organisation/Validate": {
+      "post": {
+        "tags": [
+          "Organisation"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OrganisationECDValidateRequestModel"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OrganisationECDValidateRequestModel"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/OrganisationECDValidateRequestModel"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/OrganisationECDValidateRequestModel"
+              }
+            },
+            "text/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/OrganisationECDValidateRequestModel"
+              }
+            },
+            "application/*+xml": {
+              "schema": {
+                "$ref": "#/components/schemas/OrganisationECDValidateRequestModel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrganisationECDValidateResponseModelSETAApiResponse"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrganisationECDValidateResponseModelSETAApiResponse"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrganisationECDValidateResponseModelSETAApiResponse"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrganisationECDValidateResponseModelSETAApiResponse"
+                }
+              },
+              "text/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrganisationECDValidateResponseModelSETAApiResponse"
                 }
               }
             }
@@ -3900,6 +4046,24 @@
         },
         "additionalProperties": false
       },
+      "OrganisationECDSubmitRequestModel": {
+        "required": [
+          "organisationId",
+          "targetStatusId"
+        ],
+        "type": "object",
+        "properties": {
+          "organisationId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "targetStatusId": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
+        "additionalProperties": false
+      },
       "OrganisationECDUpdateRequestModel": {
         "required": [
           "countryId",
@@ -4011,6 +4175,58 @@
             "minLength": 0,
             "type": "string",
             "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "OrganisationECDValidateRequestModel": {
+        "required": [
+          "departmentTypeId",
+          "organisationId",
+          "targetStatusId"
+        ],
+        "type": "object",
+        "properties": {
+          "organisationId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "targetStatusId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "departmentTypeId": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
+        "additionalProperties": false
+      },
+      "OrganisationECDValidateResponseModel": {
+        "type": "object",
+        "properties": {
+          "validationPassed": {
+            "type": "boolean"
+          },
+          "validationReasons": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ValidationReason"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "OrganisationECDValidateResponseModelSETAApiResponse": {
+        "type": "object",
+        "properties": {
+          "errorMessage": {
+            "type": "string",
+            "nullable": true
+          },
+          "data": {
+            "$ref": "#/components/schemas/OrganisationECDValidateResponseModel"
           }
         },
         "additionalProperties": false

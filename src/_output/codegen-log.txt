@@ -1,5 +1,5 @@
 =================================================================
-Code Generation Log - 2026-04-09 10:06:52
+Code Generation Log - 2026-04-09 13:07:55
 =================================================================
 
 =================================================================
@@ -7,7 +7,7 @@ Shared
 =================================================================
   Enums
     ⚠ Skipping Settings.DBCodeGenWhitelist (no id/name columns)
-    ✓ enums.ts  (118 enums)
+    ✓ enums.ts  (122 enums)
     ✓ Enums: C:/DEV/PMIS/react-frontend-v2/component-library/src/types/enums.ts
 
 =================================================================
@@ -24,7 +24,7 @@ Fetching swagger: https://localhost:7222/swagger/v1/swagger.json
     8 resource(s) written to management-fields.json
 
   Services
-    ✓ api.service.ts  (44 endpoints across 7 modules)
+    ✓ api.service.ts  (46 endpoints across 7 modules)
 
   Types
     ✓ api.types.ts

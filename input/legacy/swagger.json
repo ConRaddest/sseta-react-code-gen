@@ -42591,18 +42591,14 @@
       },
       "BursaryApplicantCreateRequestModel": {
         "required": [
-          "age",
-          "ageBracketId",
           "applicantTypeId",
           "cityId",
           "communicatingDisabilityRatingId",
           "communityTypeId",
-          "dateOfBirth",
           "economicTypeId",
           "email",
           "equityCodeId",
           "firstName",
-          "genderId",
           "hearingDisabilityRatingId",
           "homeLanguageId",
           "identityNumber",
@@ -42647,24 +42643,6 @@
           "identityTypeId": {
             "type": "integer",
             "description": "ParentTable:IdentityType",
-            "format": "int64"
-          },
-          "dateOfBirth": {
-            "type": "string",
-            "format": "date"
-          },
-          "age": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "ageBracketId": {
-            "type": "integer",
-            "description": "ParentTable:AgeBracket",
-            "format": "int64"
-          },
-          "genderId": {
-            "type": "integer",
-            "description": "ParentTable:Gender",
             "format": "int64"
           },
           "equityCodeId": {
@@ -47232,18 +47210,14 @@
       },
       "BursaryApplicantUpdateRequestModel": {
         "required": [
-          "age",
-          "ageBracketId",
           "applicantTypeId",
           "cityId",
           "communicatingDisabilityRatingId",
           "communityTypeId",
-          "dateOfBirth",
           "economicTypeId",
           "email",
           "equityCodeId",
           "firstName",
-          "genderId",
           "hearingDisabilityRatingId",
           "homeLanguageId",
           "identityNumber",
@@ -47292,24 +47266,6 @@
           "identityTypeId": {
             "type": "integer",
             "description": "ParentTable:IdentityType",
-            "format": "int64"
-          },
-          "dateOfBirth": {
-            "type": "string",
-            "format": "date"
-          },
-          "age": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "ageBracketId": {
-            "type": "integer",
-            "description": "ParentTable:AgeBracket",
-            "format": "int64"
-          },
-          "genderId": {
-            "type": "integer",
-            "description": "ParentTable:Gender",
             "format": "int64"
           },
           "equityCodeId": {
@@ -74493,6 +74449,10 @@
           "name": {
             "type": "string",
             "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
           }
         },
         "additionalProperties": false
@@ -74567,6 +74527,10 @@
             "format": "int64"
           },
           "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "description": {
             "type": "string",
             "nullable": true
           }
@@ -75529,17 +75493,13 @@
       },
       "PersonCreateRequestModel": {
         "required": [
-          "age",
-          "ageBracketId",
           "cityId",
           "communicatingDisabilityRatingId",
           "communityTypeId",
-          "dateOfBirth",
           "economicTypeId",
           "email",
           "equityCodeId",
           "firstName",
-          "genderId",
           "hearingDisabilityRatingId",
           "homeLanguageId",
           "identityNumber",
@@ -75584,24 +75544,6 @@
           "identityTypeId": {
             "type": "integer",
             "description": "ParentTable:IdentityType",
-            "format": "int64"
-          },
-          "dateOfBirth": {
-            "type": "string",
-            "format": "date"
-          },
-          "age": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "ageBracketId": {
-            "type": "integer",
-            "description": "ParentTable:AgeBracket",
-            "format": "int64"
-          },
-          "genderId": {
-            "type": "integer",
-            "description": "ParentTable:Gender",
             "format": "int64"
           },
           "equityCodeId": {
@@ -77227,17 +77169,13 @@
       },
       "PersonUpdateRequestModel": {
         "required": [
-          "age",
-          "ageBracketId",
           "cityId",
           "communicatingDisabilityRatingId",
           "communityTypeId",
-          "dateOfBirth",
           "economicTypeId",
           "email",
           "equityCodeId",
           "firstName",
-          "genderId",
           "hearingDisabilityRatingId",
           "homeLanguageId",
           "identityNumber",
@@ -77286,24 +77224,6 @@
           "identityTypeId": {
             "type": "integer",
             "description": "ParentTable:IdentityType",
-            "format": "int64"
-          },
-          "dateOfBirth": {
-            "type": "string",
-            "format": "date"
-          },
-          "age": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "ageBracketId": {
-            "type": "integer",
-            "description": "ParentTable:AgeBracket",
-            "format": "int64"
-          },
-          "genderId": {
-            "type": "integer",
-            "description": "ParentTable:Gender",
             "format": "int64"
           },
           "equityCodeId": {

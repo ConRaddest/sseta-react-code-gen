@@ -96,6 +96,79 @@
         }
       }
     },
+    "/api/management/ECD/Country/Search": {
+      "post": {
+        "tags": [
+          "Country"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CountryECDSearchRequestModel"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CountryECDSearchRequestModel"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CountryECDSearchRequestModel"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/CountryECDSearchRequestModel"
+              }
+            },
+            "text/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/CountryECDSearchRequestModel"
+              }
+            },
+            "application/*+xml": {
+              "schema": {
+                "$ref": "#/components/schemas/CountryECDSearchRequestModel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/CountryECDSearchResponseSETAApiResponse"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CountryECDSearchResponseSETAApiResponse"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CountryECDSearchResponseSETAApiResponse"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/CountryECDSearchResponseSETAApiResponse"
+                }
+              },
+              "text/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/CountryECDSearchResponseSETAApiResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/management/PORTAL/DepartmentType/Search": {
       "post": {
         "tags": [
@@ -327,7 +400,572 @@
         }
       }
     },
-    "/api/partner/B/PartnerRoleRequest/Retrieve/{id}": {
+    "/api/management/ECD/Organisation/Create": {
+      "post": {
+        "tags": [
+          "Organisation"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OrganisationECDCreateRequestModel"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OrganisationECDCreateRequestModel"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/OrganisationECDCreateRequestModel"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/OrganisationECDCreateRequestModel"
+              }
+            },
+            "text/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/OrganisationECDCreateRequestModel"
+              }
+            },
+            "application/*+xml": {
+              "schema": {
+                "$ref": "#/components/schemas/OrganisationECDCreateRequestModel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrganisationECDCreateResponseModelSETAApiResponse"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrganisationECDCreateResponseModelSETAApiResponse"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrganisationECDCreateResponseModelSETAApiResponse"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrganisationECDCreateResponseModelSETAApiResponse"
+                }
+              },
+              "text/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrganisationECDCreateResponseModelSETAApiResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/management/ECD/Organisation/Delete/{id}": {
+      "delete": {
+        "tags": [
+          "Organisation"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/BooleanSETAApiResponse"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BooleanSETAApiResponse"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BooleanSETAApiResponse"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/BooleanSETAApiResponse"
+                }
+              },
+              "text/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/BooleanSETAApiResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/management/ECD/Organisation/Retrieve/{id}": {
+      "get": {
+        "tags": [
+          "Organisation"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrganisationECDRetrieveResponseModelSETAApiResponse"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrganisationECDRetrieveResponseModelSETAApiResponse"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrganisationECDRetrieveResponseModelSETAApiResponse"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrganisationECDRetrieveResponseModelSETAApiResponse"
+                }
+              },
+              "text/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrganisationECDRetrieveResponseModelSETAApiResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/management/ECD/Organisation/Search": {
+      "post": {
+        "tags": [
+          "Organisation"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OrganisationECDSearchRequestModel"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OrganisationECDSearchRequestModel"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/OrganisationECDSearchRequestModel"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/OrganisationECDSearchRequestModel"
+              }
+            },
+            "text/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/OrganisationECDSearchRequestModel"
+              }
+            },
+            "application/*+xml": {
+              "schema": {
+                "$ref": "#/components/schemas/OrganisationECDSearchRequestModel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrganisationECDSearchResponseSETAApiResponse"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrganisationECDSearchResponseSETAApiResponse"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrganisationECDSearchResponseSETAApiResponse"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrganisationECDSearchResponseSETAApiResponse"
+                }
+              },
+              "text/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrganisationECDSearchResponseSETAApiResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/management/ECD/Organisation/Update": {
+      "put": {
+        "tags": [
+          "Organisation"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OrganisationECDUpdateRequestModel"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OrganisationECDUpdateRequestModel"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/OrganisationECDUpdateRequestModel"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/OrganisationECDUpdateRequestModel"
+              }
+            },
+            "text/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/OrganisationECDUpdateRequestModel"
+              }
+            },
+            "application/*+xml": {
+              "schema": {
+                "$ref": "#/components/schemas/OrganisationECDUpdateRequestModel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/BooleanSETAApiResponse"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BooleanSETAApiResponse"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BooleanSETAApiResponse"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/BooleanSETAApiResponse"
+                }
+              },
+              "text/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/BooleanSETAApiResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/management/ECD/OrganisationPerson/Create": {
+      "post": {
+        "tags": [
+          "OrganisationPerson"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OrganisationPersonECDCreateRequestModel"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OrganisationPersonECDCreateRequestModel"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/OrganisationPersonECDCreateRequestModel"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/OrganisationPersonECDCreateRequestModel"
+              }
+            },
+            "text/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/OrganisationPersonECDCreateRequestModel"
+              }
+            },
+            "application/*+xml": {
+              "schema": {
+                "$ref": "#/components/schemas/OrganisationPersonECDCreateRequestModel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrganisationPersonECDCreateResponseModelSETAApiResponse"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrganisationPersonECDCreateResponseModelSETAApiResponse"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrganisationPersonECDCreateResponseModelSETAApiResponse"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrganisationPersonECDCreateResponseModelSETAApiResponse"
+                }
+              },
+              "text/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrganisationPersonECDCreateResponseModelSETAApiResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/management/ECD/OrganisationPerson/Delete/{id}": {
+      "delete": {
+        "tags": [
+          "OrganisationPerson"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/BooleanSETAApiResponse"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BooleanSETAApiResponse"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BooleanSETAApiResponse"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/BooleanSETAApiResponse"
+                }
+              },
+              "text/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/BooleanSETAApiResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/management/ECD/OrganisationPerson/Retrieve/{id}": {
+      "get": {
+        "tags": [
+          "OrganisationPerson"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrganisationPersonECDRetrieveResponseModelSETAApiResponse"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrganisationPersonECDRetrieveResponseModelSETAApiResponse"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrganisationPersonECDRetrieveResponseModelSETAApiResponse"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrganisationPersonECDRetrieveResponseModelSETAApiResponse"
+                }
+              },
+              "text/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrganisationPersonECDRetrieveResponseModelSETAApiResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/management/ECD/OrganisationType/Search": {
+      "post": {
+        "tags": [
+          "OrganisationType"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OrganisationTypeECDSearchRequestModel"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OrganisationTypeECDSearchRequestModel"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/OrganisationTypeECDSearchRequestModel"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/OrganisationTypeECDSearchRequestModel"
+              }
+            },
+            "text/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/OrganisationTypeECDSearchRequestModel"
+              }
+            },
+            "application/*+xml": {
+              "schema": {
+                "$ref": "#/components/schemas/OrganisationTypeECDSearchRequestModel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrganisationTypeECDSearchResponseSETAApiResponse"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrganisationTypeECDSearchResponseSETAApiResponse"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrganisationTypeECDSearchResponseSETAApiResponse"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrganisationTypeECDSearchResponseSETAApiResponse"
+                }
+              },
+              "text/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrganisationTypeECDSearchResponseSETAApiResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/management/B/PartnerRoleRequest/Retrieve/{id}": {
       "get": {
         "tags": [
           "PartnerRoleRequest"
@@ -377,7 +1015,7 @@
         }
       }
     },
-    "/api/partner/B/PartnerRoleRequest/Search": {
+    "/api/management/B/PartnerRoleRequest/Search": {
       "post": {
         "tags": [
           "PartnerRoleRequest"
@@ -450,7 +1088,7 @@
         }
       }
     },
-    "/api/partner/B/PartnerRoleRequest/Submit": {
+    "/api/management/B/PartnerRoleRequest/Submit": {
       "post": {
         "tags": [
           "PartnerRoleRequest"
@@ -523,7 +1161,7 @@
         }
       }
     },
-    "/api/partner/B/PartnerRoleRequest/Validate": {
+    "/api/management/B/PartnerRoleRequest/Validate": {
       "post": {
         "tags": [
           "PartnerRoleRequest"
@@ -596,7 +1234,7 @@
         }
       }
     },
-    "/api/partner/B/PartnerRoleRequestOrganisationPerson/Retrieve/{id}": {
+    "/api/management/B/PartnerRoleRequestOrganisationPerson/Retrieve/{id}": {
       "get": {
         "tags": [
           "PartnerRoleRequestOrganisationPerson"
@@ -639,6 +1277,448 @@
               "text/xml": {
                 "schema": {
                   "$ref": "#/components/schemas/PartnerRoleRequestOrganisationPersonBRetrieveResponseModelSETAApiResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/management/ECD/Person/Retrieve/{id}": {
+      "get": {
+        "tags": [
+          "Person"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/PersonECDRetrieveResponseModelSETAApiResponse"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PersonECDRetrieveResponseModelSETAApiResponse"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PersonECDRetrieveResponseModelSETAApiResponse"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/PersonECDRetrieveResponseModelSETAApiResponse"
+                }
+              },
+              "text/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/PersonECDRetrieveResponseModelSETAApiResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/management/ECD/Person/Search": {
+      "post": {
+        "tags": [
+          "Person"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PersonECDSearchRequestModel"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PersonECDSearchRequestModel"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/PersonECDSearchRequestModel"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/PersonECDSearchRequestModel"
+              }
+            },
+            "text/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/PersonECDSearchRequestModel"
+              }
+            },
+            "application/*+xml": {
+              "schema": {
+                "$ref": "#/components/schemas/PersonECDSearchRequestModel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/PersonECDSearchResponseSETAApiResponse"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PersonECDSearchResponseSETAApiResponse"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PersonECDSearchResponseSETAApiResponse"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/PersonECDSearchResponseSETAApiResponse"
+                }
+              },
+              "text/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/PersonECDSearchResponseSETAApiResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/management/ECD/PersonOrganisationPersonType/Create": {
+      "post": {
+        "tags": [
+          "PersonOrganisationPersonType"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PersonOrganisationPersonTypeECDCreateRequestModel"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PersonOrganisationPersonTypeECDCreateRequestModel"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/PersonOrganisationPersonTypeECDCreateRequestModel"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/PersonOrganisationPersonTypeECDCreateRequestModel"
+              }
+            },
+            "text/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/PersonOrganisationPersonTypeECDCreateRequestModel"
+              }
+            },
+            "application/*+xml": {
+              "schema": {
+                "$ref": "#/components/schemas/PersonOrganisationPersonTypeECDCreateRequestModel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/PersonOrganisationPersonTypeECDCreateResponseModelSETAApiResponse"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PersonOrganisationPersonTypeECDCreateResponseModelSETAApiResponse"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PersonOrganisationPersonTypeECDCreateResponseModelSETAApiResponse"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/PersonOrganisationPersonTypeECDCreateResponseModelSETAApiResponse"
+                }
+              },
+              "text/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/PersonOrganisationPersonTypeECDCreateResponseModelSETAApiResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/management/ECD/PersonOrganisationPersonType/Delete/{id}": {
+      "delete": {
+        "tags": [
+          "PersonOrganisationPersonType"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/BooleanSETAApiResponse"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BooleanSETAApiResponse"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BooleanSETAApiResponse"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/BooleanSETAApiResponse"
+                }
+              },
+              "text/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/BooleanSETAApiResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/management/ECD/PersonOrganisationPersonType/Retrieve/{id}": {
+      "get": {
+        "tags": [
+          "PersonOrganisationPersonType"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/PersonOrganisationPersonTypeECDRetrieveResponseModelSETAApiResponse"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PersonOrganisationPersonTypeECDRetrieveResponseModelSETAApiResponse"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PersonOrganisationPersonTypeECDRetrieveResponseModelSETAApiResponse"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/PersonOrganisationPersonTypeECDRetrieveResponseModelSETAApiResponse"
+                }
+              },
+              "text/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/PersonOrganisationPersonTypeECDRetrieveResponseModelSETAApiResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/management/ECD/PersonType/Search": {
+      "post": {
+        "tags": [
+          "PersonType"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PersonTypeECDSearchRequestModel"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PersonTypeECDSearchRequestModel"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/PersonTypeECDSearchRequestModel"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/PersonTypeECDSearchRequestModel"
+              }
+            },
+            "text/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/PersonTypeECDSearchRequestModel"
+              }
+            },
+            "application/*+xml": {
+              "schema": {
+                "$ref": "#/components/schemas/PersonTypeECDSearchRequestModel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/PersonTypeECDSearchResponseSETAApiResponse"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PersonTypeECDSearchResponseSETAApiResponse"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PersonTypeECDSearchResponseSETAApiResponse"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/PersonTypeECDSearchResponseSETAApiResponse"
+                }
+              },
+              "text/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/PersonTypeECDSearchResponseSETAApiResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/management/ECD/Province/Search": {
+      "post": {
+        "tags": [
+          "Province"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProvinceECDSearchRequestModel"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProvinceECDSearchRequestModel"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProvinceECDSearchRequestModel"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/ProvinceECDSearchRequestModel"
+              }
+            },
+            "text/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/ProvinceECDSearchRequestModel"
+              }
+            },
+            "application/*+xml": {
+              "schema": {
+                "$ref": "#/components/schemas/ProvinceECDSearchRequestModel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProvinceECDSearchResponseSETAApiResponse"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProvinceECDSearchResponseSETAApiResponse"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProvinceECDSearchResponseSETAApiResponse"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProvinceECDSearchResponseSETAApiResponse"
+                }
+              },
+              "text/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProvinceECDSearchResponseSETAApiResponse"
                 }
               }
             }
@@ -1667,27 +2747,77 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "$ref": "#/components/schemas/PartnerBRoleRequestSummaryResponseSETAApiResponse"
+                  "$ref": "#/components/schemas/ManagementBPartnerRoleRequestSummaryResponseSETAApiResponse"
                 }
               },
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/PartnerBRoleRequestSummaryResponseSETAApiResponse"
+                  "$ref": "#/components/schemas/ManagementBPartnerRoleRequestSummaryResponseSETAApiResponse"
                 }
               },
               "text/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/PartnerBRoleRequestSummaryResponseSETAApiResponse"
+                  "$ref": "#/components/schemas/ManagementBPartnerRoleRequestSummaryResponseSETAApiResponse"
                 }
               },
               "application/xml": {
                 "schema": {
-                  "$ref": "#/components/schemas/PartnerBRoleRequestSummaryResponseSETAApiResponse"
+                  "$ref": "#/components/schemas/ManagementBPartnerRoleRequestSummaryResponseSETAApiResponse"
                 }
               },
               "text/xml": {
                 "schema": {
-                  "$ref": "#/components/schemas/PartnerBRoleRequestSummaryResponseSETAApiResponse"
+                  "$ref": "#/components/schemas/ManagementBPartnerRoleRequestSummaryResponseSETAApiResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/management/ECD/Organisation/Summary/{id}": {
+      "get": {
+        "tags": [
+          "Summaries"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagementECDOrganisationSummaryResponseSETAApiResponse"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagementECDOrganisationSummaryResponseSETAApiResponse"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagementECDOrganisationSummaryResponseSETAApiResponse"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagementECDOrganisationSummaryResponseSETAApiResponse"
+                }
+              },
+              "text/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagementECDOrganisationSummaryResponseSETAApiResponse"
                 }
               }
             }
@@ -1780,6 +2910,86 @@
           },
           "data": {
             "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      },
+      "CountryECDSearchRequestModel": {
+        "required": [
+          "filterByList",
+          "orderByList",
+          "pageNumber",
+          "pageSize"
+        ],
+        "type": "object",
+        "properties": {
+          "pageNumber": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "pageSize": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "filterByList": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Filterbylist"
+            }
+          },
+          "orderByList": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Orderbylist"
+            }
+          }
+        },
+        "additionalProperties": false
+      },
+      "CountryECDSearchResponse": {
+        "type": "object",
+        "properties": {
+          "totalRows": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "searchResults": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CountryECDSearchResponseModel"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "CountryECDSearchResponseModel": {
+        "type": "object",
+        "properties": {
+          "countryId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "code": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "CountryECDSearchResponseSETAApiResponse": {
+        "type": "object",
+        "properties": {
+          "errorMessage": {
+            "type": "string",
+            "nullable": true
+          },
+          "data": {
+            "$ref": "#/components/schemas/CountryECDSearchResponse"
           }
         },
         "additionalProperties": false
@@ -1889,6 +3099,157 @@
         },
         "additionalProperties": false
       },
+      "ManagementBPartnerRoleRequestOrganisationPerson": {
+        "type": "object",
+        "properties": {
+          "partnerRoleRequestOrganisationPersonId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "email": {
+            "type": "string",
+            "nullable": true
+          },
+          "identityNumber": {
+            "type": "string",
+            "nullable": true
+          },
+          "personId": {
+            "type": "integer",
+            "format": "int64",
+            "nullable": true
+          },
+          "partnerRoleRequestOrganisationPersonTypes": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ManagementBPartnerRoleRequestOrganisationPersonType"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ManagementBPartnerRoleRequestOrganisationPersonType": {
+        "type": "object",
+        "properties": {
+          "partnerRoleRequestPersonOrganisationPersonTypeId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "personTypeId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "personTypeName": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ManagementBPartnerRoleRequestSummaryResponse": {
+        "type": "object",
+        "properties": {
+          "partnerRoleRequestOrganisationPersons": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ManagementBPartnerRoleRequestOrganisationPerson"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ManagementBPartnerRoleRequestSummaryResponseSETAApiResponse": {
+        "type": "object",
+        "properties": {
+          "errorMessage": {
+            "type": "string",
+            "nullable": true
+          },
+          "data": {
+            "$ref": "#/components/schemas/ManagementBPartnerRoleRequestSummaryResponse"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ManagementECDOrganisationPerson": {
+        "type": "object",
+        "properties": {
+          "organisationPersonId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "personId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "personOrganisationPersonTypes": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ManagementECDPersonOrganisationPersonType"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ManagementECDOrganisationSummaryResponse": {
+        "type": "object",
+        "properties": {
+          "organisationPersons": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ManagementECDOrganisationPerson"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ManagementECDOrganisationSummaryResponseSETAApiResponse": {
+        "type": "object",
+        "properties": {
+          "errorMessage": {
+            "type": "string",
+            "nullable": true
+          },
+          "data": {
+            "$ref": "#/components/schemas/ManagementECDOrganisationSummaryResponse"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ManagementECDPersonOrganisationPersonType": {
+        "type": "object",
+        "properties": {
+          "personOrganisationPersonTypeId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "organisationPersonId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "personTypeId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "personTypeName": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
       "Orderbylist": {
         "type": "object",
         "properties": {
@@ -1972,72 +3333,134 @@
         },
         "additionalProperties": false
       },
-      "PartnerBRoleRequestOrganisationPerson": {
+      "OrganisationECDCreateRequestModel": {
+        "required": [
+          "countryId",
+          "name",
+          "organisationTypeId",
+          "physicalAddressCode",
+          "physicalAddressLineOne",
+          "physicalAddressLineTwo",
+          "postalAddressCode",
+          "postalAddressLineOne",
+          "postalAddressLineTwo",
+          "provinceId",
+          "registrationNumber"
+        ],
         "type": "object",
         "properties": {
-          "partnerRoleRequestOrganisationPersonId": {
+          "name": {
+            "maxLength": 250,
+            "minLength": 0,
+            "type": "string"
+          },
+          "registrationNumber": {
+            "maxLength": 20,
+            "minLength": 0,
+            "type": "string"
+          },
+          "organisationTypeId": {
             "type": "integer",
+            "description": "ParentTable:OrganisationType",
             "format": "int64"
           },
-          "name": {
+          "physicalAddressLineOne": {
+            "maxLength": 50,
+            "minLength": 0,
+            "type": "string"
+          },
+          "physicalAddressLineTwo": {
+            "maxLength": 50,
+            "minLength": 0,
+            "type": "string"
+          },
+          "physicalAddressCode": {
+            "maxLength": 4,
+            "minLength": 0,
+            "type": "string"
+          },
+          "postalAddressLineOne": {
+            "maxLength": 50,
+            "minLength": 0,
+            "type": "string"
+          },
+          "postalAddressLineTwo": {
+            "maxLength": 50,
+            "minLength": 0,
+            "type": "string"
+          },
+          "postalAddressCode": {
+            "maxLength": 4,
+            "minLength": 0,
+            "type": "string"
+          },
+          "provinceId": {
+            "type": "integer",
+            "description": "ParentTable:Province",
+            "format": "int64"
+          },
+          "countryId": {
+            "type": "integer",
+            "description": "ParentTable:Country",
+            "format": "int64"
+          },
+          "vatNumber": {
+            "maxLength": 20,
+            "minLength": 0,
             "type": "string",
             "nullable": true
           },
-          "email": {
+          "physicalAddressLineThree": {
+            "maxLength": 50,
+            "minLength": 0,
             "type": "string",
             "nullable": true
           },
-          "identityNumber": {
+          "postalAddressLineThree": {
+            "maxLength": 50,
+            "minLength": 0,
             "type": "string",
             "nullable": true
           },
-          "personId": {
+          "latitude": {
+            "type": "number",
+            "description": "FieldType:Currency",
+            "format": "double",
+            "nullable": true
+          },
+          "longitude": {
+            "type": "number",
+            "description": "FieldType:Currency",
+            "format": "double",
+            "nullable": true
+          },
+          "fnoVendorId": {
+            "maxLength": 10,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "statusId": {
+            "type": "integer",
+            "description": "ParentTable:Status",
+            "format": "int64",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "OrganisationECDCreateResponseModel": {
+        "type": "object",
+        "properties": {
+          "organisationId": {
             "type": "integer",
             "format": "int64",
             "nullable": true
-          },
-          "partnerRoleRequestOrganisationPersonTypes": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/PartnerBRoleRequestOrganisationPersonType"
-            },
-            "nullable": true
           }
         },
         "additionalProperties": false
       },
-      "PartnerBRoleRequestOrganisationPersonType": {
-        "type": "object",
-        "properties": {
-          "partnerRoleRequestPersonOrganisationPersonTypeId": {
-            "type": "integer",
-            "format": "int64"
-          },
-          "personTypeId": {
-            "type": "integer",
-            "format": "int64"
-          },
-          "personTypeName": {
-            "type": "string",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
-      "PartnerBRoleRequestSummaryResponse": {
-        "type": "object",
-        "properties": {
-          "partnerRoleRequestOrganisationPersons": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/PartnerBRoleRequestOrganisationPerson"
-            },
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
-      "PartnerBRoleRequestSummaryResponseSETAApiResponse": {
+      "OrganisationECDCreateResponseModelSETAApiResponse": {
         "type": "object",
         "properties": {
           "errorMessage": {
@@ -2045,7 +3468,779 @@
             "nullable": true
           },
           "data": {
-            "$ref": "#/components/schemas/PartnerBRoleRequestSummaryResponse"
+            "$ref": "#/components/schemas/OrganisationECDCreateResponseModel"
+          }
+        },
+        "additionalProperties": false
+      },
+      "OrganisationECDRetrieveResponseModel": {
+        "type": "object",
+        "properties": {
+          "createdOn": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "modifiedOn": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "deletedOn": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "latitude": {
+            "type": "number",
+            "description": "FieldType:Currency",
+            "format": "double",
+            "nullable": true
+          },
+          "longitude": {
+            "type": "number",
+            "description": "FieldType:Currency",
+            "format": "double",
+            "nullable": true
+          },
+          "organisationId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "organisationTypeId": {
+            "type": "integer",
+            "description": "ParentTable:OrganisationType",
+            "format": "int64"
+          },
+          "provinceId": {
+            "type": "integer",
+            "description": "ParentTable:Province",
+            "format": "int64"
+          },
+          "countryId": {
+            "type": "integer",
+            "description": "ParentTable:Country",
+            "format": "int64"
+          },
+          "statusId": {
+            "type": "integer",
+            "description": "ParentTable:Status",
+            "format": "int64",
+            "nullable": true
+          },
+          "createdBySystemUserId": {
+            "type": "integer",
+            "description": "ParentTable:SystemUser",
+            "format": "int64"
+          },
+          "modifiedBySystemUserId": {
+            "type": "integer",
+            "description": "ParentTable:SystemUser",
+            "format": "int64"
+          },
+          "deletedBySystemUserId": {
+            "type": "integer",
+            "description": "ParentTable:SystemUser",
+            "format": "int64",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "registrationNumber": {
+            "type": "string",
+            "nullable": true
+          },
+          "vatNumber": {
+            "type": "string",
+            "nullable": true
+          },
+          "organisationTypeName": {
+            "type": "string",
+            "nullable": true
+          },
+          "physicalAddressLineOne": {
+            "type": "string",
+            "nullable": true
+          },
+          "physicalAddressLineTwo": {
+            "type": "string",
+            "nullable": true
+          },
+          "physicalAddressLineThree": {
+            "type": "string",
+            "nullable": true
+          },
+          "physicalAddressCode": {
+            "type": "string",
+            "nullable": true
+          },
+          "postalAddressLineOne": {
+            "type": "string",
+            "nullable": true
+          },
+          "postalAddressLineTwo": {
+            "type": "string",
+            "nullable": true
+          },
+          "postalAddressLineThree": {
+            "type": "string",
+            "nullable": true
+          },
+          "postalAddressCode": {
+            "type": "string",
+            "nullable": true
+          },
+          "provinceName": {
+            "type": "string",
+            "nullable": true
+          },
+          "countryName": {
+            "type": "string",
+            "nullable": true
+          },
+          "latitudeDegrees": {
+            "type": "string",
+            "nullable": true
+          },
+          "latitudeMinutes": {
+            "type": "string",
+            "nullable": true
+          },
+          "latitudeSeconds": {
+            "type": "string",
+            "nullable": true
+          },
+          "longitudeDegrees": {
+            "type": "string",
+            "nullable": true
+          },
+          "longitudeMinutes": {
+            "type": "string",
+            "nullable": true
+          },
+          "longitudeSeconds": {
+            "type": "string",
+            "nullable": true
+          },
+          "fnoVendorId": {
+            "type": "string",
+            "nullable": true
+          },
+          "statusName": {
+            "type": "string",
+            "nullable": true
+          },
+          "statusReason": {
+            "type": "string",
+            "nullable": true
+          },
+          "createdBySystemUserName": {
+            "type": "string",
+            "nullable": true
+          },
+          "modifiedBySystemUserName": {
+            "type": "string",
+            "nullable": true
+          },
+          "deletedBySystemUserName": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "OrganisationECDRetrieveResponseModelSETAApiResponse": {
+        "type": "object",
+        "properties": {
+          "errorMessage": {
+            "type": "string",
+            "nullable": true
+          },
+          "data": {
+            "$ref": "#/components/schemas/OrganisationECDRetrieveResponseModel"
+          }
+        },
+        "additionalProperties": false
+      },
+      "OrganisationECDSearchRequestModel": {
+        "required": [
+          "filterByList",
+          "orderByList",
+          "pageNumber",
+          "pageSize"
+        ],
+        "type": "object",
+        "properties": {
+          "pageNumber": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "pageSize": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "filterByList": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Filterbylist"
+            }
+          },
+          "orderByList": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Orderbylist"
+            }
+          }
+        },
+        "additionalProperties": false
+      },
+      "OrganisationECDSearchResponse": {
+        "type": "object",
+        "properties": {
+          "totalRows": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "searchResults": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/OrganisationECDSearchResponseModel"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "OrganisationECDSearchResponseModel": {
+        "type": "object",
+        "properties": {
+          "createdOn": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "modifiedOn": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "deletedOn": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "latitude": {
+            "type": "number",
+            "description": "FieldType:Currency",
+            "format": "double",
+            "nullable": true
+          },
+          "longitude": {
+            "type": "number",
+            "description": "FieldType:Currency",
+            "format": "double",
+            "nullable": true
+          },
+          "organisationId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "organisationTypeId": {
+            "type": "integer",
+            "description": "ParentTable:OrganisationType",
+            "format": "int64"
+          },
+          "provinceId": {
+            "type": "integer",
+            "description": "ParentTable:Province",
+            "format": "int64"
+          },
+          "countryId": {
+            "type": "integer",
+            "description": "ParentTable:Country",
+            "format": "int64"
+          },
+          "statusId": {
+            "type": "integer",
+            "description": "ParentTable:Status",
+            "format": "int64",
+            "nullable": true
+          },
+          "createdBySystemUserId": {
+            "type": "integer",
+            "description": "ParentTable:SystemUser",
+            "format": "int64"
+          },
+          "modifiedBySystemUserId": {
+            "type": "integer",
+            "description": "ParentTable:SystemUser",
+            "format": "int64"
+          },
+          "deletedBySystemUserId": {
+            "type": "integer",
+            "description": "ParentTable:SystemUser",
+            "format": "int64",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "registrationNumber": {
+            "type": "string",
+            "nullable": true
+          },
+          "vatNumber": {
+            "type": "string",
+            "nullable": true
+          },
+          "organisationTypeName": {
+            "type": "string",
+            "nullable": true
+          },
+          "physicalAddressLineOne": {
+            "type": "string",
+            "nullable": true
+          },
+          "physicalAddressLineTwo": {
+            "type": "string",
+            "nullable": true
+          },
+          "physicalAddressLineThree": {
+            "type": "string",
+            "nullable": true
+          },
+          "physicalAddressCode": {
+            "type": "string",
+            "nullable": true
+          },
+          "postalAddressLineOne": {
+            "type": "string",
+            "nullable": true
+          },
+          "postalAddressLineTwo": {
+            "type": "string",
+            "nullable": true
+          },
+          "postalAddressLineThree": {
+            "type": "string",
+            "nullable": true
+          },
+          "postalAddressCode": {
+            "type": "string",
+            "nullable": true
+          },
+          "provinceName": {
+            "type": "string",
+            "nullable": true
+          },
+          "countryName": {
+            "type": "string",
+            "nullable": true
+          },
+          "latitudeDegrees": {
+            "type": "string",
+            "nullable": true
+          },
+          "latitudeMinutes": {
+            "type": "string",
+            "nullable": true
+          },
+          "latitudeSeconds": {
+            "type": "string",
+            "nullable": true
+          },
+          "longitudeDegrees": {
+            "type": "string",
+            "nullable": true
+          },
+          "longitudeMinutes": {
+            "type": "string",
+            "nullable": true
+          },
+          "longitudeSeconds": {
+            "type": "string",
+            "nullable": true
+          },
+          "fnoVendorId": {
+            "type": "string",
+            "nullable": true
+          },
+          "statusName": {
+            "type": "string",
+            "nullable": true
+          },
+          "statusReason": {
+            "type": "string",
+            "nullable": true
+          },
+          "createdBySystemUserName": {
+            "type": "string",
+            "nullable": true
+          },
+          "modifiedBySystemUserName": {
+            "type": "string",
+            "nullable": true
+          },
+          "deletedBySystemUserName": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "OrganisationECDSearchResponseSETAApiResponse": {
+        "type": "object",
+        "properties": {
+          "errorMessage": {
+            "type": "string",
+            "nullable": true
+          },
+          "data": {
+            "$ref": "#/components/schemas/OrganisationECDSearchResponse"
+          }
+        },
+        "additionalProperties": false
+      },
+      "OrganisationECDUpdateRequestModel": {
+        "required": [
+          "countryId",
+          "name",
+          "organisationId",
+          "organisationTypeId",
+          "physicalAddressCode",
+          "physicalAddressLineOne",
+          "physicalAddressLineTwo",
+          "postalAddressCode",
+          "postalAddressLineOne",
+          "postalAddressLineTwo",
+          "provinceId",
+          "registrationNumber"
+        ],
+        "type": "object",
+        "properties": {
+          "name": {
+            "maxLength": 250,
+            "minLength": 0,
+            "type": "string"
+          },
+          "organisationId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "registrationNumber": {
+            "maxLength": 20,
+            "minLength": 0,
+            "type": "string"
+          },
+          "organisationTypeId": {
+            "type": "integer",
+            "description": "ParentTable:OrganisationType",
+            "format": "int64"
+          },
+          "physicalAddressLineOne": {
+            "maxLength": 50,
+            "minLength": 0,
+            "type": "string"
+          },
+          "physicalAddressLineTwo": {
+            "maxLength": 50,
+            "minLength": 0,
+            "type": "string"
+          },
+          "physicalAddressCode": {
+            "maxLength": 4,
+            "minLength": 0,
+            "type": "string"
+          },
+          "postalAddressLineOne": {
+            "maxLength": 50,
+            "minLength": 0,
+            "type": "string"
+          },
+          "postalAddressLineTwo": {
+            "maxLength": 50,
+            "minLength": 0,
+            "type": "string"
+          },
+          "postalAddressCode": {
+            "maxLength": 4,
+            "minLength": 0,
+            "type": "string"
+          },
+          "provinceId": {
+            "type": "integer",
+            "description": "ParentTable:Province",
+            "format": "int64"
+          },
+          "countryId": {
+            "type": "integer",
+            "description": "ParentTable:Country",
+            "format": "int64"
+          },
+          "vatNumber": {
+            "maxLength": 20,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "physicalAddressLineThree": {
+            "maxLength": 50,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "postalAddressLineThree": {
+            "maxLength": 50,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "latitude": {
+            "type": "number",
+            "description": "FieldType:Currency",
+            "format": "double",
+            "nullable": true
+          },
+          "longitude": {
+            "type": "number",
+            "description": "FieldType:Currency",
+            "format": "double",
+            "nullable": true
+          },
+          "fnoVendorId": {
+            "maxLength": 10,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "OrganisationPersonECDCreateRequestModel": {
+        "required": [
+          "organisationId",
+          "personId"
+        ],
+        "type": "object",
+        "properties": {
+          "personId": {
+            "type": "integer",
+            "description": "ParentTable:Person",
+            "format": "int64"
+          },
+          "organisationId": {
+            "type": "integer",
+            "description": "ParentTable:Organisation",
+            "format": "int64"
+          },
+          "statusId": {
+            "type": "integer",
+            "description": "ParentTable:Status",
+            "format": "int64",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "OrganisationPersonECDCreateResponseModel": {
+        "type": "object",
+        "properties": {
+          "organisationPersonId": {
+            "type": "integer",
+            "format": "int64",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "OrganisationPersonECDCreateResponseModelSETAApiResponse": {
+        "type": "object",
+        "properties": {
+          "errorMessage": {
+            "type": "string",
+            "nullable": true
+          },
+          "data": {
+            "$ref": "#/components/schemas/OrganisationPersonECDCreateResponseModel"
+          }
+        },
+        "additionalProperties": false
+      },
+      "OrganisationPersonECDRetrieveResponseModel": {
+        "type": "object",
+        "properties": {
+          "createdOn": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "modifiedOn": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "deletedOn": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "organisationPersonId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "personId": {
+            "type": "integer",
+            "description": "ParentTable:Person",
+            "format": "int64"
+          },
+          "organisationId": {
+            "type": "integer",
+            "description": "ParentTable:Organisation",
+            "format": "int64"
+          },
+          "statusId": {
+            "type": "integer",
+            "description": "ParentTable:Status",
+            "format": "int64",
+            "nullable": true
+          },
+          "createdBySystemUserId": {
+            "type": "integer",
+            "description": "ParentTable:SystemUser",
+            "format": "int64"
+          },
+          "modifiedBySystemUserId": {
+            "type": "integer",
+            "description": "ParentTable:SystemUser",
+            "format": "int64"
+          },
+          "deletedBySystemUserId": {
+            "type": "integer",
+            "description": "ParentTable:SystemUser",
+            "format": "int64",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "personName": {
+            "type": "string",
+            "nullable": true
+          },
+          "organisationName": {
+            "type": "string",
+            "nullable": true
+          },
+          "statusName": {
+            "type": "string",
+            "nullable": true
+          },
+          "statusReason": {
+            "type": "string",
+            "nullable": true
+          },
+          "createdBySystemUserName": {
+            "type": "string",
+            "nullable": true
+          },
+          "modifiedBySystemUserName": {
+            "type": "string",
+            "nullable": true
+          },
+          "deletedBySystemUserName": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "OrganisationPersonECDRetrieveResponseModelSETAApiResponse": {
+        "type": "object",
+        "properties": {
+          "errorMessage": {
+            "type": "string",
+            "nullable": true
+          },
+          "data": {
+            "$ref": "#/components/schemas/OrganisationPersonECDRetrieveResponseModel"
+          }
+        },
+        "additionalProperties": false
+      },
+      "OrganisationTypeECDSearchRequestModel": {
+        "required": [
+          "filterByList",
+          "orderByList",
+          "pageNumber",
+          "pageSize"
+        ],
+        "type": "object",
+        "properties": {
+          "pageNumber": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "pageSize": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "filterByList": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Filterbylist"
+            }
+          },
+          "orderByList": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Orderbylist"
+            }
+          }
+        },
+        "additionalProperties": false
+      },
+      "OrganisationTypeECDSearchResponse": {
+        "type": "object",
+        "properties": {
+          "totalRows": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "searchResults": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/OrganisationTypeECDSearchResponseModel"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "OrganisationTypeECDSearchResponseModel": {
+        "type": "object",
+        "properties": {
+          "organisationTypeId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "OrganisationTypeECDSearchResponseSETAApiResponse": {
+        "type": "object",
+        "properties": {
+          "errorMessage": {
+            "type": "string",
+            "nullable": true
+          },
+          "data": {
+            "$ref": "#/components/schemas/OrganisationTypeECDSearchResponse"
           }
         },
         "additionalProperties": false
@@ -2755,6 +4950,1039 @@
         },
         "additionalProperties": false
       },
+      "PersonECDRetrieveResponseModel": {
+        "type": "object",
+        "properties": {
+          "dateOfBirth": {
+            "type": "string",
+            "format": "date"
+          },
+          "popiActStatusDate": {
+            "type": "string",
+            "format": "date",
+            "nullable": true
+          },
+          "registrationCodeExpiryDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "createdOn": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "modifiedOn": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "deletedOn": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "age": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "personId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "titleId": {
+            "type": "integer",
+            "description": "ParentTable:Title",
+            "format": "int64"
+          },
+          "identityTypeId": {
+            "type": "integer",
+            "description": "ParentTable:IdentityType",
+            "format": "int64"
+          },
+          "alternateIdentityTypeId": {
+            "type": "integer",
+            "description": "ParentTable:AlternateIdentityType",
+            "format": "int64",
+            "nullable": true
+          },
+          "ageBracketId": {
+            "type": "integer",
+            "description": "ParentTable:AgeBracket",
+            "format": "int64"
+          },
+          "genderId": {
+            "type": "integer",
+            "description": "ParentTable:Gender",
+            "format": "int64"
+          },
+          "equityCodeId": {
+            "type": "integer",
+            "description": "ParentTable:EquityCode",
+            "format": "int64"
+          },
+          "citizenshipId": {
+            "type": "integer",
+            "description": "ParentTable:Citizenship",
+            "format": "int64",
+            "nullable": true
+          },
+          "nationalityId": {
+            "type": "integer",
+            "description": "ParentTable:Nationality",
+            "format": "int64"
+          },
+          "economicTypeId": {
+            "type": "integer",
+            "description": "ParentTable:EconomicType",
+            "format": "int64"
+          },
+          "homeLanguageId": {
+            "type": "integer",
+            "description": "ParentTable:Language",
+            "format": "int64"
+          },
+          "statsSaAreaId": {
+            "type": "integer",
+            "description": "ParentTable:StatsSaArea",
+            "format": "int64",
+            "nullable": true
+          },
+          "cityId": {
+            "type": "integer",
+            "description": "ParentTable:City",
+            "format": "int64"
+          },
+          "provinceId": {
+            "type": "integer",
+            "description": "ParentTable:Province",
+            "format": "int64"
+          },
+          "municipalityLocalId": {
+            "type": "integer",
+            "description": "ParentTable:MunicipalityLocal",
+            "format": "int64",
+            "nullable": true
+          },
+          "communityTypeId": {
+            "type": "integer",
+            "description": "ParentTable:CommunityType",
+            "format": "int64"
+          },
+          "communicatingDisabilityRatingId": {
+            "type": "integer",
+            "description": "ParentTable:DisabilityRating",
+            "format": "int64"
+          },
+          "hearingDisabilityRatingId": {
+            "type": "integer",
+            "description": "ParentTable:DisabilityRating",
+            "format": "int64"
+          },
+          "rememberingDisabilityRatingId": {
+            "type": "integer",
+            "description": "ParentTable:DisabilityRating",
+            "format": "int64"
+          },
+          "seeingDisabilityRatingId": {
+            "type": "integer",
+            "description": "ParentTable:DisabilityRating",
+            "format": "int64"
+          },
+          "selfCareDisabilityRatingId": {
+            "type": "integer",
+            "description": "ParentTable:DisabilityRating",
+            "format": "int64"
+          },
+          "walkingDisabilityRatingId": {
+            "type": "integer",
+            "description": "ParentTable:DisabilityRating",
+            "format": "int64"
+          },
+          "popiActStatusId": {
+            "type": "integer",
+            "description": "ParentTable:POPIActStatus",
+            "format": "int64",
+            "nullable": true
+          },
+          "statusId": {
+            "type": "integer",
+            "description": "ParentTable:Status",
+            "format": "int64",
+            "nullable": true
+          },
+          "createdBySystemUserId": {
+            "type": "integer",
+            "description": "ParentTable:SystemUser",
+            "format": "int64"
+          },
+          "modifiedBySystemUserId": {
+            "type": "integer",
+            "description": "ParentTable:SystemUser",
+            "format": "int64"
+          },
+          "deletedBySystemUserId": {
+            "type": "integer",
+            "description": "ParentTable:SystemUser",
+            "format": "int64",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "titleName": {
+            "type": "string",
+            "nullable": true
+          },
+          "firstName": {
+            "type": "string",
+            "nullable": true
+          },
+          "middleName": {
+            "type": "string",
+            "nullable": true
+          },
+          "lastName": {
+            "type": "string",
+            "nullable": true
+          },
+          "identityNumber": {
+            "type": "string",
+            "nullable": true
+          },
+          "identityTypeName": {
+            "type": "string",
+            "nullable": true
+          },
+          "alternateIdentityNumber": {
+            "type": "string",
+            "nullable": true
+          },
+          "alternateIdentityTypeName": {
+            "type": "string",
+            "nullable": true
+          },
+          "ageBracketName": {
+            "type": "string",
+            "nullable": true
+          },
+          "genderName": {
+            "type": "string",
+            "nullable": true
+          },
+          "equityCodeName": {
+            "type": "string",
+            "nullable": true
+          },
+          "citizenshipName": {
+            "type": "string",
+            "nullable": true
+          },
+          "nationalityName": {
+            "type": "string",
+            "nullable": true
+          },
+          "economicTypeName": {
+            "type": "string",
+            "nullable": true
+          },
+          "homeLanguageName": {
+            "type": "string",
+            "nullable": true
+          },
+          "email": {
+            "type": "string",
+            "nullable": true
+          },
+          "mobilePhone": {
+            "type": "string",
+            "nullable": true
+          },
+          "homePhone": {
+            "type": "string",
+            "nullable": true
+          },
+          "businessPhone": {
+            "type": "string",
+            "nullable": true
+          },
+          "faxNumber": {
+            "type": "string",
+            "nullable": true
+          },
+          "homeAddressLineOne": {
+            "type": "string",
+            "nullable": true
+          },
+          "homeAddressLineTwo": {
+            "type": "string",
+            "nullable": true
+          },
+          "homeAddressLineThree": {
+            "type": "string",
+            "nullable": true
+          },
+          "homeAddressPostalCode": {
+            "type": "string",
+            "nullable": true
+          },
+          "postalAddressLineOne": {
+            "type": "string",
+            "nullable": true
+          },
+          "postalAddressLineTwo": {
+            "type": "string",
+            "nullable": true
+          },
+          "postalAddressLineThree": {
+            "type": "string",
+            "nullable": true
+          },
+          "postalAddressPostalCode": {
+            "type": "string",
+            "nullable": true
+          },
+          "statsSaAreaName": {
+            "type": "string",
+            "nullable": true
+          },
+          "cityName": {
+            "type": "string",
+            "nullable": true
+          },
+          "provinceName": {
+            "type": "string",
+            "nullable": true
+          },
+          "municipalityLocalName": {
+            "type": "string",
+            "nullable": true
+          },
+          "communityTypeName": {
+            "type": "string",
+            "nullable": true
+          },
+          "communicatingDisabilityRatingName": {
+            "type": "string",
+            "nullable": true
+          },
+          "hearingDisabilityRatingName": {
+            "type": "string",
+            "nullable": true
+          },
+          "rememberingDisabilityRatingName": {
+            "type": "string",
+            "nullable": true
+          },
+          "seeingDisabilityRatingName": {
+            "type": "string",
+            "nullable": true
+          },
+          "selfCareDisabilityRatingName": {
+            "type": "string",
+            "nullable": true
+          },
+          "walkingDisabilityRatingName": {
+            "type": "string",
+            "nullable": true
+          },
+          "popiActStatusName": {
+            "type": "string",
+            "nullable": true
+          },
+          "registrationCode": {
+            "type": "string",
+            "nullable": true
+          },
+          "statusName": {
+            "type": "string",
+            "nullable": true
+          },
+          "statusReason": {
+            "type": "string",
+            "nullable": true
+          },
+          "createdBySystemUserName": {
+            "type": "string",
+            "nullable": true
+          },
+          "modifiedBySystemUserName": {
+            "type": "string",
+            "nullable": true
+          },
+          "deletedBySystemUserName": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "PersonECDRetrieveResponseModelSETAApiResponse": {
+        "type": "object",
+        "properties": {
+          "errorMessage": {
+            "type": "string",
+            "nullable": true
+          },
+          "data": {
+            "$ref": "#/components/schemas/PersonECDRetrieveResponseModel"
+          }
+        },
+        "additionalProperties": false
+      },
+      "PersonECDSearchRequestModel": {
+        "required": [
+          "filterByList",
+          "orderByList",
+          "pageNumber",
+          "pageSize"
+        ],
+        "type": "object",
+        "properties": {
+          "pageNumber": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "pageSize": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "filterByList": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Filterbylist"
+            }
+          },
+          "orderByList": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Orderbylist"
+            }
+          }
+        },
+        "additionalProperties": false
+      },
+      "PersonECDSearchResponse": {
+        "type": "object",
+        "properties": {
+          "totalRows": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "searchResults": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PersonECDSearchResponseModel"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "PersonECDSearchResponseModel": {
+        "type": "object",
+        "properties": {
+          "dateOfBirth": {
+            "type": "string",
+            "format": "date"
+          },
+          "popiActStatusDate": {
+            "type": "string",
+            "format": "date",
+            "nullable": true
+          },
+          "registrationCodeExpiryDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "createdOn": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "modifiedOn": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "deletedOn": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "age": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "personId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "titleId": {
+            "type": "integer",
+            "description": "ParentTable:Title",
+            "format": "int64"
+          },
+          "identityTypeId": {
+            "type": "integer",
+            "description": "ParentTable:IdentityType",
+            "format": "int64"
+          },
+          "alternateIdentityTypeId": {
+            "type": "integer",
+            "description": "ParentTable:AlternateIdentityType",
+            "format": "int64",
+            "nullable": true
+          },
+          "ageBracketId": {
+            "type": "integer",
+            "description": "ParentTable:AgeBracket",
+            "format": "int64"
+          },
+          "genderId": {
+            "type": "integer",
+            "description": "ParentTable:Gender",
+            "format": "int64"
+          },
+          "equityCodeId": {
+            "type": "integer",
+            "description": "ParentTable:EquityCode",
+            "format": "int64"
+          },
+          "citizenshipId": {
+            "type": "integer",
+            "description": "ParentTable:Citizenship",
+            "format": "int64",
+            "nullable": true
+          },
+          "nationalityId": {
+            "type": "integer",
+            "description": "ParentTable:Nationality",
+            "format": "int64"
+          },
+          "economicTypeId": {
+            "type": "integer",
+            "description": "ParentTable:EconomicType",
+            "format": "int64"
+          },
+          "homeLanguageId": {
+            "type": "integer",
+            "description": "ParentTable:Language",
+            "format": "int64"
+          },
+          "statsSaAreaId": {
+            "type": "integer",
+            "description": "ParentTable:StatsSaArea",
+            "format": "int64",
+            "nullable": true
+          },
+          "cityId": {
+            "type": "integer",
+            "description": "ParentTable:City",
+            "format": "int64"
+          },
+          "provinceId": {
+            "type": "integer",
+            "description": "ParentTable:Province",
+            "format": "int64"
+          },
+          "municipalityLocalId": {
+            "type": "integer",
+            "description": "ParentTable:MunicipalityLocal",
+            "format": "int64",
+            "nullable": true
+          },
+          "communityTypeId": {
+            "type": "integer",
+            "description": "ParentTable:CommunityType",
+            "format": "int64"
+          },
+          "communicatingDisabilityRatingId": {
+            "type": "integer",
+            "description": "ParentTable:DisabilityRating",
+            "format": "int64"
+          },
+          "hearingDisabilityRatingId": {
+            "type": "integer",
+            "description": "ParentTable:DisabilityRating",
+            "format": "int64"
+          },
+          "rememberingDisabilityRatingId": {
+            "type": "integer",
+            "description": "ParentTable:DisabilityRating",
+            "format": "int64"
+          },
+          "seeingDisabilityRatingId": {
+            "type": "integer",
+            "description": "ParentTable:DisabilityRating",
+            "format": "int64"
+          },
+          "selfCareDisabilityRatingId": {
+            "type": "integer",
+            "description": "ParentTable:DisabilityRating",
+            "format": "int64"
+          },
+          "walkingDisabilityRatingId": {
+            "type": "integer",
+            "description": "ParentTable:DisabilityRating",
+            "format": "int64"
+          },
+          "popiActStatusId": {
+            "type": "integer",
+            "description": "ParentTable:POPIActStatus",
+            "format": "int64",
+            "nullable": true
+          },
+          "statusId": {
+            "type": "integer",
+            "description": "ParentTable:Status",
+            "format": "int64",
+            "nullable": true
+          },
+          "createdBySystemUserId": {
+            "type": "integer",
+            "description": "ParentTable:SystemUser",
+            "format": "int64"
+          },
+          "modifiedBySystemUserId": {
+            "type": "integer",
+            "description": "ParentTable:SystemUser",
+            "format": "int64"
+          },
+          "deletedBySystemUserId": {
+            "type": "integer",
+            "description": "ParentTable:SystemUser",
+            "format": "int64",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "titleName": {
+            "type": "string",
+            "nullable": true
+          },
+          "firstName": {
+            "type": "string",
+            "nullable": true
+          },
+          "middleName": {
+            "type": "string",
+            "nullable": true
+          },
+          "lastName": {
+            "type": "string",
+            "nullable": true
+          },
+          "identityNumber": {
+            "type": "string",
+            "nullable": true
+          },
+          "identityTypeName": {
+            "type": "string",
+            "nullable": true
+          },
+          "alternateIdentityNumber": {
+            "type": "string",
+            "nullable": true
+          },
+          "alternateIdentityTypeName": {
+            "type": "string",
+            "nullable": true
+          },
+          "ageBracketName": {
+            "type": "string",
+            "nullable": true
+          },
+          "genderName": {
+            "type": "string",
+            "nullable": true
+          },
+          "equityCodeName": {
+            "type": "string",
+            "nullable": true
+          },
+          "citizenshipName": {
+            "type": "string",
+            "nullable": true
+          },
+          "nationalityName": {
+            "type": "string",
+            "nullable": true
+          },
+          "economicTypeName": {
+            "type": "string",
+            "nullable": true
+          },
+          "homeLanguageName": {
+            "type": "string",
+            "nullable": true
+          },
+          "email": {
+            "type": "string",
+            "nullable": true
+          },
+          "mobilePhone": {
+            "type": "string",
+            "nullable": true
+          },
+          "homePhone": {
+            "type": "string",
+            "nullable": true
+          },
+          "businessPhone": {
+            "type": "string",
+            "nullable": true
+          },
+          "faxNumber": {
+            "type": "string",
+            "nullable": true
+          },
+          "homeAddressLineOne": {
+            "type": "string",
+            "nullable": true
+          },
+          "homeAddressLineTwo": {
+            "type": "string",
+            "nullable": true
+          },
+          "homeAddressLineThree": {
+            "type": "string",
+            "nullable": true
+          },
+          "homeAddressPostalCode": {
+            "type": "string",
+            "nullable": true
+          },
+          "postalAddressLineOne": {
+            "type": "string",
+            "nullable": true
+          },
+          "postalAddressLineTwo": {
+            "type": "string",
+            "nullable": true
+          },
+          "postalAddressLineThree": {
+            "type": "string",
+            "nullable": true
+          },
+          "postalAddressPostalCode": {
+            "type": "string",
+            "nullable": true
+          },
+          "statsSaAreaName": {
+            "type": "string",
+            "nullable": true
+          },
+          "cityName": {
+            "type": "string",
+            "nullable": true
+          },
+          "provinceName": {
+            "type": "string",
+            "nullable": true
+          },
+          "municipalityLocalName": {
+            "type": "string",
+            "nullable": true
+          },
+          "communityTypeName": {
+            "type": "string",
+            "nullable": true
+          },
+          "communicatingDisabilityRatingName": {
+            "type": "string",
+            "nullable": true
+          },
+          "hearingDisabilityRatingName": {
+            "type": "string",
+            "nullable": true
+          },
+          "rememberingDisabilityRatingName": {
+            "type": "string",
+            "nullable": true
+          },
+          "seeingDisabilityRatingName": {
+            "type": "string",
+            "nullable": true
+          },
+          "selfCareDisabilityRatingName": {
+            "type": "string",
+            "nullable": true
+          },
+          "walkingDisabilityRatingName": {
+            "type": "string",
+            "nullable": true
+          },
+          "popiActStatusName": {
+            "type": "string",
+            "nullable": true
+          },
+          "registrationCode": {
+            "type": "string",
+            "nullable": true
+          },
+          "statusName": {
+            "type": "string",
+            "nullable": true
+          },
+          "statusReason": {
+            "type": "string",
+            "nullable": true
+          },
+          "createdBySystemUserName": {
+            "type": "string",
+            "nullable": true
+          },
+          "modifiedBySystemUserName": {
+            "type": "string",
+            "nullable": true
+          },
+          "deletedBySystemUserName": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "PersonECDSearchResponseSETAApiResponse": {
+        "type": "object",
+        "properties": {
+          "errorMessage": {
+            "type": "string",
+            "nullable": true
+          },
+          "data": {
+            "$ref": "#/components/schemas/PersonECDSearchResponse"
+          }
+        },
+        "additionalProperties": false
+      },
+      "PersonOrganisationPersonTypeECDCreateRequestModel": {
+        "required": [
+          "organisationPersonId",
+          "personTypeId"
+        ],
+        "type": "object",
+        "properties": {
+          "organisationPersonId": {
+            "type": "integer",
+            "description": "ParentTable:OrganisationPerson",
+            "format": "int64"
+          },
+          "personTypeId": {
+            "type": "integer",
+            "description": "ParentTable:PersonType",
+            "format": "int64"
+          },
+          "statusId": {
+            "type": "integer",
+            "description": "ParentTable:Status",
+            "format": "int64",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "PersonOrganisationPersonTypeECDCreateResponseModel": {
+        "type": "object",
+        "properties": {
+          "personOrganisationPersonTypeId": {
+            "type": "integer",
+            "format": "int64",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "PersonOrganisationPersonTypeECDCreateResponseModelSETAApiResponse": {
+        "type": "object",
+        "properties": {
+          "errorMessage": {
+            "type": "string",
+            "nullable": true
+          },
+          "data": {
+            "$ref": "#/components/schemas/PersonOrganisationPersonTypeECDCreateResponseModel"
+          }
+        },
+        "additionalProperties": false
+      },
+      "PersonOrganisationPersonTypeECDRetrieveResponseModel": {
+        "type": "object",
+        "properties": {
+          "createdOn": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "modifiedOn": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "deletedOn": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "personOrganisationPersonTypeId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "organisationPersonId": {
+            "type": "integer",
+            "description": "ParentTable:OrganisationPerson",
+            "format": "int64"
+          },
+          "personTypeId": {
+            "type": "integer",
+            "description": "ParentTable:PersonType",
+            "format": "int64"
+          },
+          "statusId": {
+            "type": "integer",
+            "description": "ParentTable:Status",
+            "format": "int64",
+            "nullable": true
+          },
+          "createdBySystemUserId": {
+            "type": "integer",
+            "description": "ParentTable:SystemUser",
+            "format": "int64"
+          },
+          "modifiedBySystemUserId": {
+            "type": "integer",
+            "description": "ParentTable:SystemUser",
+            "format": "int64"
+          },
+          "deletedBySystemUserId": {
+            "type": "integer",
+            "description": "ParentTable:SystemUser",
+            "format": "int64",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "organisationPersonName": {
+            "type": "string",
+            "nullable": true
+          },
+          "personTypeName": {
+            "type": "string",
+            "nullable": true
+          },
+          "statusName": {
+            "type": "string",
+            "nullable": true
+          },
+          "statusReason": {
+            "type": "string",
+            "nullable": true
+          },
+          "createdBySystemUserName": {
+            "type": "string",
+            "nullable": true
+          },
+          "modifiedBySystemUserName": {
+            "type": "string",
+            "nullable": true
+          },
+          "deletedBySystemUserName": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "PersonOrganisationPersonTypeECDRetrieveResponseModelSETAApiResponse": {
+        "type": "object",
+        "properties": {
+          "errorMessage": {
+            "type": "string",
+            "nullable": true
+          },
+          "data": {
+            "$ref": "#/components/schemas/PersonOrganisationPersonTypeECDRetrieveResponseModel"
+          }
+        },
+        "additionalProperties": false
+      },
+      "PersonTypeECDSearchRequestModel": {
+        "required": [
+          "filterByList",
+          "orderByList",
+          "pageNumber",
+          "pageSize"
+        ],
+        "type": "object",
+        "properties": {
+          "pageNumber": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "pageSize": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "filterByList": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Filterbylist"
+            }
+          },
+          "orderByList": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Orderbylist"
+            }
+          }
+        },
+        "additionalProperties": false
+      },
+      "PersonTypeECDSearchResponse": {
+        "type": "object",
+        "properties": {
+          "totalRows": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "searchResults": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PersonTypeECDSearchResponseModel"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "PersonTypeECDSearchResponseModel": {
+        "type": "object",
+        "properties": {
+          "personTypeId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "PersonTypeECDSearchResponseSETAApiResponse": {
+        "type": "object",
+        "properties": {
+          "errorMessage": {
+            "type": "string",
+            "nullable": true
+          },
+          "data": {
+            "$ref": "#/components/schemas/PersonTypeECDSearchResponse"
+          }
+        },
+        "additionalProperties": false
+      },
       "ProfileResponse": {
         "type": "object",
         "properties": {
@@ -2867,6 +6095,86 @@
           },
           "data": {
             "$ref": "#/components/schemas/ProfileResponse"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ProvinceECDSearchRequestModel": {
+        "required": [
+          "filterByList",
+          "orderByList",
+          "pageNumber",
+          "pageSize"
+        ],
+        "type": "object",
+        "properties": {
+          "pageNumber": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "pageSize": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "filterByList": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Filterbylist"
+            }
+          },
+          "orderByList": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Orderbylist"
+            }
+          }
+        },
+        "additionalProperties": false
+      },
+      "ProvinceECDSearchResponse": {
+        "type": "object",
+        "properties": {
+          "totalRows": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "searchResults": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ProvinceECDSearchResponseModel"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ProvinceECDSearchResponseModel": {
+        "type": "object",
+        "properties": {
+          "provinceId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "code": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ProvinceECDSearchResponseSETAApiResponse": {
+        "type": "object",
+        "properties": {
+          "errorMessage": {
+            "type": "string",
+            "nullable": true
+          },
+          "data": {
+            "$ref": "#/components/schemas/ProvinceECDSearchResponse"
           }
         },
         "additionalProperties": false

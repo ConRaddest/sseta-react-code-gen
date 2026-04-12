@@ -7,7 +7,7 @@ namespace ReactCodegen;
 //
 // Output path: {contextsOutputDir}/{module-lower}-{kebab-resource}/{Module}{Resource}Context.tsx
 //
-// Search-related state (items, selectedItem, totalRows, lastSearchTerm, lastFetchRequest,
+// Search-related state (items, retrievedItem, totalRows, lastSearchTerm, lastFetchRequest,
 // loadMoreItems, selectItem, clearSelection, refresh) is only included when a `search`
 // operation exists for the resource. All other operations are included only when present.
 static class ContextGenerator
@@ -182,6 +182,8 @@ static class ContextGenerator
             sb.AppendLine("  lastSearchTerm: string");
             sb.AppendLine("  lastFetchRequest: FetchRequest | null");
         }
+        if (hasRetrieve)
+            sb.AppendLine($"  retrievedItem: {entityType} | null");
         if (hasSummary)
         {
             sb.AppendLine($"  summaryData: {ops.Summary!.ResponseType} | null");
@@ -199,7 +201,7 @@ static class ContextGenerator
             sb.AppendLine("  // Operations");
         }
         if (hasRetrieve)
-            sb.AppendLine($"  retrieve: ({idField}: number) => Promise<{entityType} | null>");
+            sb.AppendLine($"  retrieve: ({idField}: number, forceRefresh?: boolean) => Promise<{entityType} | null>");
         if (hasCreate)
             sb.AppendLine($"  create: (data: {ops.Create!.RequestType}) => Promise<{ops.Create.ResponseType} | null>");
         if (hasUpdate)
@@ -232,7 +234,7 @@ static class ContextGenerator
 
         // Initial state
         sb.Append("  const [state, setState] = useState<any>(");
-        if (hasSearch || hasSummary)
+        if (hasSearch || hasRetrieve || hasSummary)
         {
             sb.AppendLine("{");
             if (hasSearch)
@@ -247,6 +249,8 @@ static class ContextGenerator
                 sb.AppendLine("      filterByList: [],");
                 sb.AppendLine("    },");
             }
+            if (hasRetrieve)
+                sb.AppendLine("    retrievedItem: null,");
             if (hasSummary)
             {
                 sb.AppendLine("    summaryData: null,");
@@ -288,9 +292,11 @@ static class ContextGenerator
         // retrieve
         if (hasRetrieve)
         {
-            sb.AppendLine($"  const retrieve = async ({idField}: number): Promise<{entityType} | null> => {{");
+            sb.AppendLine($"  const retrieve = async ({idField}: number, forceRefresh?: boolean): Promise<{entityType} | null> => {{");
+            sb.AppendLine($"    if (!forceRefresh && state.retrievedItem?.{idField} === {idField}) return state.retrievedItem");
             sb.AppendLine("    try {");
             sb.AppendLine($"      const response = await {apiPath}.retrieve({idField})");
+            sb.AppendLine("      setState((prev: any) => ({ ...prev, retrievedItem: response.data }))");
             sb.AppendLine("      return response.data");
             sb.AppendLine("    } catch (error) {");
             sb.AppendLine("      console.error(error)");

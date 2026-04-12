@@ -19,10 +19,15 @@ static class Formatters
             }
         }
 
+        // No lowercase letters at all (e.g. "ETQE") — lowercase the whole string
+        if (firstLowerIndex == -1)
+            return str.ToLower();
+
+        // First char (or first two) uppercase — simple lowercasing of first char (e.g. "Name" → "name", "ETqe" → "eTqe")
         if (firstLowerIndex <= 1)
             return char.ToLower(str[0]) + str[1..];
 
-        // Acronym: lowercase everything up to (but not including) the letter before firstLowerIndex
+        // Acronym prefix (e.g. "ETQEId" → "etqeId"): lowercase everything up to (but not including) the letter before firstLowerIndex
         return str[..(firstLowerIndex - 1)].ToLower() + str[(firstLowerIndex - 1)..];
     }
 
@@ -137,6 +142,10 @@ static class Formatters
         {
             name = name[..^4];
         }
+
+        // If the name is all uppercase (e.g. "ETQE"), return it as-is — it's an acronym
+        if (name.All(c => char.IsUpper(c) || char.IsDigit(c)))
+            return name;
 
         string titleCase = Regex.Replace(name, @"(?<=[a-z])(?=[A-Z])|(?<=[A-Z])(?=[A-Z][a-z])", " ");
         return string.IsNullOrEmpty(titleCase)

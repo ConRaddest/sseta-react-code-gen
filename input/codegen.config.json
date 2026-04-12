@@ -24,7 +24,6 @@
   "portals": [
     {
       "name": "management",
-      "additionalPrefixes": ["partner"],
       "input": {
         "swaggerUrl": "https://localhost:7222/swagger/v1/swagger.json",
         "swaggerCachePath": "input/swagger/management-swagger.json",

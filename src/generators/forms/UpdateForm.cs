@@ -95,11 +95,11 @@ static class UpdateFormGenerator
 
             // UpdateForm.tsx
             File.WriteAllText(Path.Combine(dir, $"UpdateForm.tsx"),
-                ApplyTemplate(RenderForm(ep, prefix, modulePascal, fkFields), formTemplatePath));
+                ApplyTemplate(RenderForm(ep, prefix, modulePascal, fkFields, orderedFields), formTemplatePath));
 
             // useUpdateFields.tsx
             File.WriteAllText(Path.Combine(dir, $"useUpdateFields.tsx"),
-                ApplyTemplate(RenderFields(prefix, ep.Resource, ep.RequestType, orderedFields, properties, requiredFields, fkFields, fieldLayout, searchableResources), fieldsTemplatePath));
+                ApplyTemplate(UseFieldsGenerator.Render(prefix, Formatters.ToPascalCase(ep.Module.ToLower()), ep.Resource, ep.RequestType, orderedFields, properties, requiredFields, fkFields, fieldLayout, searchableResources, isUpdate: true), fieldsTemplatePath));
 
             Console.WriteLine($"    ✓ {ep.Module}/{ep.Resource}");
             count++;
@@ -108,8 +108,12 @@ static class UpdateFormGenerator
         Console.WriteLine($"    {count} update form(s) generated.");
     }
 
-    static string RenderForm(UpdateEndpoint ep, string prefix, string modulePascal, List<FkField> fkFields)
+    static string RenderForm(UpdateEndpoint ep, string prefix, string modulePascal, List<FkField> fkFields, List<string> orderedFields)
     {
+        bool hasDateRange = (orderedFields.Any(f => f.Equals("startDate", StringComparison.OrdinalIgnoreCase)) &&
+                             orderedFields.Any(f => f.Equals("endDate", StringComparison.OrdinalIgnoreCase))) ||
+                            (orderedFields.Any(f => f.Equals("startDateTime", StringComparison.OrdinalIgnoreCase)) &&
+                             orderedFields.Any(f => f.Equals("endDateTime", StringComparison.OrdinalIgnoreCase)));
         string displayName = Formatters.ToTitleCase(ep.Resource);
         string contextHook = $"use{prefix}";
         string contextPath = $"@/contexts/resources/{ep.Module.ToLower()}/{prefix}Context";
@@ -169,20 +173,22 @@ static class UpdateFormGenerator
             sb.AppendLine("  const [selectedLabels, setSelectedLabels] = useState<Record<string, string | null>>({})");
         sb.AppendLine("  const isLoading = loadingOverride ?? loading");
         sb.AppendLine();
-        sb.AppendLine($"  const {{ retrieve, update }} = {contextHook}()");
+        sb.AppendLine($"  const {{ retrieve, update, setFormDirty }} = {contextHook}()");
         sb.AppendLine("  const { showToast } = useToast()");
         sb.AppendLine();
         sb.AppendLine("  const {");
         sb.AppendLine("    handleSubmit,");
         sb.AppendLine("    control,");
         sb.AppendLine("    reset,");
-        sb.AppendLine("    formState: { errors, isSubmitting },");
+        sb.AppendLine("    formState: { errors, isSubmitting, isDirty },");
         sb.AppendLine($"  }} = useForm<{ep.RequestType}>({{");
         sb.AppendLine("    mode: \"onChange\",");
         sb.AppendLine("  })");
         sb.AppendLine();
+
         string selectedLabelsArg = fkFields.Count > 0 ? ", selectedLabels" : "";
-        sb.AppendLine($"  const {{ fields, layout }} = use{prefix}Update({{ errors, disabledFields, selectFilterBys, selectOrderBys{selectedLabelsArg} }})");
+        string controlArg = hasDateRange ? ", control" : "";
+        sb.AppendLine($"  const {{ fields, layout }} = use{prefix}Update({{ errors, disabledFields, selectFilterBys, selectOrderBys{selectedLabelsArg}{controlArg} }})");
         sb.AppendLine();
         sb.AppendLine("  useEffect(() => {");
         sb.AppendLine("    const fetchRecord = async () => {");
@@ -213,6 +219,11 @@ static class UpdateFormGenerator
         sb.AppendLine("    fetchRecord()");
         sb.AppendLine("  }, [])");
         sb.AppendLine();
+        sb.AppendLine("  useEffect(() => {");
+        sb.AppendLine("    setFormDirty(isDirty)");
+        sb.AppendLine("    return () => setFormDirty(false)");
+        sb.AppendLine("  }, [isDirty])");
+        sb.AppendLine();
         sb.AppendLine($"  const onSubmit: SubmitHandler<{ep.RequestType}> = async (data) => {{");
         sb.AppendLine("    setLoading(true)");
         sb.AppendLine("    setApiErrors([])");
@@ -241,7 +252,7 @@ static class UpdateFormGenerator
         sb.AppendLine("      scrollToTopTrigger={scrollTrigger}");
         sb.AppendLine("      actions={");
         sb.AppendLine("        <div className=\"flex md:flex-row flex-col gap-2\">");
-        sb.AppendLine("          <Button loading={isSubmitting} type=\"submit\" variant=\"orange\" size=\"mlg\" className=\"w-full md:w-40\">");
+        sb.AppendLine("          <Button loading={isSubmitting} disabled={!isDirty} type=\"submit\" variant=\"orange\" size=\"mlg\" className=\"w-full md:w-40\">");
         sb.AppendLine("            Save");
         sb.AppendLine("          </Button>");
         sb.AppendLine("        </div>");
@@ -254,196 +265,6 @@ static class UpdateFormGenerator
         sb.AppendLine("}");
 
         return sb.ToString();
-    }
-
-    static string RenderFields(
-        string prefix,
-        string resource,
-        string requestType,
-        List<string> orderedFields,
-        JsonObject? properties,
-        HashSet<string> requiredFields,
-        List<FkField> fkFields,
-        JsonObject? fieldLayout,
-        HashSet<string>? searchableResources = null)
-    {
-        var sb = new StringBuilder();
-        bool hasSelects = fkFields.Count > 0;
-        string kebabResource = Formatters.ToKebabCase(resource);
-
-        sb.AppendLine("import { FieldErrors } from \"react-hook-form\"");
-        if (hasSelects)
-        {
-            sb.AppendLine("import { FilterBy, OrderBy, FormLayout, useSelect } from \"@sseta/components\"");
-            var seenContexts = new HashSet<string>();
-            foreach (var fk in fkFields)
-                if (seenContexts.Add(fk.ContextName))
-                    sb.AppendLine($"import {{ {fk.HookName} }} from \"{fk.ContextImportPath}\"");
-        }
-        else
-        {
-            sb.AppendLine("import { FilterBy, OrderBy, FormLayout } from \"@sseta/components\"");
-        }
-        sb.AppendLine($"import {{ {requestType} }} from \"@/types/api.types\"");
-        sb.AppendLine();
-
-        // Props interface — always includes selectFilterBys/selectOrderBys for a stable contract
-        sb.AppendLine($"interface Use{prefix}UpdateProps {{");
-        sb.AppendLine($"  errors: FieldErrors<{requestType}>");
-        sb.AppendLine("  disabledFields?: string[]");
-        sb.AppendLine("  selectFilterBys?: Record<string, FilterBy[]>");
-        sb.AppendLine("  selectOrderBys?: Record<string, OrderBy[]>");
-        if (hasSelects)
-            sb.AppendLine("  selectedLabels?: Record<string, string | null | undefined>");
-        sb.AppendLine("}");
-        sb.AppendLine();
-
-        sb.AppendLine($"export default function use{prefix}Update(props: Use{prefix}UpdateProps) {{");
-        if (hasSelects)
-            sb.AppendLine($"  const {{ errors, disabledFields = [], selectFilterBys = {{}}, selectOrderBys = {{}}, selectedLabels = {{}} }} = props");
-        else
-            sb.AppendLine($"  const {{ errors, disabledFields = [], selectFilterBys = {{}}, selectOrderBys = {{}} }} = props");
-        sb.AppendLine();
-
-        if (hasSelects)
-        {
-            var emittedContextDestructure = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
-            foreach (var fk in fkFields)
-            {
-                if (emittedContextDestructure.Add(fk.ParentTable))
-                {
-                    string pluralPascal = Formatters.ToPascalCase(fk.Plural);
-                    sb.AppendLine($"  const {{");
-                    sb.AppendLine($"    items: {fk.Plural},");
-                    sb.AppendLine($"    totalRows: {fk.Plural}TotalRows,");
-                    sb.AppendLine($"    lastSearchTerm: {fk.Plural}LastSearchTerm,");
-                    sb.AppendLine($"    fetchItems: fetch{pluralPascal},");
-                    sb.AppendLine($"    loadMoreItems: loadMore{pluralPascal},");
-                    sb.AppendLine($"  }} = {fk.HookName}()");
-                    sb.AppendLine();
-                }
-
-                var firstFk = fkFields.First(f => string.Equals(f.ParentTable, fk.ParentTable, StringComparison.OrdinalIgnoreCase));
-                string sharedPlural = firstFk.Plural;
-                string sharedPluralPascal = Formatters.ToPascalCase(sharedPlural);
-
-                sb.AppendLine($"  const {fk.SelectVar} = useSelect(");
-                sb.AppendLine("    {");
-                sb.AppendLine($"      items: {sharedPlural},");
-                sb.AppendLine($"      totalRows: {sharedPlural}TotalRows,");
-                sb.AppendLine($"      lastSearchTerm: {sharedPlural}LastSearchTerm,");
-                sb.AppendLine($"      fetchItems: fetch{sharedPluralPascal},");
-                sb.AppendLine($"      loadMoreItems: loadMore{sharedPluralPascal},");
-                sb.AppendLine("    },");
-                sb.AppendLine("    {");
-                sb.AppendLine($"      idField: \"{Formatters.GetIdFieldName(fk.ParentTable)}\",");
-                sb.AppendLine("      searchColumns: [\"name\"],");
-                sb.AppendLine($"      filterBys: selectFilterBys.{fk.FieldName},");
-                sb.AppendLine($"      orderBys: selectOrderBys.{fk.FieldName},");
-                sb.AppendLine("    }");
-                sb.AppendLine("  )");
-                sb.AppendLine();
-            }
-        }
-
-        var fkByField = fkFields.ToDictionary(f => f.FieldName, StringComparer.OrdinalIgnoreCase);
-
-        sb.AppendLine("  const fields = {");
-
-        foreach (var fieldName in orderedFields)
-        {
-            if (properties == null || !properties.ContainsKey(fieldName)) continue;
-            var prop = properties[fieldName]?.AsObject();
-            if (prop == null) continue;
-
-            string camel = Formatters.ToCamelCase(fieldName);
-            string fieldType = UseFieldsGenerator.GetFieldType(fieldName, prop, searchableResources);
-            string outputType = fieldType == "idnumber" ? "text" : fieldType;
-            bool isRequired = requiredFields.Contains(fieldName);
-            string heading = Formatters.GetFieldHeading(fieldName) + (isRequired ? "" : " (Optional)");
-            string placeholder = GetPlaceholder(fieldName, fieldType);
-            bool isSelect = fieldType == "select";
-            fkByField.TryGetValue(fieldName, out var fk);
-
-            sb.AppendLine($"    {camel}: {{");
-            sb.AppendLine("      props: {");
-            sb.AppendLine($"        id: \"{kebabResource}-{camel}\",");
-            sb.AppendLine($"        name: \"{camel}\",");
-            sb.AppendLine($"        heading: \"{heading}\",");
-            sb.AppendLine($"        type: \"{outputType}\" as const,");
-            sb.AppendLine($"        placeholder: \"{placeholder}\",");
-            sb.AppendLine($"        disabled: disabledFields.includes(\"{camel}\"),");
-            if (isSelect)
-                sb.AppendLine($"        error: errors.{camel} as any,");
-            else
-                sb.AppendLine($"        error: errors.{camel},");
-            if (fk != null)
-            {
-                sb.AppendLine($"        selectedLabel: selectedLabels.{camel} ?? undefined,");
-                sb.AppendLine($"        ...{fk.SelectVar},");
-            }
-            sb.AppendLine("      },");
-
-            sb.Append("      rules: {");
-            var ruleParts = new List<string>();
-            if (isRequired)
-                ruleParts.Add("required: \"Please fill in this field.\"");
-            if ((fieldType == "text" || fieldType == "textarea") && prop["maxLength"]?.GetValue<int>() is int maxLen && maxLen > 0)
-                ruleParts.Add($"maxLength: {{ value: {maxLen}, message: \"Must be less than {maxLen} characters.\" }}");
-            if (ruleParts.Count > 0)
-            {
-                sb.AppendLine();
-                foreach (var part in ruleParts)
-                    sb.AppendLine($"        {part},");
-                sb.AppendLine("      },");
-            }
-            else
-            {
-                sb.AppendLine(" },");
-            }
-
-            sb.AppendLine("    },");
-        }
-
-        sb.AppendLine("  }");
-        sb.AppendLine();
-
-        // Inline layout
-        var groups = Formatters.BuildLayoutGroups(resource, fieldLayout, properties, searchableResources: searchableResources);
-        sb.AppendLine("  const layout: FormLayout[] = [");
-        foreach (var group in groups)
-        {
-            sb.AppendLine("    {");
-            sb.AppendLine($"      groupName: \"{group.GroupName}\",");
-            sb.AppendLine($"      totalColumns: {group.TotalColumns},");
-            sb.AppendLine("      fields: [");
-            foreach (var field in group.Fields)
-            {
-                string typeFragment = field.Type != null ? $", type: \"{field.Type}\"" : "";
-                sb.AppendLine($"        {{ name: \"{field.Name}\", columns: {field.Columns}, heading: \"{field.Heading}\"{typeFragment} }},");
-            }
-            sb.AppendLine("      ],");
-            sb.AppendLine("    },");
-        }
-        sb.AppendLine("  ]");
-        sb.AppendLine();
-
-        sb.AppendLine("  return { fields, layout }");
-        sb.AppendLine("}");
-
-        return sb.ToString();
-    }
-
-    static string GetPlaceholder(string fieldName, string fieldType)
-    {
-        string heading = Formatters.GetFieldHeading(fieldName).ToLower();
-        return fieldType switch
-        {
-            "select" => $"Select {heading}...",
-            "date" or "datetime" => $"Select {heading}...",
-            "checkbox" => $"{char.ToUpper(heading[0])}{heading[1..]}?",
-            _ => $"Enter {heading}..."
-        };
     }
 
     static string ApplyTemplate(string content, string? templatePath) =>

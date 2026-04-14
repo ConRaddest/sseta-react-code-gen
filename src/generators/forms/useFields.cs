@@ -136,6 +136,7 @@ static class UseFieldsGenerator
             string parentTable = desc["ParentTable:".Length..];
             if (searchableResources == null || searchableResources.Contains(parentTable)) return "select";
         }
+        if (lower.Contains("longitude") || lower.Contains("latitude")) return "number";
         if (!string.IsNullOrEmpty(desc) && desc.StartsWith("FieldType:Currency")) return "currency";
         if (lower.Contains("mobilenumber") || lower.Contains("phone")) return "phone";
         if (lower.Contains("identitynumber") || lower.Contains("idnumber")) return "idnumber";
@@ -167,7 +168,7 @@ static class UseFieldsGenerator
         };
     }
 
-    static string Render(
+    internal static string Render(
         string prefix,
         string modulePascal,
         string resource,
@@ -177,11 +178,13 @@ static class UseFieldsGenerator
         HashSet<string> requiredFields,
         List<FkField> fkFields,
         JsonObject? fieldLayout,
-        HashSet<string>? searchableResources = null)
+        HashSet<string>? searchableResources = null,
+        bool isUpdate = false)
     {
         var sb = new StringBuilder();
         bool hasSelects = fkFields.Count > 0;
         string kebabResource = Formatters.ToKebabCase(resource);
+        string hookSuffix = isUpdate ? "Update" : "Create";
 
         // Detect which custom validators are needed
         bool needsPhoneValidator = orderedFields.Any(f =>
@@ -189,13 +192,23 @@ static class UseFieldsGenerator
         bool needsIdNumberValidator = orderedFields.Any(f =>
             properties?.ContainsKey(f) == true && GetFieldType(f, properties[f]!.AsObject()!, searchableResources) == "idnumber");
 
+        // Detect date range fields
+        bool hasStartDate = orderedFields.Any(f => f.Equals("startDate", StringComparison.OrdinalIgnoreCase));
+        bool hasEndDate = orderedFields.Any(f => f.Equals("endDate", StringComparison.OrdinalIgnoreCase));
+        bool hasStartDateTime = orderedFields.Any(f => f.Equals("startDateTime", StringComparison.OrdinalIgnoreCase));
+        bool hasEndDateTime = orderedFields.Any(f => f.Equals("endDateTime", StringComparison.OrdinalIgnoreCase));
+        bool hasDateRange = (hasStartDate && hasEndDate) || (hasStartDateTime && hasEndDateTime);
+
         var componentLibImports = new List<string> { "FilterBy", "OrderBy", "FormLayout" };
         if (hasSelects) componentLibImports.Add("useSelect");
         if (needsPhoneValidator) componentLibImports.Add("validatePhoneNumber");
         if (needsIdNumberValidator) componentLibImports.Add("validateSAIdNumber");
 
         // Imports
-        sb.AppendLine("import { FieldErrors } from \"react-hook-form\"");
+        var rhfImportList = new List<string> { "FieldErrors" };
+        if (hasDateRange) rhfImportList.Add("useWatch");
+        if (hasDateRange) rhfImportList.Add("Control");
+        sb.AppendLine($"import {{ {string.Join(", ", rhfImportList)} }} from \"react-hook-form\"");
         sb.AppendLine($"import {{ {string.Join(", ", componentLibImports)} }} from \"@sseta/components\"");
         if (hasSelects)
         {
@@ -208,18 +221,41 @@ static class UseFieldsGenerator
         sb.AppendLine();
 
         // Props interface — always includes selectFilterBys/selectOrderBys for a stable contract
-        sb.AppendLine($"interface Use{prefix}CreateProps {{");
+        sb.AppendLine($"interface Use{prefix}{hookSuffix}Props {{");
         sb.AppendLine($"  errors: FieldErrors<{requestType}>");
         sb.AppendLine("  disabledFields?: string[]");
         sb.AppendLine("  selectFilterBys?: Record<string, FilterBy[]>");
         sb.AppendLine("  selectOrderBys?: Record<string, OrderBy[]>");
+        if (isUpdate && hasSelects)
+            sb.AppendLine("  selectedLabels?: Record<string, string | null | undefined>");
+        if (hasDateRange)
+            sb.AppendLine($"  control?: Control<{requestType}>");
         sb.AppendLine("}");
         sb.AppendLine();
 
         // Hook signature
-        sb.AppendLine($"export default function use{prefix}Create(props: Use{prefix}CreateProps) {{");
-        sb.AppendLine($"  const {{ errors, disabledFields = [], selectFilterBys = {{}}, selectOrderBys = {{}} }} = props");
+        sb.AppendLine($"export default function use{prefix}{hookSuffix}(props: Use{prefix}{hookSuffix}Props) {{");
+        var destructureProps = new List<string> { "errors", "disabledFields = []", "selectFilterBys = {}", "selectOrderBys = {}" };
+        if (isUpdate && hasSelects) destructureProps.Add("selectedLabels = {}");
+        if (hasDateRange) destructureProps.Add("control");
+        sb.AppendLine($"  const {{ {string.Join(", ", destructureProps)} }} = props");
         sb.AppendLine();
+
+        if (hasDateRange)
+        {
+            sb.AppendLine("  // Watch start/end dates to drive min/max constraints and cross-field validation");
+            if (hasStartDate && hasEndDate)
+            {
+                sb.AppendLine("  const startDate = useWatch({ name: \"startDate\", control })");
+                sb.AppendLine("  const endDate = useWatch({ name: \"endDate\", control })");
+            }
+            if (hasStartDateTime && hasEndDateTime)
+            {
+                sb.AppendLine("  const startDateTime = useWatch({ name: \"startDateTime\", control })");
+                sb.AppendLine("  const endDateTime = useWatch({ name: \"endDateTime\", control })");
+            }
+            sb.AppendLine();
+        }
 
         if (hasSelects)
         {
@@ -282,6 +318,19 @@ static class UseFieldsGenerator
             bool isEmailField = fieldName.Equals("Email", StringComparison.OrdinalIgnoreCase);
             fkByField.TryGetValue(fieldName, out var fk);
 
+            bool isDateOrDateTime = fieldType == "date" || fieldType == "datetime";
+            bool isStartDateField = fieldName.Equals("startDate", StringComparison.OrdinalIgnoreCase);
+            bool isEndDateField = fieldName.Equals("endDate", StringComparison.OrdinalIgnoreCase);
+            bool isStartDateTimeField = fieldName.Equals("startDateTime", StringComparison.OrdinalIgnoreCase);
+            bool isEndDateTimeField = fieldName.Equals("endDateTime", StringComparison.OrdinalIgnoreCase);
+            bool isDateOfBirthField = fieldName.Equals("dateOfBirth", StringComparison.OrdinalIgnoreCase);
+
+            bool inDateRange = hasDateRange && isDateOrDateTime &&
+                ((isStartDateField && hasStartDate && hasEndDate) ||
+                 (isEndDateField && hasStartDate && hasEndDate) ||
+                 (isStartDateTimeField && hasStartDateTime && hasEndDateTime) ||
+                 (isEndDateTimeField && hasStartDateTime && hasEndDateTime));
+
             sb.AppendLine($"    {camel}: {{");
             sb.AppendLine("      props: {");
             sb.AppendLine($"        id: \"{kebabResource}-{camel}\",");
@@ -295,23 +344,91 @@ static class UseFieldsGenerator
             else
                 sb.AppendLine($"        error: errors.{camel},");
             if (fk != null)
+            {
+                if (isUpdate)
+                    sb.AppendLine($"        selectedLabel: selectedLabels.{camel} ?? undefined,");
                 sb.AppendLine($"        ...{fk.SelectVar},");
-            if ((fieldType == "date" || fieldType == "datetime") && string.Equals(fieldName, "dateOfBirth", StringComparison.OrdinalIgnoreCase))
+            }
+            // Date range min/max props
+            if (inDateRange)
+            {
+                string watchVarStart = (isStartDateTimeField || isEndDateTimeField) ? "startDateTime" : "startDate";
+                string watchVarEnd = (isStartDateTimeField || isEndDateTimeField) ? "endDateTime" : "endDate";
+                if (isStartDateField || isStartDateTimeField)
+                    sb.AppendLine($"        maxDate: {watchVarEnd} ? new Date({watchVarEnd}) : undefined,");
+                else
+                    sb.AppendLine($"        minDate: {watchVarStart} ? new Date({watchVarStart}) : undefined,");
+            }
+            if (isDateOfBirthField && isDateOrDateTime)
                 sb.AppendLine("        maxDate: new Date(),");
             sb.AppendLine("      },");
 
-            sb.Append("      rules: {");
+            // Rules
             var ruleParts = new List<string>();
-            if (isRequired)
+
+            if (fieldType == "select")
+            {
+                if (isRequired)
+                    ruleParts.Add("required: \"Please fill in this field.\"");
+            }
+            else if (fieldType == "checkbox" && isRequired)
+            {
+                ruleParts.Add("validate: (value: any) => value === true || value === false || \"Please check this field.\"");
+            }
+            else if (inDateRange)
+            {
+                string watchVarStart = (isStartDateTimeField || isEndDateTimeField) ? "startDateTime" : "startDate";
+                string watchVarEnd = (isStartDateTimeField || isEndDateTimeField) ? "endDateTime" : "endDate";
+                string fieldLabel = fieldType == "datetime" ? "date time" : "date";
+                string headingLower = Formatters.GetFieldHeading(fieldName).ToLower();
+                string article = Formatters.StartsWithVowel(headingLower) ? "an" : "a";
+                bool isStart = isStartDateField || isStartDateTimeField;
+
+                if (isRequired)
+                    ruleParts.Add($"required: \"Please fill in this field.\"");
+
+                string watchOther = isStart ? watchVarEnd : watchVarStart;
+                string comparison = isStart
+                    ? $"new Date(value) > new Date({watchOther}) ? \"Start {fieldLabel} must be before end {fieldLabel}.\" : true"
+                    : $"new Date(value) < new Date({watchOther}) ? \"End {fieldLabel} must be after start {fieldLabel}.\" : true";
+                string emptyCheck = isRequired ? $"\"Please select {article} {headingLower}.\"" : "true";
+                ruleParts.Add($"validate: (value: any) => !value ? {emptyCheck} : !{watchOther} ? true : {comparison}");
+            }
+            else if (isDateOfBirthField && isDateOrDateTime)
+            {
+                if (isRequired)
+                    ruleParts.Add("required: \"Please fill in this field.\"");
+                ruleParts.Add("validate: (value: any) => !value || new Date(value) <= new Date() || \"Date of birth cannot be in the future.\"");
+            }
+            else if (isRequired)
+            {
                 ruleParts.Add("required: \"Please fill in this field.\"");
-            if ((fieldType == "text" || fieldType == "textarea") && prop["maxLength"]?.GetValue<int>() is int maxLen && maxLen > 0)
-                ruleParts.Add($"maxLength: {{ value: {maxLen}, message: \"Must be less than {maxLen} characters.\" }}");
+            }
+
+            // Text length
+            if (fieldType == "text" || fieldType == "textarea")
+            {
+                if (prop["minLength"]?.GetValue<int>() is int minLen && minLen > 0)
+                    ruleParts.Add($"minLength: {{ value: {minLen}, message: \"Must be at least {minLen} characters.\" }}");
+                if (prop["maxLength"]?.GetValue<int>() is int maxLen && maxLen > 0)
+                    ruleParts.Add($"maxLength: {{ value: {maxLen}, message: \"Must be less than {maxLen} characters.\" }}");
+            }
+
+            // Currency min
+            if (fieldType == "currency")
+                ruleParts.Add("min: { value: 0.01, message: \"Amount must be greater than 0.\" }");
+
+            // Phone / ID number / email
             if (fieldType == "phone")
                 ruleParts.Add("validate: validatePhoneNumber");
             if (fieldType == "idnumber")
+            {
                 ruleParts.Add("validate: validateSAIdNumber");
+            }
             if (isEmailField)
                 ruleParts.Add("pattern: { value: /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/, message: \"Please enter a valid email address.\" }");
+
+            sb.Append("      rules: {");
             if (ruleParts.Count > 0)
             {
                 sb.AppendLine();

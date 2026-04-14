@@ -15,20 +15,18 @@ static class CreateFormGenerator
     public static void Generate(
         JsonObject paths,
         JsonObject? schemas,
+        JsonObject? fieldLayout,
         string formsOutputDir,
         HashSet<string>? blacklist = null,
         string? templatePath = null,
         HashSet<string>? apiPrefixes = null)
     {
         apiPrefixes ??= ["management"];
-        // Collect every (module, resource) pair that has a Create endpoint
         var createEndpoints = new List<CreateEndpoint>();
 
         foreach (var (rawPath, pathNode) in paths)
         {
             if (pathNode == null) continue;
-
-            // Only portal paths: /api/{apiPrefix}/{MODULE}/{Resource}/Create
             var parts = rawPath.TrimStart('/').Split('/');
             if (parts.Length < 5) continue;
             if (parts[0] != "api" || !apiPrefixes.Contains(parts[1])) continue;
@@ -38,7 +36,6 @@ static class CreateFormGenerator
             string module = parts[2];
             string resource = parts[3];
 
-            // Find the POST operation
             foreach (var (method, opNode) in pathNode.AsObject())
             {
                 if (method != "post" || opNode == null) continue;
@@ -55,15 +52,24 @@ static class CreateFormGenerator
 
         foreach (var ep in createEndpoints)
         {
-            string output = ApplyTemplate(RenderCreateForm(ep), templatePath);
+            var searchableResources = Formatters.BuildSearchableResources(paths, ep.Module, apiPrefixes);
+            var requestSchema = Formatters.FindSchema(schemas, $"{ep.Resource}{ep.Module}CreateRequestModel")
+                             ?? Formatters.FindSchema(schemas, $"{ep.Resource}CreateRequestModel")
+                             ?? Formatters.FindSchema(schemas, $"{ep.Module}_{ep.Resource}CreateRequestModel");
+            var properties = requestSchema?["properties"]?.AsObject();
+            var orderedFields = UseFieldsGenerator.GetOrderedFields(ep.Resource, fieldLayout, properties, searchableResources);
+
+            bool hasDateRange = (orderedFields.Any(f => f.Equals("startDate", StringComparison.OrdinalIgnoreCase)) &&
+                                 orderedFields.Any(f => f.Equals("endDate", StringComparison.OrdinalIgnoreCase))) ||
+                                (orderedFields.Any(f => f.Equals("startDateTime", StringComparison.OrdinalIgnoreCase)) &&
+                                 orderedFields.Any(f => f.Equals("endDateTime", StringComparison.OrdinalIgnoreCase)));
 
             string kebabResource = Formatters.ToKebabCase(ep.Resource);
             string dir = Path.Combine(formsOutputDir, ep.Module.ToLower(), kebabResource, "create");
             Directory.CreateDirectory(dir);
 
-            string prefix = Formatters.ToPascalCase(ep.Module.ToLower()) + ep.Resource;
             string filePath = Path.Combine(dir, $"CreateForm.tsx");
-            File.WriteAllText(filePath, output);
+            File.WriteAllText(filePath, ApplyTemplate(RenderCreateForm(ep, hasDateRange), templatePath));
 
             Console.WriteLine($"    ✓ {ep.Module}/{ep.Resource}");
         }
@@ -71,7 +77,7 @@ static class CreateFormGenerator
         Console.WriteLine($"    {createEndpoints.Count} create form(s) generated.");
     }
 
-    static string RenderCreateForm(CreateEndpoint ep)
+    static string RenderCreateForm(CreateEndpoint ep, bool hasDateRange = false)
     {
         string resource = ep.Resource;
         string module = ep.Module;
@@ -148,19 +154,25 @@ static class CreateFormGenerator
         sb.AppendLine("  const [loading, setLoading] = useState(false)");
         sb.AppendLine("  const isLoading = loadingOverride ?? loading");
         sb.AppendLine();
-        sb.AppendLine($"  const {{ create }} = {contextHook}()");
+        sb.AppendLine($"  const {{ create, setFormDirty }} = {contextHook}()");
         sb.AppendLine("  const { showToast } = useToast()");
         sb.AppendLine();
         sb.AppendLine("  const {");
         sb.AppendLine("    handleSubmit,");
         sb.AppendLine("    control,");
         sb.AppendLine("    reset,");
-        sb.AppendLine("    formState: { errors, isSubmitting },");
+        sb.AppendLine("    formState: { errors, isSubmitting, isDirty },");
         sb.AppendLine($"  }} = useForm<{requestType}>({{");
         sb.AppendLine("    mode: \"onChange\",");
         sb.AppendLine("  })");
         sb.AppendLine();
-        sb.AppendLine($"  const {{ fields, layout }} = use{prefix}Create({{ errors, disabledFields, selectFilterBys, selectOrderBys }})");
+        string controlArg = hasDateRange ? ", control" : "";
+        sb.AppendLine($"  const {{ fields, layout }} = use{prefix}Create({{ errors, disabledFields, selectFilterBys, selectOrderBys{controlArg} }})");
+        sb.AppendLine();
+        sb.AppendLine("  useEffect(() => {");
+        sb.AppendLine("    setFormDirty(isDirty)");
+        sb.AppendLine("    return () => setFormDirty(false)");
+        sb.AppendLine("  }, [isDirty])");
         sb.AppendLine();
         sb.AppendLine("  useEffect(() => {");
         sb.AppendLine("    if (defaultValues && Object.keys(defaultValues).length > 0) {");
@@ -199,7 +211,7 @@ static class CreateFormGenerator
         sb.AppendLine("      scrollToTopTrigger={scrollTrigger}");
         sb.AppendLine("      actions={");
         sb.AppendLine("        <div className=\"flex md:flex-row flex-col gap-2\">");
-        sb.AppendLine("          <Button loading={isSubmitting} type=\"submit\" variant=\"orange\" size=\"mlg\" className=\"w-full md:w-40\">");
+        sb.AppendLine("          <Button loading={isSubmitting} disabled={!isDirty} type=\"submit\" variant=\"orange\" size=\"mlg\" className=\"w-full md:w-40\">");
         sb.AppendLine("            Save");
         sb.AppendLine("          </Button>");
         sb.AppendLine("        </div>");

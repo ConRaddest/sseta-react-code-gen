@@ -47,6 +47,22 @@ namespace ReactCodegen
                 .ToArray()
                 ?? throw new Exception("Missing inputs.modules in config.");
 
+            Formatters.KnownAcronyms = new HashSet<string>(
+                inputs["acronyms"]?.AsArray()
+                    .Select(a => a?.GetValue<string>() ?? "")
+                    .Where(a => a.Length > 0)
+                ?? [],
+                StringComparer.OrdinalIgnoreCase
+            );
+
+            Formatters.KeepNameSuffixWords = new HashSet<string>(
+                inputs["keepNameSuffix"]?.AsArray()
+                    .Select(a => a?.GetValue<string>() ?? "")
+                    .Where(a => a.Length > 0)
+                ?? [],
+                StringComparer.OrdinalIgnoreCase
+            );
+
             string dbConnectionString      = inputs["database"]?["connectionString"]?.GetValue<string>() ?? throw new Exception("Missing inputs.database.connectionString in config.");
             var t = inputs["templates"] ?? throw new Exception("Missing inputs.templates in config.");
             string T(string key) => t[key]?.GetValue<string>() ?? throw new Exception($"Missing inputs.templates.{key} in config.");
@@ -264,7 +280,7 @@ namespace ReactCodegen
             Console.WriteLine();
 
             Console.WriteLine("  Create Forms");
-            CreateFormGenerator.Generate(paths, schemas, portal.Output.Forms, portal.Blacklist, createFormTemplate, portal.ApiPrefixes);
+            CreateFormGenerator.Generate(paths, schemas, fieldLayout?.AsObject(), portal.Output.Forms, portal.Blacklist, createFormTemplate, portal.ApiPrefixes);
             Console.WriteLine();
 
             Console.WriteLine("  Update Forms");

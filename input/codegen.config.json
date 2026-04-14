@@ -1,6 +1,15 @@
 {
   "inputs": {
     "modules": ["ADMIN", "PORTAL", "PMVR", "SPI", "ECD", "SP", "B"],
+    "keepNameSuffix": ["trading", "contact", "person", "full", "first", "last", "middle", "legal", "preferred"],
+    "acronyms": [
+      "SDL", "SARS", "VAT", "PAYE", "UIF",
+      "NQF", "SAQA", "ETQE", "OFO", "AET", "WBL", "WIL",
+      "RSA", "DHA", "DHET", "QCTO",
+      "SETA", "SETMIS", "EMIS", "WSP", "ATR",
+      "SSO", "MFA",
+      "SIC", "POPI", "TVET", "BBBEE", "ID"
+    ],
     "database": {
       "connectionString": "server=localhost;database=PMVR;TrustServerCertificate=True;Integrated Security=True;"
     },

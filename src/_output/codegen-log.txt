@@ -1,5 +1,5 @@
 =================================================================
-Code Generation Log - 2026-04-13 00:15:22
+Code Generation Log - 2026-04-13 23:48:14
 =================================================================
 
 =================================================================
@@ -7,7 +7,7 @@ Shared
 =================================================================
   Enums
     ⚠ Skipping Settings.DBCodeGenWhitelist (no id/name columns)
-    ✓ enums.ts  (122 enums)
+    ✓ enums.ts  (123 enums)
     ✓ Enums: C:/DEV/PMIS/react-frontend-v2/component-library/src/types/enums.ts
 
 =================================================================
@@ -68,6 +68,7 @@ Fetching swagger: https://localhost:7222/swagger/v1/swagger.json
     ✓ ECD/OrganisationEmployer
     ✓ ECD/OrganisationPerson
     ✓ ECD/OrganisationProvider
+    ⚠ Skipping PersonOrganisationPersonType.organisationPersonId (no search endpoint)
     ✓ ECD/PersonOrganisationPersonType
     ✓ PORTAL/StaffRoleRequest
     6 create form(s) generated.
@@ -170,8 +171,11 @@ Fetching swagger: https://localhost:7132/swagger/v1/swagger.json
     21 context(s) generated.
 
   Create Forms
+    ⚠ Skipping PartnerRoleRequest.organisationId (no search endpoint)
     ✓ B/PartnerRoleRequest
+    ⚠ Skipping PartnerRoleRequestOrganisationPerson.organisationId (no search endpoint)
     ✓ B/PartnerRoleRequestOrganisationPerson
+    ⚠ Skipping PartnerRoleRequestPersonOrganisationPersonType.partnerRoleRequestOrganisationPersonId (no search endpoint)
     ✓ B/PartnerRoleRequestPersonOrganisationPersonType
     3 create form(s) generated.
 

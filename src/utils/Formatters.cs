@@ -131,26 +131,35 @@ static class Formatters
     {
         string name = fieldName;
 
+        // Strip trailing "Id" suffix — the field is a FK; label comes from the parent concept.
         if (name.ToLower().EndsWith("id"))
             name = name[..^2];
 
-        if (name.ToLower().EndsWith("name") &&
-            !fieldName.ToLower().Contains("first") &&
-            !fieldName.ToLower().Contains("last") &&
-            !fieldName.ToLower().Contains("middle") &&
-            name.ToLower() != "name")
-        {
-            name = name[..^4];
-        }
+        // Guard against an empty result (e.g. field literally named "id").
+        if (string.IsNullOrEmpty(name)) return fieldName;
 
-        // If the name is all uppercase (e.g. "ETQE"), return it as-is — it's an acronym
+        // Fast path: already all-uppercase after stripping (e.g. "ETQE").
         if (name.All(c => char.IsUpper(c) || char.IsDigit(c)))
             return name;
 
-        string titleCase = Regex.Replace(name, @"(?<=[a-z])(?=[A-Z])|(?<=[A-Z])(?=[A-Z][a-z])", " ");
-        return string.IsNullOrEmpty(titleCase)
-            ? titleCase
-            : char.ToUpper(titleCase[0]) + titleCase[1..];
+        // Split on camelCase and acronym boundaries into individual words.
+        string[] words = Regex.Split(name, @"(?<=[a-z])(?=[A-Z])|(?<=[A-Z])(?=[A-Z][a-z])")
+            .Where(w => !string.IsNullOrEmpty(w))
+            .ToArray();
+
+        // Strip trailing "Name" when the preceding word is not in the keep-name-suffix allowlist
+        // e.g. "organisationName" → "Organisation", but "tradingName" → "Trading Name"
+        if (words.Length >= 2
+            && string.Equals(words[^1], "Name", StringComparison.OrdinalIgnoreCase)
+            && !KeepNameSuffixWords.Contains(words[^2]))
+        {
+            words = words[..^1];
+        }
+
+        // Format each word: known acronym → UPPER, otherwise Title Case.
+        var formatted = words.Select(w => KnownAcronyms.Contains(w) ? w.ToUpper() : char.ToUpper(w[0]) + w[1..]);
+
+        return string.Join(" ", formatted);
     }
 
     public static string ExtractSchemaName(string refValue)
@@ -166,6 +175,16 @@ static class Formatters
     // Known module tokens — ordered longest-first so "SPI" matches before "SP"
     // Populated at startup from codegen.config.json inputs.modules
     public static string[] Modules { get; set; } = [];
+
+    // Words that, when immediately before "Name", mean "Name" should be kept in the heading.
+    // e.g. "tradingName" → "Trading Name" (kept), "organisationName" → "Organisation" (stripped).
+    // Populated at startup from codegen.config.json inputs.keepNameSuffix
+    public static HashSet<string> KeepNameSuffixWords { get; set; } = new(StringComparer.OrdinalIgnoreCase);
+
+    // Domain acronyms that should always render fully uppercased in field headings.
+    // Handles camelCase prefixes (e.g. "sdlNumber" → "SDL Number") and
+    // standalone stripped names (e.g. "etqeId" → "ETQE").
+    public static HashSet<string> KnownAcronyms { get; set; } = new(StringComparer.OrdinalIgnoreCase);
 
     // Fields that are always excluded from generated form layouts, field hooks, and select hooks.
     // Status management is handled separately and should never appear in scaffolded forms.
@@ -493,6 +512,7 @@ static class Formatters
         if (!string.IsNullOrEmpty(desc) && desc.StartsWith("FieldType:Currency")) return "currency";
         if (lower.Contains("mobilenumber") || lower.Contains("phone")) return "phone";
         if (lower.Contains("identitynumber") || lower.Contains("idnumber")) return null;
+        if (lower.Contains("longitude") || lower.Contains("latitude")) return "number";
 
         return type switch
         {

@@ -418,6 +418,19 @@ static class UseFieldsGenerator
             if (fieldType == "currency")
                 ruleParts.Add("min: { value: 0.01, message: \"Amount must be greater than 0.\" }");
 
+            // Latitude/longitude bounds
+            string fieldNameLower = fieldName.ToLower();
+            if (fieldType == "number" && fieldNameLower.Contains("latitude"))
+            {
+                ruleParts.Add("min: { value: -90, message: \"Latitude must be between -90 and 90.\" }");
+                ruleParts.Add("max: { value: 90, message: \"Latitude must be between -90 and 90.\" }");
+            }
+            if (fieldType == "number" && fieldNameLower.Contains("longitude"))
+            {
+                ruleParts.Add("min: { value: -180, message: \"Longitude must be between -180 and 180.\" }");
+                ruleParts.Add("max: { value: 180, message: \"Longitude must be between -180 and 180.\" }");
+            }
+
             // Phone / ID number / email
             if (fieldType == "phone")
                 ruleParts.Add("validate: validatePhoneNumber");

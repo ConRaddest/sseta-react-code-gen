@@ -1355,6 +1355,202 @@
         }
       }
     },
+    "/api/partner/PORTAL/PartnerEmailChangeRequest/Create": {
+      "post": {
+        "tags": [
+          "PartnerEmailChangeRequest"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PartnerEmailChangeRequestPORTALCreateRequestModel"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PartnerEmailChangeRequestPORTALCreateRequestModel"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/PartnerEmailChangeRequestPORTALCreateRequestModel"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/PartnerEmailChangeRequestPORTALCreateRequestModel"
+              }
+            },
+            "text/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/PartnerEmailChangeRequestPORTALCreateRequestModel"
+              }
+            },
+            "application/*+xml": {
+              "schema": {
+                "$ref": "#/components/schemas/PartnerEmailChangeRequestPORTALCreateRequestModel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/PartnerEmailChangeRequestPORTALCreateResponseModelSETAApiResponse"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PartnerEmailChangeRequestPORTALCreateResponseModelSETAApiResponse"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PartnerEmailChangeRequestPORTALCreateResponseModelSETAApiResponse"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/PartnerEmailChangeRequestPORTALCreateResponseModelSETAApiResponse"
+                }
+              },
+              "text/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/PartnerEmailChangeRequestPORTALCreateResponseModelSETAApiResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/partner/PORTAL/PartnerEmailChangeRequest/Retrieve/{id}": {
+      "get": {
+        "tags": [
+          "PartnerEmailChangeRequest"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/PartnerEmailChangeRequestPORTALRetrieveResponseModelSETAApiResponse"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PartnerEmailChangeRequestPORTALRetrieveResponseModelSETAApiResponse"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PartnerEmailChangeRequestPORTALRetrieveResponseModelSETAApiResponse"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/PartnerEmailChangeRequestPORTALRetrieveResponseModelSETAApiResponse"
+                }
+              },
+              "text/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/PartnerEmailChangeRequestPORTALRetrieveResponseModelSETAApiResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/partner/PORTAL/PartnerEmailChangeRequest/Update": {
+      "put": {
+        "tags": [
+          "PartnerEmailChangeRequest"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PartnerEmailChangeRequestPORTALUpdateRequestModel"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PartnerEmailChangeRequestPORTALUpdateRequestModel"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/PartnerEmailChangeRequestPORTALUpdateRequestModel"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/PartnerEmailChangeRequestPORTALUpdateRequestModel"
+              }
+            },
+            "text/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/PartnerEmailChangeRequestPORTALUpdateRequestModel"
+              }
+            },
+            "application/*+xml": {
+              "schema": {
+                "$ref": "#/components/schemas/PartnerEmailChangeRequestPORTALUpdateRequestModel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/BooleanSETAApiResponse"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BooleanSETAApiResponse"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BooleanSETAApiResponse"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/BooleanSETAApiResponse"
+                }
+              },
+              "text/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/BooleanSETAApiResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/partner/B/PartnerRoleRequest/Create": {
       "post": {
         "tags": [
@@ -2531,6 +2727,79 @@
         }
       }
     },
+    "/api/partner/signinghub/document/sign": {
+      "post": {
+        "tags": [
+          "SigningHub"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SigningHubIframeRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SigningHubIframeRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/SigningHubIframeRequest"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/SigningHubIframeRequest"
+              }
+            },
+            "text/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/SigningHubIframeRequest"
+              }
+            },
+            "application/*+xml": {
+              "schema": {
+                "$ref": "#/components/schemas/SigningHubIframeRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ContractIFrameResponseModelSETAApiResponse"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ContractIFrameResponseModelSETAApiResponse"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ContractIFrameResponseModelSETAApiResponse"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/ContractIFrameResponseModelSETAApiResponse"
+                }
+              },
+              "text/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/ContractIFrameResponseModelSETAApiResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/partner/B/StatsSaArea/Search": {
       "post": {
         "tags": [
@@ -3059,6 +3328,32 @@
           },
           "data": {
             "$ref": "#/components/schemas/CommunityTypeBSearchResponse"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ContractIFrameResponseModel": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "iFrameUrl": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ContractIFrameResponseModelSETAApiResponse": {
+        "type": "object",
+        "properties": {
+          "errorMessage": {
+            "type": "string",
+            "nullable": true
+          },
+          "data": {
+            "$ref": "#/components/schemas/ContractIFrameResponseModel"
           }
         },
         "additionalProperties": false
@@ -3957,6 +4252,228 @@
         },
         "additionalProperties": false
       },
+      "PartnerEmailChangeRequestPORTALCreateRequestModel": {
+        "required": [
+          "currentEmail",
+          "requestedEmail",
+          "requestReason"
+        ],
+        "type": "object",
+        "properties": {
+          "currentEmail": {
+            "maxLength": 320,
+            "minLength": 0,
+            "type": "string"
+          },
+          "requestedEmail": {
+            "maxLength": 320,
+            "minLength": 0,
+            "type": "string"
+          },
+          "requestReason": {
+            "maxLength": 250,
+            "minLength": 0,
+            "type": "string"
+          },
+          "statusId": {
+            "type": "integer",
+            "description": "ParentTable:Status",
+            "format": "int64",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "PartnerEmailChangeRequestPORTALCreateResponseModel": {
+        "type": "object",
+        "properties": {
+          "partnerEmailChangeRequestId": {
+            "type": "integer",
+            "format": "int64",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "PartnerEmailChangeRequestPORTALCreateResponseModelSETAApiResponse": {
+        "type": "object",
+        "properties": {
+          "errorMessage": {
+            "type": "string",
+            "nullable": true
+          },
+          "data": {
+            "$ref": "#/components/schemas/PartnerEmailChangeRequestPORTALCreateResponseModel"
+          }
+        },
+        "additionalProperties": false
+      },
+      "PartnerEmailChangeRequestPORTALRetrieveResponseModel": {
+        "type": "object",
+        "properties": {
+          "createdOn": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "modifiedOn": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "deletedOn": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "partnerEmailChangeRequestId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "organisationId": {
+            "type": "integer",
+            "description": "ParentTable:Organisation",
+            "format": "int64"
+          },
+          "requestedBySystemUserId": {
+            "type": "integer",
+            "description": "ParentTable:SystemUser",
+            "format": "int64"
+          },
+          "reviewedBySystemUserId": {
+            "type": "integer",
+            "description": "ParentTable:SystemUser",
+            "format": "int64",
+            "nullable": true
+          },
+          "departmentTypeId": {
+            "type": "integer",
+            "description": "ParentTable:DepartmentType",
+            "format": "int64"
+          },
+          "statusId": {
+            "type": "integer",
+            "description": "ParentTable:Status",
+            "format": "int64",
+            "nullable": true
+          },
+          "createdBySystemUserId": {
+            "type": "integer",
+            "description": "ParentTable:SystemUser",
+            "format": "int64"
+          },
+          "modifiedBySystemUserId": {
+            "type": "integer",
+            "description": "ParentTable:SystemUser",
+            "format": "int64"
+          },
+          "deletedBySystemUserId": {
+            "type": "integer",
+            "description": "ParentTable:SystemUser",
+            "format": "int64",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "organisationName": {
+            "type": "string",
+            "nullable": true
+          },
+          "requestedBySystemUserName": {
+            "type": "string",
+            "nullable": true
+          },
+          "reviewedBySystemUserName": {
+            "type": "string",
+            "nullable": true
+          },
+          "requestReason": {
+            "type": "string",
+            "nullable": true
+          },
+          "rejectionReason": {
+            "type": "string",
+            "nullable": true
+          },
+          "currentEmail": {
+            "type": "string",
+            "nullable": true
+          },
+          "requestedEmail": {
+            "type": "string",
+            "nullable": true
+          },
+          "departmentTypeName": {
+            "type": "string",
+            "nullable": true
+          },
+          "statusName": {
+            "type": "string",
+            "nullable": true
+          },
+          "statusReason": {
+            "type": "string",
+            "nullable": true
+          },
+          "createdBySystemUserName": {
+            "type": "string",
+            "nullable": true
+          },
+          "modifiedBySystemUserName": {
+            "type": "string",
+            "nullable": true
+          },
+          "deletedBySystemUserName": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "PartnerEmailChangeRequestPORTALRetrieveResponseModelSETAApiResponse": {
+        "type": "object",
+        "properties": {
+          "errorMessage": {
+            "type": "string",
+            "nullable": true
+          },
+          "data": {
+            "$ref": "#/components/schemas/PartnerEmailChangeRequestPORTALRetrieveResponseModel"
+          }
+        },
+        "additionalProperties": false
+      },
+      "PartnerEmailChangeRequestPORTALUpdateRequestModel": {
+        "required": [
+          "currentEmail",
+          "partnerEmailChangeRequestId",
+          "requestedEmail",
+          "requestReason"
+        ],
+        "type": "object",
+        "properties": {
+          "partnerEmailChangeRequestId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "currentEmail": {
+            "maxLength": 320,
+            "minLength": 0,
+            "type": "string"
+          },
+          "requestedEmail": {
+            "maxLength": 320,
+            "minLength": 0,
+            "type": "string"
+          },
+          "requestReason": {
+            "maxLength": 250,
+            "minLength": 0,
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
       "PartnerRoleRequestBCreateRequestModel": {
         "required": [
           "organisationId",
@@ -3972,6 +4489,7 @@
           },
           "statusId": {
             "type": "integer",
+            "description": "ParentTable:Status",
             "format": "int64"
           },
           "organisationId": {
@@ -4049,10 +4567,12 @@
           },
           "departmentTypeId": {
             "type": "integer",
+            "description": "ParentTable:DepartmentType",
             "format": "int64"
           },
           "statusId": {
             "type": "integer",
+            "description": "ParentTable:Status",
             "format": "int64"
           },
           "createdBySystemUserId": {
@@ -4219,10 +4739,12 @@
           },
           "departmentTypeId": {
             "type": "integer",
+            "description": "ParentTable:DepartmentType",
             "format": "int64"
           },
           "statusId": {
             "type": "integer",
+            "description": "ParentTable:Status",
             "format": "int64"
           },
           "createdBySystemUserId": {
@@ -6161,6 +6683,20 @@
             "format": "int64"
           },
           "roleName": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "SigningHubIframeRequest": {
+        "type": "object",
+        "properties": {
+          "packageId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "callbackUrl": {
             "type": "string",
             "nullable": true
           }

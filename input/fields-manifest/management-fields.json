@@ -23,6 +23,34 @@
     }
   },
   "B": {
+    "FundingCap": {
+      "Create": [
+        "amount"
+      ]
+    },
+    "PartnerEmailChangeRequest": {
+      "View": [
+        "name",
+        "organisationName",
+        "requestedBySystemUserName",
+        "reviewedBySystemUserName",
+        "departmentTypeName",
+        "statusName",
+        "createdBySystemUserName",
+        "modifiedBySystemUserName",
+        "deletedBySystemUserName",
+        "requestReason",
+        "rejectionReason",
+        "currentEmail",
+        "requestedEmail",
+        "createdOn",
+        "modifiedOn",
+        "deletedOn"
+      ],
+      "Update": [
+        "rejectionReason"
+      ]
+    },
     "PartnerRoleRequest": {
       "View": [
         "name",

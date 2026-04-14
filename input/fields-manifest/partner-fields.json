@@ -202,5 +202,37 @@
         "deletedOn"
       ]
     }
+  },
+  "Portal": {
+    "PartnerEmailChangeRequest": {
+      "Create": [
+        "currentEmail",
+        "requestedEmail",
+        "requestReason"
+      ],
+      "View": [
+        "name",
+        "organisationName",
+        "requestedBySystemUserName",
+        "reviewedBySystemUserName",
+        "departmentTypeName",
+        "statusName",
+        "createdBySystemUserName",
+        "modifiedBySystemUserName",
+        "deletedBySystemUserName",
+        "requestReason",
+        "rejectionReason",
+        "currentEmail",
+        "requestedEmail",
+        "createdOn",
+        "modifiedOn",
+        "deletedOn"
+      ],
+      "Update": [
+        "currentEmail",
+        "requestedEmail",
+        "requestReason"
+      ]
+    }
   }
 }

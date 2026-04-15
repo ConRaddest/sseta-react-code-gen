@@ -146,6 +146,7 @@ static class UpdateFormGenerator
         sb.AppendLine("  loading?: boolean");
         sb.AppendLine($"  onUpdated?: ({idField}: number) => void");
         sb.AppendLine($"  onRecordLoaded?: (record: {entityType}) => void");
+        sb.AppendLine("  onDirty?: (isDirty: boolean) => void");
         sb.AppendLine("  children?: ReactNode");
         sb.AppendLine("}");
         sb.AppendLine();
@@ -163,6 +164,7 @@ static class UpdateFormGenerator
         sb.AppendLine("    loading: loadingOverride,");
         sb.AppendLine("    onUpdated,");
         sb.AppendLine("    onRecordLoaded,");
+        sb.AppendLine("    onDirty,");
         sb.AppendLine("    children,");
         sb.AppendLine("  } = props");
         sb.AppendLine();
@@ -173,7 +175,7 @@ static class UpdateFormGenerator
             sb.AppendLine("  const [selectedLabels, setSelectedLabels] = useState<Record<string, string | null>>({})");
         sb.AppendLine("  const isLoading = loadingOverride ?? loading");
         sb.AppendLine();
-        sb.AppendLine($"  const {{ retrieve, update, setFormDirty }} = {contextHook}()");
+        sb.AppendLine($"  const {{ retrieve, update }} = {contextHook}()");
         sb.AppendLine("  const { showToast } = useToast()");
         sb.AppendLine();
         sb.AppendLine("  const {");
@@ -220,8 +222,8 @@ static class UpdateFormGenerator
         sb.AppendLine("  }, [])");
         sb.AppendLine();
         sb.AppendLine("  useEffect(() => {");
-        sb.AppendLine("    setFormDirty(isDirty)");
-        sb.AppendLine("    return () => setFormDirty(false)");
+        sb.AppendLine("    onDirty?.(isDirty)");
+        sb.AppendLine("    return () => onDirty?.(false)");
         sb.AppendLine("  }, [isDirty])");
         sb.AppendLine();
         sb.AppendLine($"  const onSubmit: SubmitHandler<{ep.RequestType}> = async (data) => {{");

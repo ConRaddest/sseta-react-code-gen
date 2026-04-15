@@ -130,6 +130,7 @@ static class CreateFormGenerator
             sb.AppendLine($"  onCreated?: ({idField}: number) => void");
         else
             sb.AppendLine("  onCreated?: () => void");
+        sb.AppendLine("  onDirty?: (isDirty: boolean) => void");
         sb.AppendLine("  children?: ReactNode");
         sb.AppendLine("}");
         sb.AppendLine();
@@ -146,6 +147,7 @@ static class CreateFormGenerator
         sb.AppendLine("    className = \"px-2 sm:px-6 py-3\",");
         sb.AppendLine("    loading: loadingOverride,");
         sb.AppendLine("    onCreated,");
+        sb.AppendLine("    onDirty,");
         sb.AppendLine("    children,");
         sb.AppendLine("  } = props");
         sb.AppendLine();
@@ -154,7 +156,7 @@ static class CreateFormGenerator
         sb.AppendLine("  const [loading, setLoading] = useState(false)");
         sb.AppendLine("  const isLoading = loadingOverride ?? loading");
         sb.AppendLine();
-        sb.AppendLine($"  const {{ create, setFormDirty }} = {contextHook}()");
+        sb.AppendLine($"  const {{ create }} = {contextHook}()");
         sb.AppendLine("  const { showToast } = useToast()");
         sb.AppendLine();
         sb.AppendLine("  const {");
@@ -170,8 +172,8 @@ static class CreateFormGenerator
         sb.AppendLine($"  const {{ fields, layout }} = use{prefix}Create({{ errors, disabledFields, selectFilterBys, selectOrderBys{controlArg} }})");
         sb.AppendLine();
         sb.AppendLine("  useEffect(() => {");
-        sb.AppendLine("    setFormDirty(isDirty)");
-        sb.AppendLine("    return () => setFormDirty(false)");
+        sb.AppendLine("    onDirty?.(isDirty)");
+        sb.AppendLine("    return () => onDirty?.(false)");
         sb.AppendLine("  }, [isDirty])");
         sb.AppendLine();
         sb.AppendLine("  useEffect(() => {");

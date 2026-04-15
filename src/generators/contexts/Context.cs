@@ -120,7 +120,6 @@ static class ContextGenerator
         bool hasSubmit = ops.Submit != null;
         bool hasValidate = ops.Validate != null;
         bool hasSummary = ops.Summary != null;
-        bool hasDirtyState = hasCreate || hasUpdate;
 
         // Resolve entity type (from retrieve response, fallback to prefix)
         string entityType = hasRetrieve ? ops.Retrieve!.ResponseType : prefix;
@@ -187,9 +186,7 @@ static class ContextGenerator
             sb.AppendLine($"  retrievedItem: {entityType} | null");
         if (hasSummary)
             sb.AppendLine($"  summaryData: {ops.Summary!.ResponseType} | null");
-        if (hasDirtyState)
-            sb.AppendLine("  isFormDirty: boolean");
-        if (hasSearch || hasSummary || hasDirtyState)
+        if (hasSearch || hasSummary)
         {
             sb.AppendLine();
             sb.AppendLine("  // Operations");
@@ -200,8 +197,6 @@ static class ContextGenerator
         {
             sb.AppendLine("  // Operations");
         }
-        if (hasDirtyState)
-            sb.AppendLine("  setFormDirty: (dirty: boolean) => void");
         if (hasRetrieve)
             sb.AppendLine($"  retrieve: ({idField}: number) => Promise<{entityType} | null>");
         if (hasCreate)
@@ -252,8 +247,6 @@ static class ContextGenerator
             sb.AppendLine("    retrievedItem: null,");
         if (hasSummary)
             sb.AppendLine("    summaryData: null,");
-        if (hasDirtyState)
-            sb.AppendLine("    isFormDirty: false,");
         sb.AppendLine("  })");
         sb.AppendLine();
 
@@ -411,19 +404,11 @@ static class ContextGenerator
             sb.AppendLine();
         }
 
-        // ---- Provider value ----
-        if (hasDirtyState)
-        {
-            sb.AppendLine("  const setFormDirty = (dirty: boolean) => setState((prev: any) => ({ ...prev, isFormDirty: dirty }))");
-            sb.AppendLine();
-        }
-
         sb.AppendLine("  // No useMemo — the React Compiler handles memoization.");
         sb.AppendLine("  return (");
         sb.AppendLine($"    <{prefix}Context.Provider");
         sb.AppendLine("      value={{");
         sb.AppendLine("        ...state,");
-        if (hasDirtyState) sb.AppendLine("        setFormDirty,");
         if (hasSearch) sb.AppendLine("        fetchItems,");
         if (hasRetrieve) sb.AppendLine("        retrieve,");
         if (hasCreate) sb.AppendLine("        create,");

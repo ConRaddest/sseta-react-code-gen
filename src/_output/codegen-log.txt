@@ -1,5 +1,5 @@
 =================================================================
-Code Generation Log - 2026-04-15 13:12:07
+Code Generation Log - 2026-04-15 15:36:14
 =================================================================
 
 =================================================================
@@ -138,15 +138,11 @@ Fetching swagger: https://localhost:7222/swagger/v1/swagger.json
     ✓ PORTAL/StaffRoleRequest
     7 field hook(s) generated.
 
-  Provider Layout
-    ✓ layout.tsx  (34 provider(s))
-
   Completed generation:
     ✓ Services:       C:/DEV/PMIS/react-frontend-v2/management-portal/src\services
     ✓ Types:          C:/DEV/PMIS/react-frontend-v2/management-portal/src\types
     ✓ Contexts:       C:/DEV/PMIS/react-frontend-v2/management-portal/src\contexts
     ✓ Forms:          C:/DEV/PMIS/react-frontend-v2/management-portal/src\forms
-    ✓ App:            C:/DEV/PMIS/react-frontend-v2/management-portal/src\app
     ✓ Fields Manifest: C:/DEV/PMIS/react-frontend-v2/management-portal/src\../../code-gen/input/fields-manifest/management-fields.json
 
 =================================================================
@@ -167,7 +163,7 @@ Fetching swagger: https://localhost:7132/swagger/v1/swagger.json
     5 resource(s) written to partner-fields.json
 
   Services
-    ✓ api.service.ts  (45 endpoints across 4 modules)
+    ✓ api.service.ts  (49 endpoints across 4 modules)
 
   Types
     ✓ api.types.ts
@@ -238,15 +234,11 @@ Fetching swagger: https://localhost:7132/swagger/v1/swagger.json
     ✓ B/PartnerRoleRequestPersonOrganisationPersonType
     4 field hook(s) generated.
 
-  Provider Layout
-    ✓ layout.tsx  (22 provider(s))
-
   Completed generation:
     ✓ Services:       C:/DEV/PMIS/react-frontend-v2/partner-portal/src\services
     ✓ Types:          C:/DEV/PMIS/react-frontend-v2/partner-portal/src\types
     ✓ Contexts:       C:/DEV/PMIS/react-frontend-v2/partner-portal/src\contexts
     ✓ Forms:          C:/DEV/PMIS/react-frontend-v2/partner-portal/src\forms
-    ✓ App:            C:/DEV/PMIS/react-frontend-v2/partner-portal/src\app
     ✓ Fields Manifest: C:/DEV/PMIS/react-frontend-v2/partner-portal/src\../../code-gen/input/fields-manifest/partner-fields.json
 
 =================================================================

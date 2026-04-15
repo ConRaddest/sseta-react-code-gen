@@ -131,6 +131,7 @@ static class CreateFormGenerator
         else
             sb.AppendLine("  onCreated?: () => void");
         sb.AppendLine("  onDirty?: (isDirty: boolean) => void");
+        sb.AppendLine("  onCancel?: () => void");
         sb.AppendLine("  children?: ReactNode");
         sb.AppendLine("}");
         sb.AppendLine();
@@ -148,6 +149,7 @@ static class CreateFormGenerator
         sb.AppendLine("    loading: loadingOverride,");
         sb.AppendLine("    onCreated,");
         sb.AppendLine("    onDirty,");
+        sb.AppendLine("    onCancel,");
         sb.AppendLine("    children,");
         sb.AppendLine("  } = props");
         sb.AppendLine();
@@ -212,8 +214,13 @@ static class CreateFormGenerator
         sb.AppendLine("      className={className}");
         sb.AppendLine("      scrollToTopTrigger={scrollTrigger}");
         sb.AppendLine("      actions={");
-        sb.AppendLine("        <div className=\"flex md:flex-row flex-col gap-2\">");
-        sb.AppendLine("          <Button loading={isSubmitting} disabled={!isDirty} type=\"submit\" variant=\"orange\" size=\"mlg\" className=\"w-full md:w-40\">");
+        sb.AppendLine("        <div className=\"flex flex-row gap-2\">");
+        sb.AppendLine("          {onCancel && (");
+        sb.AppendLine("            <Button type=\"button\" variant=\"outline\" size=\"mlg\" className=\"w-25\" onClick={onCancel}>");
+        sb.AppendLine("              Cancel");
+        sb.AppendLine("            </Button>");
+        sb.AppendLine("          )}");
+        sb.AppendLine("          <Button loading={isSubmitting} disabled={!isDirty} type=\"submit\" variant=\"orange\" size=\"mlg\" className=\"w-40\">");
         sb.AppendLine("            Save");
         sb.AppendLine("          </Button>");
         sb.AppendLine("        </div>");

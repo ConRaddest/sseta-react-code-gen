@@ -315,7 +315,7 @@ static class UseFieldsGenerator
             string heading = Formatters.GetFieldHeading(fieldName) + (isRequired ? "" : " (Optional)");
             string placeholder = GetPlaceholder(fieldName, fieldType);
             bool isSelect = fieldType == "select";
-            bool isEmailField = fieldName.Equals("Email", StringComparison.OrdinalIgnoreCase);
+            bool isEmailField = fieldName.Contains("email", StringComparison.OrdinalIgnoreCase);
             fkByField.TryGetValue(fieldName, out var fk);
 
             bool isDateOrDateTime = fieldType == "date" || fieldType == "datetime";

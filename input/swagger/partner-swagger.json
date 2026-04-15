@@ -540,6 +540,106 @@
         }
       }
     },
+    "/api/Auth/VerifyEmail": {
+      "get": {
+        "tags": [
+          "Auth"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/BooleanSETAApiResponse"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BooleanSETAApiResponse"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BooleanSETAApiResponse"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/BooleanSETAApiResponse"
+                }
+              },
+              "text/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/BooleanSETAApiResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Auth/ValidateEmailCode": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": { }
+            },
+            "text/json": {
+              "schema": { }
+            },
+            "application/*+json": {
+              "schema": { }
+            },
+            "application/xml": {
+              "schema": { }
+            },
+            "text/xml": {
+              "schema": { }
+            },
+            "application/*+xml": {
+              "schema": { }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "boolean"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "boolean"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "boolean"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "type": "boolean"
+                }
+              },
+              "text/xml": {
+                "schema": {
+                  "type": "boolean"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/partner/B/Citizenship/Search": {
       "post": {
         "tags": [
@@ -1471,6 +1571,79 @@
               "text/xml": {
                 "schema": {
                   "$ref": "#/components/schemas/PartnerEmailChangeRequestPORTALRetrieveResponseModelSETAApiResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/partner/PORTAL/PartnerEmailChangeRequest/Search": {
+      "post": {
+        "tags": [
+          "PartnerEmailChangeRequest"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PartnerEmailChangeRequestPORTALSearchRequestModel"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PartnerEmailChangeRequestPORTALSearchRequestModel"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/PartnerEmailChangeRequestPORTALSearchRequestModel"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/PartnerEmailChangeRequestPORTALSearchRequestModel"
+              }
+            },
+            "text/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/PartnerEmailChangeRequestPORTALSearchRequestModel"
+              }
+            },
+            "application/*+xml": {
+              "schema": {
+                "$ref": "#/components/schemas/PartnerEmailChangeRequestPORTALSearchRequestModel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/PartnerEmailChangeRequestPORTALSearchResponseSETAApiResponse"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PartnerEmailChangeRequestPORTALSearchResponseSETAApiResponse"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PartnerEmailChangeRequestPORTALSearchResponseSETAApiResponse"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/PartnerEmailChangeRequestPORTALSearchResponseSETAApiResponse"
+                }
+              },
+              "text/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/PartnerEmailChangeRequestPORTALSearchResponseSETAApiResponse"
                 }
               }
             }
@@ -2916,6 +3089,79 @@
               "text/xml": {
                 "schema": {
                   "$ref": "#/components/schemas/PartnerBRoleRequestSummaryResponseSETAApiResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/partner/PORTAL/SystemUser/Update": {
+      "put": {
+        "tags": [
+          "SystemUser"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SystemUserPORTALUpdateRequestModel"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SystemUserPORTALUpdateRequestModel"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/SystemUserPORTALUpdateRequestModel"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/SystemUserPORTALUpdateRequestModel"
+              }
+            },
+            "text/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/SystemUserPORTALUpdateRequestModel"
+              }
+            },
+            "application/*+xml": {
+              "schema": {
+                "$ref": "#/components/schemas/SystemUserPORTALUpdateRequestModel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/BooleanSETAApiResponse"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BooleanSETAApiResponse"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BooleanSETAApiResponse"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/BooleanSETAApiResponse"
+                }
+              },
+              "text/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/BooleanSETAApiResponse"
                 }
               }
             }
@@ -4439,6 +4685,204 @@
           },
           "data": {
             "$ref": "#/components/schemas/PartnerEmailChangeRequestPORTALRetrieveResponseModel"
+          }
+        },
+        "additionalProperties": false
+      },
+      "PartnerEmailChangeRequestPORTALSearchRequestModel": {
+        "required": [
+          "filterByList",
+          "orderByList",
+          "pageNumber",
+          "pageSize"
+        ],
+        "type": "object",
+        "properties": {
+          "pageNumber": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "pageSize": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "filterByList": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Filterbylist"
+            }
+          },
+          "orderByList": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Orderbylist"
+            }
+          }
+        },
+        "additionalProperties": false
+      },
+      "PartnerEmailChangeRequestPORTALSearchResponse": {
+        "type": "object",
+        "properties": {
+          "totalRows": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "searchResults": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PartnerEmailChangeRequestPORTALSearchResponseModel"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "PartnerEmailChangeRequestPORTALSearchResponseModel": {
+        "type": "object",
+        "properties": {
+          "reviewedOn": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "verificationCodeExpiryDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "createdOn": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "modifiedOn": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "deletedOn": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "partnerEmailChangeRequestId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "organisationId": {
+            "type": "integer",
+            "description": "ParentTable:Organisation",
+            "format": "int64"
+          },
+          "requestedBySystemUserId": {
+            "type": "integer",
+            "description": "ParentTable:SystemUser",
+            "format": "int64"
+          },
+          "reviewedBySystemUserId": {
+            "type": "integer",
+            "description": "ParentTable:SystemUser",
+            "format": "int64",
+            "nullable": true
+          },
+          "departmentTypeId": {
+            "type": "integer",
+            "description": "ParentTable:DepartmentType",
+            "format": "int64"
+          },
+          "statusId": {
+            "type": "integer",
+            "description": "ParentTable:Status",
+            "format": "int64",
+            "nullable": true
+          },
+          "createdBySystemUserId": {
+            "type": "integer",
+            "description": "ParentTable:SystemUser",
+            "format": "int64"
+          },
+          "modifiedBySystemUserId": {
+            "type": "integer",
+            "description": "ParentTable:SystemUser",
+            "format": "int64"
+          },
+          "deletedBySystemUserId": {
+            "type": "integer",
+            "description": "ParentTable:SystemUser",
+            "format": "int64",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "organisationName": {
+            "type": "string",
+            "nullable": true
+          },
+          "requestedBySystemUserName": {
+            "type": "string",
+            "nullable": true
+          },
+          "reviewedBySystemUserName": {
+            "type": "string",
+            "nullable": true
+          },
+          "requestReason": {
+            "type": "string",
+            "nullable": true
+          },
+          "rejectionReason": {
+            "type": "string",
+            "nullable": true
+          },
+          "currentEmail": {
+            "type": "string",
+            "nullable": true
+          },
+          "requestedEmail": {
+            "type": "string",
+            "nullable": true
+          },
+          "departmentTypeName": {
+            "type": "string",
+            "nullable": true
+          },
+          "verificationCode": {
+            "type": "string",
+            "nullable": true
+          },
+          "statusName": {
+            "type": "string",
+            "nullable": true
+          },
+          "statusReason": {
+            "type": "string",
+            "nullable": true
+          },
+          "createdBySystemUserName": {
+            "type": "string",
+            "nullable": true
+          },
+          "modifiedBySystemUserName": {
+            "type": "string",
+            "nullable": true
+          },
+          "deletedBySystemUserName": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "PartnerEmailChangeRequestPORTALSearchResponseSETAApiResponse": {
+        "type": "object",
+        "properties": {
+          "errorMessage": {
+            "type": "string",
+            "nullable": true
+          },
+          "data": {
+            "$ref": "#/components/schemas/PartnerEmailChangeRequestPORTALSearchResponse"
           }
         },
         "additionalProperties": false
@@ -6546,6 +6990,10 @@
             "type": "string",
             "nullable": true
           },
+          "emailVerified": {
+            "type": "boolean",
+            "nullable": true
+          },
           "ssoId": {
             "type": "string",
             "nullable": true
@@ -6852,6 +7300,38 @@
             "format": "int64"
           },
           "organisationName": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "SystemUserPORTALUpdateRequestModel": {
+        "required": [
+          "firstName",
+          "lastName",
+          "mfaTypeId"
+        ],
+        "type": "object",
+        "properties": {
+          "firstName": {
+            "maxLength": 100,
+            "minLength": 0,
+            "type": "string"
+          },
+          "lastName": {
+            "maxLength": 100,
+            "minLength": 0,
+            "type": "string"
+          },
+          "mfaTypeId": {
+            "type": "integer",
+            "description": "ParentTable:MfaType",
+            "format": "int64"
+          },
+          "mobileNumber": {
+            "maxLength": 13,
+            "minLength": 0,
             "type": "string",
             "nullable": true
           }

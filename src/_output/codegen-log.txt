@@ -1,5 +1,5 @@
 =================================================================
-Code Generation Log - 2026-04-15 15:36:14
+Code Generation Log - 2026-04-16 11:29:26
 =================================================================
 
 =================================================================
@@ -163,7 +163,7 @@ Fetching swagger: https://localhost:7132/swagger/v1/swagger.json
     5 resource(s) written to partner-fields.json
 
   Services
-    ✓ api.service.ts  (49 endpoints across 4 modules)
+    ✓ api.service.ts  (50 endpoints across 4 modules)
 
   Types
     ✓ api.types.ts

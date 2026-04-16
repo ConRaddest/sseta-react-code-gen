@@ -355,45 +355,6 @@
         }
       }
     },
-    "/api/Auth/Profile": {
-      "get": {
-        "tags": [
-          "Auth"
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProfileResponseSETAApiResponse"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProfileResponseSETAApiResponse"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProfileResponseSETAApiResponse"
-                }
-              },
-              "application/xml": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProfileResponseSETAApiResponse"
-                }
-              },
-              "text/xml": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProfileResponseSETAApiResponse"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
     "/api/Auth/ValidateOrganisationPersonRegistration": {
       "post": {
         "tags": [
@@ -540,7 +501,119 @@
         }
       }
     },
-    "/api/Auth/VerifyEmail": {
+    "/api/Auth/Profile": {
+      "get": {
+        "tags": [
+          "Auth"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProfileResponseSETAApiResponse"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProfileResponseSETAApiResponse"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProfileResponseSETAApiResponse"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProfileResponseSETAApiResponse"
+                }
+              },
+              "text/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProfileResponseSETAApiResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Auth/Profile/PasswordUpdate": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProfilePasswordUpdateRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProfilePasswordUpdateRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProfilePasswordUpdateRequest"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/ProfilePasswordUpdateRequest"
+              }
+            },
+            "text/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/ProfilePasswordUpdateRequest"
+              }
+            },
+            "application/*+xml": {
+              "schema": {
+                "$ref": "#/components/schemas/ProfilePasswordUpdateRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/BooleanSETAApiResponse"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BooleanSETAApiResponse"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BooleanSETAApiResponse"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/BooleanSETAApiResponse"
+                }
+              },
+              "text/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/BooleanSETAApiResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Auth/Profile/VerifyEmail": {
       "get": {
         "tags": [
           "Auth"
@@ -579,7 +652,7 @@
         }
       }
     },
-    "/api/Auth/ValidateEmailCode": {
+    "/api/Auth/Profile/ValidateEmailCode": {
       "post": {
         "tags": [
           "Auth"
@@ -587,22 +660,34 @@
         "requestBody": {
           "content": {
             "application/json": {
-              "schema": { }
+              "schema": {
+                "$ref": "#/components/schemas/ValidateEmailCodeRequestModel"
+              }
             },
             "text/json": {
-              "schema": { }
+              "schema": {
+                "$ref": "#/components/schemas/ValidateEmailCodeRequestModel"
+              }
             },
             "application/*+json": {
-              "schema": { }
+              "schema": {
+                "$ref": "#/components/schemas/ValidateEmailCodeRequestModel"
+              }
             },
             "application/xml": {
-              "schema": { }
+              "schema": {
+                "$ref": "#/components/schemas/ValidateEmailCodeRequestModel"
+              }
             },
             "text/xml": {
-              "schema": { }
+              "schema": {
+                "$ref": "#/components/schemas/ValidateEmailCodeRequestModel"
+              }
             },
             "application/*+xml": {
-              "schema": { }
+              "schema": {
+                "$ref": "#/components/schemas/ValidateEmailCodeRequestModel"
+              }
             }
           }
         },
@@ -612,27 +697,27 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "type": "boolean"
+                  "$ref": "#/components/schemas/BooleanSETAApiResponse"
                 }
               },
               "application/json": {
                 "schema": {
-                  "type": "boolean"
+                  "$ref": "#/components/schemas/BooleanSETAApiResponse"
                 }
               },
               "text/json": {
                 "schema": {
-                  "type": "boolean"
+                  "$ref": "#/components/schemas/BooleanSETAApiResponse"
                 }
               },
               "application/xml": {
                 "schema": {
-                  "type": "boolean"
+                  "$ref": "#/components/schemas/BooleanSETAApiResponse"
                 }
               },
               "text/xml": {
                 "schema": {
-                  "type": "boolean"
+                  "$ref": "#/components/schemas/BooleanSETAApiResponse"
                 }
               }
             }
@@ -6916,6 +7001,20 @@
         },
         "additionalProperties": false
       },
+      "ProfilePasswordUpdateRequest": {
+        "required": [
+          "newPassword"
+        ],
+        "type": "object",
+        "properties": {
+          "newPassword": {
+            "maxLength": 256,
+            "minLength": 0,
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
       "ProfileResponse": {
         "type": "object",
         "properties": {
@@ -7410,6 +7509,16 @@
           },
           "data": {
             "$ref": "#/components/schemas/TitleBSearchResponse"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ValidateEmailCodeRequestModel": {
+        "type": "object",
+        "properties": {
+          "verificationCode": {
+            "type": "string",
+            "nullable": true
           }
         },
         "additionalProperties": false

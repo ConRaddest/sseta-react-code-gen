@@ -18,6 +18,11 @@ static class ApiServiceGenerator
     // Auth paths that are handled externally and should not be generated
     static readonly HashSet<string> ExcludedPaths = ["/api/Auth/sso/login", "/api/Auth/sso/callback"];
 
+    // Auth path segments that are always rendered as a nested sub-object, even when there is only
+    // a single endpoint under them. This ensures a consistent shape across portals.
+    // e.g. GET /Auth/Profile → profile: { get: ... }  (not a flat profile: async () => ...)
+    static readonly HashSet<string> AuthSubNamespaceSegments = ["Profile"];
+
     public static void Generate(JsonObject paths, JsonObject? schemas, string templatePath, string outputPath, HashSet<string>? apiPrefixes = null)
     {
         apiPrefixes ??= ["management"];
@@ -101,12 +106,61 @@ static class ApiServiceGenerator
         sb.AppendLine($"export const {exportName} = {{");
 
         // Auth block
+        // Auth paths: /api/Auth/{Op} are flat; /api/Auth/{Sub}/{Op} are grouped under a sub-namespace.
+        // e.g. GET /api/Auth/Profile and POST /api/Auth/Profile/PasswordUpdate →
+        //   profile: { get: ..., passwordUpdate: ... }
         if (authEndpoints.Count > 0)
         {
+            // Separate flat endpoints (3 segments: api/Auth/Op) from sub-namespaced (4+ segments)
+            var flatAuthEndpoints = authEndpoints
+                .Where(e => e.RawPath.TrimStart('/').Split('/').Length == 3)
+                .ToList();
+            var subAuthGroups = authEndpoints
+                .Where(e => e.RawPath.TrimStart('/').Split('/').Length > 3)
+                .GroupBy(e => e.RawPath.TrimStart('/').Split('/')[2]) // group by sub-namespace (e.g. "Profile")
+                .ToDictionary(g => g.Key, g => g.ToList());
+
+            // Any flat endpoint whose operation name matches a sub-namespace key (either because deeper
+            // children exist in this swagger, or because the segment is in AuthSubNamespaceSegments)
+            // is promoted into that group and rendered as "get".
+            var promotedKeys = new HashSet<string>(subAuthGroups.Keys, StringComparer.OrdinalIgnoreCase);
+            var trueFlat = new List<Endpoint>();
+            foreach (var ep in flatAuthEndpoints)
+            {
+                string opName = ep.RawPath.TrimStart('/').Split('/').Last();
+                if (promotedKeys.Contains(opName))
+                {
+                    subAuthGroups[opName].Insert(0, ep); // insert at front so "get" renders first
+                }
+                else if (AuthSubNamespaceSegments.Contains(opName, StringComparer.OrdinalIgnoreCase))
+                {
+                    // No children in this swagger, but the segment is a known sub-namespace —
+                    // create a new group so the shape stays consistent across portals.
+                    subAuthGroups[opName] = [ep];
+                }
+                else
+                {
+                    trueFlat.Add(ep);
+                }
+            }
+
             sb.AppendLine("  // Auth");
             sb.AppendLine("  Auth: {");
-            foreach (var ep in authEndpoints)
-                sb.AppendLine(RenderAuthMethod(ep, schemas));
+
+            // Flat methods
+            foreach (var ep in trueFlat)
+                sb.AppendLine(RenderAuthMethod(ep, schemas, subNamespace: null));
+
+            // Sub-namespace objects (e.g. profile: { get: ..., passwordUpdate: ... })
+            foreach (var (subNs, subEps) in subAuthGroups)
+            {
+                string propName = Formatters.ToPascalCase(subNs);
+                sb.AppendLine($"    {propName}: {{");
+                foreach (var ep in subEps)
+                    sb.AppendLine(RenderAuthMethod(ep, schemas, subNamespace: subNs));
+                sb.AppendLine("    },");
+            }
+
             sb.AppendLine("  },");
             sb.AppendLine();
         }
@@ -200,21 +254,33 @@ static class ApiServiceGenerator
     // Method renderers
     // ---------------------------------------------------------------
 
-    static string RenderAuthMethod(Endpoint ep, JsonObject? schemas)
+    // Renders a single Auth method.
+    // When subNamespace is non-null the endpoint belongs to a nested sub-object (e.g. profile: { ... }).
+    // A flat Auth endpoint that was promoted into a sub-namespace group because its path segment
+    // matches the sub-namespace name renders as "get" instead of repeating the namespace name.
+    static string RenderAuthMethod(Endpoint ep, JsonObject? schemas, string? subNamespace)
     {
-        // /api/Auth/Profile → operation = Profile → camelCase = profile
         var parts = ep.RawPath.TrimStart('/').Split('/');
-        string operation = Formatters.ToCamelCase(parts.Last());
+        // /api/Auth/Profile → parts = [api, Auth, Profile]
+        // /api/Auth/Profile/PasswordUpdate → parts = [api, Auth, Profile, PasswordUpdate]
         string relPath = "/" + string.Join("/", parts.Skip(1)); // strip leading /api
 
+        string operation;
+        if (subNamespace != null && string.Equals(parts.Last(), subNamespace, StringComparison.OrdinalIgnoreCase))
+            // This is the parent endpoint promoted into the sub-namespace group — use "get"
+            operation = "get";
+        else
+            operation = Formatters.ToCamelCase(parts.Last());
+
+        string indent = subNamespace != null ? "      " : "    ";
         string responseType = Formatters.AddAuthPrefix(ResolveResponseType(ep.ResponseSchemaRef, schemas));
 
         if (ep.Method == "get")
         {
-            return $"    {operation}: async (): Promise<ApiResponse<{responseType}>> => {{\n" +
-                   $"      const response = await Client().get(\"{relPath}\")\n" +
-                   $"      return response.data\n" +
-                   $"    }},";
+            return $"{indent}{operation}: async (): Promise<ApiResponse<{responseType}>> => {{\n" +
+                   $"{indent}  const response = await Client().get(\"{relPath}\")\n" +
+                   $"{indent}  return response.data\n" +
+                   $"{indent}}},";
         }
 
         // POST / PUT — resolve the request type
@@ -224,10 +290,10 @@ static class ApiServiceGenerator
 
         string httpMethod = ep.Method == "put" ? "put" : "post";
 
-        return $"    {operation}: async (payload: {requestType}): Promise<ApiResponse<{responseType}>> => {{\n" +
-               $"      const response = await Client().{httpMethod}(\"{relPath}\", payload)\n" +
-               $"      return response.data\n" +
-               $"    }},";
+        return $"{indent}{operation}: async (payload: {requestType}): Promise<ApiResponse<{responseType}>> => {{\n" +
+               $"{indent}  const response = await Client().{httpMethod}(\"{relPath}\", payload)\n" +
+               $"{indent}  return response.data\n" +
+               $"{indent}}},";
     }
 
     static string RenderManagementMethod(Endpoint ep, JsonObject? schemas)

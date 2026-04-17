@@ -59,8 +59,8 @@ namespace ReactCodegen.Legacy
                 Console.WriteLine($"Fetching swagger: {swaggerApiUrl}");
                 string swaggerJson = await FetchSwaggerFromApi();
 
-                Directory.CreateDirectory("input/legacy");
-                string swaggerCachePath = Path.Combine("input", "legacy", "swagger.json");
+                Directory.CreateDirectory("input/swagger");
+                string swaggerCachePath = Path.Combine("input", "swagger", "legacy-swagger.json");
                 await File.WriteAllTextAsync(swaggerCachePath, swaggerJson);
                 Console.WriteLine();
 
@@ -137,6 +137,24 @@ namespace ReactCodegen.Legacy
             var schemas = jsonNode["components"]?["schemas"]?.AsObject();
             var resourceGroups = SwaggerProcessor.GroupPathsByResource(paths);
             var (coreResources, settingsResources) = BuildResourceLists(resourceGroups);
+
+            // ---------------------------------------------------------------
+            // Seed legacy field layout and generate legacy fields manifest
+            // ---------------------------------------------------------------
+            string fieldTemplatesPath = Path.Combine("input", "form-layout", "legacy-layout.json");
+            string legacyManifestPath = Path.Combine("input", "fields-manifest", "legacy-fields.json");
+
+            Console.WriteLine("=================================================================");
+            Console.WriteLine("Legacy Form Layout Seed");
+            Console.WriteLine("=================================================================");
+            LegacyFormLayoutSeedGenerator.Generate(schemas, fieldTemplatesPath);
+            Console.WriteLine();
+
+            Console.WriteLine("=================================================================");
+            Console.WriteLine("Legacy Fields Manifest");
+            Console.WriteLine("=================================================================");
+            LegacyFieldsManifestGenerator.Generate(schemas, fieldTemplatesPath, legacyManifestPath);
+            Console.WriteLine();
 
             // ---------------------------------------------------------------
             // Management-only: reports and pages

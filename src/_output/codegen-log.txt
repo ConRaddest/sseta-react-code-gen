@@ -1,5 +1,5 @@
 =================================================================
-Code Generation Log - 2026-04-16 11:29:26
+Code Generation Log - 2026-04-17 10:49:30
 =================================================================
 
 =================================================================
@@ -19,16 +19,21 @@ Fetching swagger: https://localhost:7222/swagger/v1/swagger.json
   Title:           Management API
   Version:         1.0
 
+  Form Layout Seed
+    layout up-to-date, nothing to seed
+
   Fields Manifest
-    ⚠ Skipping FundingCap.economicTypeId (no search endpoint)
     ⚠ Skipping FundingCap.levelOfStudyId (no search endpoint)
     ⚠ Skipping FundingCap.performancePlanId (no search endpoint)
+    ⚠ Skipping FundingCap.economicTypeId (no search endpoint)
     ⚠ Skipping FundingCap.levelOfStudyId (no search endpoint)
     ⚠ Skipping FundingCap.performancePlanId (no search endpoint)
     ⚠ Skipping FundingCap.economicTypeId (no search endpoint)
     ⚠ Skipping PartnerRoleRequest.organisationId (no search endpoint)
+    ⚠ Skipping PartnerRoleRequest.organisationId (no search endpoint)
     ⚠ Skipping PersonOrganisationPersonType.organisationPersonId (no search endpoint)
-    12 resource(s) written to management-fields.json
+    ⚠ Skipping PersonOrganisationPersonType.organisationPersonId (no search endpoint)
+    23 resource(s) written to management-fields.json
 
   Services
     ✓ api.service.ts  (72 endpoints across 7 modules)
@@ -74,9 +79,9 @@ Fetching swagger: https://localhost:7222/swagger/v1/swagger.json
     34 context(s) generated.
 
   Create Forms
-    ⚠ Skipping FundingCap.economicTypeId (no search endpoint)
     ⚠ Skipping FundingCap.levelOfStudyId (no search endpoint)
     ⚠ Skipping FundingCap.performancePlanId (no search endpoint)
+    ⚠ Skipping FundingCap.economicTypeId (no search endpoint)
     ⚠ Skipping FundingCap.levelOfStudyId (no search endpoint)
     ⚠ Skipping FundingCap.performancePlanId (no search endpoint)
     ⚠ Skipping FundingCap.economicTypeId (no search endpoint)
@@ -85,6 +90,7 @@ Fetching swagger: https://localhost:7222/swagger/v1/swagger.json
     ✓ ECD/OrganisationEmployer
     ✓ ECD/OrganisationPerson
     ✓ ECD/OrganisationProvider
+    ⚠ Skipping PersonOrganisationPersonType.organisationPersonId (no search endpoint)
     ⚠ Skipping PersonOrganisationPersonType.organisationPersonId (no search endpoint)
     ✓ ECD/PersonOrganisationPersonType
     ✓ PORTAL/StaffRoleRequest
@@ -95,6 +101,7 @@ Fetching swagger: https://localhost:7222/swagger/v1/swagger.json
     ✓ ECD/OrganisationEmployer
     ✓ ECD/OrganisationProvider
     ✓ B/PartnerEmailChangeRequest
+    ⚠ Skipping PartnerRoleRequest.organisationId (no search endpoint)
     ⚠ Skipping PartnerRoleRequest.organisationId (no search endpoint)
     ✓ B/PartnerRoleRequest
     ✓ ADMIN/StaffRoleRequest
@@ -122,9 +129,9 @@ Fetching swagger: https://localhost:7222/swagger/v1/swagger.json
     5 delete form(s) generated.
 
   Field Hooks
-    ⚠ Skipping FundingCap.economicTypeId (no search endpoint)
     ⚠ Skipping FundingCap.levelOfStudyId (no search endpoint)
     ⚠ Skipping FundingCap.performancePlanId (no search endpoint)
+    ⚠ Skipping FundingCap.economicTypeId (no search endpoint)
     ⚠ Skipping FundingCap.levelOfStudyId (no search endpoint)
     ⚠ Skipping FundingCap.performancePlanId (no search endpoint)
     ⚠ Skipping FundingCap.economicTypeId (no search endpoint)
@@ -133,6 +140,7 @@ Fetching swagger: https://localhost:7222/swagger/v1/swagger.json
     ✓ ECD/OrganisationEmployer
     ✓ ECD/OrganisationPerson
     ✓ ECD/OrganisationProvider
+    ⚠ Skipping PersonOrganisationPersonType.organisationPersonId (no search endpoint)
     ⚠ Skipping PersonOrganisationPersonType.organisationPersonId (no search endpoint)
     ✓ ECD/PersonOrganisationPersonType
     ✓ PORTAL/StaffRoleRequest
@@ -154,13 +162,21 @@ Fetching swagger: https://localhost:7132/swagger/v1/swagger.json
   Title:           Partner API
   Version:         1.0
 
+  Form Layout Seed
+    layout up-to-date, nothing to seed
+
   Fields Manifest
     ⚠ Skipping PartnerRoleRequest.organisationId (no search endpoint)
     ⚠ Skipping PartnerRoleRequest.organisationId (no search endpoint)
+    ⚠ Skipping PartnerRoleRequest.organisationId (no search endpoint)
+    ⚠ Skipping PartnerRoleRequest.organisationId (no search endpoint)
+    ⚠ Skipping PartnerRoleRequestOrganisationPerson.organisationId (no search endpoint)
+    ⚠ Skipping PartnerRoleRequestOrganisationPerson.organisationId (no search endpoint)
     ⚠ Skipping PartnerRoleRequestOrganisationPerson.organisationId (no search endpoint)
     ⚠ Skipping PartnerRoleRequestOrganisationPerson.organisationId (no search endpoint)
     ⚠ Skipping PartnerRoleRequestPersonOrganisationPersonType.partnerRoleRequestOrganisationPersonId (no search endpoint)
-    5 resource(s) written to partner-fields.json
+    ⚠ Skipping PartnerRoleRequestPersonOrganisationPersonType.partnerRoleRequestOrganisationPersonId (no search endpoint)
+    11 resource(s) written to partner-fields.json
 
   Services
     ✓ api.service.ts  (50 endpoints across 4 modules)
@@ -196,9 +212,12 @@ Fetching swagger: https://localhost:7132/swagger/v1/swagger.json
   Create Forms
     ✓ PORTAL/PartnerEmailChangeRequest
     ⚠ Skipping PartnerRoleRequest.organisationId (no search endpoint)
+    ⚠ Skipping PartnerRoleRequest.organisationId (no search endpoint)
     ✓ B/PartnerRoleRequest
     ⚠ Skipping PartnerRoleRequestOrganisationPerson.organisationId (no search endpoint)
+    ⚠ Skipping PartnerRoleRequestOrganisationPerson.organisationId (no search endpoint)
     ✓ B/PartnerRoleRequestOrganisationPerson
+    ⚠ Skipping PartnerRoleRequestPersonOrganisationPersonType.partnerRoleRequestOrganisationPersonId (no search endpoint)
     ⚠ Skipping PartnerRoleRequestPersonOrganisationPersonType.partnerRoleRequestOrganisationPersonId (no search endpoint)
     ✓ B/PartnerRoleRequestPersonOrganisationPersonType
     4 create form(s) generated.
@@ -206,7 +225,9 @@ Fetching swagger: https://localhost:7132/swagger/v1/swagger.json
   Update Forms
     ✓ PORTAL/PartnerEmailChangeRequest
     ⚠ Skipping PartnerRoleRequest.organisationId (no search endpoint)
+    ⚠ Skipping PartnerRoleRequest.organisationId (no search endpoint)
     ✓ B/PartnerRoleRequest
+    ⚠ Skipping PartnerRoleRequestOrganisationPerson.organisationId (no search endpoint)
     ⚠ Skipping PartnerRoleRequestOrganisationPerson.organisationId (no search endpoint)
     ✓ B/PartnerRoleRequestOrganisationPerson
     3 update form(s) generated.
@@ -227,9 +248,12 @@ Fetching swagger: https://localhost:7132/swagger/v1/swagger.json
   Field Hooks
     ✓ PORTAL/PartnerEmailChangeRequest
     ⚠ Skipping PartnerRoleRequest.organisationId (no search endpoint)
+    ⚠ Skipping PartnerRoleRequest.organisationId (no search endpoint)
     ✓ B/PartnerRoleRequest
     ⚠ Skipping PartnerRoleRequestOrganisationPerson.organisationId (no search endpoint)
+    ⚠ Skipping PartnerRoleRequestOrganisationPerson.organisationId (no search endpoint)
     ✓ B/PartnerRoleRequestOrganisationPerson
+    ⚠ Skipping PartnerRoleRequestPersonOrganisationPersonType.partnerRoleRequestOrganisationPersonId (no search endpoint)
     ⚠ Skipping PartnerRoleRequestPersonOrganisationPersonType.partnerRoleRequestOrganisationPersonId (no search endpoint)
     ✓ B/PartnerRoleRequestPersonOrganisationPersonType
     4 field hook(s) generated.

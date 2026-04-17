@@ -252,6 +252,10 @@ namespace ReactCodegen
                 return;
             }
 
+            Console.WriteLine("  Form Layout Seed");
+            FormLayoutSeedGenerator.Generate(paths, schemas, portal.FieldLayoutPath, portal.Blacklist, portal.ApiPrefixes);
+            Console.WriteLine();
+
             var fieldLayout = JsonNode.Parse(File.ReadAllText(portal.FieldLayoutPath));
 
             Directory.CreateDirectory(portal.Output.Services);

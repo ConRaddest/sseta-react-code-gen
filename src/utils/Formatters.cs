@@ -400,14 +400,16 @@ static class Formatters
     }
 
     // Builds the ordered list of layout groups for a resource, driven by field-layout.json.
+    // layoutKey is the flat "Module.Resource.Operation" key used in the layout JSON.
     // Fields not covered by the layout are appended in an "Additional Fields" group.
-    public static List<LayoutGroup> BuildLayoutGroups(string resource, JsonObject? fieldLayout, JsonObject? properties, bool excludeFkFields = false, HashSet<string>? searchableResources = null, HashSet<string>? extraExclusions = null)
+    public static List<LayoutGroup> BuildLayoutGroups(string resource, JsonObject? fieldLayout, JsonObject? properties, bool excludeFkFields = false, HashSet<string>? searchableResources = null, HashSet<string>? extraExclusions = null, string? layoutKey = null)
     {
         var groups = new List<LayoutGroup>();
         var seen = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
         string pkField = GetIdFieldName(resource);
 
-        if (fieldLayout != null && fieldLayout[resource] is JsonArray layoutGroups)
+        string lookupKey = layoutKey ?? resource;
+        if (fieldLayout != null && fieldLayout[lookupKey] is JsonArray layoutGroups)
         {
             foreach (var groupNode in layoutGroups)
             {

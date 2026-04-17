@@ -1,5 +1,5 @@
 =================================================================
-Legacy Code Generation Log - 2026-04-14 12:13:08
+Legacy Code Generation Log - 2026-04-17 11:02:55
 =================================================================
 
 Fetching swagger: https://localhost:7050/swagger/v1/swagger.json
@@ -7,6 +7,16 @@ Fetching swagger: https://localhost:7050/swagger/v1/swagger.json
 OpenAPI Version: 3.0.4
 Title:           SSETA.API
 Version:         1.0
+
+=================================================================
+Legacy Form Layout Seed
+=================================================================
+    layout up-to-date, nothing to seed
+
+=================================================================
+Legacy Fields Manifest
+=================================================================
+    55 resource(s) written to legacy-fields.json
 
 =================================================================
 Reports & Pages (management portal only)

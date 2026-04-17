@@ -90,7 +90,8 @@ static class UpdateFormGenerator
                     if (r?.GetValue<string>() is string s) requiredFields.Add(s);
 
             var searchableResources = Formatters.BuildSearchableResources(paths, ep.Module, apiPrefixes);
-            var orderedFields = UseFieldsGenerator.GetOrderedFields(ep.Resource, fieldLayout, properties, searchableResources);
+            string updateLayoutKey = $"{modulePascal}.{ep.Resource}.Update";
+            var orderedFields = UseFieldsGenerator.GetOrderedFields(ep.Resource, fieldLayout, properties, searchableResources, updateLayoutKey);
             var fkFields = UseFieldsGenerator.CollectFkFields(ep.Module, modulePascal, orderedFields, properties, searchableResources);
 
             // UpdateForm.tsx
@@ -99,7 +100,7 @@ static class UpdateFormGenerator
 
             // useUpdateFields.tsx
             File.WriteAllText(Path.Combine(dir, $"useUpdateFields.tsx"),
-                ApplyTemplate(UseFieldsGenerator.Render(prefix, Formatters.ToPascalCase(ep.Module.ToLower()), ep.Resource, ep.RequestType, orderedFields, properties, requiredFields, fkFields, fieldLayout, searchableResources, isUpdate: true), fieldsTemplatePath));
+                ApplyTemplate(UseFieldsGenerator.Render(prefix, Formatters.ToPascalCase(ep.Module.ToLower()), ep.Resource, ep.RequestType, orderedFields, properties, requiredFields, fkFields, fieldLayout, searchableResources, isUpdate: true, layoutKey: updateLayoutKey), fieldsTemplatePath));
 
             Console.WriteLine($"    ✓ {ep.Module}/{ep.Resource}");
             count++;

@@ -4642,6 +4642,16 @@
       "PartnerEmailChangeRequestPORTALRetrieveResponseModel": {
         "type": "object",
         "properties": {
+          "reviewedOn": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "verificationCodeExpiryDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
           "createdOn": {
             "type": "string",
             "format": "date-time"
@@ -4653,6 +4663,10 @@
           "deletedOn": {
             "type": "string",
             "format": "date-time",
+            "nullable": true
+          },
+          "emailVerified": {
+            "type": "boolean",
             "nullable": true
           },
           "partnerEmailChangeRequestId": {
@@ -4735,6 +4749,10 @@
             "nullable": true
           },
           "departmentTypeName": {
+            "type": "string",
+            "nullable": true
+          },
+          "verificationCode": {
             "type": "string",
             "nullable": true
           },

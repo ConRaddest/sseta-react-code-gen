@@ -1,4 +1,4 @@
-﻿{
+{
   "Allowance": [
     {
       "groupName": "Basic Information",
@@ -232,7 +232,11 @@
       "fields": [
         {
           "name": "isOrganiser",
-          "columns": 2
+          "columns": 1
+        },
+        {
+          "name": "isApprover",
+          "columns": 1
         },
         {
           "name": "statusId",
@@ -297,12 +301,24 @@
           "columns": 1
         },
         {
+          "name": "citizenshipId",
+          "columns": 1
+        },
+        {
           "name": "registrationCode",
           "columns": 1
         },
         {
           "name": "registrationCodeExpiryDate",
-          "columns": 2
+          "columns": 1
+        },
+        {
+          "name": "popiActStatusId",
+          "columns": 1
+        },
+        {
+          "name": "popiActStatusDate",
+          "columns": 1
         }
       ]
     },
@@ -345,6 +361,10 @@
           "columns": 2
         },
         {
+          "name": "homeAddressLineThree",
+          "columns": 2
+        },
+        {
           "name": "cityId",
           "columns": 1
         },
@@ -361,8 +381,12 @@
           "columns": 1
         },
         {
+          "name": "homeAddressPostalCode",
+          "columns": 1
+        },
+        {
           "name": "statsSaAreaId",
-          "columns": 2
+          "columns": 1
         }
       ]
     },
@@ -370,6 +394,10 @@
       "groupName": "Demographics",
       "totalColumns": 2,
       "fields": [
+        {
+          "name": "age",
+          "columns": 1
+        },
         {
           "name": "ageBracketId",
           "columns": 1
@@ -380,6 +408,30 @@
         },
         {
           "name": "disabilityId",
+          "columns": 1
+        },
+        {
+          "name": "communicatingDisabilityRatingId",
+          "columns": 1
+        },
+        {
+          "name": "hearingDisabilityRatingId",
+          "columns": 1
+        },
+        {
+          "name": "rememberingDisabilityRatingId",
+          "columns": 1
+        },
+        {
+          "name": "seeingDisabilityRatingId",
+          "columns": 1
+        },
+        {
+          "name": "selfCareDisabilityRatingId",
+          "columns": 1
+        },
+        {
+          "name": "walkingDisabilityRatingId",
           "columns": 1
         },
         {
@@ -589,7 +641,15 @@
           "columns": 2
         },
         {
+          "name": "lastSchoolId",
+          "columns": 1
+        },
+        {
           "name": "lastSchoolEMISNo",
+          "columns": 1
+        },
+        {
+          "name": "lastSchoolEMISNumber",
           "columns": 1
         },
         {
@@ -633,6 +693,10 @@
         {
           "name": "employerName",
           "columns": 1
+        },
+        {
+          "name": "tradingName",
+          "columns": 2
         }
       ]
     },
@@ -645,11 +709,35 @@
           "columns": 1
         },
         {
+          "name": "contactName",
+          "columns": 1
+        },
+        {
           "name": "employerContactEmailAddress",
           "columns": 1
         },
         {
+          "name": "contactEmailAddress",
+          "columns": 1
+        },
+        {
           "name": "employerPhoneNumber",
+          "columns": 1
+        },
+        {
+          "name": "phoneNumber",
+          "columns": 1
+        },
+        {
+          "name": "contactBusinessPhone",
+          "columns": 1
+        },
+        {
+          "name": "contactMobilePhone",
+          "columns": 1
+        },
+        {
+          "name": "faxNumber",
           "columns": 2
         }
       ]
@@ -659,7 +747,19 @@
       "totalColumns": 2,
       "fields": [
         {
+          "name": "registrationNumber",
+          "columns": 1
+        },
+        {
           "name": "employerRegistrationNumber",
+          "columns": 1
+        },
+        {
+          "name": "mainSDLNumber",
+          "columns": 1
+        },
+        {
+          "name": "sdlNumber",
           "columns": 1
         },
         {
@@ -667,17 +767,83 @@
           "columns": 1
         },
         {
+          "name": "siteNumber",
+          "columns": 1
+        },
+        {
           "name": "employerSICCode",
+          "columns": 1
+        },
+        {
+          "name": "standardIndustrialClassificationId",
+          "columns": 1
+        },
+        {
+          "name": "setaTypeId",
           "columns": 1
         },
         {
           "name": "employerSETARegistered",
           "columns": 1
+        },
+        {
+          "name": "vatNumber",
+          "columns": 1
+        },
+        {
+          "name": "organisationEmployerId",
+          "columns": 1
+        },
+        {
+          "name": "employerApprovalStatusId",
+          "columns": 1
+        },
+        {
+          "name": "approvalStatusStartDate",
+          "columns": 1
         }
       ]
     },
     {
-      "groupName": "Address",
+      "groupName": "Physical Address",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "physicalAddressLineOne",
+          "columns": 2
+        },
+        {
+          "name": "physicalAddressLineTwo",
+          "columns": 2
+        },
+        {
+          "name": "physicalAddressLineThree",
+          "columns": 2
+        },
+        {
+          "name": "physicalAddressCode",
+          "columns": 1
+        },
+        {
+          "name": "provinceId",
+          "columns": 1
+        },
+        {
+          "name": "countryId",
+          "columns": 1
+        },
+        {
+          "name": "latitude",
+          "columns": 1
+        },
+        {
+          "name": "longitude",
+          "columns": 2
+        }
+      ]
+    },
+    {
+      "groupName": "Postal Address",
       "totalColumns": 2,
       "fields": [
         {
@@ -685,12 +851,28 @@
           "columns": 2
         },
         {
+          "name": "postalAddressLineOne",
+          "columns": 2
+        },
+        {
+          "name": "postalAddressLineTwo",
+          "columns": 2
+        },
+        {
+          "name": "postalAddressLineThree",
+          "columns": 2
+        },
+        {
+          "name": "postalAddressCode",
+          "columns": 1
+        },
+        {
           "name": "employerPostalCode",
           "columns": 1
         },
         {
           "name": "employerProvinceId",
-          "columns": 1
+          "columns": 2
         }
       ]
     },
@@ -729,6 +911,22 @@
         {
           "name": "institutionProviderClassId",
           "columns": 1
+        },
+        {
+          "name": "providerTypeId",
+          "columns": 1
+        },
+        {
+          "name": "providerClassId",
+          "columns": 1
+        },
+        {
+          "name": "organisationTypeId",
+          "columns": 1
+        },
+        {
+          "name": "organisationProviderId",
+          "columns": 1
         }
       ]
     },
@@ -737,7 +935,15 @@
       "totalColumns": 2,
       "fields": [
         {
+          "name": "registrationNumber",
+          "columns": 1
+        },
+        {
           "name": "institutionAccreditationNumber",
+          "columns": 1
+        },
+        {
+          "name": "accreditationNumber",
           "columns": 1
         },
         {
@@ -746,6 +952,30 @@
         },
         {
           "name": "institutionSdlNumber",
+          "columns": 1
+        },
+        {
+          "name": "sdlNumber",
+          "columns": 1
+        },
+        {
+          "name": "sarsNumber",
+          "columns": 1
+        },
+        {
+          "name": "etqeId",
+          "columns": 1
+        },
+        {
+          "name": "vatNumber",
+          "columns": 1
+        },
+        {
+          "name": "standardIndustrialClassificationId",
+          "columns": 1
+        },
+        {
+          "name": "startDate",
           "columns": 2
         }
       ]
@@ -759,13 +989,41 @@
           "columns": 1
         },
         {
+          "name": "contactName",
+          "columns": 1
+        },
+        {
           "name": "institutionContactEmailAddress",
           "columns": 1
+        },
+        {
+          "name": "contactEmailAddress",
+          "columns": 1
+        },
+        {
+          "name": "contactBusinessPhone",
+          "columns": 1
+        },
+        {
+          "name": "contactMobilePhone",
+          "columns": 1
+        },
+        {
+          "name": "phoneNumber",
+          "columns": 1
+        },
+        {
+          "name": "faxNumber",
+          "columns": 1
+        },
+        {
+          "name": "websiteAddress",
+          "columns": 2
         }
       ]
     },
     {
-      "groupName": "Address",
+      "groupName": "Physical Address",
       "totalColumns": 2,
       "fields": [
         {
@@ -773,12 +1031,66 @@
           "columns": 2
         },
         {
-          "name": "institutionPostalCode",
+          "name": "physicalAddressLineOne",
+          "columns": 2
+        },
+        {
+          "name": "physicalAddressLineTwo",
+          "columns": 2
+        },
+        {
+          "name": "physicalAddressLineThree",
+          "columns": 2
+        },
+        {
+          "name": "physicalAddressCode",
           "columns": 1
         },
         {
           "name": "institutionProvinceId",
           "columns": 1
+        },
+        {
+          "name": "institutionPostalCode",
+          "columns": 1
+        },
+        {
+          "name": "provinceId",
+          "columns": 1
+        },
+        {
+          "name": "countryId",
+          "columns": 1
+        },
+        {
+          "name": "latitude",
+          "columns": 1
+        },
+        {
+          "name": "longitude",
+          "columns": 2
+        }
+      ]
+    },
+    {
+      "groupName": "Postal Address",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "postalAddressLineOne",
+          "columns": 2
+        },
+        {
+          "name": "postalAddressLineTwo",
+          "columns": 2
+        },
+        {
+          "name": "postalAddressLineThree",
+          "columns": 2
+        },
+        {
+          "name": "postalAddressCode",
+          "columns": 2
         }
       ]
     },
@@ -815,17 +1127,53 @@
           "columns": 1
         },
         {
+          "name": "yearOfStudyId",
+          "columns": 1
+        },
+        {
           "name": "qualificationSAQAId",
           "columns": 1
+        },
+        {
+          "name": "saqaQualificationId",
+          "columns": 1
+        },
+        {
+          "name": "occupationId",
+          "columns": 1
+        },
+        {
+          "name": "totalQualificationCost",
+          "columns": 1
+        },
+        {
+          "name": "partOfId",
+          "columns": 2
         }
       ]
     },
     {
-      "groupName": "Dates",
+      "groupName": "Enrolment",
       "totalColumns": 2,
       "fields": [
         {
           "name": "registrationDate",
+          "columns": 1
+        },
+        {
+          "name": "enrolmentDate",
+          "columns": 1
+        },
+        {
+          "name": "enrolmentTypeId",
+          "columns": 1
+        },
+        {
+          "name": "enrolmentStatusId",
+          "columns": 1
+        },
+        {
+          "name": "enrolmentStatusDate",
           "columns": 1
         },
         {
@@ -1059,6 +1407,60 @@
       ]
     }
   ],
+  "ElectronicLearningApplicant": [
+    {
+      "groupName": "Basic Information",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "name",
+          "columns": 2
+        },
+        {
+          "name": "firstName",
+          "columns": 1
+        },
+        {
+          "name": "middleName",
+          "columns": 1
+        },
+        {
+          "name": "lastName",
+          "columns": 2
+        },
+        {
+          "name": "identityTypeId",
+          "columns": 1
+        },
+        {
+          "name": "identityNumber",
+          "columns": 1
+        },
+        {
+          "name": "organisationTypeId",
+          "columns": 1
+        },
+        {
+          "name": "interventionOrganisationId",
+          "columns": 1
+        }
+      ]
+    },
+    {
+      "groupName": "Status",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "statusId",
+          "columns": 1
+        },
+        {
+          "name": "statusReason",
+          "columns": 1
+        }
+      ]
+    }
+  ],
   "Evaluation": [
     {
       "groupName": "Basic Information",
@@ -1208,6 +1610,120 @@
         },
         {
           "name": "eventVenueId",
+          "columns": 2
+        }
+      ]
+    },
+    {
+      "groupName": "Context",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "interventionOrganisationId",
+          "columns": 1
+        },
+        {
+          "name": "requesterEventSourceId",
+          "columns": 1
+        },
+        {
+          "name": "responderEventSourceId",
+          "columns": 2
+        }
+      ]
+    },
+    {
+      "groupName": "Status",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "statusId",
+          "columns": 1
+        },
+        {
+          "name": "statusReason",
+          "columns": 1
+        }
+      ]
+    }
+  ],
+  "EventRequest": [
+    {
+      "groupName": "Basic Information",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "name",
+          "columns": 2
+        },
+        {
+          "name": "eventId",
+          "columns": 2
+        }
+      ]
+    },
+    {
+      "groupName": "Schedule",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "startDateTime",
+          "columns": 1
+        },
+        {
+          "name": "endDateTime",
+          "columns": 1
+        }
+      ]
+    },
+    {
+      "groupName": "Parties",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "requestedByEventSourceId",
+          "columns": 1
+        },
+        {
+          "name": "requestedBySystemUserId",
+          "columns": 1
+        },
+        {
+          "name": "responseByEventSourceId",
+          "columns": 1
+        },
+        {
+          "name": "responseBySystemUserId",
+          "columns": 1
+        }
+      ]
+    },
+    {
+      "groupName": "Status",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "statusId",
+          "columns": 1
+        },
+        {
+          "name": "statusReason",
+          "columns": 1
+        }
+      ]
+    }
+  ],
+  "EventVenue": [
+    {
+      "groupName": "Basic Information",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "name",
+          "columns": 2
+        },
+        {
+          "name": "address",
           "columns": 2
         }
       ]
@@ -1811,8 +2327,12 @@
           "columns": 1
         },
         {
+          "name": "fundingTypeId",
+          "columns": 1
+        },
+        {
           "name": "allowPublicApplications",
-          "columns": 2
+          "columns": 1
         }
       ]
     },
@@ -1985,6 +2505,36 @@
       ]
     }
   ],
+  "Occupation": [
+    {
+      "groupName": "Basic Information",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "name",
+          "columns": 2
+        },
+        {
+          "name": "code",
+          "columns": 2
+        }
+      ]
+    },
+    {
+      "groupName": "Status",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "statusId",
+          "columns": 1
+        },
+        {
+          "name": "statusReason",
+          "columns": 1
+        }
+      ]
+    }
+  ],
   "Organisation": [
     {
       "groupName": "Basic Information",
@@ -2018,6 +2568,66 @@
         },
         {
           "name": "fnoVendorId",
+          "columns": 2
+        }
+      ]
+    },
+    {
+      "groupName": "Physical Address",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "physicalAddressLineOne",
+          "columns": 2
+        },
+        {
+          "name": "physicalAddressLineTwo",
+          "columns": 2
+        },
+        {
+          "name": "physicalAddressLineThree",
+          "columns": 2
+        },
+        {
+          "name": "physicalAddressCode",
+          "columns": 1
+        },
+        {
+          "name": "provinceId",
+          "columns": 1
+        },
+        {
+          "name": "countryId",
+          "columns": 1
+        },
+        {
+          "name": "latitude",
+          "columns": 1
+        },
+        {
+          "name": "longitude",
+          "columns": 2
+        }
+      ]
+    },
+    {
+      "groupName": "Postal Address",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "postalAddressLineOne",
+          "columns": 2
+        },
+        {
+          "name": "postalAddressLineTwo",
+          "columns": 2
+        },
+        {
+          "name": "postalAddressLineThree",
+          "columns": 2
+        },
+        {
+          "name": "postalAddressCode",
           "columns": 2
         }
       ]
@@ -2057,6 +2667,112 @@
         {
           "name": "signingHubDocumentId",
           "columns": 2
+        }
+      ]
+    },
+    {
+      "groupName": "Status",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "statusId",
+          "columns": 1
+        },
+        {
+          "name": "statusReason",
+          "columns": 1
+        }
+      ]
+    }
+  ],
+  "OrganisationEmployer": [
+    {
+      "groupName": "Basic Information",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "name",
+          "columns": 2
+        },
+        {
+          "name": "organisationId",
+          "columns": 1
+        },
+        {
+          "name": "tradingName",
+          "columns": 1
+        }
+      ]
+    },
+    {
+      "groupName": "Registration",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "mainSDLNumber",
+          "columns": 1
+        },
+        {
+          "name": "sdlNumber",
+          "columns": 1
+        },
+        {
+          "name": "siteNumber",
+          "columns": 1
+        },
+        {
+          "name": "setaTypeId",
+          "columns": 1
+        },
+        {
+          "name": "standardIndustrialClassificationId",
+          "columns": 1
+        },
+        {
+          "name": "employerApprovalStatusId",
+          "columns": 1
+        },
+        {
+          "name": "approvalStatusStartDate",
+          "columns": 1
+        },
+        {
+          "name": "approvalStatusEndDate",
+          "columns": 1
+        },
+        {
+          "name": "approvalStatusNumber",
+          "columns": 2
+        }
+      ]
+    },
+    {
+      "groupName": "Contact",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "contactName",
+          "columns": 1
+        },
+        {
+          "name": "contactEmailAddress",
+          "columns": 1
+        },
+        {
+          "name": "contactBusinessPhone",
+          "columns": 1
+        },
+        {
+          "name": "contactMobilePhone",
+          "columns": 1
+        },
+        {
+          "name": "phoneNumber",
+          "columns": 1
+        },
+        {
+          "name": "faxNumber",
+          "columns": 1
         }
       ]
     },
@@ -2217,6 +2933,120 @@
       ]
     }
   ],
+  "OrganisationProvider": [
+    {
+      "groupName": "Basic Information",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "name",
+          "columns": 2
+        },
+        {
+          "name": "organisationId",
+          "columns": 1
+        },
+        {
+          "name": "providerTypeId",
+          "columns": 1
+        },
+        {
+          "name": "providerClassId",
+          "columns": 1
+        },
+        {
+          "name": "providerStatusId",
+          "columns": 1
+        }
+      ]
+    },
+    {
+      "groupName": "Registration",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "accreditationNumber",
+          "columns": 1
+        },
+        {
+          "name": "sdlNumber",
+          "columns": 1
+        },
+        {
+          "name": "sarsNumber",
+          "columns": 1
+        },
+        {
+          "name": "etqeId",
+          "columns": 1
+        },
+        {
+          "name": "etqeDecisionNumber",
+          "columns": 1
+        },
+        {
+          "name": "standardIndustrialClassificationId",
+          "columns": 1
+        },
+        {
+          "name": "startDate",
+          "columns": 1
+        },
+        {
+          "name": "endDate",
+          "columns": 1
+        }
+      ]
+    },
+    {
+      "groupName": "Contact",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "contactName",
+          "columns": 1
+        },
+        {
+          "name": "contactEmailAddress",
+          "columns": 1
+        },
+        {
+          "name": "contactBusinessPhone",
+          "columns": 1
+        },
+        {
+          "name": "contactMobilePhone",
+          "columns": 1
+        },
+        {
+          "name": "phoneNumber",
+          "columns": 1
+        },
+        {
+          "name": "faxNumber",
+          "columns": 1
+        },
+        {
+          "name": "websiteAddress",
+          "columns": 2
+        }
+      ]
+    },
+    {
+      "groupName": "Status",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "statusId",
+          "columns": 1
+        },
+        {
+          "name": "statusReason",
+          "columns": 1
+        }
+      ]
+    }
+  ],
   "PerformancePlan": [
     {
       "groupName": "Basic Information",
@@ -2291,6 +3121,14 @@
           "columns": 1
         },
         {
+          "name": "alternateIdentityTypeId",
+          "columns": 1
+        },
+        {
+          "name": "alternateIdentityNumber",
+          "columns": 1
+        },
+        {
           "name": "dateOfBirth",
           "columns": 1
         },
@@ -2303,12 +3141,24 @@
           "columns": 1
         },
         {
+          "name": "citizenshipId",
+          "columns": 1
+        },
+        {
           "name": "registrationCode",
           "columns": 1
         },
         {
           "name": "registrationCodeExpiryDate",
-          "columns": 2
+          "columns": 1
+        },
+        {
+          "name": "popiActStatusId",
+          "columns": 1
+        },
+        {
+          "name": "popiActStatusDate",
+          "columns": 1
         }
       ]
     },
@@ -2339,7 +3189,7 @@
       ]
     },
     {
-      "groupName": "Address",
+      "groupName": "Home Address",
       "totalColumns": 2,
       "fields": [
         {
@@ -2348,6 +3198,10 @@
         },
         {
           "name": "homeAddressLineTwo",
+          "columns": 2
+        },
+        {
+          "name": "homeAddressLineThree",
           "columns": 2
         },
         {
@@ -2367,7 +3221,33 @@
           "columns": 1
         },
         {
+          "name": "homeAddressPostalCode",
+          "columns": 1
+        },
+        {
           "name": "statsSaAreaId",
+          "columns": 1
+        }
+      ]
+    },
+    {
+      "groupName": "Postal Address",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "postalAddressLineOne",
+          "columns": 2
+        },
+        {
+          "name": "postalAddressLineTwo",
+          "columns": 2
+        },
+        {
+          "name": "postalAddressLineThree",
+          "columns": 2
+        },
+        {
+          "name": "postalAddressPostalCode",
           "columns": 2
         }
       ]
@@ -2376,6 +3256,10 @@
       "groupName": "Demographics",
       "totalColumns": 2,
       "fields": [
+        {
+          "name": "age",
+          "columns": 1
+        },
         {
           "name": "ageBracketId",
           "columns": 1
@@ -2386,6 +3270,30 @@
         },
         {
           "name": "disabilityId",
+          "columns": 1
+        },
+        {
+          "name": "communicatingDisabilityRatingId",
+          "columns": 1
+        },
+        {
+          "name": "hearingDisabilityRatingId",
+          "columns": 1
+        },
+        {
+          "name": "rememberingDisabilityRatingId",
+          "columns": 1
+        },
+        {
+          "name": "seeingDisabilityRatingId",
+          "columns": 1
+        },
+        {
+          "name": "selfCareDisabilityRatingId",
+          "columns": 1
+        },
+        {
+          "name": "walkingDisabilityRatingId",
           "columns": 1
         },
         {
@@ -2435,8 +3343,12 @@
           "columns": 1
         },
         {
+          "name": "organisationPersonId",
+          "columns": 1
+        },
+        {
           "name": "personTypeId",
-          "columns": 2
+          "columns": 1
         }
       ]
     },
@@ -2579,6 +3491,128 @@
       ]
     }
   ],
+  "SAQAQualification": [
+    {
+      "groupName": "Basic Information",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "name",
+          "columns": 2
+        },
+        {
+          "name": "qualificationId",
+          "columns": 1
+        },
+        {
+          "name": "nqfLevelId",
+          "columns": 1
+        },
+        {
+          "name": "previousNQFLevelId",
+          "columns": 1
+        },
+        {
+          "name": "nqfSubFrameworkId",
+          "columns": 1
+        },
+        {
+          "name": "minimumCredits",
+          "columns": 1
+        },
+        {
+          "name": "programmeId",
+          "columns": 1
+        },
+        {
+          "name": "saqaLearningProgrammeId",
+          "columns": 1
+        }
+      ]
+    },
+    {
+      "groupName": "Classification",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "saqaFieldId",
+          "columns": 1
+        },
+        {
+          "name": "saqaSubFieldId",
+          "columns": 1
+        },
+        {
+          "name": "originatorOrganisationId",
+          "columns": 1
+        },
+        {
+          "name": "registrationEndDate",
+          "columns": 1
+        }
+      ]
+    },
+    {
+      "groupName": "Status",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "statusId",
+          "columns": 1
+        },
+        {
+          "name": "statusReason",
+          "columns": 1
+        }
+      ]
+    }
+  ],
+  "School": [
+    {
+      "groupName": "Basic Information",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "name",
+          "columns": 2
+        },
+        {
+          "name": "emisNumber",
+          "columns": 1
+        },
+        {
+          "name": "provinceId",
+          "columns": 1
+        },
+        {
+          "name": "schoolSectorId",
+          "columns": 1
+        },
+        {
+          "name": "schoolPhaseId",
+          "columns": 1
+        },
+        {
+          "name": "schoolStatusId",
+          "columns": 2
+        }
+      ]
+    },
+    {
+      "groupName": "Status",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "statusId",
+          "columns": 1
+        },
+        {
+          "name": "statusReason",
+          "columns": 1
+        }
+      ]
+    }
+  ],
   "StageInstance": [
     {
       "groupName": "Basic Information",
@@ -2612,6 +3646,36 @@
         },
         {
           "name": "isDelayed",
+          "columns": 2
+        }
+      ]
+    },
+    {
+      "groupName": "Status",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "statusId",
+          "columns": 1
+        },
+        {
+          "name": "statusReason",
+          "columns": 1
+        }
+      ]
+    }
+  ],
+  "StandardIndustrialClassification": [
+    {
+      "groupName": "Basic Information",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "name",
+          "columns": 2
+        },
+        {
+          "name": "code",
           "columns": 2
         }
       ]

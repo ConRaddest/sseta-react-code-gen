@@ -62,10 +62,11 @@ static class UseFieldsGenerator
                     if (r?.GetValue<string>() is string s) requiredFields.Add(s);
 
             var searchableResources = Formatters.BuildSearchableResources(paths, module, apiPrefixes);
-            var orderedFields = GetOrderedFields(resource, fieldLayout, properties, searchableResources);
+            string createLayoutKey = $"{modulePascal}.{resource}.Create";
+            var orderedFields = GetOrderedFields(resource, fieldLayout, properties, searchableResources, createLayoutKey);
             var fkFields = CollectFkFields(module, modulePascal, orderedFields, properties, searchableResources);
 
-            string content = ApplyTemplate(Render(prefix, modulePascal, resource, requestType, orderedFields, properties, requiredFields, fkFields, fieldLayout, searchableResources), templatePath);
+            string content = ApplyTemplate(Render(prefix, modulePascal, resource, requestType, orderedFields, properties, requiredFields, fkFields, fieldLayout, searchableResources, layoutKey: createLayoutKey), templatePath);
             File.WriteAllText(Path.Combine(dir, $"useCreateFields.tsx"), content);
 
             Console.WriteLine($"    ✓ {module}/{resource}");
@@ -76,14 +77,16 @@ static class UseFieldsGenerator
     }
 
     // Returns field names ordered by the field layout, with any extra schema fields appended.
-    internal static List<string> GetOrderedFields(string resource, JsonObject? fieldLayout, JsonObject? properties, HashSet<string>? searchableResources = null)
+    // layoutKey is the flat "Module.Resource.Operation" key used in the layout JSON.
+    internal static List<string> GetOrderedFields(string resource, JsonObject? fieldLayout, JsonObject? properties, HashSet<string>? searchableResources = null, string? layoutKey = null)
     {
         var ordered = new List<string>();
         var seen = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
 
         string pkField = Formatters.GetIdFieldName(resource);
 
-        if (fieldLayout != null && fieldLayout[resource] is JsonArray groups)
+        string lookupKey = layoutKey ?? resource;
+        if (fieldLayout != null && fieldLayout[lookupKey] is JsonArray groups)
         {
             foreach (var groupNode in groups)
             {
@@ -179,7 +182,8 @@ static class UseFieldsGenerator
         List<FkField> fkFields,
         JsonObject? fieldLayout,
         HashSet<string>? searchableResources = null,
-        bool isUpdate = false)
+        bool isUpdate = false,
+        string? layoutKey = null)
     {
         var sb = new StringBuilder();
         bool hasSelects = fkFields.Count > 0;
@@ -461,7 +465,7 @@ static class UseFieldsGenerator
         sb.AppendLine();
 
         // Inline layout
-        var groups = Formatters.BuildLayoutGroups(resource, fieldLayout, properties, searchableResources: searchableResources);
+        var groups = Formatters.BuildLayoutGroups(resource, fieldLayout, properties, searchableResources: searchableResources, layoutKey: layoutKey);
         sb.AppendLine("  const layout: FormLayout[] = [");
         foreach (var group in groups)
         {

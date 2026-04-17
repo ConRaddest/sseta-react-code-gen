@@ -33,7 +33,7 @@ namespace ReactCodegen.Legacy
         {
             try
             {
-                string templatesPath = Path.Combine("input", "legacy", "fieldTemplates.json");
+                string templatesPath = Path.Combine("input", "form-layout", "legacy-layout.json");
                 if (File.Exists(templatesPath))
                 {
                     string templatesContent = File.ReadAllText(templatesPath);
@@ -337,7 +337,7 @@ namespace ReactCodegen.Legacy
                         sb.AppendLine($"            foreignKeyNameField: \"{foreignKeyNameField}\",");
                         sb.AppendLine("            selectSettingsConfig: {");
                         sb.AppendLine($"                service: search{fkField.ParentTable},");
-                        sb.AppendLine($"                idField: \"{Utilities.ToCamelCase(fkField.ForeignKey)}\",");
+                        sb.AppendLine($"                idField: \"{fkField.ForeignKey}\",");
                         sb.AppendLine($"                filterByList: {Utilities.ToCamelCase(fkPropBase)}Filters,");
                         sb.AppendLine("            },");
                     }

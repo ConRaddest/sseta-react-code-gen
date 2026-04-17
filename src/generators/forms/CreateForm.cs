@@ -53,11 +53,12 @@ static class CreateFormGenerator
         foreach (var ep in createEndpoints)
         {
             var searchableResources = Formatters.BuildSearchableResources(paths, ep.Module, apiPrefixes);
+            string modulePascal = Formatters.ToPascalCase(ep.Module.ToLower());
             var requestSchema = Formatters.FindSchema(schemas, $"{ep.Resource}{ep.Module}CreateRequestModel")
                              ?? Formatters.FindSchema(schemas, $"{ep.Resource}CreateRequestModel")
                              ?? Formatters.FindSchema(schemas, $"{ep.Module}_{ep.Resource}CreateRequestModel");
             var properties = requestSchema?["properties"]?.AsObject();
-            var orderedFields = UseFieldsGenerator.GetOrderedFields(ep.Resource, fieldLayout, properties, searchableResources);
+            var orderedFields = UseFieldsGenerator.GetOrderedFields(ep.Resource, fieldLayout, properties, searchableResources, $"{modulePascal}.{ep.Resource}.Create");
 
             bool hasDateRange = (orderedFields.Any(f => f.Equals("startDate", StringComparison.OrdinalIgnoreCase)) &&
                                  orderedFields.Any(f => f.Equals("endDate", StringComparison.OrdinalIgnoreCase))) ||

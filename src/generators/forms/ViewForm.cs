@@ -64,12 +64,13 @@ static class ViewFormGenerator
             var properties = retrieveSchema?["properties"]?.AsObject();
 
             var searchableResources = Formatters.BuildSearchableResources(paths, ep.Module, apiPrefixes);
+            string viewLayoutKey = $"{modulePascal}.{ep.Resource}.View";
 
             File.WriteAllText(Path.Combine(dir, $"ViewForm.tsx"),
                 ApplyTemplate(RenderForm(ep, prefix), formTemplatePath));
 
             File.WriteAllText(Path.Combine(dir, $"useViewFields.ts"),
-                ApplyTemplate(RenderViewFields(prefix, ep.Resource, fieldLayout, properties, searchableResources), layoutTemplatePath));
+                ApplyTemplate(RenderViewFields(prefix, ep.Resource, fieldLayout, properties, searchableResources, viewLayoutKey), layoutTemplatePath));
 
             Console.WriteLine($"    ✓ {ep.Module}/{ep.Resource}");
             count++;
@@ -147,7 +148,7 @@ static class ViewFormGenerator
         return sb.ToString();
     }
 
-    static string RenderViewFields(string prefix, string resource, JsonObject? fieldLayout, JsonObject? properties, HashSet<string>? searchableResources = null)
+    static string RenderViewFields(string prefix, string resource, JsonObject? fieldLayout, JsonObject? properties, HashSet<string>? searchableResources = null, string? layoutKey = null)
     {
         var sb = new StringBuilder();
         sb.AppendLine("import { FormLayout } from \"@sseta/components\"");
@@ -155,7 +156,7 @@ static class ViewFormGenerator
 
         sb.AppendLine($"export default function use{prefix}View() {{");
 
-        var groups = Formatters.BuildLayoutGroups(resource, fieldLayout, properties, excludeFkFields: true, searchableResources: searchableResources, extraExclusions: Formatters.ExcludedViewFields);
+        var groups = Formatters.BuildLayoutGroups(resource, fieldLayout, properties, excludeFkFields: true, searchableResources: searchableResources, extraExclusions: Formatters.ExcludedViewFields, layoutKey: layoutKey);
         sb.AppendLine("  const layout: FormLayout[] = [");
         foreach (var group in groups)
         {

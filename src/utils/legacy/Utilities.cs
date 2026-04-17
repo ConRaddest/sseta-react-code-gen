@@ -24,6 +24,10 @@ namespace ReactCodegen.Legacy
                 }
             }
 
+            // No lowercase letters at all (e.g. "ETQE") — lowercase the whole string
+            if (firstLowerIndex == -1)
+                return str.ToLower();
+
             if (firstLowerIndex <= 1)
             {
                 // No acronym or single letter, just lowercase first char

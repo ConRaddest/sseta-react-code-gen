@@ -15,8 +15,8 @@ static class FieldsManifestGenerator
     public static void Generate(JsonObject paths, JsonObject? schemas, JsonObject? fieldLayout, string outputPath, HashSet<string>? blacklist = null, HashSet<string>? apiPrefixes = null)
     {
         apiPrefixes ??= ["management"];
-        // module (pascal) → resource → operation → fields in layout order
-        var manifest = new SortedDictionary<string, SortedDictionary<string, Dictionary<string, List<string>>>>(StringComparer.Ordinal);
+        // "Module.Resource.Operation" → fields in layout order
+        var manifest = new SortedDictionary<string, List<string>>(StringComparer.Ordinal);
 
         // Collect one entry per (module, resource, operation) — last one wins if duplicates
         var seen = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
@@ -50,13 +50,16 @@ static class FieldsManifestGenerator
 
             List<string>? fields = null;
 
+            string outputOp = string.Equals(op, "Retrieve", StringComparison.OrdinalIgnoreCase) ? "View" : Formatters.ToPascalCase(op.ToLower());
+            string layoutKey = $"{modulePascal}.{resource}.{outputOp}";
+
             if (string.Equals(op, "Create", StringComparison.OrdinalIgnoreCase))
             {
                 var schema = Formatters.FindSchema(schemas, $"{resource}{module}CreateRequestModel")
                           ?? Formatters.FindSchema(schemas, $"{resource}CreateRequestModel")
                           ?? Formatters.FindSchema(schemas, $"{module}_{resource}CreateRequestModel");
                 var properties = schema?["properties"]?.AsObject();
-                fields = UseFieldsGenerator.GetOrderedFields(resource, fieldLayout, properties, searchableResources);
+                fields = UseFieldsGenerator.GetOrderedFields(resource, fieldLayout, properties, searchableResources, layoutKey);
             }
             else if (string.Equals(op, "Update", StringComparison.OrdinalIgnoreCase))
             {
@@ -64,36 +67,28 @@ static class FieldsManifestGenerator
                           ?? Formatters.FindSchema(schemas, $"{resource}UpdateRequestModel")
                           ?? Formatters.FindSchema(schemas, $"{module}_{resource}UpdateRequestModel");
                 var properties = schema?["properties"]?.AsObject();
-                fields = UseFieldsGenerator.GetOrderedFields(resource, fieldLayout, properties, searchableResources);
+                fields = UseFieldsGenerator.GetOrderedFields(resource, fieldLayout, properties, searchableResources, layoutKey);
             }
             else // Retrieve → View
             {
                 var (retrieveSchema, properties) = ResolveRetrieveProperties(pathNode.AsObject(), schemas, resource, module);
                 if (properties != null)
                 {
-                    var groups = Formatters.BuildLayoutGroups(resource, fieldLayout, properties, excludeFkFields: true, searchableResources: searchableResources);
+                    var groups = Formatters.BuildLayoutGroups(resource, fieldLayout, properties, excludeFkFields: true, searchableResources: searchableResources, layoutKey: layoutKey);
                     fields = groups.SelectMany(g => g.Fields.Select(f => f.Name)).ToList();
                 }
             }
 
             if (fields == null || fields.Count == 0) continue;
 
-            string outputOp = string.Equals(op, "Retrieve", StringComparison.OrdinalIgnoreCase) ? "View" : Formatters.ToPascalCase(op.ToLower());
-
-            if (!manifest.ContainsKey(modulePascal))
-                manifest[modulePascal] = new SortedDictionary<string, Dictionary<string, List<string>>>(StringComparer.Ordinal);
-
-            if (!manifest[modulePascal].ContainsKey(resource))
-                manifest[modulePascal][resource] = new Dictionary<string, List<string>>(StringComparer.Ordinal);
-
-            manifest[modulePascal][resource][outputOp] = fields;
+            manifest[layoutKey] = fields;
         }
 
         string json = JsonSerializer.Serialize(manifest, new JsonSerializerOptions { WriteIndented = true });
         Directory.CreateDirectory(Path.GetDirectoryName(outputPath)!);
         File.WriteAllText(outputPath, json);
 
-        int total = manifest.Values.Sum(m => m.Count);
+        int total = manifest.Count;
         Console.WriteLine($"    {total} resource(s) written to {Path.GetFileName(outputPath)}");
     }
 

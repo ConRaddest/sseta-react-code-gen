@@ -43,7 +43,7 @@
       "ID"
     ],
     "database": {
-      "connectionString": "server=localhost;database=PMVR;TrustServerCertificate=True;Integrated Security=True;"
+      "connectionString": "Server=pmis-dev-sql.7946631b206b.database.windows.net;Database=PMVR;TrustServerCertificate=True;"
     },
     "templates": {
       "service": "src/templates/services/api.service.ts",
@@ -66,7 +66,7 @@
     {
       "name": "management",
       "input": {
-        "swaggerUrl": "https://localhost:7222/swagger/v1/swagger.json",
+        "swaggerUrl": "https://api-management-dev.pmis.servicesseta.org.za/swagger/v1/swagger.json",
         "swaggerCachePath": "input/swagger/management-swagger.json",
         "fieldLayoutPath": "input/form-layout/management-layout.json"
       },
@@ -84,7 +84,7 @@
       "name": "partner",
       "apiPrefix": "partner",
       "input": {
-        "swaggerUrl": "https://localhost:7132/swagger/v1/swagger.json",
+        "swaggerUrl": "https://api-partner-dev.pmis.servicesseta.org.za/swagger/v1/swagger.json",
         "swaggerCachePath": "input/swagger/partner-swagger.json",
         "fieldLayoutPath": "input/form-layout/partner-layout.json"
       },
@@ -101,7 +101,7 @@
     {
       "name": "learner",
       "input": {
-        "swaggerUrl": "https://localhost:7224/swagger/v1/swagger.json",
+        "swaggerUrl": "https://api-learner-dev.pmis.servicesseta.org.za/swagger/v1/swagger.json",
         "swaggerCachePath": "input/swagger/learner-swagger.json",
         "fieldLayoutPath": "input/form-layout/learner-layout.json"
       },

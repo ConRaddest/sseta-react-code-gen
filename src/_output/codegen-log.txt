@@ -1,5 +1,5 @@
 =================================================================
-Code Generation Log - 2026-04-17 11:44:16
+Code Generation Log - 2026-04-17 15:20:26
 =================================================================
 
 =================================================================
@@ -13,7 +13,7 @@ Shared
 =================================================================
 Portal: management
 =================================================================
-Fetching swagger: https://localhost:7222/swagger/v1/swagger.json
+Fetching swagger: https://api-management-dev.pmis.servicesseta.org.za/swagger/v1/swagger.json
 
   OpenAPI Version: 3.0.4
   Title:           Management API
@@ -156,7 +156,7 @@ Fetching swagger: https://localhost:7222/swagger/v1/swagger.json
 =================================================================
 Portal: partner
 =================================================================
-Fetching swagger: https://localhost:7132/swagger/v1/swagger.json
+Fetching swagger: https://api-partner-dev.pmis.servicesseta.org.za/swagger/v1/swagger.json
 
   OpenAPI Version: 3.0.4
   Title:           Partner API
@@ -268,6 +268,6 @@ Fetching swagger: https://localhost:7132/swagger/v1/swagger.json
 =================================================================
 Portal: learner
 =================================================================
-Fetching swagger: https://localhost:7224/swagger/v1/swagger.json
+Fetching swagger: https://api-learner-dev.pmis.servicesseta.org.za/swagger/v1/swagger.json
   Skipping portal and continuing (ensure api is running and endpoints are correctly configured)
 

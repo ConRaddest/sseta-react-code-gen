@@ -1,8 +1,8 @@
 =================================================================
-Legacy Code Generation Log - 2026-04-17 11:02:55
+Legacy Code Generation Log - 2026-04-17 15:24:03
 =================================================================
 
-Fetching swagger: https://localhost:7050/swagger/v1/swagger.json
+Fetching swagger: https://api-dev.pmis.servicesseta.org.za/swagger/v1/swagger.json
 
 OpenAPI Version: 3.0.4
 Title:           SSETA.API

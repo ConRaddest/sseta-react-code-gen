@@ -2,3 +2,4 @@ bin
 obj
 CLAUDE.md
 AGENTS.md
+input/codegen.secrets.json

@@ -6,19 +6,26 @@ namespace ReactCodegen.Legacy
 {
     static class LegacyProgram
     {
-        // Swagger source — single legacy API (management portal)
-        const string swaggerApiUrl = "https://localhost:7050/swagger/v1/swagger.json";
-        const string apiBaseUrl = "https://localhost:7050/api/";
-        const string authEmail = "admin@altron.com";
-        const string authPassword = "123";
-
         const string configPath = "input/codegen.config.json";
+        const string secretsPath = "input/codegen.secrets.json";
 
         private static StreamWriter? _logWriter;
         private static TextWriter? _originalConsoleOut;
 
         public static async Task RunAsync()
         {
+            // ---------------------------------------------------------------
+            // Load secrets
+            // ---------------------------------------------------------------
+            if (!File.Exists(secretsPath))
+                throw new Exception($"Secrets file not found: {secretsPath}. Create it from codegen.secrets.json.example.");
+
+            var secrets     = JsonNode.Parse(File.ReadAllText(secretsPath))?["legacy"] ?? throw new Exception("Missing legacy section in secrets file.");
+            string swaggerApiUrl  = secrets["swaggerUrl"]?.GetValue<string>()   ?? throw new Exception("Missing legacy.swaggerUrl in secrets.");
+            string apiBaseUrl     = secrets["apiBaseUrl"]?.GetValue<string>()   ?? throw new Exception("Missing legacy.apiBaseUrl in secrets.");
+            string authEmail      = secrets["authEmail"]?.GetValue<string>()    ?? throw new Exception("Missing legacy.authEmail in secrets.");
+            string authPassword   = secrets["authPassword"]?.GetValue<string>() ?? throw new Exception("Missing legacy.authPassword in secrets.");
+
             // ---------------------------------------------------------------
             // Load portal output paths from config
             // ---------------------------------------------------------------
@@ -57,14 +64,14 @@ namespace ReactCodegen.Legacy
             {
                 // Fetch swagger from legacy API
                 Console.WriteLine($"Fetching swagger: {swaggerApiUrl}");
-                string swaggerJson = await FetchSwaggerFromApi();
+                string swaggerJson = await FetchSwaggerFromApi(swaggerApiUrl);
 
                 Directory.CreateDirectory("input/swagger");
                 string swaggerCachePath = Path.Combine("input", "swagger", "legacy-swagger.json");
                 await File.WriteAllTextAsync(swaggerCachePath, swaggerJson);
                 Console.WriteLine();
 
-                await GenerateCode(swaggerCachePath, portalBaseDirs, managementBaseDir);
+                await GenerateCode(swaggerCachePath, portalBaseDirs, managementBaseDir, apiBaseUrl, authEmail, authPassword);
             }
             catch (Exception ex)
             {
@@ -82,7 +89,7 @@ namespace ReactCodegen.Legacy
             }
         }
 
-        static async Task<string> FetchSwaggerFromApi()
+        static async Task<string> FetchSwaggerFromApi(string swaggerApiUrl)
         {
             var handler = new HttpClientHandler
             {
@@ -108,7 +115,7 @@ namespace ReactCodegen.Legacy
             }
         }
 
-        static async Task GenerateCode(string swaggerPath, string[] portalBaseDirs, string managementBaseDir)
+        static async Task GenerateCode(string swaggerPath, string[] portalBaseDirs, string managementBaseDir, string apiBaseUrl, string authEmail, string authPassword)
         {
             string jsonString = File.ReadAllText(swaggerPath);
             JsonNode? jsonNode = JsonNode.Parse(jsonString);

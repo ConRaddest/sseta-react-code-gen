@@ -63,7 +63,16 @@ namespace ReactCodegen
                 StringComparer.OrdinalIgnoreCase
             );
 
-            string dbConnectionString      = inputs["database"]?["connectionString"]?.GetValue<string>() ?? throw new Exception("Missing inputs.database.connectionString in config.");
+            string dbConnectionString = inputs["database"]?["connectionString"]?.GetValue<string>() ?? throw new Exception("Missing inputs.database.connectionString in config.");
+            const string secretsPath = "input/codegen.secrets.json";
+            if (File.Exists(secretsPath))
+            {
+                var secrets = JsonNode.Parse(File.ReadAllText(secretsPath))?["database"];
+                var userId   = secrets?["userId"]?.GetValue<string>();
+                var password = secrets?["password"]?.GetValue<string>();
+                if (userId   != null) dbConnectionString += $";User Id={userId}";
+                if (password != null) dbConnectionString += $";Password={password}";
+            }
             var t = inputs["templates"] ?? throw new Exception("Missing inputs.templates in config.");
             string T(string key) => t[key]?.GetValue<string>() ?? throw new Exception($"Missing inputs.templates.{key} in config.");
 

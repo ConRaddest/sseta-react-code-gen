@@ -4647,11 +4647,6 @@
             "format": "date-time",
             "nullable": true
           },
-          "verificationCodeExpiryDate": {
-            "type": "string",
-            "format": "date-time",
-            "nullable": true
-          },
           "createdOn": {
             "type": "string",
             "format": "date-time"
@@ -4752,10 +4747,6 @@
             "type": "string",
             "nullable": true
           },
-          "verificationCode": {
-            "type": "string",
-            "nullable": true
-          },
           "statusName": {
             "type": "string",
             "nullable": true
@@ -4845,11 +4836,6 @@
         "type": "object",
         "properties": {
           "reviewedOn": {
-            "type": "string",
-            "format": "date-time",
-            "nullable": true
-          },
-          "verificationCodeExpiryDate": {
             "type": "string",
             "format": "date-time",
             "nullable": true
@@ -4947,10 +4933,6 @@
             "nullable": true
           },
           "departmentTypeName": {
-            "type": "string",
-            "nullable": true
-          },
-          "verificationCode": {
             "type": "string",
             "nullable": true
           },

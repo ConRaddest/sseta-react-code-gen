@@ -209,8 +209,6 @@
     "currentEmail",
     "requestedEmail",
     "emailVerified",
-    "verificationCode",
-    "verificationCodeExpiryDate",
     "requestReason",
     "rejectionReason",
     "departmentTypeName",

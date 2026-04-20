@@ -1,0 +1,274 @@
+{
+  "Access.StaffRoleRequest.Create": [
+    {
+      "groupName": "Additional Fields",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "requestedBySystemUserId",
+          "columns": 2
+        },
+        {
+          "name": "requestReason",
+          "columns": 2
+        },
+        {
+          "name": "roleId",
+          "columns": 2
+        },
+        {
+          "name": "name",
+          "columns": 2
+        },
+        {
+          "name": "reviewedBySystemUserId",
+          "columns": 2
+        },
+        {
+          "name": "rejectionReason",
+          "columns": 2
+        },
+        {
+          "name": "reviewedOn",
+          "columns": 2
+        }
+      ]
+    }
+  ],
+  "Access.StaffRoleRequest.View": [
+    {
+      "groupName": "Additional Fields",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "reviewedOn",
+          "columns": 2
+        },
+        {
+          "name": "createdOn",
+          "columns": 2
+        },
+        {
+          "name": "modifiedOn",
+          "columns": 2
+        },
+        {
+          "name": "deletedOn",
+          "columns": 2
+        },
+        {
+          "name": "requestedBySystemUserId",
+          "columns": 2
+        },
+        {
+          "name": "reviewedBySystemUserId",
+          "columns": 2
+        },
+        {
+          "name": "roleId",
+          "columns": 2
+        },
+        {
+          "name": "createdBySystemUserId",
+          "columns": 2
+        },
+        {
+          "name": "modifiedBySystemUserId",
+          "columns": 2
+        },
+        {
+          "name": "deletedBySystemUserId",
+          "columns": 2
+        },
+        {
+          "name": "name",
+          "columns": 2
+        },
+        {
+          "name": "requestedBySystemUserName",
+          "columns": 2
+        },
+        {
+          "name": "reviewedBySystemUserName",
+          "columns": 2
+        },
+        {
+          "name": "requestReason",
+          "columns": 2
+        },
+        {
+          "name": "rejectionReason",
+          "columns": 2
+        },
+        {
+          "name": "roleName",
+          "columns": 2
+        },
+        {
+          "name": "statusName",
+          "columns": 2
+        },
+        {
+          "name": "createdBySystemUserName",
+          "columns": 2
+        },
+        {
+          "name": "modifiedBySystemUserName",
+          "columns": 2
+        },
+        {
+          "name": "deletedBySystemUserName",
+          "columns": 2
+        }
+      ]
+    }
+  ],
+  "Admin.StaffRoleRequest.Update": [
+    {
+      "groupName": "Additional Fields",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "rejectionReason",
+          "columns": 2
+        }
+      ]
+    }
+  ],
+  "Admin.StaffRoleRequest.View": [
+    {
+      "groupName": "Additional Fields",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "reviewedOn",
+          "columns": 2
+        },
+        {
+          "name": "createdOn",
+          "columns": 2
+        },
+        {
+          "name": "modifiedOn",
+          "columns": 2
+        },
+        {
+          "name": "deletedOn",
+          "columns": 2
+        },
+        {
+          "name": "requestedBySystemUserId",
+          "columns": 2
+        },
+        {
+          "name": "reviewedBySystemUserId",
+          "columns": 2
+        },
+        {
+          "name": "roleId",
+          "columns": 2
+        },
+        {
+          "name": "createdBySystemUserId",
+          "columns": 2
+        },
+        {
+          "name": "modifiedBySystemUserId",
+          "columns": 2
+        },
+        {
+          "name": "deletedBySystemUserId",
+          "columns": 2
+        },
+        {
+          "name": "name",
+          "columns": 2
+        },
+        {
+          "name": "requestedBySystemUserName",
+          "columns": 2
+        },
+        {
+          "name": "reviewedBySystemUserName",
+          "columns": 2
+        },
+        {
+          "name": "requestReason",
+          "columns": 2
+        },
+        {
+          "name": "rejectionReason",
+          "columns": 2
+        },
+        {
+          "name": "roleName",
+          "columns": 2
+        },
+        {
+          "name": "statusName",
+          "columns": 2
+        },
+        {
+          "name": "createdBySystemUserName",
+          "columns": 2
+        },
+        {
+          "name": "modifiedBySystemUserName",
+          "columns": 2
+        },
+        {
+          "name": "deletedBySystemUserName",
+          "columns": 2
+        }
+      ]
+    }
+  ],
+  "Ecd.SystemUser.Update": [
+    {
+      "groupName": "Additional Fields",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "mobileNumber",
+          "columns": 2
+        }
+      ]
+    }
+  ],
+  "Pmvr.SystemUser.Update": [
+    {
+      "groupName": "Additional Fields",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "mobileNumber",
+          "columns": 2
+        }
+      ]
+    }
+  ],
+  "Sp.SystemUser.Update": [
+    {
+      "groupName": "Additional Fields",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "mobileNumber",
+          "columns": 2
+        }
+      ]
+    }
+  ],
+  "Spi.SystemUser.Update": [
+    {
+      "groupName": "Additional Fields",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "mobileNumber",
+          "columns": 2
+        }
+      ]
+    }
+  ]
+}

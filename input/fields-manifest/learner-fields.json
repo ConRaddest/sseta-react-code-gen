@@ -1,0 +1,55 @@
+{
+  "Access.StaffRoleRequest.Create": [
+    "requestReason",
+    "name",
+    "rejectionReason",
+    "reviewedOn"
+  ],
+  "Access.StaffRoleRequest.View": [
+    "reviewedOn",
+    "createdOn",
+    "modifiedOn",
+    "deletedOn",
+    "name",
+    "requestedBySystemUserName",
+    "reviewedBySystemUserName",
+    "requestReason",
+    "rejectionReason",
+    "roleName",
+    "statusName",
+    "createdBySystemUserName",
+    "modifiedBySystemUserName",
+    "deletedBySystemUserName"
+  ],
+  "Admin.StaffRoleRequest.Update": [
+    "rejectionReason"
+  ],
+  "Admin.StaffRoleRequest.View": [
+    "reviewedOn",
+    "createdOn",
+    "modifiedOn",
+    "deletedOn",
+    "name",
+    "requestedBySystemUserName",
+    "reviewedBySystemUserName",
+    "requestReason",
+    "rejectionReason",
+    "roleName",
+    "statusName",
+    "createdBySystemUserName",
+    "modifiedBySystemUserName",
+    "deletedBySystemUserName"
+  ],
+  "Ecd.SystemUser.Update": [
+    "mobileNumber"
+  ],
+  "Pmvr.SystemUser.Update": [
+    "mobileNumber"
+  ],
+  "Sp.SystemUser.Update": [
+    "mobileNumber"
+  ],
+  "Spi.SystemUser.Update": [
+    "mobileNumber"
+  ]
+}

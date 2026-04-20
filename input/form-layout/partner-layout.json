@@ -1164,11 +1164,11 @@
       "fields": [
         {
           "name": "currentEmail",
-          "columns": 1
+          "columns": 2
         },
         {
           "name": "requestedEmail",
-          "columns": 1
+          "columns": 2
         },
         {
           "name": "requestReason",
@@ -1184,11 +1184,11 @@
       "fields": [
         {
           "name": "currentEmail",
-          "columns": 1
+          "columns": 2
         },
         {
           "name": "requestedEmail",
-          "columns": 1
+          "columns": 2
         },
         {
           "name": "requestReason",
@@ -1222,11 +1222,11 @@
       "fields": [
         {
           "name": "currentEmail",
-          "columns": 1
+          "columns": 2
         },
         {
           "name": "requestedEmail",
-          "columns": 1
+          "columns": 2
         },
         {
           "name": "emailVerified",

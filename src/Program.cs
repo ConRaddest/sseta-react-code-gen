@@ -13,6 +13,17 @@ namespace ReactCodegen
         private static StreamWriter? _logWriter;
         private static TextWriter? _originalConsoleOut;
 
+        // Usage:
+        //   dotnet run                          full run (enums + all portals)
+        //   dotnet run enums                    enums only
+        //   dotnet run cached                   all portals using cached swagger (skip fetch)
+        //   dotnet run <portal>                 one portal (management|partner|learner)
+        //   dotnet run <portal> cached          one portal, use cached swagger
+        //   dotnet run <portal> <layer>         one portal, one layer
+        //   dotnet run <portal> <layer> cached  one portal, one layer, cached swagger
+        //
+        // Layers: services, types, contexts, forms, createforms, updateforms,
+        //         viewforms, deleteforms, fieldhooks, fieldsmanifest, formlayout
         static async Task Main(string[] args)
         {
             // Dispatch to legacy mode if requested
@@ -21,6 +32,22 @@ namespace ReactCodegen
                 await ReactCodegen.Legacy.LegacyProgram.RunAsync();
                 return;
             }
+
+            // Parse run mode flags
+            bool enumsOnly    = args.Length > 0 && args[0].Equals("enums",  StringComparison.OrdinalIgnoreCase);
+            bool useCached    = args.Any(a => a.Equals("cached", StringComparison.OrdinalIgnoreCase));
+            string? portalArg = args.FirstOrDefault(a =>
+                !a.Equals("cached", StringComparison.OrdinalIgnoreCase) &&
+                !a.Equals("enums",  StringComparison.OrdinalIgnoreCase) &&
+                new[] { "management", "partner", "learner" }.Contains(a, StringComparer.OrdinalIgnoreCase));
+            string? layerArg  = args.FirstOrDefault(a =>
+                !a.Equals("cached", StringComparison.OrdinalIgnoreCase) &&
+                !a.Equals("enums",  StringComparison.OrdinalIgnoreCase) &&
+                a != portalArg &&
+                new[] { "services", "types", "contexts", "forms", "createforms", "updateforms",
+                         "viewforms", "deleteforms", "fieldhooks", "fieldsmanifest", "formlayout" }
+                    .Contains(a, StringComparer.OrdinalIgnoreCase));
+
 
             // ---------------------------------------------------------------
             // Load config
@@ -151,37 +178,56 @@ namespace ReactCodegen
 
             try
             {
-                Console.WriteLine($"=================================================================");
-                Console.WriteLine($"Shared");
-                Console.WriteLine($"=================================================================");
-                Console.WriteLine("  Enums");
-                await EnumGenerator.Generate(dbConnectionString, enumTemplatePath, enumsOutputPath);
-                Console.WriteLine($"    ✓ Enums: {enumsOutputPath}");
-                Console.WriteLine();
+                // Enums — skip when targeting a specific portal or layer, run when full or enums-only
+                bool runEnums = enumsOnly || (portalArg == null && layerArg == null && !useCached);
 
-                foreach (var portal in portals)
+                if (runEnums)
                 {
                     Console.WriteLine($"=================================================================");
-                    Console.WriteLine($"Portal: {portal.Name}");
+                    Console.WriteLine($"Shared");
                     Console.WriteLine($"=================================================================");
-
-                    try
-                    {
-                        Console.WriteLine($"Fetching swagger: {portal.SwaggerUrl}");
-                        string swaggerJson = await FetchSwaggerFromApi(portal.SwaggerUrl);
-
-                        Directory.CreateDirectory(Path.GetDirectoryName(portal.SwaggerCachePath)!);
-                        await File.WriteAllTextAsync(portal.SwaggerCachePath, swaggerJson);
-                        Console.WriteLine();
-
-                        await GenerateFrontendCode(portal, serviceTemplatePath, typeTemplatePath, createFormTemplate, updateFormTemplate, viewFormTemplate, deleteFormTemplate, useFieldsTemplate, useLayoutTemplate, contextTemplate);
-                    }
-                    catch
-                    {
-                        Console.WriteLine($"  Skipping portal and continuing (ensure api is running and endpoints are correctly configured)");
-                    }
-
+                    Console.WriteLine("  Enums");
+                    await EnumGenerator.Generate(dbConnectionString, enumTemplatePath, enumsOutputPath);
+                    Console.WriteLine($"    ✓ Enums: {enumsOutputPath}");
                     Console.WriteLine();
+                }
+
+                if (!enumsOnly)
+                {
+                    var selectedPortals = portalArg == null
+                        ? portals
+                        : portals.Where(p => p.Name.Equals(portalArg, StringComparison.OrdinalIgnoreCase)).ToArray();
+
+                    foreach (var portal in selectedPortals)
+                    {
+                        Console.WriteLine($"=================================================================");
+                        Console.WriteLine($"Portal: {portal.Name}");
+                        Console.WriteLine($"=================================================================");
+
+                        try
+                        {
+                            if (useCached)
+                            {
+                                Console.WriteLine($"  Using cached swagger: {portal.SwaggerCachePath}");
+                            }
+                            else
+                            {
+                                Console.WriteLine($"Fetching swagger: {portal.SwaggerUrl}");
+                                string swaggerJson = await FetchSwaggerFromApi(portal.SwaggerUrl);
+                                Directory.CreateDirectory(Path.GetDirectoryName(portal.SwaggerCachePath)!);
+                                await File.WriteAllTextAsync(portal.SwaggerCachePath, swaggerJson);
+                            }
+                            Console.WriteLine();
+
+                            await GenerateFrontendCode(portal, serviceTemplatePath, typeTemplatePath, createFormTemplate, updateFormTemplate, viewFormTemplate, deleteFormTemplate, useFieldsTemplate, useLayoutTemplate, contextTemplate, layerArg);
+                        }
+                        catch
+                        {
+                            Console.WriteLine($"  Skipping portal and continuing (ensure api is running and endpoints are correctly configured)");
+                        }
+
+                        Console.WriteLine();
+                    }
                 }
             }
             finally
@@ -232,8 +278,12 @@ namespace ReactCodegen
             string deleteFormTemplate,
             string useFieldsTemplate,
             string useLayoutTemplate,
-            string contextTemplate)
+            string contextTemplate,
+            string? layerArg = null)
         {
+            bool Layer(params string[] names) =>
+                layerArg == null || names.Any(n => n.Equals(layerArg, StringComparison.OrdinalIgnoreCase));
+
             string jsonString = File.ReadAllText(portal.SwaggerCachePath);
             JsonNode? jsonNode = JsonNode.Parse(jsonString);
 
@@ -261,11 +311,17 @@ namespace ReactCodegen
                 return;
             }
 
-            Console.WriteLine("  Form Layout Seed");
-            FormLayoutSeedGenerator.Generate(paths, schemas, portal.FieldLayoutPath, portal.Blacklist, portal.ApiPrefixes);
-            Console.WriteLine();
+            // formlayout always runs when any form-related layer is requested
+            bool needsLayout = Layer("formlayout", "forms", "createforms", "updateforms", "viewforms", "deleteforms", "fieldhooks", "fieldsmanifest");
 
-            var fieldLayout = JsonNode.Parse(File.ReadAllText(portal.FieldLayoutPath));
+            if (needsLayout)
+            {
+                Console.WriteLine("  Form Layout Seed");
+                FormLayoutSeedGenerator.Generate(paths, schemas, portal.FieldLayoutPath, portal.Blacklist, portal.ApiPrefixes);
+                Console.WriteLine();
+            }
+
+            var fieldLayout = needsLayout ? JsonNode.Parse(File.ReadAllText(portal.FieldLayoutPath)) : null;
 
             Directory.CreateDirectory(portal.Output.Services);
             Directory.CreateDirectory(portal.Output.Types);
@@ -273,41 +329,68 @@ namespace ReactCodegen
             Directory.CreateDirectory(portal.Output.Forms);
             Directory.CreateDirectory(Path.GetDirectoryName(portal.Output.FieldsManifest)!);
 
-            Console.WriteLine("  Fields Manifest");
-            FieldsManifestGenerator.Generate(paths, schemas, fieldLayout?.AsObject(), portal.Output.FieldsManifest, portal.Blacklist, portal.ApiPrefixes);
-            Console.WriteLine();
+            if (Layer("fieldsmanifest"))
+            {
+                Console.WriteLine("  Fields Manifest");
+                FieldsManifestGenerator.Generate(paths, schemas, fieldLayout?.AsObject(), portal.Output.FieldsManifest, portal.Blacklist, portal.ApiPrefixes);
+                Console.WriteLine();
+            }
 
-            Console.WriteLine("  Services");
-            ApiServiceGenerator.Generate(paths, schemas, serviceTemplatePath, Path.Combine(portal.Output.Services, "api.service.ts"), portal.ApiPrefixes);
-            Console.WriteLine();
+            if (Layer("services"))
+            {
+                Console.WriteLine("  Services");
+                ApiServiceGenerator.Generate(paths, schemas, serviceTemplatePath, Path.Combine(portal.Output.Services, "api.service.ts"), portal.ApiPrefixes);
+                Console.WriteLine();
+            }
 
-            Console.WriteLine("  Types");
-            ApiTypeGenerator.Generate(paths, schemas!, typeTemplatePath, Path.Combine(portal.Output.Types, "api.types.ts"));
-            Console.WriteLine();
+            if (Layer("types"))
+            {
+                Console.WriteLine("  Types");
+                ApiTypeGenerator.Generate(paths, schemas!, typeTemplatePath, Path.Combine(portal.Output.Types, "api.types.ts"));
+                Console.WriteLine();
+            }
 
-            Console.WriteLine("  Contexts");
-            ContextGenerator.Generate(paths, schemas, portal.Output.Contexts, portal.Blacklist, contextTemplate, portal.ApiPrefixes);
-            Console.WriteLine();
+            if (Layer("contexts"))
+            {
+                Console.WriteLine("  Contexts");
+                ContextGenerator.Generate(paths, schemas, portal.Output.Contexts, portal.Blacklist, contextTemplate, portal.ApiPrefixes);
+                Console.WriteLine();
+            }
 
-            Console.WriteLine("  Create Forms");
-            CreateFormGenerator.Generate(paths, schemas, fieldLayout?.AsObject(), portal.Output.Forms, portal.Blacklist, createFormTemplate, portal.ApiPrefixes);
-            Console.WriteLine();
+            if (Layer("forms", "createforms"))
+            {
+                Console.WriteLine("  Create Forms");
+                CreateFormGenerator.Generate(paths, schemas, fieldLayout?.AsObject(), portal.Output.Forms, portal.Blacklist, createFormTemplate, portal.ApiPrefixes);
+                Console.WriteLine();
+            }
 
-            Console.WriteLine("  Update Forms");
-            UpdateFormGenerator.Generate(paths, schemas, fieldLayout?.AsObject(), portal.Output.Forms, portal.Blacklist, updateFormTemplate, useFieldsTemplate, portal.ApiPrefixes);
-            Console.WriteLine();
+            if (Layer("forms", "updateforms"))
+            {
+                Console.WriteLine("  Update Forms");
+                UpdateFormGenerator.Generate(paths, schemas, fieldLayout?.AsObject(), portal.Output.Forms, portal.Blacklist, updateFormTemplate, useFieldsTemplate, portal.ApiPrefixes);
+                Console.WriteLine();
+            }
 
-            Console.WriteLine("  View Forms");
-            ViewFormGenerator.Generate(paths, schemas, fieldLayout?.AsObject(), portal.Output.Forms, portal.Blacklist, viewFormTemplate, useLayoutTemplate, portal.ApiPrefixes);
-            Console.WriteLine();
+            if (Layer("forms", "viewforms"))
+            {
+                Console.WriteLine("  View Forms");
+                ViewFormGenerator.Generate(paths, schemas, fieldLayout?.AsObject(), portal.Output.Forms, portal.Blacklist, viewFormTemplate, useLayoutTemplate, portal.ApiPrefixes);
+                Console.WriteLine();
+            }
 
-            Console.WriteLine("  Delete Forms");
-            DeleteFormGenerator.Generate(paths, schemas, portal.Output.Forms, portal.Blacklist, deleteFormTemplate, portal.ApiPrefixes);
-            Console.WriteLine();
+            if (Layer("forms", "deleteforms"))
+            {
+                Console.WriteLine("  Delete Forms");
+                DeleteFormGenerator.Generate(paths, schemas, portal.Output.Forms, portal.Blacklist, deleteFormTemplate, portal.ApiPrefixes);
+                Console.WriteLine();
+            }
 
-            Console.WriteLine("  Field Hooks");
-            UseFieldsGenerator.Generate(paths, schemas, fieldLayout?.AsObject(), portal.Output.Forms, portal.Blacklist, useFieldsTemplate, portal.ApiPrefixes);
-            Console.WriteLine();
+            if (Layer("forms", "fieldhooks"))
+            {
+                Console.WriteLine("  Field Hooks");
+                UseFieldsGenerator.Generate(paths, schemas, fieldLayout?.AsObject(), portal.Output.Forms, portal.Blacklist, useFieldsTemplate, portal.ApiPrefixes);
+                Console.WriteLine();
+            }
 
             Console.WriteLine($"  Completed generation:");
             Console.WriteLine($"    ✓ Services:       {portal.Output.Services}");

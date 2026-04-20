@@ -1,19 +1,11 @@
 =================================================================
-Code Generation Log - 2026-04-17 15:20:26
+Code Generation Log - 2026-04-20 12:20:22
 =================================================================
-
-=================================================================
-Shared
-=================================================================
-  Enums
-    ⚠ Skipping Settings.DBCodeGenWhitelist (no id/name columns)
-    ✓ enums.ts  (124 enums)
-    ✓ Enums: C:/DEV/PMIS/react-frontend-v2/component-library/src/types/enums.ts
 
 =================================================================
 Portal: management
 =================================================================
-Fetching swagger: https://api-management-dev.pmis.servicesseta.org.za/swagger/v1/swagger.json
+  Using cached swagger: input/swagger/management-swagger.json
 
   OpenAPI Version: 3.0.4
   Title:           Management API
@@ -156,7 +148,7 @@ Fetching swagger: https://api-management-dev.pmis.servicesseta.org.za/swagger/v1
 =================================================================
 Portal: partner
 =================================================================
-Fetching swagger: https://api-partner-dev.pmis.servicesseta.org.za/swagger/v1/swagger.json
+  Using cached swagger: input/swagger/partner-swagger.json
 
   OpenAPI Version: 3.0.4
   Title:           Partner API
@@ -268,6 +260,7 @@ Fetching swagger: https://api-partner-dev.pmis.servicesseta.org.za/swagger/v1/sw
 =================================================================
 Portal: learner
 =================================================================
-Fetching swagger: https://api-learner-dev.pmis.servicesseta.org.za/swagger/v1/swagger.json
+  Using cached swagger: input/swagger/learner-swagger.json
+
   Skipping portal and continuing (ensure api is running and endpoints are correctly configured)
 

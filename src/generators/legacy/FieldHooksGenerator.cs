@@ -95,8 +95,9 @@ namespace ReactCodegen.Legacy
                 }
             }
 
-            // Check if any field is an ID number field
+            // Check if any field is an ID number or phone field
             bool hasIdNumberField = false;
+            bool hasPhoneField = false;
             foreach (var fieldGroup in fieldGroups)
             {
                 foreach (var fieldConfig in fieldGroup.Fields)
@@ -108,15 +109,12 @@ namespace ReactCodegen.Legacy
                         if (propSchema != null)
                         {
                             string fieldType = GetFieldType(fieldName, propSchema);
-                            if (fieldType == "idnumber")
-                            {
-                                hasIdNumberField = true;
-                                break;
-                            }
+                            if (fieldType == "idnumber") hasIdNumberField = true;
+                            if (fieldType == "phone") hasPhoneField = true;
                         }
                     }
                 }
-                if (hasIdNumberField) break;
+                if (hasIdNumberField && hasPhoneField) break;
             }
 
             // Generate imports
@@ -177,6 +175,11 @@ namespace ReactCodegen.Legacy
             else
             {
                 sb.AppendLine("import { FieldErrors } from \"react-hook-form\"");
+            }
+
+            if (hasPhoneField)
+            {
+                sb.AppendLine("import { validatePhoneNumber } from \"@sseta/components\"");
             }
 
             sb.AppendLine();
@@ -366,7 +369,14 @@ namespace ReactCodegen.Legacy
                         }
 
                         sb.AppendLine("                validate: (value: any) => {");
-                        sb.AppendLine($"                    if (!value) return \"Please select {(Utilities.StartsWithVowel(heading) ? "an" : "a")} {heading}.\";");
+                        if (isRequired)
+                        {
+                            sb.AppendLine($"                    if (!value) return \"Please select {(Utilities.StartsWithVowel(heading) ? "an" : "a")} {heading}.\";");
+                        }
+                        else
+                        {
+                            sb.AppendLine("                    if (!value) return true;");
+                        }
 
                         if (isStartField)
                         {
@@ -450,7 +460,7 @@ namespace ReactCodegen.Legacy
                     }
 
                     // Add field-specific validation
-                    AddFieldValidation(sb, propSchema, fieldType);
+                    AddFieldValidation(sb, propSchema, fieldType, isRequired);
 
                     sb.AppendLine("            },");
                     sb.AppendLine("            errors,");
@@ -517,8 +527,9 @@ namespace ReactCodegen.Legacy
             if (!string.IsNullOrEmpty(description) && description.StartsWith("FieldType:Currency"))
                 return "currency";
 
-            // Mobile number fields are phone type
-            if (fieldName.ToLower().Contains("mobilenumber") || fieldName.ToLower().Contains("phone"))
+            // Mobile number / phone fields
+            string lowerFieldName = fieldName.ToLower();
+            if (lowerFieldName.Contains("mobilenumber") || lowerFieldName.Contains("phone"))
                 return "phone";
 
             // ID number fields (South African ID)
@@ -573,22 +584,32 @@ namespace ReactCodegen.Legacy
             };
         }
 
-        static void AddFieldValidation(StringBuilder sb, JsonObject propSchema, string fieldType)
+        static void AddFieldValidation(StringBuilder sb, JsonObject propSchema, string fieldType, bool isRequired)
         {
             // Add ID number validation
             if (fieldType == "idnumber")
             {
-                sb.AppendLine("                pattern: {");
-                sb.AppendLine("                    value: /^\\d{13}$/,");
-                sb.AppendLine("                    message: \"ID number must be exactly 13 digits.\",");
-                sb.AppendLine("                },");
                 sb.AppendLine("                validate: (value: string) => {");
+                if (!isRequired)
+                {
+                    sb.AppendLine("                    if (!value) return true;");
+                }
+                sb.AppendLine("                    if (!/^\\d{13}$/.test(value)) {");
+                sb.AppendLine("                        return \"ID number must be exactly 13 digits.\";");
+                sb.AppendLine("                    }");
                 sb.AppendLine("                    if (!validateSouthAfricanId(value)) {");
                 sb.AppendLine("                        return \"Please enter a valid South African ID number.\"");
                 sb.AppendLine("                    }");
                 sb.AppendLine("                    return true");
                 sb.AppendLine("                },");
-                return; // ID number has its own validation, skip other validations
+                return;
+            }
+
+            // Add phone number validation (utility already handles null/empty as optional)
+            if (fieldType == "phone")
+            {
+                sb.AppendLine("                validate: validatePhoneNumber,");
+                return;
             }
 
             // Add minLength/maxLength for strings

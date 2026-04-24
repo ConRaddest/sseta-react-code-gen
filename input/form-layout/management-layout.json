@@ -2291,6 +2291,50 @@
       ]
     }
   ],
+  "Portal.Object.View": [
+    {
+      "groupName": "Additional Fields",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "objectTypeId",
+          "columns": 2
+        },
+        {
+          "name": "dossierId",
+          "columns": 2
+        },
+        {
+          "name": "name",
+          "columns": 2
+        },
+        {
+          "name": "objectTypeName",
+          "columns": 2
+        },
+        {
+          "name": "primaryLabel",
+          "columns": 2
+        },
+        {
+          "name": "secondaryLabel",
+          "columns": 2
+        },
+        {
+          "name": "managementPortalUrl",
+          "columns": 2
+        },
+        {
+          "name": "partnerPortalUrl",
+          "columns": 2
+        },
+        {
+          "name": "learnerPortalUrl",
+          "columns": 2
+        }
+      ]
+    }
+  ],
   "Portal.StaffRoleRequest.Create": [
     {
       "groupName": "Request Details",

@@ -78,7 +78,7 @@
         "forms": "forms",
         "fieldsManifest": "../../code-gen/input/fields-manifest/management-fields.json"
       },
-      "blacklist": ["PORTAL.SystemUser.Update", "signinghub.document"]
+      "blacklist": ["PORTAL.SystemUser.Update", "signinghub.document", "PORTAL.document"]
     },
     {
       "name": "partner",
@@ -96,7 +96,7 @@
         "forms": "forms",
         "fieldsManifest": "../../code-gen/input/fields-manifest/partner-fields.json"
       },
-      "blacklist": ["PORTAL.SystemUser.Update", "signinghub.document"]
+      "blacklist": ["PORTAL.SystemUser.Update", "PORTAL.document"]
     },
     {
       "name": "learner",
@@ -113,7 +113,7 @@
         "forms": "forms",
         "fieldsManifest": "../../code-gen/input/fields-manifest/learner-fields.json"
       },
-      "blacklist": ["PORTAL.SystemUser.Update", "signinghub.document"]
+      "blacklist": ["PORTAL.SystemUser.Update", "signinghub.document", "PORTAL.document"]
     }
   ]
 }

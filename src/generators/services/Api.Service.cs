@@ -23,7 +23,7 @@ static class ApiServiceGenerator
     // e.g. GET /Auth/Profile → profile: { get: ... }  (not a flat profile: async () => ...)
     static readonly HashSet<string> AuthSubNamespaceSegments = ["Profile"];
 
-    public static void Generate(JsonObject paths, JsonObject? schemas, string templatePath, string outputPath, HashSet<string>? apiPrefixes = null)
+    public static void Generate(JsonObject paths, JsonObject? schemas, string templatePath, string outputPath, HashSet<string>? apiPrefixes = null, HashSet<string>? blacklist = null)
     {
         apiPrefixes ??= ["management"];
         // ---------------------------------------------------------------
@@ -85,6 +85,8 @@ static class ApiServiceGenerator
 
             string module = parts[2];
             string resource = parts[3];
+
+            if (blacklist != null && blacklist.Contains($"{module}.{resource}")) continue;
 
             if (!modules.ContainsKey(module))
                 modules[module] = new SortedDictionary<string, List<Endpoint>>(StringComparer.Ordinal);

@@ -18,9 +18,6 @@
     "modifiedBySystemUserName",
     "deletedBySystemUserName"
   ],
-  "B.FundingCap.Create": [
-    "amount"
-  ],
   "B.PartnerEmailChangeRequest.Update": [
     "rejectionReason"
   ],
@@ -399,6 +396,15 @@
     "createdBySystemUserName",
     "modifiedBySystemUserName",
     "deletedBySystemUserName"
+  ],
+  "Portal.Object.View": [
+    "name",
+    "objectTypeName",
+    "primaryLabel",
+    "secondaryLabel",
+    "managementPortalUrl",
+    "partnerPortalUrl",
+    "learnerPortalUrl"
   ],
   "Portal.StaffRoleRequest.Create": [
     "requestReason",

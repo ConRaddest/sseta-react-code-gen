@@ -339,7 +339,7 @@ namespace ReactCodegen
             if (Layer("services"))
             {
                 Console.WriteLine("  Services");
-                ApiServiceGenerator.Generate(paths, schemas, serviceTemplatePath, Path.Combine(portal.Output.Services, "api.service.ts"), portal.ApiPrefixes);
+                ApiServiceGenerator.Generate(paths, schemas, serviceTemplatePath, Path.Combine(portal.Output.Services, "api.service.ts"), portal.ApiPrefixes, portal.Blacklist);
                 Console.WriteLine();
             }
 

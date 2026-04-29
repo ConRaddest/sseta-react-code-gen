@@ -1,5 +1,5 @@
 =================================================================
-Code Generation Log - 2026-04-24 15:03:49
+Code Generation Log - 2026-04-29 12:56:09
 =================================================================
 
 =================================================================
@@ -38,8 +38,6 @@ Fetching swagger: https://api-management-dev.pmis.servicesseta.org.za/swagger/v1
   Contexts
     ✓ ADMIN/Role
     ✓ ADMIN/StaffRoleRequest
-    ✓ B/Intervention
-    ✓ B/Organisation
     ✓ B/PartnerEmailChangeRequest
     ✓ B/PartnerRoleRequest
     ✓ B/PartnerRoleRequestOrganisationPerson
@@ -47,7 +45,6 @@ Fetching swagger: https://api-management-dev.pmis.servicesseta.org.za/swagger/v1
     ✓ ECD/Country
     ✓ ECD/ETQE
     ✓ ECD/EmployerApprovalStatus
-    ✓ ECD/Intervention
     ✓ ECD/Organisation
     ✓ ECD/OrganisationEmployer
     ✓ ECD/OrganisationPerson
@@ -72,7 +69,7 @@ Fetching swagger: https://api-management-dev.pmis.servicesseta.org.za/swagger/v1
     ✓ PORTAL/StaffRoleRequest
     ✓ SP/Role
     ✓ SPI/Role
-    36 context(s) generated.
+    33 context(s) generated.
 
   Create Forms
     ✓ ECD/Organisation
@@ -190,8 +187,7 @@ Fetching swagger: https://api-partner-dev.pmis.servicesseta.org.za/swagger/v1/sw
     ✓ B/Title
     ✓ ECD/PersonType
     ✓ PORTAL/PartnerEmailChangeRequest
-    ✓ signinghub/document
-    23 context(s) generated.
+    22 context(s) generated.
 
   Create Forms
     ✓ PORTAL/PartnerEmailChangeRequest

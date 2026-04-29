@@ -90,6 +90,8 @@ static class ContextGenerator
         {
             foreach (var (resource, ops) in resources)
             {
+                if (!NeedsContext(ops)) continue;
+
                 string output = ApplyTemplate(RenderContext(module, resource, ops), templatePath);
 
                 string dir = Path.Combine(contextsOutputDir, "resources", module.ToLower());
@@ -447,6 +449,14 @@ static class ContextGenerator
         templatePath != null && File.Exists(templatePath)
             ? File.ReadAllText(templatePath).Replace("// [[CONTENT]]", content)
             : content;
+
+    // Contexts are only generated for resources that expose actions the frontend uses through
+    // a shared resource hook/state layer.
+    static bool NeedsContext(ResourceOps ops) =>
+        ops.Search != null ||
+        ops.Create != null ||
+        ops.Update != null ||
+        ops.Retrieve != null;
 
     // The search response type from swagger is the wrapper row type, e.g. AccessStaffRoleRequestSearchResponse.
     // It is already correctly named by FormatTypeName.

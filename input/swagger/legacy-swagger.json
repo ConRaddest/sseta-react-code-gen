@@ -20543,10 +20543,10 @@
         }
       }
     },
-    "/api/settings/NotificationTemplate/{id}": {
+    "/api/settings/Template/{id}": {
       "get": {
         "tags": [
-          "NotificationTemplate"
+          "Template"
         ],
         "parameters": [
           {
@@ -20593,10 +20593,10 @@
         }
       }
     },
-    "/api/settings/NotificationTemplate/Search": {
+    "/api/settings/Template/Search": {
       "post": {
         "tags": [
-          "NotificationTemplate"
+          "Template"
         ],
         "requestBody": {
           "content": {
@@ -69997,7 +69997,7 @@
           },
           "notificationTemplateId": {
             "type": "integer",
-            "description": "ParentTable:NotificationTemplate",
+            "description": "ParentTable:Template",
             "format": "int64",
             "nullable": true
           },
@@ -70081,7 +70081,7 @@
           },
           "notificationTemplateId": {
             "type": "integer",
-            "description": "ParentTable:NotificationTemplate",
+            "description": "ParentTable:Template",
             "format": "int64",
             "nullable": true
           },
@@ -70252,7 +70252,7 @@
           },
           "notificationTemplateId": {
             "type": "integer",
-            "description": "ParentTable:NotificationTemplate",
+            "description": "ParentTable:Template",
             "format": "int64",
             "nullable": true
           },
@@ -70606,7 +70606,7 @@
           },
           "notificationTemplateId": {
             "type": "integer",
-            "description": "ParentTable:NotificationTemplate",
+            "description": "ParentTable:Template",
             "format": "int64",
             "nullable": true
           },

@@ -90,16 +90,9 @@ namespace ReactCodegen
                 StringComparer.OrdinalIgnoreCase
             );
 
-            string dbConnectionString = inputs["database"]?["connectionString"]?.GetValue<string>() ?? throw new Exception("Missing inputs.database.connectionString in config.");
-            const string secretsPath = "input/codegen.secrets.json";
-            if (File.Exists(secretsPath))
-            {
-                var secrets = JsonNode.Parse(File.ReadAllText(secretsPath))?["database"];
-                var userId   = secrets?["userId"]?.GetValue<string>();
-                var password = secrets?["password"]?.GetValue<string>();
-                if (userId   != null) dbConnectionString += $";User Id={userId}";
-                if (password != null) dbConnectionString += $";Password={password}";
-            }
+            string settingsJsonPath = inputs["settingsJsonPath"]?.GetValue<string>()
+                ?? "/home/cdt/DEV/pmis/sql-server-db/Settings.json";
+
             var t = inputs["templates"] ?? throw new Exception("Missing inputs.templates in config.");
             string T(string key) => t[key]?.GetValue<string>() ?? throw new Exception($"Missing inputs.templates.{key} in config.");
 
@@ -187,7 +180,7 @@ namespace ReactCodegen
                     Console.WriteLine($"Shared");
                     Console.WriteLine($"=================================================================");
                     Console.WriteLine("  Enums");
-                    await EnumGenerator.Generate(dbConnectionString, enumTemplatePath, enumsOutputPath);
+                    await EnumGenerator.Generate(settingsJsonPath, enumTemplatePath, enumsOutputPath);
                     Console.WriteLine($"    ✓ Enums: {enumsOutputPath}");
                     Console.WriteLine();
                 }

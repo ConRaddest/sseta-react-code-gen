@@ -196,7 +196,7 @@ namespace ReactCodegen.Legacy
             sb.AppendLine("import { ActionConfig, TableColumn, FilterColumn } from \"@/components/legacy/DataTable/DataTable\"");
             sb.AppendLine($"import {{ delete{resourceName}, search{resourceName} }} from \"@/services/legacy/core/{resourceName}Service\"");
             sb.AppendLine("import { getIcon } from \"@/utils/legacy/icons\"");
-            sb.AppendLine("import { TableObject } from \"@sseta/components\"");
+            sb.AppendLine("import { Object } from \"@sseta/components\"");
 
             // Add service imports for unique foreign key relationships only if there are foreign keys
             if (uniqueRelatedResources.Count > 0)
@@ -502,7 +502,7 @@ namespace ReactCodegen.Legacy
             sb.AppendLine("      {/* View Drawer */}");
             sb.AppendLine($"      <Drawer isOpen={{drawer[\"view\"]}} onClose={{closeDrawer}} size=\"lg\" title=\"View {Utilities.GetFieldHeading(resourceName)}\">");
             var tableObjectKey = Utilities.NormalizeEnumKey(resourceName);
-            sb.AppendLine($"        <View{resourceName} {lowerResource}Id={{drawer[\"view\"]}} tabsConfig={{{{ objectId: TableObject.{tableObjectKey} }}}} />");
+            sb.AppendLine($"        <View{resourceName} {lowerResource}Id={{drawer[\"view\"]}} tabsConfig={{{{ objectId: Object.{tableObjectKey} }}}} />");
             sb.AppendLine("      </Drawer>");
             sb.AppendLine();
 

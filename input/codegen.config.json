@@ -1,5 +1,6 @@
 {
   "inputs": {
+    "settingsJsonPath": "/home/cdt/DEV/pmis/sql-server-db/Settings.json",
     "modules": ["ADMIN", "PORTAL", "PMVR", "SPI", "ECD", "SP", "B"],
     "keepNameSuffix": [
       "trading",
@@ -60,7 +61,7 @@
   },
   "outputs": {
     "log": "src/_output/codegen-log.txt",
-    "enums": "C:/DEV/PMIS/react-frontend-v2/component-library/src/types/enums.ts"
+    "enums": "/home/cdt/DEV/pmis/component-library/src/types/enums.ts"
   },
   "portals": [
     {

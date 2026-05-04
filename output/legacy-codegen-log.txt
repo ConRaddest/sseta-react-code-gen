@@ -174,7 +174,7 @@ Portal: C:/DEV/PMIS/react-frontend-v2/management-portal/src
     ✓ Nationality
     ✓ NonNQFInterventionStatus
     ✓ Notification
-    ✓ NotificationTemplate
+    ✓ Template
     ✓ NotificationType
     ✓ NQFLevel
     ✓ NQFSubFramework
@@ -358,7 +358,7 @@ Portal: C:/DEV/PMIS/react-frontend-v2/partner-portal/src
     ✓ Nationality
     ✓ NonNQFInterventionStatus
     ✓ Notification
-    ✓ NotificationTemplate
+    ✓ Template
     ✓ NotificationType
     ✓ NQFLevel
     ✓ NQFSubFramework
@@ -542,7 +542,7 @@ Portal: C:/DEV/PMIS/react-frontend-v2/learner-portal/src
     ✓ Nationality
     ✓ NonNQFInterventionStatus
     ✓ Notification
-    ✓ NotificationTemplate
+    ✓ Template
     ✓ NotificationType
     ✓ NQFLevel
     ✓ NQFSubFramework

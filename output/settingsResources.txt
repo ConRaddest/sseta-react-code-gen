@@ -62,7 +62,7 @@ MunicipalityDistrict
 MunicipalityLocal
 Nationality
 NonNQFInterventionStatus
-NotificationTemplate
+Template
 NotificationType
 NQFLevel
 NQFSubFramework

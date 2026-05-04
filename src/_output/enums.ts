@@ -879,7 +879,7 @@ export enum NonNQFInterventionStatus {
   Provisional = 3,
 }
 
-export enum NotificationTemplate {
+export enum Template {
   BursaryApplicationSuccess = 1,
 }
 
@@ -910,7 +910,7 @@ export enum NQFSubFramework {
   Heqsf = 5,
 }
 
-export enum TableObject {
+export enum Object {
   SystemUser = 1,
   SystemUserRole = 2,
   EmailQueue = 3,
@@ -1021,7 +1021,7 @@ export enum TableObject {
   FeasibilityType = 121,
   InterventionOrganisation = 122,
   Notification = 123,
-  NotificationTemplate = 124,
+  Template = 124,
   NotificationType = 125,
   OrganisationPerson = 126,
   RecommendationType = 127,
@@ -1141,7 +1141,7 @@ export enum TableObject {
   SchoolStatus = 255,
 }
 
-export enum ReportObject {
+export enum Object {
   SpBursaryFullBursaries = 147,
   SpECDFullUILayoutExample = 171,
   SpBursaryFullAccreditedInterventions = 172,
@@ -1729,7 +1729,7 @@ export enum SystemUserType {
   Staff = 3,
 }
 
-export enum EmailTemplate {
+export enum Template {
   EmailResetPassword = 1,
   EmailLoginMFA = 2,
   BursaryParticipationInvite = 5,
@@ -1743,12 +1743,12 @@ export enum EmailTemplate {
   BursaryApplicantBursaryContractSignatureRequired = 17,
 }
 
-export enum SMSTemplate {
+export enum Template {
   SMSResetPassword = 3,
   SMSLoginMFA = 4,
 }
 
-export enum DocumentTemplate {
+export enum Template {
   InstitutionContract = 7,
   BursaryContract = 8,
 }

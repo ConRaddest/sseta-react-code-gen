@@ -1,23 +1,20 @@
 using System.Text;
-using Microsoft.Data.SqlClient;
+using System.Text.Json.Nodes;
 
 namespace ReactCodegen;
 
-// Connects to the PMVR SQL database, reads every table in the [Settings] schema,
-// and emits a TypeScript enum file with one enum per table.
+// Reads the exported Settings.json file and emits a TypeScript enum file
+// with one enum per settings collection.
 //
-// Assumes each Settings table has at least two columns:
-//   - An integer Id column  (first int column whose name ends with "Id")
-//   - A string Name column
-//
-// Split-by-type detection:
-//   If a table has a column named {TableName}TypeId (e.g. ObjectTypeId on Object),
-//   AND a corresponding Settings.{TableName}Type lookup table exists,
-//   the table is split into one enum per type value instead of one flat enum.
-//   e.g. Settings.Object with ObjectTypeId → TableObject, ReportObject, FormObject
+// Expected Settings.json shape:
+// {
+//   "SettingName": [
+//     { "Id": "1", "Name": "Example", "Description": "Optional" }
+//   ]
+// }
 //
 // Duplicate key resolution (applied per enum):
-//   1. Same normalised key from different names → append Description column value
+//   1. Same normalised key from different names → append Description value
 //   2. Still duplicated after step 1 → append _{id} to every occurrence
 //
 // Output format:
@@ -27,87 +24,34 @@ namespace ReactCodegen;
 //   }
 static class EnumGenerator
 {
-    public static async Task Generate(string connectionString, string templatePath, string outputPath)
+    const string Template = "Template";
+
+    public static Task Generate(string settingsJsonPath, string templatePath, string outputPath)
     {
-        // ---------------------------------------------------------------
-        // 1. Discover all tables in the Settings schema
-        // ---------------------------------------------------------------
-        var tableNames = new List<string>();
+        if (!File.Exists(settingsJsonPath))
+            throw new FileNotFoundException($"Settings JSON file not found: {settingsJsonPath}", settingsJsonPath);
 
-        await using (var conn = new SqlConnection(connectionString))
-        {
-            await conn.OpenAsync();
+        var settingsNode = JsonNode.Parse(File.ReadAllText(settingsJsonPath))?.AsObject()
+            ?? throw new Exception($"Failed to parse settings JSON file: {settingsJsonPath}");
 
-            const string tableQuery = """
-                SELECT TABLE_NAME
-                FROM   INFORMATION_SCHEMA.TABLES
-                WHERE  TABLE_SCHEMA = 'Settings'
-                  AND  TABLE_TYPE   = 'BASE TABLE'
-                ORDER BY TABLE_NAME
-                """;
-
-            await using var cmd = new SqlCommand(tableQuery, conn);
-            await using var reader = await cmd.ExecuteReaderAsync();
-            while (await reader.ReadAsync())
-                tableNames.Add(reader.GetString(0));
-        }
-
-        if (tableNames.Count == 0)
-        {
-            Console.WriteLine("    ⚠ No tables found in Settings schema.");
-            return;
-        }
-
-        var tableSet = new HashSet<string>(tableNames, StringComparer.OrdinalIgnoreCase);
-
-        // ---------------------------------------------------------------
-        // 2. For each table, render one or more enums
-        // ---------------------------------------------------------------
         var sb = new StringBuilder();
         int enumCount = 0;
 
-        await using (var conn = new SqlConnection(connectionString))
+        foreach (var (table, value) in settingsNode.OrderBy(x => x.Key, StringComparer.OrdinalIgnoreCase))
         {
-            await conn.OpenAsync();
-
-            foreach (var table in tableNames)
+            if (value is not JsonArray rowsArray)
             {
-                // Check if this table has a {TableName}TypeId split column and a matching type table
-                string typeColName = $"{table}TypeId";
-                string typeTableName = $"{table}Type";
-                bool hasSplitCol = await ColumnExists(conn, table, typeColName);
-                bool hasTypeTable = tableSet.Contains(typeTableName);
-
-                if (hasSplitCol && hasTypeTable)
-                {
-                    // Emit one enum per type value
-                    var typeMap = await ReadIdNameMap(conn, typeTableName);
-
-                    foreach (var (typeId, typeName) in typeMap.OrderBy(t => t.Key))
-                    {
-                        string enumName = $"{typeName}{table}";
-                        var rows = await ReadEnumRows(conn, table, typeColName, typeId);
-                        if (rows.Count == 0) continue;
-
-                        AppendEnum(sb, enumName, rows);
-                        enumCount++;
-                    }
-                }
-                else
-                {
-                    // Standard flat enum
-                    var rows = await ReadEnumRows(conn, table, splitCol: null, splitId: -1);
-                    if (rows.Count == 0) continue;
-
-                    AppendEnum(sb, table, rows);
-                    enumCount++;
-                }
+                Console.WriteLine($"    ⚠ Skipping {table} (expected an array)");
+                continue;
             }
+
+            var rows = ReadEnumRows(table, rowsArray);
+            if (rows.Count == 0) continue;
+
+            AppendEnum(sb, table, rows);
+            enumCount++;
         }
 
-        // ---------------------------------------------------------------
-        // 3. Write output
-        // ---------------------------------------------------------------
         string template = File.ReadAllText(templatePath);
         string output = template.Replace("// [[ENUMS]]", sb.ToString().TrimEnd());
 
@@ -115,6 +59,7 @@ static class EnumGenerator
         File.WriteAllText(outputPath, output);
 
         Console.WriteLine($"    ✓ {Path.GetFileName(outputPath)}  ({enumCount} enums)");
+        return Task.CompletedTask;
     }
 
     // ---------------------------------------------------------------
@@ -134,107 +79,38 @@ static class EnumGenerator
     // Row reading
     // ---------------------------------------------------------------
 
-    // Reads a simple Id → Name lookup table into a dictionary.
-    static async Task<Dictionary<int, string>> ReadIdNameMap(SqlConnection conn, string table)
-    {
-        var map = new Dictionary<int, string>();
-        string sql = $"SELECT * FROM [Settings].[{table}] ORDER BY 1";
-
-        await using var cmd = new SqlCommand(sql, conn);
-        await using var reader = await cmd.ExecuteReaderAsync();
-
-        int idCol = -1, nameCol = -1;
-        for (int i = 0; i < reader.FieldCount; i++)
-        {
-            string colName = reader.GetName(i);
-            string colType = reader.GetFieldType(i).Name;
-            if (idCol == -1 && colName.EndsWith("Id", StringComparison.OrdinalIgnoreCase)
-                            && IsIntType(colType)) idCol = i;
-            if (nameCol == -1 && colName.Equals("Name", StringComparison.OrdinalIgnoreCase)) nameCol = i;
-        }
-
-        if (idCol == -1 || nameCol == -1) return map;
-
-        while (await reader.ReadAsync())
-        {
-            if (reader.IsDBNull(idCol) || reader.IsDBNull(nameCol)) continue;
-            int id = Convert.ToInt32(reader.GetValue(idCol));
-            string name = Formatters.NormalizeEnumKey(reader.GetString(nameCol));
-            map[id] = name;
-        }
-
-        return map;
-    }
-
-    // Reads enum rows from a table, optionally filtered to a specific splitCol value.
-    // Applies duplicate-key resolution before returning.
-    static async Task<List<(string Key, int Id)>> ReadEnumRows(
-        SqlConnection conn,
-        string table,
-        string? splitCol,
-        int splitId)
+    static List<(string Key, int Id)> ReadEnumRows(string table, JsonArray rowsArray)
     {
         var rows = new List<(string Key, int Id)>();
+        var raw = new List<(string Name, string? Description, int Id)>();
 
-        string whereClause = splitCol != null ? $" WHERE [{splitCol}] = {splitId}" : "";
-        string sql = $"SELECT * FROM [Settings].[{table}]{whereClause} ORDER BY 1";
-
-        await using var cmd = new SqlCommand(sql, conn);
-        await using var reader = await cmd.ExecuteReaderAsync();
-
-        int idCol = -1, idColFallback = -1, nameCol = -1, descCol = -1;
-        string preferredIdCol = $"{table}Id";
-
-        for (int i = 0; i < reader.FieldCount; i++)
+        foreach (var rowNode in rowsArray)
         {
-            string colName = reader.GetName(i);
-            string colType = reader.GetFieldType(i).Name;
+            if (rowNode is not JsonObject row) continue;
 
-            if (IsIntType(colType))
-            {
-                if (colName.Equals(preferredIdCol, StringComparison.OrdinalIgnoreCase)
-                    || colName.Equals("Id", StringComparison.OrdinalIgnoreCase))
-                    idCol = i;
-                else if (idColFallback == -1 && colName.EndsWith("Id", StringComparison.OrdinalIgnoreCase))
-                    idColFallback = i;
-            }
+            int? id = ReadInt(row, "Id") ?? ReadInt(row, $"{table}Id");
+            string? name = RemapEnumName(ReadString(row, "Name"));
+            string? description = ReadString(row, "Description");
 
-            if (nameCol == -1 && colName.Equals("Name", StringComparison.OrdinalIgnoreCase))
-                nameCol = i;
+            if (id == null || string.IsNullOrWhiteSpace(name)) continue;
 
-            if (descCol == -1 && colName.Equals("Description", StringComparison.OrdinalIgnoreCase))
-                descCol = i;
+            raw.Add((name, description, id.Value));
         }
 
-        if (idCol == -1) idCol = idColFallback;
-
-        if (idCol == -1 || nameCol == -1)
+        if (raw.Count == 0)
         {
-            Console.WriteLine($"    ⚠ Skipping Settings.{table} (no id/name columns)");
+            Console.WriteLine($"    ⚠ Skipping {table} (no id/name rows)");
             return rows;
         }
 
-        // Collect raw rows
-        var raw = new List<(string Name, string? Description, int Id)>();
-        while (await reader.ReadAsync())
-        {
-            if (reader.IsDBNull(idCol) || reader.IsDBNull(nameCol)) continue;
-
-            int id = Convert.ToInt32(reader.GetValue(idCol));
-            string name = reader.GetString(nameCol);
-            string? description = (descCol != -1 && !reader.IsDBNull(descCol))
-                ? reader.GetString(descCol)
-                : null;
-
-            raw.Add((name, description, id));
-        }
+        raw = raw.OrderBy(r => r.Id).ToList();
 
         // Pass 1: keys from Name only
         var keys = raw.Select(r => Formatters.NormalizeEnumKey(r.Name, r.Id.ToString())).ToList();
 
         // Pass 2: duplicates → append Description
         var duplicates = DuplicateSet(keys);
-        if (duplicates.Count > 0 && descCol != -1)
+        if (duplicates.Count > 0)
         {
             for (int i = 0; i < raw.Count; i++)
             {
@@ -245,13 +121,13 @@ static class EnumGenerator
             }
         }
 
-        // Pass 3: still duplicated → append _{id} on every occurrence
-        var stillDuplicate = DuplicateSet(keys);
+        // Pass 3: still duplicated → keep the first occurrence and append _{id} to later occurrences
+        var seen = new HashSet<string>(StringComparer.Ordinal);
         for (int i = 0; i < raw.Count; i++)
         {
-            string key = stillDuplicate.Contains(keys[i])
-                ? $"{keys[i]}_{raw[i].Id}"
-                : keys[i];
+            string key = seen.Add(keys[i])
+                ? keys[i]
+                : $"{keys[i]}_{raw[i].Id}";
             rows.Add((key, raw[i].Id));
         }
 
@@ -262,20 +138,36 @@ static class EnumGenerator
     // Helpers
     // ---------------------------------------------------------------
 
-    static async Task<bool> ColumnExists(SqlConnection conn, string table, string column)
+    static readonly HashSet<string> TemplateAliases = new(StringComparer.OrdinalIgnoreCase)
     {
-        const string sql = """
-            SELECT COUNT(1)
-            FROM   INFORMATION_SCHEMA.COLUMNS
-            WHERE  TABLE_SCHEMA  = 'Settings'
-              AND  TABLE_NAME    = @table
-              AND  COLUMN_NAME   = @column
-            """;
+        $"Email{nameof(Template)}",
+        $"SMS{nameof(Template)}",
+        $"Notification{nameof(Template)}",
+        $"Document{nameof(Template)}",
+    };
 
-        await using var cmd = new SqlCommand(sql, conn);
-        cmd.Parameters.AddWithValue("@table", table);
-        cmd.Parameters.AddWithValue("@column", column);
-        return Convert.ToInt32(await cmd.ExecuteScalarAsync()) > 0;
+    static string? RemapEnumName(string? name) =>
+        name != null && TemplateAliases.Contains(name) ? nameof(Template) : name;
+
+    static string? ReadString(JsonObject row, string propertyName)
+    {
+        var property = row.FirstOrDefault(p => p.Key.Equals(propertyName, StringComparison.OrdinalIgnoreCase));
+        if (property.Value == null) return null;
+
+        try
+        {
+            return property.Value.GetValue<string>();
+        }
+        catch
+        {
+            return property.Value.ToString();
+        }
+    }
+
+    static int? ReadInt(JsonObject row, string propertyName)
+    {
+        string? value = ReadString(row, propertyName);
+        return int.TryParse(value, out int parsed) ? parsed : null;
     }
 
     static HashSet<string> DuplicateSet(List<string> keys) =>
@@ -283,7 +175,4 @@ static class EnumGenerator
             .Where(g => g.Count() > 1)
             .Select(g => g.Key)
             .ToHashSet(StringComparer.Ordinal);
-
-    static bool IsIntType(string typeName) =>
-        typeName is "Int32" or "Int16" or "Int64";
 }

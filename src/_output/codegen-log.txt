@@ -1,58 +1,21 @@
 =================================================================
-Code Generation Log - 2026-05-04 13:12:30
+Code Generation Log - 2026-05-04 13:44:53
 =================================================================
-
-=================================================================
-Shared
-=================================================================
-  Enums
-    ✓ enums.ts  (120 enums)
-    ✓ Enums: /home/cdt/DEV/pmis/component-library/src/types/enums.ts
 
 =================================================================
 Portal: management
 =================================================================
-Fetching swagger: https://api-management-dev.pmis.servicesseta.org.za/swagger/v1/swagger.json
+  Using cached swagger: input/swagger/management-swagger.json
 
   OpenAPI Version: 3.0.4
   Title:           Management API
   Version:         1.0
 
-  Form Layout Seed
-    layout up-to-date, nothing to seed
-
-  Fields Manifest
-    ⚠ Skipping Event.requesterEventSourceId (no search endpoint)
-    ⚠ Skipping Event.responderEventSourceId (no search endpoint)
-    ⚠ Skipping Event.requesterEventSourceId (no search endpoint)
-    ⚠ Skipping Event.responderEventSourceId (no search endpoint)
-    ⚠ Skipping Event.requesterEventSourceId (no search endpoint)
-    ⚠ Skipping Event.responderEventSourceId (no search endpoint)
-    ⚠ Skipping Event.requesterEventSourceId (no search endpoint)
-    ⚠ Skipping Event.responderEventSourceId (no search endpoint)
-    ⚠ Skipping Intervention.departmentTypeId (no search endpoint)
-    ⚠ Skipping Intervention.departmentTypeId (no search endpoint)
-    ⚠ Skipping Intervention.departmentTypeId (no search endpoint)
-    ⚠ Skipping Intervention.departmentTypeId (no search endpoint)
-    ⚠ Skipping PartnerRoleRequest.organisationId (no search endpoint)
-    ⚠ Skipping PartnerRoleRequest.organisationId (no search endpoint)
-    ⚠ Skipping Person.alternateIdentityTypeId (no search endpoint)
-    ⚠ Skipping Person.alternateIdentityTypeId (no search endpoint)
-    ⚠ Skipping Person.alternateIdentityTypeId (no search endpoint)
-    ⚠ Skipping Person.alternateIdentityTypeId (no search endpoint)
-    ⚠ Skipping PersonOrganisationPersonType.organisationPersonId (no search endpoint)
-    ⚠ Skipping PersonOrganisationPersonType.organisationPersonId (no search endpoint)
-    35 resource(s) written to management-fields.json
-
-  Services
-    ✓ api.service.ts  (123 endpoints across 7 modules)
-
-  Types
-    ✓ api.types.ts
-
   Contexts
     ✓ ADMIN/Role
     ✓ ADMIN/StaffRoleRequest
+    ✓ B/Intervention
+    ✓ B/Organisation
     ✓ B/PartnerEmailChangeRequest
     ✓ B/PartnerRoleRequest
     ✓ B/PartnerRoleRequestOrganisationPerson
@@ -109,108 +72,7 @@ Fetching swagger: https://api-management-dev.pmis.servicesseta.org.za/swagger/v1
     ✓ PORTAL/StaffRoleRequest
     ✓ SP/Role
     ✓ SPI/Role
-    58 context(s) generated.
-
-  Create Forms
-    ⚠ Skipping Event.requesterEventSourceId (no search endpoint)
-    ⚠ Skipping Event.responderEventSourceId (no search endpoint)
-    ⚠ Skipping Event.requesterEventSourceId (no search endpoint)
-    ⚠ Skipping Event.responderEventSourceId (no search endpoint)
-    ✓ ECD/Event
-    ✓ ECD/EventVenue
-    ⚠ Skipping Intervention.departmentTypeId (no search endpoint)
-    ⚠ Skipping Intervention.departmentTypeId (no search endpoint)
-    ✓ ECD/Intervention
-    ✓ ECD/InterventionOrganisation
-    ✓ ECD/Organisation
-    ✓ ECD/OrganisationEmployer
-    ✓ ECD/OrganisationPerson
-    ✓ ECD/OrganisationProvider
-    ⚠ Skipping Person.alternateIdentityTypeId (no search endpoint)
-    ⚠ Skipping Person.alternateIdentityTypeId (no search endpoint)
-    ✓ ECD/Person
-    ⚠ Skipping PersonOrganisationPersonType.organisationPersonId (no search endpoint)
-    ⚠ Skipping PersonOrganisationPersonType.organisationPersonId (no search endpoint)
-    ✓ ECD/PersonOrganisationPersonType
-    ✓ PORTAL/StaffRoleRequest
-    11 create form(s) generated.
-
-  Update Forms
-    ⚠ Skipping Event.requesterEventSourceId (no search endpoint)
-    ⚠ Skipping Event.responderEventSourceId (no search endpoint)
-    ⚠ Skipping Event.requesterEventSourceId (no search endpoint)
-    ⚠ Skipping Event.responderEventSourceId (no search endpoint)
-    ✓ ECD/Event
-    ✓ ECD/EventVenue
-    ⚠ Skipping Intervention.departmentTypeId (no search endpoint)
-    ⚠ Skipping Intervention.departmentTypeId (no search endpoint)
-    ✓ ECD/Intervention
-    ✓ ECD/Organisation
-    ✓ ECD/OrganisationEmployer
-    ✓ ECD/OrganisationProvider
-    ✓ B/PartnerEmailChangeRequest
-    ⚠ Skipping PartnerRoleRequest.organisationId (no search endpoint)
-    ⚠ Skipping PartnerRoleRequest.organisationId (no search endpoint)
-    ✓ B/PartnerRoleRequest
-    ⚠ Skipping Person.alternateIdentityTypeId (no search endpoint)
-    ⚠ Skipping Person.alternateIdentityTypeId (no search endpoint)
-    ✓ ECD/Person
-    ✓ ADMIN/StaffRoleRequest
-    10 update form(s) generated.
-
-  View Forms
-    ✓ ECD/Event
-    ✓ ECD/EventVenue
-    ✓ ECD/Intervention
-    ✓ PORTAL/Object
-    ✓ ECD/Organisation
-    ✓ ECD/OrganisationEmployer
-    ✓ ECD/OrganisationPerson
-    ✓ ECD/OrganisationProvider
-    ✓ B/PartnerEmailChangeRequest
-    ✓ B/PartnerRoleRequest
-    ✓ B/PartnerRoleRequestOrganisationPerson
-    ✓ ECD/Person
-    ✓ ECD/PersonOrganisationPersonType
-    ✓ ADMIN/StaffRoleRequest
-    14 view form(s) generated.
-
-  Delete Forms
-    ⚠ Skipping: ECD/InterventionOrganisation delete form — no view/retrieve endpoint found.
-    ✓ ECD/Event
-    ✓ ECD/EventVenue
-    ✓ ECD/Intervention
-    ✓ ECD/Organisation
-    ✓ ECD/OrganisationEmployer
-    ✓ ECD/OrganisationPerson
-    ✓ ECD/OrganisationProvider
-    ✓ ECD/Person
-    ✓ ECD/PersonOrganisationPersonType
-    9 delete form(s) generated.
-
-  Field Hooks
-    ⚠ Skipping Event.requesterEventSourceId (no search endpoint)
-    ⚠ Skipping Event.responderEventSourceId (no search endpoint)
-    ⚠ Skipping Event.requesterEventSourceId (no search endpoint)
-    ⚠ Skipping Event.responderEventSourceId (no search endpoint)
-    ✓ ECD/Event
-    ✓ ECD/EventVenue
-    ⚠ Skipping Intervention.departmentTypeId (no search endpoint)
-    ⚠ Skipping Intervention.departmentTypeId (no search endpoint)
-    ✓ ECD/Intervention
-    ✓ ECD/InterventionOrganisation
-    ✓ ECD/Organisation
-    ✓ ECD/OrganisationEmployer
-    ✓ ECD/OrganisationPerson
-    ✓ ECD/OrganisationProvider
-    ⚠ Skipping Person.alternateIdentityTypeId (no search endpoint)
-    ⚠ Skipping Person.alternateIdentityTypeId (no search endpoint)
-    ✓ ECD/Person
-    ⚠ Skipping PersonOrganisationPersonType.organisationPersonId (no search endpoint)
-    ⚠ Skipping PersonOrganisationPersonType.organisationPersonId (no search endpoint)
-    ✓ ECD/PersonOrganisationPersonType
-    ✓ PORTAL/StaffRoleRequest
-    11 field hook(s) generated.
+    60 context(s) generated.
 
   Completed generation:
     ✓ Services:       /home/cdt/DEV/pmis/management-portal/src/services
@@ -218,171 +80,4 @@ Fetching swagger: https://api-management-dev.pmis.servicesseta.org.za/swagger/v1
     ✓ Contexts:       /home/cdt/DEV/pmis/management-portal/src/contexts
     ✓ Forms:          /home/cdt/DEV/pmis/management-portal/src/forms
     ✓ Fields Manifest: /home/cdt/DEV/pmis/management-portal/src/../../code-gen/input/fields-manifest/management-fields.json
-
-=================================================================
-Portal: partner
-=================================================================
-Fetching swagger: https://api-partner-dev.pmis.servicesseta.org.za/swagger/v1/swagger.json
-
-  OpenAPI Version: 3.0.4
-  Title:           Partner API
-  Version:         1.0
-
-  Form Layout Seed
-    layout up-to-date, nothing to seed
-
-  Fields Manifest
-    ⚠ Skipping Event.interventionOrganisationId (no search endpoint)
-    ⚠ Skipping Event.requesterEventSourceId (no search endpoint)
-    ⚠ Skipping Event.responderEventSourceId (no search endpoint)
-    ⚠ Skipping Event.interventionOrganisationId (no search endpoint)
-    ⚠ Skipping Event.requesterEventSourceId (no search endpoint)
-    ⚠ Skipping Event.responderEventSourceId (no search endpoint)
-    ⚠ Skipping Event.interventionOrganisationId (no search endpoint)
-    ⚠ Skipping Event.requesterEventSourceId (no search endpoint)
-    ⚠ Skipping Event.responderEventSourceId (no search endpoint)
-    ⚠ Skipping Event.interventionOrganisationId (no search endpoint)
-    ⚠ Skipping Event.requesterEventSourceId (no search endpoint)
-    ⚠ Skipping Event.responderEventSourceId (no search endpoint)
-    ⚠ Skipping PartnerRoleRequest.organisationId (no search endpoint)
-    ⚠ Skipping PartnerRoleRequest.organisationId (no search endpoint)
-    ⚠ Skipping PartnerRoleRequest.organisationId (no search endpoint)
-    ⚠ Skipping PartnerRoleRequest.organisationId (no search endpoint)
-    ⚠ Skipping PartnerRoleRequestOrganisationPerson.organisationId (no search endpoint)
-    ⚠ Skipping PartnerRoleRequestOrganisationPerson.identityTypeId (no search endpoint)
-    ⚠ Skipping PartnerRoleRequestOrganisationPerson.organisationId (no search endpoint)
-    ⚠ Skipping PartnerRoleRequestOrganisationPerson.identityTypeId (no search endpoint)
-    ⚠ Skipping PartnerRoleRequestOrganisationPerson.organisationId (no search endpoint)
-    ⚠ Skipping PartnerRoleRequestOrganisationPerson.identityTypeId (no search endpoint)
-    ⚠ Skipping PartnerRoleRequestOrganisationPerson.organisationId (no search endpoint)
-    ⚠ Skipping PartnerRoleRequestOrganisationPerson.identityTypeId (no search endpoint)
-    ⚠ Skipping PartnerRoleRequestPersonOrganisationPersonType.partnerRoleRequestOrganisationPersonId (no search endpoint)
-    ⚠ Skipping PartnerRoleRequestPersonOrganisationPersonType.partnerRoleRequestOrganisationPersonId (no search endpoint)
-    14 resource(s) written to partner-fields.json
-
-  Services
-    ✓ api.service.ts  (58 endpoints across 4 modules)
-
-  Types
-    ✓ api.types.ts
-
-  Contexts
-    ✓ B/AgeBracket
-    ✓ B/Citizenship
-    ✓ B/City
-    ✓ B/CommunityType
-    ✓ B/DisabilityRating
-    ✓ B/EconomicType
-    ✓ B/EquityCode
-    ✓ B/Gender
-    ✓ B/Language
-    ✓ B/MunicipalityLocal
-    ✓ B/Nationality
-    ✓ B/PartnerRoleRequest
-    ✓ B/PartnerRoleRequestOrganisationPerson
-    ✓ B/PartnerRoleRequestPersonOrganisationPersonType
-    ✓ B/Person
-    ✓ B/PersonType
-    ✓ B/Province
-    ✓ B/StatsSaArea
-    ✓ B/Title
-    ✓ ECD/Event
-    ✓ ECD/EventFormat
-    ✓ ECD/EventRequest
-    ✓ ECD/EventType
-    ✓ ECD/EventVenue
-    ✓ ECD/PersonType
-    ✓ PORTAL/PartnerEmailChangeRequest
-    26 context(s) generated.
-
-  Create Forms
-    ⚠ Skipping Event.interventionOrganisationId (no search endpoint)
-    ⚠ Skipping Event.requesterEventSourceId (no search endpoint)
-    ⚠ Skipping Event.responderEventSourceId (no search endpoint)
-    ⚠ Skipping Event.interventionOrganisationId (no search endpoint)
-    ⚠ Skipping Event.requesterEventSourceId (no search endpoint)
-    ⚠ Skipping Event.responderEventSourceId (no search endpoint)
-    ✓ ECD/Event
-    ✓ PORTAL/PartnerEmailChangeRequest
-    ⚠ Skipping PartnerRoleRequest.organisationId (no search endpoint)
-    ⚠ Skipping PartnerRoleRequest.organisationId (no search endpoint)
-    ✓ B/PartnerRoleRequest
-    ⚠ Skipping PartnerRoleRequestOrganisationPerson.organisationId (no search endpoint)
-    ⚠ Skipping PartnerRoleRequestOrganisationPerson.identityTypeId (no search endpoint)
-    ⚠ Skipping PartnerRoleRequestOrganisationPerson.organisationId (no search endpoint)
-    ⚠ Skipping PartnerRoleRequestOrganisationPerson.identityTypeId (no search endpoint)
-    ✓ B/PartnerRoleRequestOrganisationPerson
-    ⚠ Skipping PartnerRoleRequestPersonOrganisationPersonType.partnerRoleRequestOrganisationPersonId (no search endpoint)
-    ⚠ Skipping PartnerRoleRequestPersonOrganisationPersonType.partnerRoleRequestOrganisationPersonId (no search endpoint)
-    ✓ B/PartnerRoleRequestPersonOrganisationPersonType
-    5 create form(s) generated.
-
-  Update Forms
-    ⚠ Skipping Event.interventionOrganisationId (no search endpoint)
-    ⚠ Skipping Event.requesterEventSourceId (no search endpoint)
-    ⚠ Skipping Event.responderEventSourceId (no search endpoint)
-    ⚠ Skipping Event.interventionOrganisationId (no search endpoint)
-    ⚠ Skipping Event.requesterEventSourceId (no search endpoint)
-    ⚠ Skipping Event.responderEventSourceId (no search endpoint)
-    ✓ ECD/Event
-    ✓ PORTAL/PartnerEmailChangeRequest
-    ⚠ Skipping PartnerRoleRequest.organisationId (no search endpoint)
-    ⚠ Skipping PartnerRoleRequest.organisationId (no search endpoint)
-    ✓ B/PartnerRoleRequest
-    ⚠ Skipping PartnerRoleRequestOrganisationPerson.organisationId (no search endpoint)
-    ⚠ Skipping PartnerRoleRequestOrganisationPerson.identityTypeId (no search endpoint)
-    ⚠ Skipping PartnerRoleRequestOrganisationPerson.organisationId (no search endpoint)
-    ⚠ Skipping PartnerRoleRequestOrganisationPerson.identityTypeId (no search endpoint)
-    ✓ B/PartnerRoleRequestOrganisationPerson
-    4 update form(s) generated.
-
-  View Forms
-    ✓ ECD/Event
-    ✓ PORTAL/PartnerEmailChangeRequest
-    ✓ B/PartnerRoleRequest
-    ✓ B/PartnerRoleRequestOrganisationPerson
-    ✓ B/Person
-    5 view form(s) generated.
-
-  Delete Forms
-    ⚠ Skipping: B/PartnerRoleRequestPersonOrganisationPersonType delete form — no view/retrieve endpoint found.
-    ✓ ECD/Event
-    ✓ B/PartnerRoleRequest
-    ✓ B/PartnerRoleRequestOrganisationPerson
-    3 delete form(s) generated.
-
-  Field Hooks
-    ⚠ Skipping Event.interventionOrganisationId (no search endpoint)
-    ⚠ Skipping Event.requesterEventSourceId (no search endpoint)
-    ⚠ Skipping Event.responderEventSourceId (no search endpoint)
-    ⚠ Skipping Event.interventionOrganisationId (no search endpoint)
-    ⚠ Skipping Event.requesterEventSourceId (no search endpoint)
-    ⚠ Skipping Event.responderEventSourceId (no search endpoint)
-    ✓ ECD/Event
-    ✓ PORTAL/PartnerEmailChangeRequest
-    ⚠ Skipping PartnerRoleRequest.organisationId (no search endpoint)
-    ⚠ Skipping PartnerRoleRequest.organisationId (no search endpoint)
-    ✓ B/PartnerRoleRequest
-    ⚠ Skipping PartnerRoleRequestOrganisationPerson.organisationId (no search endpoint)
-    ⚠ Skipping PartnerRoleRequestOrganisationPerson.identityTypeId (no search endpoint)
-    ⚠ Skipping PartnerRoleRequestOrganisationPerson.organisationId (no search endpoint)
-    ⚠ Skipping PartnerRoleRequestOrganisationPerson.identityTypeId (no search endpoint)
-    ✓ B/PartnerRoleRequestOrganisationPerson
-    ⚠ Skipping PartnerRoleRequestPersonOrganisationPersonType.partnerRoleRequestOrganisationPersonId (no search endpoint)
-    ⚠ Skipping PartnerRoleRequestPersonOrganisationPersonType.partnerRoleRequestOrganisationPersonId (no search endpoint)
-    ✓ B/PartnerRoleRequestPersonOrganisationPersonType
-    5 field hook(s) generated.
-
-  Completed generation:
-    ✓ Services:       /home/cdt/DEV/pmis/partner-portal/src/services
-    ✓ Types:          /home/cdt/DEV/pmis/partner-portal/src/types
-    ✓ Contexts:       /home/cdt/DEV/pmis/partner-portal/src/contexts
-    ✓ Forms:          /home/cdt/DEV/pmis/partner-portal/src/forms
-    ✓ Fields Manifest: /home/cdt/DEV/pmis/partner-portal/src/../../code-gen/input/fields-manifest/partner-fields.json
-
-=================================================================
-Portal: learner
-=================================================================
-Fetching swagger: https://api-learner-dev.pmis.servicesseta.org.za/swagger/v1/swagger.json
-  Skipping portal and continuing (ensure api is running and endpoints are correctly configured)
 

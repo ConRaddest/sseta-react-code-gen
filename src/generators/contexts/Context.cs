@@ -29,25 +29,27 @@ static class ContextGenerator
 
             string module = parts[2];
             string resource = parts[3];
+            string operationSegment = parts[4];
 
             // Skip the whole resource when MODULE/Resource is blacklisted.
             if (blacklist != null && blacklist.Contains($"{module}.{resource}")) continue;
-            string operation = parts[4].ToLower();
 
-            // Skip this specific operation when MODULE/Resource/Operation is blacklisted.
-            // e.g. "ECD/SystemUser/Update" suppresses the update op from the context.
-            if (blacklist != null && blacklist.Contains($"{module}.{resource}.{parts[4]}")) continue;
-
-            if (!modules.ContainsKey(module))
-                modules[module] = new SortedDictionary<string, ResourceOps>(StringComparer.Ordinal);
-            if (!modules[module].ContainsKey(resource))
-                modules[module][resource] = new ResourceOps();
-
-            var ops = modules[module][resource];
-
-            foreach (var (_, opNode) in pathNode.AsObject())
+            foreach (var (method, opNode) in pathNode.AsObject())
             {
                 if (opNode == null) continue;
+
+                string operation = ResolveContextOperation(operationSegment, method);
+
+                // Skip this specific operation when MODULE/Resource/Operation is blacklisted.
+                // e.g. "ECD.SystemUser.Update" or "ECD.SystemUser.Delete" suppresses that op from the context.
+                if (blacklist != null && blacklist.Contains($"{module}.{resource}.{operationSegment}")) continue;
+
+                if (!modules.ContainsKey(module))
+                    modules[module] = new SortedDictionary<string, ResourceOps>(StringComparer.Ordinal);
+                if (!modules[module].ContainsKey(resource))
+                    modules[module][resource] = new ResourceOps();
+
+                var ops = modules[module][resource];
 
                 string? requestRef = opNode["requestBody"]?["content"]?["application/json"]?["schema"]?["$ref"]?.GetValue<string>();
                 string? responseRef = opNode["responses"]?["200"]?["content"]?["application/json"]?["schema"]?["$ref"]?.GetValue<string>();
@@ -450,13 +452,31 @@ static class ContextGenerator
             ? File.ReadAllText(templatePath).Replace("// [[CONTENT]]", content)
             : content;
 
+    static string ResolveContextOperation(string operationSegment, string httpMethod)
+    {
+        string operation = operationSegment.ToLowerInvariant();
+
+        // Keep context operation detection aligned with the generated API service. Most PMIS
+        // endpoints expose /{Operation}, but this fallback protects DELETE endpoints if a
+        // route is ever emitted with a non-standard operation segment while the service still
+        // exposes a delete method from the HTTP verb.
+        if (httpMethod.Equals("delete", StringComparison.OrdinalIgnoreCase))
+            return "delete";
+
+        return operation;
+    }
+
     // Contexts are only generated for resources that expose actions the frontend uses through
     // a shared resource hook/state layer.
     static bool NeedsContext(ResourceOps ops) =>
         ops.Search != null ||
         ops.Create != null ||
         ops.Update != null ||
-        ops.Retrieve != null;
+        ops.Retrieve != null ||
+        ops.Delete != null ||
+        ops.Submit != null ||
+        ops.Validate != null ||
+        ops.Summary != null;
 
     // The search response type from swagger is the wrapper row type, e.g. AccessStaffRoleRequestSearchResponse.
     // It is already correctly named by FormatTypeName.

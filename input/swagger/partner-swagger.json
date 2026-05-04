@@ -1163,6 +1163,617 @@
         }
       }
     },
+    "/api/partner/ECD/Event/Create": {
+      "post": {
+        "tags": [
+          "Event"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EventECDCreateRequestModel"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EventECDCreateRequestModel"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/EventECDCreateRequestModel"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/EventECDCreateRequestModel"
+              }
+            },
+            "text/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/EventECDCreateRequestModel"
+              }
+            },
+            "application/*+xml": {
+              "schema": {
+                "$ref": "#/components/schemas/EventECDCreateRequestModel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/EventECDCreateResponseModelSETAApiResponse"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EventECDCreateResponseModelSETAApiResponse"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EventECDCreateResponseModelSETAApiResponse"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/EventECDCreateResponseModelSETAApiResponse"
+                }
+              },
+              "text/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/EventECDCreateResponseModelSETAApiResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/partner/ECD/Event/Delete/{id}": {
+      "delete": {
+        "tags": [
+          "Event"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/BooleanSETAApiResponse"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BooleanSETAApiResponse"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BooleanSETAApiResponse"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/BooleanSETAApiResponse"
+                }
+              },
+              "text/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/BooleanSETAApiResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/partner/ECD/Event/Retrieve/{id}": {
+      "get": {
+        "tags": [
+          "Event"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/EventECDRetrieveResponseModelSETAApiResponse"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EventECDRetrieveResponseModelSETAApiResponse"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EventECDRetrieveResponseModelSETAApiResponse"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/EventECDRetrieveResponseModelSETAApiResponse"
+                }
+              },
+              "text/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/EventECDRetrieveResponseModelSETAApiResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/partner/ECD/Event/Search": {
+      "post": {
+        "tags": [
+          "Event"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EventECDSearchRequestModel"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EventECDSearchRequestModel"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/EventECDSearchRequestModel"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/EventECDSearchRequestModel"
+              }
+            },
+            "text/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/EventECDSearchRequestModel"
+              }
+            },
+            "application/*+xml": {
+              "schema": {
+                "$ref": "#/components/schemas/EventECDSearchRequestModel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/EventECDSearchResponseSETAApiResponse"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EventECDSearchResponseSETAApiResponse"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EventECDSearchResponseSETAApiResponse"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/EventECDSearchResponseSETAApiResponse"
+                }
+              },
+              "text/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/EventECDSearchResponseSETAApiResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/partner/ECD/Event/Update": {
+      "put": {
+        "tags": [
+          "Event"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EventECDUpdateRequestModel"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EventECDUpdateRequestModel"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/EventECDUpdateRequestModel"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/EventECDUpdateRequestModel"
+              }
+            },
+            "text/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/EventECDUpdateRequestModel"
+              }
+            },
+            "application/*+xml": {
+              "schema": {
+                "$ref": "#/components/schemas/EventECDUpdateRequestModel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/BooleanSETAApiResponse"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BooleanSETAApiResponse"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BooleanSETAApiResponse"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/BooleanSETAApiResponse"
+                }
+              },
+              "text/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/BooleanSETAApiResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/partner/ECD/EventFormat/Search": {
+      "post": {
+        "tags": [
+          "EventFormat"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EventFormatECDSearchRequestModel"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EventFormatECDSearchRequestModel"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/EventFormatECDSearchRequestModel"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/EventFormatECDSearchRequestModel"
+              }
+            },
+            "text/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/EventFormatECDSearchRequestModel"
+              }
+            },
+            "application/*+xml": {
+              "schema": {
+                "$ref": "#/components/schemas/EventFormatECDSearchRequestModel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/EventFormatECDSearchResponseSETAApiResponse"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EventFormatECDSearchResponseSETAApiResponse"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EventFormatECDSearchResponseSETAApiResponse"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/EventFormatECDSearchResponseSETAApiResponse"
+                }
+              },
+              "text/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/EventFormatECDSearchResponseSETAApiResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/partner/ECD/EventRequest/Search": {
+      "post": {
+        "tags": [
+          "EventRequest"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EventRequestECDSearchRequestModel"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EventRequestECDSearchRequestModel"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/EventRequestECDSearchRequestModel"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/EventRequestECDSearchRequestModel"
+              }
+            },
+            "text/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/EventRequestECDSearchRequestModel"
+              }
+            },
+            "application/*+xml": {
+              "schema": {
+                "$ref": "#/components/schemas/EventRequestECDSearchRequestModel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/EventRequestECDSearchResponseSETAApiResponse"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EventRequestECDSearchResponseSETAApiResponse"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EventRequestECDSearchResponseSETAApiResponse"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/EventRequestECDSearchResponseSETAApiResponse"
+                }
+              },
+              "text/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/EventRequestECDSearchResponseSETAApiResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/partner/ECD/EventType/Search": {
+      "post": {
+        "tags": [
+          "EventType"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EventTypeECDSearchRequestModel"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EventTypeECDSearchRequestModel"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/EventTypeECDSearchRequestModel"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/EventTypeECDSearchRequestModel"
+              }
+            },
+            "text/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/EventTypeECDSearchRequestModel"
+              }
+            },
+            "application/*+xml": {
+              "schema": {
+                "$ref": "#/components/schemas/EventTypeECDSearchRequestModel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/EventTypeECDSearchResponseSETAApiResponse"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EventTypeECDSearchResponseSETAApiResponse"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EventTypeECDSearchResponseSETAApiResponse"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/EventTypeECDSearchResponseSETAApiResponse"
+                }
+              },
+              "text/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/EventTypeECDSearchResponseSETAApiResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/partner/ECD/EventVenue/Search": {
+      "post": {
+        "tags": [
+          "EventVenue"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EventVenueECDSearchRequestModel"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EventVenueECDSearchRequestModel"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/EventVenueECDSearchRequestModel"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/EventVenueECDSearchRequestModel"
+              }
+            },
+            "text/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/EventVenueECDSearchRequestModel"
+              }
+            },
+            "application/*+xml": {
+              "schema": {
+                "$ref": "#/components/schemas/EventVenueECDSearchRequestModel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/EventVenueECDSearchResponseSETAApiResponse"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EventVenueECDSearchResponseSETAApiResponse"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EventVenueECDSearchResponseSETAApiResponse"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/EventVenueECDSearchResponseSETAApiResponse"
+                }
+              },
+              "text/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/EventVenueECDSearchResponseSETAApiResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/partner/B/Gender/Search": {
       "post": {
         "tags": [
@@ -1244,79 +1855,6 @@
         "responses": {
           "200": {
             "description": "OK"
-          }
-        }
-      }
-    },
-    "/api/partner/B/IdentityType/Search": {
-      "post": {
-        "tags": [
-          "IdentityType"
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/IdentityTypeBSearchRequestModel"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/IdentityTypeBSearchRequestModel"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/IdentityTypeBSearchRequestModel"
-              }
-            },
-            "application/xml": {
-              "schema": {
-                "$ref": "#/components/schemas/IdentityTypeBSearchRequestModel"
-              }
-            },
-            "text/xml": {
-              "schema": {
-                "$ref": "#/components/schemas/IdentityTypeBSearchRequestModel"
-              }
-            },
-            "application/*+xml": {
-              "schema": {
-                "$ref": "#/components/schemas/IdentityTypeBSearchRequestModel"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/IdentityTypeBSearchResponseSETAApiResponse"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/IdentityTypeBSearchResponseSETAApiResponse"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/IdentityTypeBSearchResponseSETAApiResponse"
-                }
-              },
-              "application/xml": {
-                "schema": {
-                  "$ref": "#/components/schemas/IdentityTypeBSearchResponseSETAApiResponse"
-                }
-              },
-              "text/xml": {
-                "schema": {
-                  "$ref": "#/components/schemas/IdentityTypeBSearchResponseSETAApiResponse"
-                }
-              }
-            }
           }
         }
       }
@@ -3929,6 +4467,970 @@
         },
         "additionalProperties": false
       },
+      "EventECDCreateRequestModel": {
+        "required": [
+          "endDateTime",
+          "eventFormatId",
+          "eventTypeId",
+          "eventVenueId",
+          "interventionOrganisationId",
+          "name",
+          "requesterEventSourceId",
+          "responderEventSourceId",
+          "startDateTime"
+        ],
+        "type": "object",
+        "properties": {
+          "name": {
+            "maxLength": 250,
+            "minLength": 0,
+            "type": "string"
+          },
+          "eventTypeId": {
+            "type": "integer",
+            "description": "ParentTable:EventType",
+            "format": "int64"
+          },
+          "eventFormatId": {
+            "type": "integer",
+            "description": "ParentTable:EventFormat",
+            "format": "int64"
+          },
+          "eventVenueId": {
+            "type": "integer",
+            "description": "ParentTable:EventVenue",
+            "format": "int64"
+          },
+          "startDateTime": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "endDateTime": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "interventionOrganisationId": {
+            "type": "integer",
+            "description": "ParentTable:InterventionOrganisation",
+            "format": "int64"
+          },
+          "requesterEventSourceId": {
+            "type": "integer",
+            "description": "ParentTable:EventSource",
+            "format": "int64"
+          },
+          "responderEventSourceId": {
+            "type": "integer",
+            "description": "ParentTable:EventSource",
+            "format": "int64"
+          },
+          "statusId": {
+            "type": "integer",
+            "description": "ParentTable:Status",
+            "format": "int64",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "EventECDCreateResponseModel": {
+        "type": "object",
+        "properties": {
+          "eventId": {
+            "type": "integer",
+            "format": "int64",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "EventECDCreateResponseModelSETAApiResponse": {
+        "type": "object",
+        "properties": {
+          "errorMessage": {
+            "type": "string",
+            "nullable": true
+          },
+          "data": {
+            "$ref": "#/components/schemas/EventECDCreateResponseModel"
+          }
+        },
+        "additionalProperties": false
+      },
+      "EventECDRetrieveResponseModel": {
+        "type": "object",
+        "properties": {
+          "startDateTime": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "endDateTime": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "createdOn": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "modifiedOn": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "deletedOn": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "eventId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "eventTypeId": {
+            "type": "integer",
+            "description": "ParentTable:EventType",
+            "format": "int64"
+          },
+          "eventFormatId": {
+            "type": "integer",
+            "description": "ParentTable:EventFormat",
+            "format": "int64"
+          },
+          "eventVenueId": {
+            "type": "integer",
+            "description": "ParentTable:EventVenue",
+            "format": "int64"
+          },
+          "interventionOrganisationId": {
+            "type": "integer",
+            "description": "ParentTable:InterventionOrganisation",
+            "format": "int64"
+          },
+          "requesterEventSourceId": {
+            "type": "integer",
+            "description": "ParentTable:EventSource",
+            "format": "int64"
+          },
+          "responderEventSourceId": {
+            "type": "integer",
+            "description": "ParentTable:EventSource",
+            "format": "int64"
+          },
+          "statusId": {
+            "type": "integer",
+            "description": "ParentTable:Status",
+            "format": "int64",
+            "nullable": true
+          },
+          "createdBySystemUserId": {
+            "type": "integer",
+            "description": "ParentTable:SystemUser",
+            "format": "int64"
+          },
+          "modifiedBySystemUserId": {
+            "type": "integer",
+            "description": "ParentTable:SystemUser",
+            "format": "int64"
+          },
+          "deletedBySystemUserId": {
+            "type": "integer",
+            "description": "ParentTable:SystemUser",
+            "format": "int64",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "eventTypeName": {
+            "type": "string",
+            "nullable": true
+          },
+          "eventFormatName": {
+            "type": "string",
+            "nullable": true
+          },
+          "eventVenueName": {
+            "type": "string",
+            "nullable": true
+          },
+          "interventionOrganisationName": {
+            "type": "string",
+            "nullable": true
+          },
+          "requesterEventSourceName": {
+            "type": "string",
+            "nullable": true
+          },
+          "responderEventSourceName": {
+            "type": "string",
+            "nullable": true
+          },
+          "statusName": {
+            "type": "string",
+            "nullable": true
+          },
+          "statusReason": {
+            "type": "string",
+            "nullable": true
+          },
+          "createdBySystemUserName": {
+            "type": "string",
+            "nullable": true
+          },
+          "modifiedBySystemUserName": {
+            "type": "string",
+            "nullable": true
+          },
+          "deletedBySystemUserName": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "EventECDRetrieveResponseModelSETAApiResponse": {
+        "type": "object",
+        "properties": {
+          "errorMessage": {
+            "type": "string",
+            "nullable": true
+          },
+          "data": {
+            "$ref": "#/components/schemas/EventECDRetrieveResponseModel"
+          }
+        },
+        "additionalProperties": false
+      },
+      "EventECDSearchRequestModel": {
+        "required": [
+          "filterByList",
+          "orderByList",
+          "pageNumber",
+          "pageSize"
+        ],
+        "type": "object",
+        "properties": {
+          "pageNumber": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "pageSize": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "filterByList": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Filterbylist"
+            }
+          },
+          "orderByList": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Orderbylist"
+            }
+          }
+        },
+        "additionalProperties": false
+      },
+      "EventECDSearchResponse": {
+        "type": "object",
+        "properties": {
+          "totalRows": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "searchResults": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/EventECDSearchResponseModel"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "EventECDSearchResponseModel": {
+        "type": "object",
+        "properties": {
+          "startDateTime": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "endDateTime": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "createdOn": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "modifiedOn": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "deletedOn": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "eventId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "eventTypeId": {
+            "type": "integer",
+            "description": "ParentTable:EventType",
+            "format": "int64"
+          },
+          "eventFormatId": {
+            "type": "integer",
+            "description": "ParentTable:EventFormat",
+            "format": "int64"
+          },
+          "eventVenueId": {
+            "type": "integer",
+            "description": "ParentTable:EventVenue",
+            "format": "int64"
+          },
+          "interventionOrganisationId": {
+            "type": "integer",
+            "description": "ParentTable:InterventionOrganisation",
+            "format": "int64"
+          },
+          "requesterEventSourceId": {
+            "type": "integer",
+            "description": "ParentTable:EventSource",
+            "format": "int64"
+          },
+          "responderEventSourceId": {
+            "type": "integer",
+            "description": "ParentTable:EventSource",
+            "format": "int64"
+          },
+          "statusId": {
+            "type": "integer",
+            "description": "ParentTable:Status",
+            "format": "int64",
+            "nullable": true
+          },
+          "createdBySystemUserId": {
+            "type": "integer",
+            "description": "ParentTable:SystemUser",
+            "format": "int64"
+          },
+          "modifiedBySystemUserId": {
+            "type": "integer",
+            "description": "ParentTable:SystemUser",
+            "format": "int64"
+          },
+          "deletedBySystemUserId": {
+            "type": "integer",
+            "description": "ParentTable:SystemUser",
+            "format": "int64",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "eventTypeName": {
+            "type": "string",
+            "nullable": true
+          },
+          "eventFormatName": {
+            "type": "string",
+            "nullable": true
+          },
+          "eventVenueName": {
+            "type": "string",
+            "nullable": true
+          },
+          "interventionOrganisationName": {
+            "type": "string",
+            "nullable": true
+          },
+          "requesterEventSourceName": {
+            "type": "string",
+            "nullable": true
+          },
+          "responderEventSourceName": {
+            "type": "string",
+            "nullable": true
+          },
+          "statusName": {
+            "type": "string",
+            "nullable": true
+          },
+          "statusReason": {
+            "type": "string",
+            "nullable": true
+          },
+          "createdBySystemUserName": {
+            "type": "string",
+            "nullable": true
+          },
+          "modifiedBySystemUserName": {
+            "type": "string",
+            "nullable": true
+          },
+          "deletedBySystemUserName": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "EventECDSearchResponseSETAApiResponse": {
+        "type": "object",
+        "properties": {
+          "errorMessage": {
+            "type": "string",
+            "nullable": true
+          },
+          "data": {
+            "$ref": "#/components/schemas/EventECDSearchResponse"
+          }
+        },
+        "additionalProperties": false
+      },
+      "EventECDUpdateRequestModel": {
+        "required": [
+          "endDateTime",
+          "eventFormatId",
+          "eventId",
+          "eventTypeId",
+          "eventVenueId",
+          "interventionOrganisationId",
+          "name",
+          "requesterEventSourceId",
+          "responderEventSourceId",
+          "startDateTime"
+        ],
+        "type": "object",
+        "properties": {
+          "name": {
+            "maxLength": 250,
+            "minLength": 0,
+            "type": "string"
+          },
+          "eventId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "eventTypeId": {
+            "type": "integer",
+            "description": "ParentTable:EventType",
+            "format": "int64"
+          },
+          "eventFormatId": {
+            "type": "integer",
+            "description": "ParentTable:EventFormat",
+            "format": "int64"
+          },
+          "eventVenueId": {
+            "type": "integer",
+            "description": "ParentTable:EventVenue",
+            "format": "int64"
+          },
+          "startDateTime": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "endDateTime": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "interventionOrganisationId": {
+            "type": "integer",
+            "description": "ParentTable:InterventionOrganisation",
+            "format": "int64"
+          },
+          "requesterEventSourceId": {
+            "type": "integer",
+            "description": "ParentTable:EventSource",
+            "format": "int64"
+          },
+          "responderEventSourceId": {
+            "type": "integer",
+            "description": "ParentTable:EventSource",
+            "format": "int64"
+          }
+        },
+        "additionalProperties": false
+      },
+      "EventFormatECDSearchRequestModel": {
+        "required": [
+          "filterByList",
+          "orderByList",
+          "pageNumber",
+          "pageSize"
+        ],
+        "type": "object",
+        "properties": {
+          "pageNumber": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "pageSize": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "filterByList": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Filterbylist"
+            }
+          },
+          "orderByList": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Orderbylist"
+            }
+          }
+        },
+        "additionalProperties": false
+      },
+      "EventFormatECDSearchResponse": {
+        "type": "object",
+        "properties": {
+          "totalRows": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "searchResults": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/EventFormatECDSearchResponseModel"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "EventFormatECDSearchResponseModel": {
+        "type": "object",
+        "properties": {
+          "eventFormatId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "EventFormatECDSearchResponseSETAApiResponse": {
+        "type": "object",
+        "properties": {
+          "errorMessage": {
+            "type": "string",
+            "nullable": true
+          },
+          "data": {
+            "$ref": "#/components/schemas/EventFormatECDSearchResponse"
+          }
+        },
+        "additionalProperties": false
+      },
+      "EventRequestECDSearchRequestModel": {
+        "required": [
+          "filterByList",
+          "orderByList",
+          "pageNumber",
+          "pageSize"
+        ],
+        "type": "object",
+        "properties": {
+          "pageNumber": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "pageSize": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "filterByList": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Filterbylist"
+            }
+          },
+          "orderByList": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Orderbylist"
+            }
+          }
+        },
+        "additionalProperties": false
+      },
+      "EventRequestECDSearchResponse": {
+        "type": "object",
+        "properties": {
+          "totalRows": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "searchResults": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/EventRequestECDSearchResponseModel"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "EventRequestECDSearchResponseModel": {
+        "type": "object",
+        "properties": {
+          "startDateTime": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "endDateTime": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "createdOn": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "modifiedOn": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "deletedOn": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "eventRequestId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "eventId": {
+            "type": "integer",
+            "description": "ParentTable:Event",
+            "format": "int64"
+          },
+          "requestedByEventSourceId": {
+            "type": "integer",
+            "description": "ParentTable:EventSource",
+            "format": "int64"
+          },
+          "requestedBySystemUserId": {
+            "type": "integer",
+            "description": "ParentTable:SystemUser",
+            "format": "int64"
+          },
+          "responseByEventSourceId": {
+            "type": "integer",
+            "description": "ParentTable:EventSource",
+            "format": "int64"
+          },
+          "responseBySystemUserId": {
+            "type": "integer",
+            "description": "ParentTable:SystemUser",
+            "format": "int64",
+            "nullable": true
+          },
+          "statusId": {
+            "type": "integer",
+            "description": "ParentTable:Status",
+            "format": "int64",
+            "nullable": true
+          },
+          "createdBySystemUserId": {
+            "type": "integer",
+            "description": "ParentTable:SystemUser",
+            "format": "int64"
+          },
+          "modifiedBySystemUserId": {
+            "type": "integer",
+            "description": "ParentTable:SystemUser",
+            "format": "int64"
+          },
+          "deletedBySystemUserId": {
+            "type": "integer",
+            "description": "ParentTable:SystemUser",
+            "format": "int64",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "eventName": {
+            "type": "string",
+            "nullable": true
+          },
+          "requestedByEventSourceName": {
+            "type": "string",
+            "nullable": true
+          },
+          "requestedBySystemUserName": {
+            "type": "string",
+            "nullable": true
+          },
+          "responseByEventSourceName": {
+            "type": "string",
+            "nullable": true
+          },
+          "responseBySystemUserName": {
+            "type": "string",
+            "nullable": true
+          },
+          "statusName": {
+            "type": "string",
+            "nullable": true
+          },
+          "statusReason": {
+            "type": "string",
+            "nullable": true
+          },
+          "createdBySystemUserName": {
+            "type": "string",
+            "nullable": true
+          },
+          "modifiedBySystemUserName": {
+            "type": "string",
+            "nullable": true
+          },
+          "deletedBySystemUserName": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "EventRequestECDSearchResponseSETAApiResponse": {
+        "type": "object",
+        "properties": {
+          "errorMessage": {
+            "type": "string",
+            "nullable": true
+          },
+          "data": {
+            "$ref": "#/components/schemas/EventRequestECDSearchResponse"
+          }
+        },
+        "additionalProperties": false
+      },
+      "EventTypeECDSearchRequestModel": {
+        "required": [
+          "filterByList",
+          "orderByList",
+          "pageNumber",
+          "pageSize"
+        ],
+        "type": "object",
+        "properties": {
+          "pageNumber": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "pageSize": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "filterByList": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Filterbylist"
+            }
+          },
+          "orderByList": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Orderbylist"
+            }
+          }
+        },
+        "additionalProperties": false
+      },
+      "EventTypeECDSearchResponse": {
+        "type": "object",
+        "properties": {
+          "totalRows": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "searchResults": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/EventTypeECDSearchResponseModel"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "EventTypeECDSearchResponseModel": {
+        "type": "object",
+        "properties": {
+          "eventTypeId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "EventTypeECDSearchResponseSETAApiResponse": {
+        "type": "object",
+        "properties": {
+          "errorMessage": {
+            "type": "string",
+            "nullable": true
+          },
+          "data": {
+            "$ref": "#/components/schemas/EventTypeECDSearchResponse"
+          }
+        },
+        "additionalProperties": false
+      },
+      "EventVenueECDSearchRequestModel": {
+        "required": [
+          "filterByList",
+          "orderByList",
+          "pageNumber",
+          "pageSize"
+        ],
+        "type": "object",
+        "properties": {
+          "pageNumber": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "pageSize": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "filterByList": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Filterbylist"
+            }
+          },
+          "orderByList": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Orderbylist"
+            }
+          }
+        },
+        "additionalProperties": false
+      },
+      "EventVenueECDSearchResponse": {
+        "type": "object",
+        "properties": {
+          "totalRows": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "searchResults": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/EventVenueECDSearchResponseModel"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "EventVenueECDSearchResponseModel": {
+        "type": "object",
+        "properties": {
+          "createdOn": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "modifiedOn": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "deletedOn": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "eventVenueId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "statusId": {
+            "type": "integer",
+            "description": "ParentTable:Status",
+            "format": "int64",
+            "nullable": true
+          },
+          "createdBySystemUserId": {
+            "type": "integer",
+            "description": "ParentTable:SystemUser",
+            "format": "int64"
+          },
+          "modifiedBySystemUserId": {
+            "type": "integer",
+            "description": "ParentTable:SystemUser",
+            "format": "int64"
+          },
+          "deletedBySystemUserId": {
+            "type": "integer",
+            "description": "ParentTable:SystemUser",
+            "format": "int64",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "address": {
+            "type": "string",
+            "nullable": true
+          },
+          "statusName": {
+            "type": "string",
+            "nullable": true
+          },
+          "statusReason": {
+            "type": "string",
+            "nullable": true
+          },
+          "createdBySystemUserName": {
+            "type": "string",
+            "nullable": true
+          },
+          "modifiedBySystemUserName": {
+            "type": "string",
+            "nullable": true
+          },
+          "deletedBySystemUserName": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "EventVenueECDSearchResponseSETAApiResponse": {
+        "type": "object",
+        "properties": {
+          "errorMessage": {
+            "type": "string",
+            "nullable": true
+          },
+          "data": {
+            "$ref": "#/components/schemas/EventVenueECDSearchResponse"
+          }
+        },
+        "additionalProperties": false
+      },
       "Filterbylist": {
         "type": "object",
         "properties": {
@@ -4034,82 +5536,6 @@
           },
           "data": {
             "$ref": "#/components/schemas/GenderBSearchResponse"
-          }
-        },
-        "additionalProperties": false
-      },
-      "IdentityTypeBSearchRequestModel": {
-        "required": [
-          "filterByList",
-          "orderByList",
-          "pageNumber",
-          "pageSize"
-        ],
-        "type": "object",
-        "properties": {
-          "pageNumber": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "pageSize": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "filterByList": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/Filterbylist"
-            }
-          },
-          "orderByList": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/Orderbylist"
-            }
-          }
-        },
-        "additionalProperties": false
-      },
-      "IdentityTypeBSearchResponse": {
-        "type": "object",
-        "properties": {
-          "totalRows": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "searchResults": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/IdentityTypeBSearchResponseModel"
-            },
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
-      "IdentityTypeBSearchResponseModel": {
-        "type": "object",
-        "properties": {
-          "identityTypeId": {
-            "type": "integer",
-            "format": "int64"
-          },
-          "name": {
-            "type": "string",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
-      "IdentityTypeBSearchResponseSETAApiResponse": {
-        "type": "object",
-        "properties": {
-          "errorMessage": {
-            "type": "string",
-            "nullable": true
-          },
-          "data": {
-            "$ref": "#/components/schemas/IdentityTypeBSearchResponse"
           }
         },
         "additionalProperties": false

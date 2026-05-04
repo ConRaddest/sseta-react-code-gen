@@ -1157,6 +1157,244 @@
       ]
     }
   ],
+  "Ecd.Event.Create": [
+    {
+      "groupName": "Event Details",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "name",
+          "columns": 2
+        },
+        {
+          "name": "eventTypeId",
+          "columns": 2
+        },
+        {
+          "name": "eventFormatId",
+          "columns": 2
+        },
+        {
+          "name": "eventVenueId",
+          "columns": 2
+        },
+        {
+          "name": "interventionOrganisationId",
+          "columns": 2
+        }
+      ]
+    },
+    {
+      "groupName": "Schedule",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "startDateTime",
+          "columns": 2
+        },
+        {
+          "name": "endDateTime",
+          "columns": 2
+        }
+      ]
+    },
+    {
+      "groupName": "Event Sources",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "requesterEventSourceId",
+          "columns": 2
+        },
+        {
+          "name": "responderEventSourceId",
+          "columns": 2
+        }
+      ]
+    }
+  ],
+  "Ecd.Event.Update": [
+    {
+      "groupName": "Event Details",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "name",
+          "columns": 2
+        },
+        {
+          "name": "eventTypeId",
+          "columns": 2
+        },
+        {
+          "name": "eventFormatId",
+          "columns": 2
+        },
+        {
+          "name": "eventVenueId",
+          "columns": 2
+        },
+        {
+          "name": "interventionOrganisationId",
+          "columns": 2
+        }
+      ]
+    },
+    {
+      "groupName": "Schedule",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "startDateTime",
+          "columns": 2
+        },
+        {
+          "name": "endDateTime",
+          "columns": 2
+        }
+      ]
+    },
+    {
+      "groupName": "Event Sources",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "requesterEventSourceId",
+          "columns": 2
+        },
+        {
+          "name": "responderEventSourceId",
+          "columns": 2
+        }
+      ]
+    }
+  ],
+  "Ecd.Event.View": [
+    {
+      "groupName": "Event Details",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "name",
+          "columns": 2
+        },
+        {
+          "name": "eventTypeId",
+          "columns": 2
+        },
+        {
+          "name": "eventTypeName",
+          "columns": 2
+        },
+        {
+          "name": "eventFormatId",
+          "columns": 2
+        },
+        {
+          "name": "eventFormatName",
+          "columns": 2
+        },
+        {
+          "name": "eventVenueId",
+          "columns": 2
+        },
+        {
+          "name": "eventVenueName",
+          "columns": 2
+        },
+        {
+          "name": "interventionOrganisationId",
+          "columns": 2
+        },
+        {
+          "name": "interventionOrganisationName",
+          "columns": 2
+        },
+        {
+          "name": "statusName",
+          "columns": 2
+        }
+      ]
+    },
+    {
+      "groupName": "Schedule",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "startDateTime",
+          "columns": 2
+        },
+        {
+          "name": "endDateTime",
+          "columns": 2
+        }
+      ]
+    },
+    {
+      "groupName": "Event Sources",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "requesterEventSourceId",
+          "columns": 2
+        },
+        {
+          "name": "requesterEventSourceName",
+          "columns": 2
+        },
+        {
+          "name": "responderEventSourceId",
+          "columns": 2
+        },
+        {
+          "name": "responderEventSourceName",
+          "columns": 2
+        }
+      ]
+    },
+    {
+      "groupName": "Audit",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "createdOn",
+          "columns": 2
+        },
+        {
+          "name": "modifiedOn",
+          "columns": 2
+        },
+        {
+          "name": "deletedOn",
+          "columns": 2
+        },
+        {
+          "name": "createdBySystemUserId",
+          "columns": 2
+        },
+        {
+          "name": "createdBySystemUserName",
+          "columns": 2
+        },
+        {
+          "name": "modifiedBySystemUserId",
+          "columns": 2
+        },
+        {
+          "name": "modifiedBySystemUserName",
+          "columns": 2
+        },
+        {
+          "name": "deletedBySystemUserId",
+          "columns": 2
+        },
+        {
+          "name": "deletedBySystemUserName",
+          "columns": 2
+        }
+      ]
+    }
+  ],
   "Portal.PartnerEmailChangeRequest.Create": [
     {
       "groupName": "Request Details",

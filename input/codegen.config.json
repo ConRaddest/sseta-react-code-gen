@@ -72,7 +72,7 @@
         "fieldLayoutPath": "input/form-layout/management-layout.json"
       },
       "output": {
-        "baseDir": "C:/DEV/PMIS/react-frontend-v2/management-portal/src",
+        "baseDir": "/home/cdt/DEV/pmis/management-portal/src",
         "services": "services",
         "types": "types",
         "contexts": "contexts",
@@ -90,7 +90,7 @@
         "fieldLayoutPath": "input/form-layout/partner-layout.json"
       },
       "output": {
-        "baseDir": "C:/DEV/PMIS/react-frontend-v2/partner-portal/src",
+        "baseDir": "/home/cdt/DEV/pmis/partner-portal/src",
         "services": "services",
         "types": "types",
         "contexts": "contexts",
@@ -107,7 +107,7 @@
         "fieldLayoutPath": "input/form-layout/learner-layout.json"
       },
       "output": {
-        "baseDir": "C:/DEV/PMIS/react-frontend-v2/learner-portal/src",
+        "baseDir": "/home/cdt/DEV/pmis/learner-portal/src",
         "services": "services",
         "types": "types",
         "contexts": "contexts",

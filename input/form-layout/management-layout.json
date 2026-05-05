@@ -946,11 +946,11 @@
       "fields": [
         {
           "name": "name",
-          "columns": 1
+          "columns": 2
         },
         {
           "name": "address",
-          "columns": 1
+          "columns": 2
         }
       ]
     }
@@ -962,11 +962,11 @@
       "fields": [
         {
           "name": "name",
-          "columns": 1
+          "columns": 2
         },
         {
           "name": "address",
-          "columns": 1
+          "columns": 2
         }
       ]
     }
@@ -978,11 +978,11 @@
       "fields": [
         {
           "name": "name",
-          "columns": 1
+          "columns": 2
         },
         {
           "name": "address",
-          "columns": 1
+          "columns": 2
         },
         {
           "name": "statusName",

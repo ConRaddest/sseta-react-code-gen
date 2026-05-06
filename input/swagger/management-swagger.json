@@ -78,6 +78,79 @@
         }
       }
     },
+    "/api/management/ECD/AlternateIdentityType/Search": {
+      "post": {
+        "tags": [
+          "AlternateIdentityType"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AlternateIdentityTypeECDSearchRequestModel"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AlternateIdentityTypeECDSearchRequestModel"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/AlternateIdentityTypeECDSearchRequestModel"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/AlternateIdentityTypeECDSearchRequestModel"
+              }
+            },
+            "text/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/AlternateIdentityTypeECDSearchRequestModel"
+              }
+            },
+            "application/*+xml": {
+              "schema": {
+                "$ref": "#/components/schemas/AlternateIdentityTypeECDSearchRequestModel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/AlternateIdentityTypeECDSearchResponseSETAApiResponse"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AlternateIdentityTypeECDSearchResponseSETAApiResponse"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AlternateIdentityTypeECDSearchResponseSETAApiResponse"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/AlternateIdentityTypeECDSearchResponseSETAApiResponse"
+                }
+              },
+              "text/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/AlternateIdentityTypeECDSearchResponseSETAApiResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/Auth/Logout": {
       "get": {
         "tags": [
@@ -381,79 +454,6 @@
               "text/xml": {
                 "schema": {
                   "$ref": "#/components/schemas/CommunityTypeECDSearchResponseSETAApiResponse"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/management/ECD/Country/Search": {
-      "post": {
-        "tags": [
-          "Country"
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CountryECDSearchRequestModel"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CountryECDSearchRequestModel"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/CountryECDSearchRequestModel"
-              }
-            },
-            "application/xml": {
-              "schema": {
-                "$ref": "#/components/schemas/CountryECDSearchRequestModel"
-              }
-            },
-            "text/xml": {
-              "schema": {
-                "$ref": "#/components/schemas/CountryECDSearchRequestModel"
-              }
-            },
-            "application/*+xml": {
-              "schema": {
-                "$ref": "#/components/schemas/CountryECDSearchRequestModel"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/CountryECDSearchResponseSETAApiResponse"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/CountryECDSearchResponseSETAApiResponse"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/CountryECDSearchResponseSETAApiResponse"
-                }
-              },
-              "application/xml": {
-                "schema": {
-                  "$ref": "#/components/schemas/CountryECDSearchResponseSETAApiResponse"
-                }
-              },
-              "text/xml": {
-                "schema": {
-                  "$ref": "#/components/schemas/CountryECDSearchResponseSETAApiResponse"
                 }
               }
             }
@@ -1723,6 +1723,79 @@
         }
       }
     },
+    "/api/management/ECD/Event/Submit": {
+      "post": {
+        "tags": [
+          "Event"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EventECDSubmitRequestModel"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EventECDSubmitRequestModel"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/EventECDSubmitRequestModel"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/EventECDSubmitRequestModel"
+              }
+            },
+            "text/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/EventECDSubmitRequestModel"
+              }
+            },
+            "application/*+xml": {
+              "schema": {
+                "$ref": "#/components/schemas/EventECDSubmitRequestModel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/BooleanSETAApiResponse"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BooleanSETAApiResponse"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BooleanSETAApiResponse"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/BooleanSETAApiResponse"
+                }
+              },
+              "text/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/BooleanSETAApiResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/management/ECD/Event/Update": {
       "put": {
         "tags": [
@@ -1789,6 +1862,79 @@
               "text/xml": {
                 "schema": {
                   "$ref": "#/components/schemas/BooleanSETAApiResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/management/ECD/Event/Validate": {
+      "post": {
+        "tags": [
+          "Event"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EventECDValidateRequestModel"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EventECDValidateRequestModel"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/EventECDValidateRequestModel"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/EventECDValidateRequestModel"
+              }
+            },
+            "text/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/EventECDValidateRequestModel"
+              }
+            },
+            "application/*+xml": {
+              "schema": {
+                "$ref": "#/components/schemas/EventECDValidateRequestModel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/EventECDValidateResponseModelSETAApiResponse"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EventECDValidateResponseModelSETAApiResponse"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EventECDValidateResponseModelSETAApiResponse"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/EventECDValidateResponseModelSETAApiResponse"
+                }
+              },
+              "text/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/EventECDValidateResponseModelSETAApiResponse"
                 }
               }
             }
@@ -2334,6 +2480,129 @@
         }
       }
     },
+    "/api/management/ECD/FundingCap/Retrieve/{id}": {
+      "get": {
+        "tags": [
+          "FundingCap"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/FundingCapECDRetrieveResponseModelSETAApiResponse"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FundingCapECDRetrieveResponseModelSETAApiResponse"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FundingCapECDRetrieveResponseModelSETAApiResponse"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/FundingCapECDRetrieveResponseModelSETAApiResponse"
+                }
+              },
+              "text/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/FundingCapECDRetrieveResponseModelSETAApiResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/management/ECD/FundingCap/Search": {
+      "post": {
+        "tags": [
+          "FundingCap"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FundingCapECDSearchRequestModel"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FundingCapECDSearchRequestModel"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/FundingCapECDSearchRequestModel"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/FundingCapECDSearchRequestModel"
+              }
+            },
+            "text/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/FundingCapECDSearchRequestModel"
+              }
+            },
+            "application/*+xml": {
+              "schema": {
+                "$ref": "#/components/schemas/FundingCapECDSearchRequestModel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/FundingCapECDSearchResponseSETAApiResponse"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FundingCapECDSearchResponseSETAApiResponse"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FundingCapECDSearchResponseSETAApiResponse"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/FundingCapECDSearchResponseSETAApiResponse"
+                }
+              },
+              "text/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/FundingCapECDSearchResponseSETAApiResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/management/ECD/FundingType/Search": {
       "post": {
         "tags": [
@@ -2558,6 +2827,129 @@
               "text/xml": {
                 "schema": {
                   "$ref": "#/components/schemas/IdentityTypeECDSearchResponseSETAApiResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/management/ECD/Indicator/Retrieve/{id}": {
+      "get": {
+        "tags": [
+          "Indicator"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/IndicatorECDRetrieveResponseModelSETAApiResponse"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IndicatorECDRetrieveResponseModelSETAApiResponse"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IndicatorECDRetrieveResponseModelSETAApiResponse"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/IndicatorECDRetrieveResponseModelSETAApiResponse"
+                }
+              },
+              "text/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/IndicatorECDRetrieveResponseModelSETAApiResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/management/ECD/Indicator/Search": {
+      "post": {
+        "tags": [
+          "Indicator"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IndicatorECDSearchRequestModel"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IndicatorECDSearchRequestModel"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/IndicatorECDSearchRequestModel"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/IndicatorECDSearchRequestModel"
+              }
+            },
+            "text/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/IndicatorECDSearchRequestModel"
+              }
+            },
+            "application/*+xml": {
+              "schema": {
+                "$ref": "#/components/schemas/IndicatorECDSearchRequestModel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/IndicatorECDSearchResponseSETAApiResponse"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IndicatorECDSearchResponseSETAApiResponse"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IndicatorECDSearchResponseSETAApiResponse"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/IndicatorECDSearchResponseSETAApiResponse"
+                }
+              },
+              "text/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/IndicatorECDSearchResponseSETAApiResponse"
                 }
               }
             }
@@ -3169,6 +3561,129 @@
               "text/xml": {
                 "schema": {
                   "$ref": "#/components/schemas/InterventionECDValidateResponseModelSETAApiResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/management/ECD/InterventionIndicator/Create": {
+      "post": {
+        "tags": [
+          "InterventionIndicator"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/InterventionIndicatorECDCreateRequestModel"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/InterventionIndicatorECDCreateRequestModel"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/InterventionIndicatorECDCreateRequestModel"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/InterventionIndicatorECDCreateRequestModel"
+              }
+            },
+            "text/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/InterventionIndicatorECDCreateRequestModel"
+              }
+            },
+            "application/*+xml": {
+              "schema": {
+                "$ref": "#/components/schemas/InterventionIndicatorECDCreateRequestModel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/InterventionIndicatorECDCreateResponseModelSETAApiResponse"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InterventionIndicatorECDCreateResponseModelSETAApiResponse"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InterventionIndicatorECDCreateResponseModelSETAApiResponse"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/InterventionIndicatorECDCreateResponseModelSETAApiResponse"
+                }
+              },
+              "text/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/InterventionIndicatorECDCreateResponseModelSETAApiResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/management/ECD/InterventionIndicator/Delete/{id}": {
+      "delete": {
+        "tags": [
+          "InterventionIndicator"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/BooleanSETAApiResponse"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BooleanSETAApiResponse"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BooleanSETAApiResponse"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/BooleanSETAApiResponse"
+                }
+              },
+              "text/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/BooleanSETAApiResponse"
                 }
               }
             }
@@ -4610,6 +5125,129 @@
             }
           }
         },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/BooleanSETAApiResponse"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BooleanSETAApiResponse"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BooleanSETAApiResponse"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/BooleanSETAApiResponse"
+                }
+              },
+              "text/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/BooleanSETAApiResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/management/ECD/OrganisationFundingCap/Create": {
+      "post": {
+        "tags": [
+          "OrganisationFundingCap"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OrganisationFundingCapECDCreateRequestModel"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OrganisationFundingCapECDCreateRequestModel"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/OrganisationFundingCapECDCreateRequestModel"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/OrganisationFundingCapECDCreateRequestModel"
+              }
+            },
+            "text/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/OrganisationFundingCapECDCreateRequestModel"
+              }
+            },
+            "application/*+xml": {
+              "schema": {
+                "$ref": "#/components/schemas/OrganisationFundingCapECDCreateRequestModel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrganisationFundingCapECDCreateResponseModelSETAApiResponse"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrganisationFundingCapECDCreateResponseModelSETAApiResponse"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrganisationFundingCapECDCreateResponseModelSETAApiResponse"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrganisationFundingCapECDCreateResponseModelSETAApiResponse"
+                }
+              },
+              "text/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrganisationFundingCapECDCreateResponseModelSETAApiResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/management/ECD/OrganisationFundingCap/Delete/{id}": {
+      "delete": {
+        "tags": [
+          "OrganisationFundingCap"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK",
@@ -8424,6 +9062,86 @@
         },
         "additionalProperties": false
       },
+      "AlternateIdentityTypeECDSearchRequestModel": {
+        "required": [
+          "filterByList",
+          "orderByList",
+          "pageNumber",
+          "pageSize"
+        ],
+        "type": "object",
+        "properties": {
+          "pageNumber": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "pageSize": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "filterByList": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Filterbylist"
+            }
+          },
+          "orderByList": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Orderbylist"
+            }
+          }
+        },
+        "additionalProperties": false
+      },
+      "AlternateIdentityTypeECDSearchResponse": {
+        "type": "object",
+        "properties": {
+          "totalRows": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "searchResults": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AlternateIdentityTypeECDSearchResponseModel"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "AlternateIdentityTypeECDSearchResponseModel": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "alternateIdentityTypeId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "AlternateIdentityTypeECDSearchResponseSETAApiResponse": {
+        "type": "object",
+        "properties": {
+          "errorMessage": {
+            "type": "string",
+            "nullable": true
+          },
+          "data": {
+            "$ref": "#/components/schemas/AlternateIdentityTypeECDSearchResponse"
+          }
+        },
+        "additionalProperties": false
+      },
       "BooleanSETAApiResponse": {
         "type": "object",
         "properties": {
@@ -8669,86 +9387,6 @@
           },
           "data": {
             "$ref": "#/components/schemas/CommunityTypeECDSearchResponse"
-          }
-        },
-        "additionalProperties": false
-      },
-      "CountryECDSearchRequestModel": {
-        "required": [
-          "filterByList",
-          "orderByList",
-          "pageNumber",
-          "pageSize"
-        ],
-        "type": "object",
-        "properties": {
-          "pageNumber": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "pageSize": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "filterByList": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/Filterbylist"
-            }
-          },
-          "orderByList": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/Orderbylist"
-            }
-          }
-        },
-        "additionalProperties": false
-      },
-      "CountryECDSearchResponse": {
-        "type": "object",
-        "properties": {
-          "totalRows": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "searchResults": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/CountryECDSearchResponseModel"
-            },
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
-      "CountryECDSearchResponseModel": {
-        "type": "object",
-        "properties": {
-          "countryId": {
-            "type": "integer",
-            "format": "int64"
-          },
-          "name": {
-            "type": "string",
-            "nullable": true
-          },
-          "code": {
-            "type": "string",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
-      "CountryECDSearchResponseSETAApiResponse": {
-        "type": "object",
-        "properties": {
-          "errorMessage": {
-            "type": "string",
-            "nullable": true
-          },
-          "data": {
-            "$ref": "#/components/schemas/CountryECDSearchResponse"
           }
         },
         "additionalProperties": false
@@ -9716,15 +10354,16 @@
       },
       "EventECDCreateRequestModel": {
         "required": [
-          "endDateTime",
+          "eventDate",
+          "eventEndTime",
           "eventFormatId",
+          "eventStartTime",
           "eventTypeId",
           "eventVenueId",
           "interventionOrganisationId",
           "name",
           "requesterEventSourceId",
-          "responderEventSourceId",
-          "startDateTime"
+          "responderEventSourceId"
         ],
         "type": "object",
         "properties": {
@@ -9748,13 +10387,17 @@
             "description": "ParentTable:EventVenue",
             "format": "int64"
           },
-          "startDateTime": {
+          "eventDate": {
             "type": "string",
-            "format": "date-time"
+            "format": "date"
           },
-          "endDateTime": {
+          "eventStartTime": {
             "type": "string",
-            "format": "date-time"
+            "format": "date-span"
+          },
+          "eventEndTime": {
+            "type": "string",
+            "format": "date-span"
           },
           "interventionOrganisationId": {
             "type": "integer",
@@ -9807,13 +10450,17 @@
       "EventECDRetrieveResponseModel": {
         "type": "object",
         "properties": {
-          "startDateTime": {
+          "eventDate": {
             "type": "string",
-            "format": "date-time"
+            "format": "date"
           },
-          "endDateTime": {
+          "eventStartTime": {
             "type": "string",
-            "format": "date-time"
+            "format": "date-span"
+          },
+          "eventEndTime": {
+            "type": "string",
+            "format": "date-span"
           },
           "createdOn": {
             "type": "string",
@@ -10000,13 +10647,17 @@
       "EventECDSearchResponseModel": {
         "type": "object",
         "properties": {
-          "startDateTime": {
+          "eventDate": {
             "type": "string",
-            "format": "date-time"
+            "format": "date"
           },
-          "endDateTime": {
+          "eventStartTime": {
             "type": "string",
-            "format": "date-time"
+            "format": "date-span"
+          },
+          "eventEndTime": {
+            "type": "string",
+            "format": "date-span"
           },
           "createdOn": {
             "type": "string",
@@ -10141,18 +10792,37 @@
         },
         "additionalProperties": false
       },
+      "EventECDSubmitRequestModel": {
+        "required": [
+          "eventId",
+          "targetStatusId"
+        ],
+        "type": "object",
+        "properties": {
+          "eventId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "targetStatusId": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
+        "additionalProperties": false
+      },
       "EventECDUpdateRequestModel": {
         "required": [
-          "endDateTime",
+          "eventDate",
+          "eventEndTime",
           "eventFormatId",
           "eventId",
+          "eventStartTime",
           "eventTypeId",
           "eventVenueId",
           "interventionOrganisationId",
           "name",
           "requesterEventSourceId",
-          "responderEventSourceId",
-          "startDateTime"
+          "responderEventSourceId"
         ],
         "type": "object",
         "properties": {
@@ -10180,13 +10850,17 @@
             "description": "ParentTable:EventVenue",
             "format": "int64"
           },
-          "startDateTime": {
+          "eventDate": {
             "type": "string",
-            "format": "date-time"
+            "format": "date"
           },
-          "endDateTime": {
+          "eventStartTime": {
             "type": "string",
-            "format": "date-time"
+            "format": "date-span"
+          },
+          "eventEndTime": {
+            "type": "string",
+            "format": "date-span"
           },
           "interventionOrganisationId": {
             "type": "integer",
@@ -10202,6 +10876,53 @@
             "type": "integer",
             "description": "ParentTable:EventSource",
             "format": "int64"
+          }
+        },
+        "additionalProperties": false
+      },
+      "EventECDValidateRequestModel": {
+        "required": [
+          "eventId",
+          "targetStatusId"
+        ],
+        "type": "object",
+        "properties": {
+          "eventId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "targetStatusId": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
+        "additionalProperties": false
+      },
+      "EventECDValidateResponseModel": {
+        "type": "object",
+        "properties": {
+          "validationPassed": {
+            "type": "boolean"
+          },
+          "validationReasons": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ValidationReason"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "EventECDValidateResponseModelSETAApiResponse": {
+        "type": "object",
+        "properties": {
+          "errorMessage": {
+            "type": "string",
+            "nullable": true
+          },
+          "data": {
+            "$ref": "#/components/schemas/EventECDValidateResponseModel"
           }
         },
         "additionalProperties": false
@@ -10868,6 +11589,283 @@
         },
         "additionalProperties": false
       },
+      "FundingCapECDRetrieveResponseModel": {
+        "type": "object",
+        "properties": {
+          "createdOn": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "modifiedOn": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "deletedOn": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "amount": {
+            "type": "number",
+            "description": "FieldType:Currency",
+            "format": "double"
+          },
+          "fundingCapId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "levelOfStudyId": {
+            "type": "integer",
+            "description": "ParentTable:LevelOfStudy",
+            "format": "int64"
+          },
+          "performancePlanId": {
+            "type": "integer",
+            "description": "ParentTable:PerformancePlan",
+            "format": "int64"
+          },
+          "economicTypeId": {
+            "type": "integer",
+            "description": "ParentTable:EconomicType",
+            "format": "int64"
+          },
+          "statusId": {
+            "type": "integer",
+            "description": "ParentTable:Status",
+            "format": "int64",
+            "nullable": true
+          },
+          "createdBySystemUserId": {
+            "type": "integer",
+            "description": "ParentTable:SystemUser",
+            "format": "int64"
+          },
+          "modifiedBySystemUserId": {
+            "type": "integer",
+            "description": "ParentTable:SystemUser",
+            "format": "int64"
+          },
+          "deletedBySystemUserId": {
+            "type": "integer",
+            "description": "ParentTable:SystemUser",
+            "format": "int64",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "levelOfStudyName": {
+            "type": "string",
+            "nullable": true
+          },
+          "performancePlanName": {
+            "type": "string",
+            "nullable": true
+          },
+          "economicTypeName": {
+            "type": "string",
+            "nullable": true
+          },
+          "statusName": {
+            "type": "string",
+            "nullable": true
+          },
+          "statusReason": {
+            "type": "string",
+            "nullable": true
+          },
+          "createdBySystemUserName": {
+            "type": "string",
+            "nullable": true
+          },
+          "modifiedBySystemUserName": {
+            "type": "string",
+            "nullable": true
+          },
+          "deletedBySystemUserName": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "FundingCapECDRetrieveResponseModelSETAApiResponse": {
+        "type": "object",
+        "properties": {
+          "errorMessage": {
+            "type": "string",
+            "nullable": true
+          },
+          "data": {
+            "$ref": "#/components/schemas/FundingCapECDRetrieveResponseModel"
+          }
+        },
+        "additionalProperties": false
+      },
+      "FundingCapECDSearchRequestModel": {
+        "required": [
+          "filterByList",
+          "orderByList",
+          "pageNumber",
+          "pageSize"
+        ],
+        "type": "object",
+        "properties": {
+          "pageNumber": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "pageSize": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "filterByList": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Filterbylist"
+            }
+          },
+          "orderByList": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Orderbylist"
+            }
+          }
+        },
+        "additionalProperties": false
+      },
+      "FundingCapECDSearchResponse": {
+        "type": "object",
+        "properties": {
+          "totalRows": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "searchResults": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/FundingCapECDSearchResponseModel"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "FundingCapECDSearchResponseModel": {
+        "type": "object",
+        "properties": {
+          "createdOn": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "modifiedOn": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "deletedOn": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "amount": {
+            "type": "number",
+            "description": "FieldType:Currency",
+            "format": "double"
+          },
+          "fundingCapId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "levelOfStudyId": {
+            "type": "integer",
+            "description": "ParentTable:LevelOfStudy",
+            "format": "int64"
+          },
+          "performancePlanId": {
+            "type": "integer",
+            "description": "ParentTable:PerformancePlan",
+            "format": "int64"
+          },
+          "economicTypeId": {
+            "type": "integer",
+            "description": "ParentTable:EconomicType",
+            "format": "int64"
+          },
+          "statusId": {
+            "type": "integer",
+            "description": "ParentTable:Status",
+            "format": "int64",
+            "nullable": true
+          },
+          "createdBySystemUserId": {
+            "type": "integer",
+            "description": "ParentTable:SystemUser",
+            "format": "int64"
+          },
+          "modifiedBySystemUserId": {
+            "type": "integer",
+            "description": "ParentTable:SystemUser",
+            "format": "int64"
+          },
+          "deletedBySystemUserId": {
+            "type": "integer",
+            "description": "ParentTable:SystemUser",
+            "format": "int64",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "levelOfStudyName": {
+            "type": "string",
+            "nullable": true
+          },
+          "performancePlanName": {
+            "type": "string",
+            "nullable": true
+          },
+          "economicTypeName": {
+            "type": "string",
+            "nullable": true
+          },
+          "statusName": {
+            "type": "string",
+            "nullable": true
+          },
+          "statusReason": {
+            "type": "string",
+            "nullable": true
+          },
+          "createdBySystemUserName": {
+            "type": "string",
+            "nullable": true
+          },
+          "modifiedBySystemUserName": {
+            "type": "string",
+            "nullable": true
+          },
+          "deletedBySystemUserName": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "FundingCapECDSearchResponseSETAApiResponse": {
+        "type": "object",
+        "properties": {
+          "errorMessage": {
+            "type": "string",
+            "nullable": true
+          },
+          "data": {
+            "$ref": "#/components/schemas/FundingCapECDSearchResponse"
+          }
+        },
+        "additionalProperties": false
+      },
       "FundingTypeECDSearchRequestModel": {
         "required": [
           "filterByList",
@@ -11100,6 +12098,421 @@
           },
           "data": {
             "$ref": "#/components/schemas/IdentityTypeECDSearchResponse"
+          }
+        },
+        "additionalProperties": false
+      },
+      "IndicatorECDRetrieveResponseModel": {
+        "type": "object",
+        "properties": {
+          "createdOn": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "modifiedOn": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "deletedOn": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "annualTarget": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "quarterOneTarget": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "quarterTwoTarget": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "quarterThreeTarget": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "quarterFourTarget": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "indicatorId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "performancePlanId": {
+            "type": "integer",
+            "description": "ParentTable:PerformancePlan",
+            "format": "int64"
+          },
+          "programmeId": {
+            "type": "integer",
+            "description": "ParentTable:Programme",
+            "format": "int64"
+          },
+          "subProgrammeId": {
+            "type": "integer",
+            "description": "ParentTable:SubProgramme",
+            "format": "int64"
+          },
+          "calculationTypeId": {
+            "type": "integer",
+            "description": "ParentTable:CalculationType",
+            "format": "int64",
+            "nullable": true
+          },
+          "reportingTypeId": {
+            "type": "integer",
+            "description": "ParentTable:ReportingType",
+            "format": "int64",
+            "nullable": true
+          },
+          "responsibleEmSystemUserId": {
+            "type": "integer",
+            "description": "ParentTable:SystemUser",
+            "format": "int64",
+            "nullable": true
+          },
+          "responsibleDepartmentTypeId": {
+            "type": "integer",
+            "description": "ParentTable:DepartmentType",
+            "format": "int64",
+            "nullable": true
+          },
+          "feasibilityStatusId": {
+            "type": "integer",
+            "format": "int64",
+            "nullable": true
+          },
+          "statusId": {
+            "type": "integer",
+            "description": "ParentTable:Status",
+            "format": "int64",
+            "nullable": true
+          },
+          "createdBySystemUserId": {
+            "type": "integer",
+            "description": "ParentTable:SystemUser",
+            "format": "int64"
+          },
+          "modifiedBySystemUserId": {
+            "type": "integer",
+            "description": "ParentTable:SystemUser",
+            "format": "int64"
+          },
+          "deletedBySystemUserId": {
+            "type": "integer",
+            "description": "ParentTable:SystemUser",
+            "format": "int64",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "code": {
+            "type": "string",
+            "nullable": true
+          },
+          "performancePlanName": {
+            "type": "string",
+            "nullable": true
+          },
+          "programmeName": {
+            "type": "string",
+            "nullable": true
+          },
+          "subProgrammeName": {
+            "type": "string",
+            "nullable": true
+          },
+          "calculationTypeName": {
+            "type": "string",
+            "nullable": true
+          },
+          "reportingTypeName": {
+            "type": "string",
+            "nullable": true
+          },
+          "responsibleEmSystemUserName": {
+            "type": "string",
+            "nullable": true
+          },
+          "responsibleDepartmentTypeName": {
+            "type": "string",
+            "nullable": true
+          },
+          "statusName": {
+            "type": "string",
+            "nullable": true
+          },
+          "statusReason": {
+            "type": "string",
+            "nullable": true
+          },
+          "createdBySystemUserName": {
+            "type": "string",
+            "nullable": true
+          },
+          "modifiedBySystemUserName": {
+            "type": "string",
+            "nullable": true
+          },
+          "deletedBySystemUserName": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "IndicatorECDRetrieveResponseModelSETAApiResponse": {
+        "type": "object",
+        "properties": {
+          "errorMessage": {
+            "type": "string",
+            "nullable": true
+          },
+          "data": {
+            "$ref": "#/components/schemas/IndicatorECDRetrieveResponseModel"
+          }
+        },
+        "additionalProperties": false
+      },
+      "IndicatorECDSearchRequestModel": {
+        "required": [
+          "filterByList",
+          "orderByList",
+          "pageNumber",
+          "pageSize"
+        ],
+        "type": "object",
+        "properties": {
+          "pageNumber": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "pageSize": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "filterByList": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Filterbylist"
+            }
+          },
+          "orderByList": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Orderbylist"
+            }
+          }
+        },
+        "additionalProperties": false
+      },
+      "IndicatorECDSearchResponse": {
+        "type": "object",
+        "properties": {
+          "totalRows": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "searchResults": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/IndicatorECDSearchResponseModel"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "IndicatorECDSearchResponseModel": {
+        "type": "object",
+        "properties": {
+          "createdOn": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "modifiedOn": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "deletedOn": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "annualTarget": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "quarterOneTarget": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "quarterTwoTarget": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "quarterThreeTarget": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "quarterFourTarget": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "indicatorId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "performancePlanId": {
+            "type": "integer",
+            "description": "ParentTable:PerformancePlan",
+            "format": "int64"
+          },
+          "programmeId": {
+            "type": "integer",
+            "description": "ParentTable:Programme",
+            "format": "int64"
+          },
+          "subProgrammeId": {
+            "type": "integer",
+            "description": "ParentTable:SubProgramme",
+            "format": "int64"
+          },
+          "calculationTypeId": {
+            "type": "integer",
+            "description": "ParentTable:CalculationType",
+            "format": "int64",
+            "nullable": true
+          },
+          "reportingTypeId": {
+            "type": "integer",
+            "description": "ParentTable:ReportingType",
+            "format": "int64",
+            "nullable": true
+          },
+          "responsibleEmSystemUserId": {
+            "type": "integer",
+            "description": "ParentTable:SystemUser",
+            "format": "int64",
+            "nullable": true
+          },
+          "responsibleDepartmentTypeId": {
+            "type": "integer",
+            "description": "ParentTable:DepartmentType",
+            "format": "int64",
+            "nullable": true
+          },
+          "feasibilityStatusId": {
+            "type": "integer",
+            "format": "int64",
+            "nullable": true
+          },
+          "statusId": {
+            "type": "integer",
+            "description": "ParentTable:Status",
+            "format": "int64",
+            "nullable": true
+          },
+          "createdBySystemUserId": {
+            "type": "integer",
+            "description": "ParentTable:SystemUser",
+            "format": "int64"
+          },
+          "modifiedBySystemUserId": {
+            "type": "integer",
+            "description": "ParentTable:SystemUser",
+            "format": "int64"
+          },
+          "deletedBySystemUserId": {
+            "type": "integer",
+            "description": "ParentTable:SystemUser",
+            "format": "int64",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "code": {
+            "type": "string",
+            "nullable": true
+          },
+          "performancePlanName": {
+            "type": "string",
+            "nullable": true
+          },
+          "programmeName": {
+            "type": "string",
+            "nullable": true
+          },
+          "subProgrammeName": {
+            "type": "string",
+            "nullable": true
+          },
+          "calculationTypeName": {
+            "type": "string",
+            "nullable": true
+          },
+          "reportingTypeName": {
+            "type": "string",
+            "nullable": true
+          },
+          "responsibleEmSystemUserName": {
+            "type": "string",
+            "nullable": true
+          },
+          "responsibleDepartmentTypeName": {
+            "type": "string",
+            "nullable": true
+          },
+          "statusName": {
+            "type": "string",
+            "nullable": true
+          },
+          "statusReason": {
+            "type": "string",
+            "nullable": true
+          },
+          "createdBySystemUserName": {
+            "type": "string",
+            "nullable": true
+          },
+          "modifiedBySystemUserName": {
+            "type": "string",
+            "nullable": true
+          },
+          "deletedBySystemUserName": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "IndicatorECDSearchResponseSETAApiResponse": {
+        "type": "object",
+        "properties": {
+          "errorMessage": {
+            "type": "string",
+            "nullable": true
+          },
+          "data": {
+            "$ref": "#/components/schemas/IndicatorECDSearchResponse"
           }
         },
         "additionalProperties": false
@@ -11676,6 +13089,56 @@
           },
           "data": {
             "$ref": "#/components/schemas/InterventionECDValidateResponseModel"
+          }
+        },
+        "additionalProperties": false
+      },
+      "InterventionIndicatorECDCreateRequestModel": {
+        "required": [
+          "indicatorId",
+          "interventionId"
+        ],
+        "type": "object",
+        "properties": {
+          "interventionId": {
+            "type": "integer",
+            "description": "ParentTable:Intervention",
+            "format": "int64"
+          },
+          "indicatorId": {
+            "type": "integer",
+            "description": "ParentTable:Indicator",
+            "format": "int64"
+          },
+          "statusId": {
+            "type": "integer",
+            "description": "ParentTable:Status",
+            "format": "int64",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "InterventionIndicatorECDCreateResponseModel": {
+        "type": "object",
+        "properties": {
+          "interventionIndicatorId": {
+            "type": "integer",
+            "format": "int64",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "InterventionIndicatorECDCreateResponseModelSETAApiResponse": {
+        "type": "object",
+        "properties": {
+          "errorMessage": {
+            "type": "string",
+            "nullable": true
+          },
+          "data": {
+            "$ref": "#/components/schemas/InterventionIndicatorECDCreateResponseModel"
           }
         },
         "additionalProperties": false
@@ -13808,6 +15271,78 @@
         },
         "additionalProperties": false
       },
+      "OrganisationFundingCapECDCreateRequestModel": {
+        "required": [
+          "fundingCapId",
+          "interventionOrganisationId"
+        ],
+        "type": "object",
+        "properties": {
+          "fundingCapId": {
+            "type": "integer",
+            "description": "ParentTable:FundingCap",
+            "format": "int64"
+          },
+          "interventionOrganisationId": {
+            "type": "integer",
+            "description": "ParentTable:InterventionOrganisation",
+            "format": "int64"
+          },
+          "maxLearnerCount": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "maxFundingAmount": {
+            "type": "number",
+            "description": "FieldType:Currency",
+            "format": "double",
+            "nullable": true
+          },
+          "approvedLearnerCount": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "approvedFundingAmount": {
+            "type": "number",
+            "description": "FieldType:Currency",
+            "format": "double",
+            "nullable": true
+          },
+          "statusId": {
+            "type": "integer",
+            "description": "ParentTable:Status",
+            "format": "int64",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "OrganisationFundingCapECDCreateResponseModel": {
+        "type": "object",
+        "properties": {
+          "organisationFundingCapId": {
+            "type": "integer",
+            "format": "int64",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "OrganisationFundingCapECDCreateResponseModelSETAApiResponse": {
+        "type": "object",
+        "properties": {
+          "errorMessage": {
+            "type": "string",
+            "nullable": true
+          },
+          "data": {
+            "$ref": "#/components/schemas/OrganisationFundingCapECDCreateResponseModel"
+          }
+        },
+        "additionalProperties": false
+      },
       "OrganisationPersonECDCreateRequestModel": {
         "required": [
           "organisationId",
@@ -15862,17 +17397,13 @@
       },
       "PersonECDCreateRequestModel": {
         "required": [
-          "age",
-          "ageBracketId",
           "cityId",
           "communicatingDisabilityRatingId",
           "communityTypeId",
-          "dateOfBirth",
           "economicTypeId",
           "email",
           "equityCodeId",
           "firstName",
-          "genderId",
           "hearingDisabilityRatingId",
           "homeLanguageId",
           "identityNumber",
@@ -15911,24 +17442,6 @@
           "identityTypeId": {
             "type": "integer",
             "description": "ParentTable:IdentityType",
-            "format": "int64"
-          },
-          "dateOfBirth": {
-            "type": "string",
-            "format": "date"
-          },
-          "age": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "ageBracketId": {
-            "type": "integer",
-            "description": "ParentTable:AgeBracket",
-            "format": "int64"
-          },
-          "genderId": {
-            "type": "integer",
-            "description": "ParentTable:Gender",
             "format": "int64"
           },
           "equityCodeId": {
@@ -16973,17 +18486,13 @@
       },
       "PersonECDUpdateRequestModel": {
         "required": [
-          "age",
-          "ageBracketId",
           "cityId",
           "communicatingDisabilityRatingId",
           "communityTypeId",
-          "dateOfBirth",
           "economicTypeId",
           "email",
           "equityCodeId",
           "firstName",
-          "genderId",
           "hearingDisabilityRatingId",
           "homeLanguageId",
           "identityNumber",
@@ -17027,24 +18536,6 @@
           "identityTypeId": {
             "type": "integer",
             "description": "ParentTable:IdentityType",
-            "format": "int64"
-          },
-          "dateOfBirth": {
-            "type": "string",
-            "format": "date"
-          },
-          "age": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "ageBracketId": {
-            "type": "integer",
-            "description": "ParentTable:AgeBracket",
-            "format": "int64"
-          },
-          "genderId": {
-            "type": "integer",
-            "description": "ParentTable:Gender",
             "format": "int64"
           },
           "equityCodeId": {

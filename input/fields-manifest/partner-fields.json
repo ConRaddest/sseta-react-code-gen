@@ -28,6 +28,7 @@
     "middleName",
     "lastName",
     "identityNumber",
+    "identityTypeId",
     "equityCodeId",
     "nationalityId",
     "citizenshipId",
@@ -61,6 +62,7 @@
     "middleName",
     "lastName",
     "identityNumber",
+    "identityTypeId",
     "equityCodeId",
     "nationalityId",
     "citizenshipId",
@@ -196,16 +198,18 @@
     "eventTypeId",
     "eventFormatId",
     "eventVenueId",
-    "startDateTime",
-    "endDateTime"
+    "eventDate",
+    "eventStartTime",
+    "eventEndTime"
   ],
   "Ecd.Event.Update": [
     "name",
     "eventTypeId",
     "eventFormatId",
     "eventVenueId",
-    "startDateTime",
-    "endDateTime"
+    "eventDate",
+    "eventStartTime",
+    "eventEndTime"
   ],
   "Ecd.Event.View": [
     "name",
@@ -214,8 +218,9 @@
     "eventVenueName",
     "interventionOrganisationName",
     "statusName",
-    "startDateTime",
-    "endDateTime",
+    "eventDate",
+    "eventStartTime",
+    "eventEndTime",
     "requesterEventSourceName",
     "responderEventSourceName",
     "createdOn",

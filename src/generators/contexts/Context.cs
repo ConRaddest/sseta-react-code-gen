@@ -124,6 +124,7 @@ static class ContextGenerator
         bool hasSubmit = ops.Submit != null;
         bool hasValidate = ops.Validate != null;
         bool hasSummary = ops.Summary != null;
+        bool shouldDefaultFetchAfterWrite = hasSearch && (hasCreate || hasUpdate);
 
         // Resolve entity type (from retrieve response, fallback to prefix)
         string entityType = hasRetrieve ? ops.Retrieve!.ResponseType : prefix;
@@ -169,7 +170,8 @@ static class ContextGenerator
 
         // sseta/components imports — only add what is actually used
         var componentImports = new List<string>();
-        if (hasSearch) { componentImports.Add("FetchRequest"); componentImports.Add("DEFAULT_PAGE_SIZE"); }
+        if (hasSearch) componentImports.Add("FetchRequest");
+        if (shouldDefaultFetchAfterWrite) componentImports.Add("DEFAULT_PAGE_SIZE");
         if (hasValidate) componentImports.Add("ValidateResponse");
 
         if (componentImports.Count > 0)
@@ -240,12 +242,7 @@ static class ContextGenerator
             sb.AppendLine("    items: [],");
             sb.AppendLine("    totalRows: 0,");
             sb.AppendLine("    lastSearchTerm: \"\",");
-            sb.AppendLine("    lastFetchRequest: {");
-            sb.AppendLine("      pageNumber: 1,");
-            sb.AppendLine("      pageSize: DEFAULT_PAGE_SIZE,");
-            sb.AppendLine("      orderByList: [],");
-            sb.AppendLine("      filterByList: [],");
-            sb.AppendLine("    },");
+            sb.AppendLine("    lastFetchRequest: null,");
         }
         if (hasRetrieve)
             sb.AppendLine("    retrievedItem: null,");
@@ -277,6 +274,17 @@ static class ContextGenerator
             sb.AppendLine("    }");
             sb.AppendLine("  }");
             sb.AppendLine();
+
+            if (shouldDefaultFetchAfterWrite)
+            {
+                sb.AppendLine("  const getDefaultRefreshFetchRequest = (): FetchRequest => ({");
+                sb.AppendLine("      pageNumber: 1,");
+                sb.AppendLine("      pageSize: DEFAULT_PAGE_SIZE,");
+                sb.AppendLine("      orderByList: [{ columnName: \"createdOn\", isDescending: true }],");
+                sb.AppendLine("      filterByList: [],");
+                sb.AppendLine("    })");
+                sb.AppendLine();
+            }
         }
 
         // retrieve
@@ -304,6 +312,7 @@ static class ContextGenerator
             if (hasSearch)
             {
                 sb.AppendLine("      if (state.lastFetchRequest) await fetchItems(state.lastFetchRequest)");
+                sb.AppendLine("      else await fetchItems(getDefaultRefreshFetchRequest())");
             }
             sb.AppendLine("      return response.data");
             sb.AppendLine("    } catch (error) {");
@@ -321,7 +330,10 @@ static class ContextGenerator
             sb.AppendLine("    try {");
             sb.AppendLine($"      await {apiPath}.update(data)");
             if (hasSearch)
+            {
                 sb.AppendLine("      if (state.lastFetchRequest) await fetchItems(state.lastFetchRequest)");
+                sb.AppendLine("      else await fetchItems(getDefaultRefreshFetchRequest())");
+            }
             sb.AppendLine("      return true");
             sb.AppendLine("    } catch (error) {");
             sb.AppendLine("      console.error(error)");

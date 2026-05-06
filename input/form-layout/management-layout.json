@@ -733,26 +733,30 @@
       "totalColumns": 2,
       "fields": [
         {
-          "name": "startDateTime",
+          "name": "eventDate",
           "columns": 1
         },
         {
-          "name": "endDateTime",
+          "name": "eventStartTime",
+          "columns": 1
+        },
+        {
+          "name": "eventEndTime",
           "columns": 1
         }
       ]
     },
     {
-      "groupName": "Event Sources",
+      "groupName": "Additional Fields",
       "totalColumns": 2,
       "fields": [
         {
           "name": "requesterEventSourceId",
-          "columns": 1
+          "columns": 2
         },
         {
           "name": "responderEventSourceId",
-          "columns": 1
+          "columns": 2
         }
       ]
     }
@@ -789,26 +793,30 @@
       "totalColumns": 2,
       "fields": [
         {
-          "name": "startDateTime",
+          "name": "eventDate",
           "columns": 1
         },
         {
-          "name": "endDateTime",
+          "name": "eventStartTime",
+          "columns": 1
+        },
+        {
+          "name": "eventEndTime",
           "columns": 1
         }
       ]
     },
     {
-      "groupName": "Event Sources",
+      "groupName": "Additional Fields",
       "totalColumns": 2,
       "fields": [
         {
           "name": "requesterEventSourceId",
-          "columns": 1
+          "columns": 2
         },
         {
           "name": "responderEventSourceId",
-          "columns": 1
+          "columns": 2
         }
       ]
     }
@@ -847,10 +855,6 @@
           "columns": 1
         },
         {
-          "name": "interventionOrganisationId",
-          "columns": 1
-        },
-        {
           "name": "interventionOrganisationName",
           "columns": 1
         },
@@ -865,11 +869,15 @@
       "totalColumns": 2,
       "fields": [
         {
-          "name": "startDateTime",
+          "name": "eventDate",
           "columns": 1
         },
         {
-          "name": "endDateTime",
+          "name": "eventStartTime",
+          "columns": 1
+        },
+        {
+          "name": "eventEndTime",
           "columns": 1
         }
       ]
@@ -879,15 +887,7 @@
       "totalColumns": 2,
       "fields": [
         {
-          "name": "requesterEventSourceId",
-          "columns": 1
-        },
-        {
           "name": "requesterEventSourceName",
-          "columns": 1
-        },
-        {
-          "name": "responderEventSourceId",
           "columns": 1
         },
         {
@@ -913,15 +913,7 @@
           "columns": 1
         },
         {
-          "name": "createdBySystemUserId",
-          "columns": 1
-        },
-        {
           "name": "createdBySystemUserName",
-          "columns": 1
-        },
-        {
-          "name": "modifiedBySystemUserId",
           "columns": 1
         },
         {
@@ -929,12 +921,38 @@
           "columns": 1
         },
         {
-          "name": "deletedBySystemUserId",
-          "columns": 1
-        },
-        {
           "name": "deletedBySystemUserName",
           "columns": 1
+        }
+      ]
+    },
+    {
+      "groupName": "Additional Fields",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "interventionOrganisationId",
+          "columns": 2
+        },
+        {
+          "name": "requesterEventSourceId",
+          "columns": 2
+        },
+        {
+          "name": "responderEventSourceId",
+          "columns": 2
+        },
+        {
+          "name": "createdBySystemUserId",
+          "columns": 2
+        },
+        {
+          "name": "modifiedBySystemUserId",
+          "columns": 2
+        },
+        {
+          "name": "deletedBySystemUserId",
+          "columns": 2
         }
       ]
     }
@@ -1029,6 +1047,258 @@
         {
           "name": "deletedBySystemUserName",
           "columns": 1
+        }
+      ]
+    }
+  ],
+  "Ecd.FundingCap.View": [
+    {
+      "groupName": "Funding Details",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "name",
+          "columns": 2
+        },
+        {
+          "name": "levelOfStudyName",
+          "columns": 1
+        },
+        {
+          "name": "performancePlanName",
+          "columns": 1
+        },
+        {
+          "name": "economicTypeName",
+          "columns": 1
+        },
+        {
+          "name": "amount",
+          "columns": 1
+        },
+        {
+          "name": "statusName",
+          "columns": 1
+        }
+      ]
+    },
+    {
+      "groupName": "Audit",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "createdOn",
+          "columns": 1
+        },
+        {
+          "name": "modifiedOn",
+          "columns": 1
+        },
+        {
+          "name": "deletedOn",
+          "columns": 1
+        },
+        {
+          "name": "createdBySystemUserName",
+          "columns": 1
+        },
+        {
+          "name": "modifiedBySystemUserName",
+          "columns": 1
+        },
+        {
+          "name": "deletedBySystemUserName",
+          "columns": 1
+        }
+      ]
+    },
+    {
+      "groupName": "Additional Fields",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "levelOfStudyId",
+          "columns": 2
+        },
+        {
+          "name": "performancePlanId",
+          "columns": 2
+        },
+        {
+          "name": "economicTypeId",
+          "columns": 2
+        },
+        {
+          "name": "createdBySystemUserId",
+          "columns": 2
+        },
+        {
+          "name": "modifiedBySystemUserId",
+          "columns": 2
+        },
+        {
+          "name": "deletedBySystemUserId",
+          "columns": 2
+        }
+      ]
+    }
+  ],
+  "Ecd.Indicator.View": [
+    {
+      "groupName": "Basic Information",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "name",
+          "columns": 2
+        },
+        {
+          "name": "code",
+          "columns": 1
+        },
+        {
+          "name": "calculationTypeName",
+          "columns": 1
+        },
+        {
+          "name": "reportingTypeName",
+          "columns": 1
+        },
+        {
+          "name": "statusName",
+          "columns": 1
+        }
+      ]
+    },
+    {
+      "groupName": "Targets",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "annualTarget",
+          "columns": 1
+        },
+        {
+          "name": "quarterOneTarget",
+          "columns": 1
+        },
+        {
+          "name": "quarterTwoTarget",
+          "columns": 1
+        },
+        {
+          "name": "quarterThreeTarget",
+          "columns": 1
+        },
+        {
+          "name": "quarterFourTarget",
+          "columns": 1
+        }
+      ]
+    },
+    {
+      "groupName": "Ownership",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "performancePlanName",
+          "columns": 1
+        },
+        {
+          "name": "programmeName",
+          "columns": 1
+        },
+        {
+          "name": "subProgrammeName",
+          "columns": 1
+        },
+        {
+          "name": "responsibleDepartmentTypeName",
+          "columns": 1
+        },
+        {
+          "name": "responsibleEmSystemUserName",
+          "columns": 2
+        }
+      ]
+    },
+    {
+      "groupName": "Audit",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "createdOn",
+          "columns": 1
+        },
+        {
+          "name": "modifiedOn",
+          "columns": 1
+        },
+        {
+          "name": "deletedOn",
+          "columns": 1
+        },
+        {
+          "name": "createdBySystemUserName",
+          "columns": 1
+        },
+        {
+          "name": "modifiedBySystemUserName",
+          "columns": 1
+        },
+        {
+          "name": "deletedBySystemUserName",
+          "columns": 1
+        }
+      ]
+    },
+    {
+      "groupName": "Additional Fields",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "performancePlanId",
+          "columns": 2
+        },
+        {
+          "name": "programmeId",
+          "columns": 2
+        },
+        {
+          "name": "subProgrammeId",
+          "columns": 2
+        },
+        {
+          "name": "calculationTypeId",
+          "columns": 2
+        },
+        {
+          "name": "reportingTypeId",
+          "columns": 2
+        },
+        {
+          "name": "responsibleEmSystemUserId",
+          "columns": 2
+        },
+        {
+          "name": "responsibleDepartmentTypeId",
+          "columns": 2
+        },
+        {
+          "name": "feasibilityStatusId",
+          "columns": 2
+        },
+        {
+          "name": "createdBySystemUserId",
+          "columns": 2
+        },
+        {
+          "name": "modifiedBySystemUserId",
+          "columns": 2
+        },
+        {
+          "name": "deletedBySystemUserId",
+          "columns": 2
         }
       ]
     }
@@ -1220,6 +1490,22 @@
         },
         {
           "name": "deletedBySystemUserName",
+          "columns": 1
+        }
+      ]
+    }
+  ],
+  "Ecd.InterventionIndicator.Create": [
+    {
+      "groupName": "Basic Information",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "interventionId",
+          "columns": 1
+        },
+        {
+          "name": "indicatorId",
           "columns": 1
         }
       ]
@@ -1946,6 +2232,44 @@
         },
         {
           "name": "deletedBySystemUserName",
+          "columns": 1
+        }
+      ]
+    }
+  ],
+  "Ecd.OrganisationFundingCap.Create": [
+    {
+      "groupName": "Basic Information",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "fundingCapId",
+          "columns": 1
+        },
+        {
+          "name": "interventionOrganisationId",
+          "columns": 1
+        }
+      ]
+    },
+    {
+      "groupName": "Limits",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "maxLearnerCount",
+          "columns": 1
+        },
+        {
+          "name": "maxFundingAmount",
+          "columns": 1
+        },
+        {
+          "name": "approvedLearnerCount",
+          "columns": 1
+        },
+        {
+          "name": "approvedFundingAmount",
           "columns": 1
         }
       ]

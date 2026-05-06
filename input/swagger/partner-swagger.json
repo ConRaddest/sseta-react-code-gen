@@ -1409,6 +1409,79 @@
         }
       }
     },
+    "/api/partner/ECD/Event/Submit": {
+      "post": {
+        "tags": [
+          "Event"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EventECDSubmitRequestModel"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EventECDSubmitRequestModel"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/EventECDSubmitRequestModel"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/EventECDSubmitRequestModel"
+              }
+            },
+            "text/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/EventECDSubmitRequestModel"
+              }
+            },
+            "application/*+xml": {
+              "schema": {
+                "$ref": "#/components/schemas/EventECDSubmitRequestModel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/BooleanSETAApiResponse"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BooleanSETAApiResponse"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BooleanSETAApiResponse"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/BooleanSETAApiResponse"
+                }
+              },
+              "text/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/BooleanSETAApiResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/partner/ECD/Event/Update": {
       "put": {
         "tags": [
@@ -1475,6 +1548,79 @@
               "text/xml": {
                 "schema": {
                   "$ref": "#/components/schemas/BooleanSETAApiResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/partner/ECD/Event/Validate": {
+      "post": {
+        "tags": [
+          "Event"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EventECDValidateRequestModel"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EventECDValidateRequestModel"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/EventECDValidateRequestModel"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/EventECDValidateRequestModel"
+              }
+            },
+            "text/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/EventECDValidateRequestModel"
+              }
+            },
+            "application/*+xml": {
+              "schema": {
+                "$ref": "#/components/schemas/EventECDValidateRequestModel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/EventECDValidateResponseModelSETAApiResponse"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EventECDValidateResponseModelSETAApiResponse"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EventECDValidateResponseModelSETAApiResponse"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/EventECDValidateResponseModelSETAApiResponse"
+                }
+              },
+              "text/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/EventECDValidateResponseModelSETAApiResponse"
                 }
               }
             }
@@ -1855,6 +2001,79 @@
         "responses": {
           "200": {
             "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/partner/B/IdentityType/Search": {
+      "post": {
+        "tags": [
+          "IdentityType"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IdentityTypeBSearchRequestModel"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IdentityTypeBSearchRequestModel"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/IdentityTypeBSearchRequestModel"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/IdentityTypeBSearchRequestModel"
+              }
+            },
+            "text/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/IdentityTypeBSearchRequestModel"
+              }
+            },
+            "application/*+xml": {
+              "schema": {
+                "$ref": "#/components/schemas/IdentityTypeBSearchRequestModel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/IdentityTypeBSearchResponseSETAApiResponse"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IdentityTypeBSearchResponseSETAApiResponse"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IdentityTypeBSearchResponseSETAApiResponse"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/IdentityTypeBSearchResponseSETAApiResponse"
+                }
+              },
+              "text/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/IdentityTypeBSearchResponseSETAApiResponse"
+                }
+              }
+            }
           }
         }
       }
@@ -4469,15 +4688,16 @@
       },
       "EventECDCreateRequestModel": {
         "required": [
-          "endDateTime",
+          "eventDate",
+          "eventEndTime",
           "eventFormatId",
+          "eventStartTime",
           "eventTypeId",
           "eventVenueId",
           "interventionOrganisationId",
           "name",
           "requesterEventSourceId",
-          "responderEventSourceId",
-          "startDateTime"
+          "responderEventSourceId"
         ],
         "type": "object",
         "properties": {
@@ -4501,13 +4721,17 @@
             "description": "ParentTable:EventVenue",
             "format": "int64"
           },
-          "startDateTime": {
+          "eventDate": {
             "type": "string",
-            "format": "date-time"
+            "format": "date"
           },
-          "endDateTime": {
+          "eventStartTime": {
             "type": "string",
-            "format": "date-time"
+            "format": "date-span"
+          },
+          "eventEndTime": {
+            "type": "string",
+            "format": "date-span"
           },
           "interventionOrganisationId": {
             "type": "integer",
@@ -4560,13 +4784,17 @@
       "EventECDRetrieveResponseModel": {
         "type": "object",
         "properties": {
-          "startDateTime": {
+          "eventDate": {
             "type": "string",
-            "format": "date-time"
+            "format": "date"
           },
-          "endDateTime": {
+          "eventStartTime": {
             "type": "string",
-            "format": "date-time"
+            "format": "date-span"
+          },
+          "eventEndTime": {
+            "type": "string",
+            "format": "date-span"
           },
           "createdOn": {
             "type": "string",
@@ -4753,13 +4981,17 @@
       "EventECDSearchResponseModel": {
         "type": "object",
         "properties": {
-          "startDateTime": {
+          "eventDate": {
             "type": "string",
-            "format": "date-time"
+            "format": "date"
           },
-          "endDateTime": {
+          "eventStartTime": {
             "type": "string",
-            "format": "date-time"
+            "format": "date-span"
+          },
+          "eventEndTime": {
+            "type": "string",
+            "format": "date-span"
           },
           "createdOn": {
             "type": "string",
@@ -4894,18 +5126,37 @@
         },
         "additionalProperties": false
       },
+      "EventECDSubmitRequestModel": {
+        "required": [
+          "eventId",
+          "targetStatusId"
+        ],
+        "type": "object",
+        "properties": {
+          "eventId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "targetStatusId": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
+        "additionalProperties": false
+      },
       "EventECDUpdateRequestModel": {
         "required": [
-          "endDateTime",
+          "eventDate",
+          "eventEndTime",
           "eventFormatId",
           "eventId",
+          "eventStartTime",
           "eventTypeId",
           "eventVenueId",
           "interventionOrganisationId",
           "name",
           "requesterEventSourceId",
-          "responderEventSourceId",
-          "startDateTime"
+          "responderEventSourceId"
         ],
         "type": "object",
         "properties": {
@@ -4933,13 +5184,17 @@
             "description": "ParentTable:EventVenue",
             "format": "int64"
           },
-          "startDateTime": {
+          "eventDate": {
             "type": "string",
-            "format": "date-time"
+            "format": "date"
           },
-          "endDateTime": {
+          "eventStartTime": {
             "type": "string",
-            "format": "date-time"
+            "format": "date-span"
+          },
+          "eventEndTime": {
+            "type": "string",
+            "format": "date-span"
           },
           "interventionOrganisationId": {
             "type": "integer",
@@ -4955,6 +5210,53 @@
             "type": "integer",
             "description": "ParentTable:EventSource",
             "format": "int64"
+          }
+        },
+        "additionalProperties": false
+      },
+      "EventECDValidateRequestModel": {
+        "required": [
+          "eventId",
+          "targetStatusId"
+        ],
+        "type": "object",
+        "properties": {
+          "eventId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "targetStatusId": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
+        "additionalProperties": false
+      },
+      "EventECDValidateResponseModel": {
+        "type": "object",
+        "properties": {
+          "validationPassed": {
+            "type": "boolean"
+          },
+          "validationReasons": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ValidationReason"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "EventECDValidateResponseModelSETAApiResponse": {
+        "type": "object",
+        "properties": {
+          "errorMessage": {
+            "type": "string",
+            "nullable": true
+          },
+          "data": {
+            "$ref": "#/components/schemas/EventECDValidateResponseModel"
           }
         },
         "additionalProperties": false
@@ -5536,6 +5838,82 @@
           },
           "data": {
             "$ref": "#/components/schemas/GenderBSearchResponse"
+          }
+        },
+        "additionalProperties": false
+      },
+      "IdentityTypeBSearchRequestModel": {
+        "required": [
+          "filterByList",
+          "orderByList",
+          "pageNumber",
+          "pageSize"
+        ],
+        "type": "object",
+        "properties": {
+          "pageNumber": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "pageSize": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "filterByList": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Filterbylist"
+            }
+          },
+          "orderByList": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Orderbylist"
+            }
+          }
+        },
+        "additionalProperties": false
+      },
+      "IdentityTypeBSearchResponse": {
+        "type": "object",
+        "properties": {
+          "totalRows": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "searchResults": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/IdentityTypeBSearchResponseModel"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "IdentityTypeBSearchResponseModel": {
+        "type": "object",
+        "properties": {
+          "identityTypeId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "IdentityTypeBSearchResponseSETAApiResponse": {
+        "type": "object",
+        "properties": {
+          "errorMessage": {
+            "type": "string",
+            "nullable": true
+          },
+          "data": {
+            "$ref": "#/components/schemas/IdentityTypeBSearchResponse"
           }
         },
         "additionalProperties": false

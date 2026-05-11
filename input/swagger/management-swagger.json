@@ -461,6 +461,79 @@
         }
       }
     },
+    "/api/management/ECD/Country/Search": {
+      "post": {
+        "tags": [
+          "Country"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CountryECDSearchRequestModel"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CountryECDSearchRequestModel"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CountryECDSearchRequestModel"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/CountryECDSearchRequestModel"
+              }
+            },
+            "text/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/CountryECDSearchRequestModel"
+              }
+            },
+            "application/*+xml": {
+              "schema": {
+                "$ref": "#/components/schemas/CountryECDSearchRequestModel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/CountryECDSearchResponseSETAApiResponse"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CountryECDSearchResponseSETAApiResponse"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CountryECDSearchResponseSETAApiResponse"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/CountryECDSearchResponseSETAApiResponse"
+                }
+              },
+              "text/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/CountryECDSearchResponseSETAApiResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/management/PORTAL/DepartmentType/Search": {
       "post": {
         "tags": [
@@ -8829,6 +8902,56 @@
         }
       }
     },
+    "/api/management/ECD/Intervention/Summary/{id}": {
+      "get": {
+        "tags": [
+          "Summaries"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagementECDInterventionsSummaryResponseSETAApiResponse"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagementECDInterventionsSummaryResponseSETAApiResponse"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagementECDInterventionsSummaryResponseSETAApiResponse"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagementECDInterventionsSummaryResponseSETAApiResponse"
+                }
+              },
+              "text/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagementECDInterventionsSummaryResponseSETAApiResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/management/PORTAL/SystemUser/Update": {
       "put": {
         "tags": [
@@ -9387,6 +9510,86 @@
           },
           "data": {
             "$ref": "#/components/schemas/CommunityTypeECDSearchResponse"
+          }
+        },
+        "additionalProperties": false
+      },
+      "CountryECDSearchRequestModel": {
+        "required": [
+          "filterByList",
+          "orderByList",
+          "pageNumber",
+          "pageSize"
+        ],
+        "type": "object",
+        "properties": {
+          "pageNumber": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "pageSize": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "filterByList": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Filterbylist"
+            }
+          },
+          "orderByList": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Orderbylist"
+            }
+          }
+        },
+        "additionalProperties": false
+      },
+      "CountryECDSearchResponse": {
+        "type": "object",
+        "properties": {
+          "totalRows": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "searchResults": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CountryECDSearchResponseModel"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "CountryECDSearchResponseModel": {
+        "type": "object",
+        "properties": {
+          "countryId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "code": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "CountryECDSearchResponseSETAApiResponse": {
+        "type": "object",
+        "properties": {
+          "errorMessage": {
+            "type": "string",
+            "nullable": true
+          },
+          "data": {
+            "$ref": "#/components/schemas/CountryECDSearchResponse"
           }
         },
         "additionalProperties": false
@@ -13093,6 +13296,24 @@
         },
         "additionalProperties": false
       },
+      "InterventionIndicator": {
+        "type": "object",
+        "properties": {
+          "indicatorId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "interventionIndicatorId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
       "InterventionIndicatorECDCreateRequestModel": {
         "required": [
           "indicatorId",
@@ -13139,6 +13360,31 @@
           },
           "data": {
             "$ref": "#/components/schemas/InterventionIndicatorECDCreateResponseModel"
+          }
+        },
+        "additionalProperties": false
+      },
+      "InterventionOrganisation": {
+        "type": "object",
+        "properties": {
+          "organisationId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "interventionOrganisationId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "organisationFundingCaps": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/OrganisationFundingCap"
+            },
+            "nullable": true
           }
         },
         "additionalProperties": false
@@ -13586,6 +13832,39 @@
           },
           "data": {
             "$ref": "#/components/schemas/ManagementBPartnerRoleRequestSummaryResponse"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ManagementECDInterventionsSummaryResponse": {
+        "type": "object",
+        "properties": {
+          "interventionOrganisations": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/InterventionOrganisation"
+            },
+            "nullable": true
+          },
+          "interventionIndicators": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/InterventionIndicator"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ManagementECDInterventionsSummaryResponseSETAApiResponse": {
+        "type": "object",
+        "properties": {
+          "errorMessage": {
+            "type": "string",
+            "nullable": true
+          },
+          "data": {
+            "$ref": "#/components/schemas/ManagementECDInterventionsSummaryResponse"
           }
         },
         "additionalProperties": false
@@ -15267,6 +15546,32 @@
             "minLength": 0,
             "type": "string",
             "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "OrganisationFundingCap": {
+        "type": "object",
+        "properties": {
+          "fundingCapId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "interventionOrganisationId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "organisationFundingCapId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "amount": {
+            "type": "number",
+            "format": "double"
           }
         },
         "additionalProperties": false

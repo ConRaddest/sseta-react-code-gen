@@ -2275,6 +2275,102 @@
       ]
     }
   ],
+  "Ecd.OrganisationFundingCap.View": [
+    {
+      "groupName": "Funding Cap",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "fundingCapName",
+          "columns": 2
+        },
+        {
+          "name": "interventionOrganisationName",
+          "columns": 2
+        },
+        {
+          "name": "name",
+          "columns": 2
+        },
+        {
+          "name": "fundingCapId",
+          "columns": 2
+        },
+        {
+          "name": "interventionOrganisationId",
+          "columns": 2
+        },
+        {
+          "name": "statusName",
+          "columns": 2
+        }
+      ]
+    },
+    {
+      "groupName": "Limits",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "maxLearnerCount",
+          "columns": 1
+        },
+        {
+          "name": "maxFundingAmount",
+          "columns": 1
+        },
+        {
+          "name": "approvedLearnerCount",
+          "columns": 1
+        },
+        {
+          "name": "approvedFundingAmount",
+          "columns": 1
+        }
+      ]
+    },
+    {
+      "groupName": "Audit Details",
+      "totalColumns": 2,
+      "fields": [
+        {
+          "name": "createdOn",
+          "columns": 2
+        },
+        {
+          "name": "modifiedOn",
+          "columns": 2
+        },
+        {
+          "name": "deletedOn",
+          "columns": 2
+        },
+        {
+          "name": "createdBySystemUserId",
+          "columns": 2
+        },
+        {
+          "name": "modifiedBySystemUserId",
+          "columns": 2
+        },
+        {
+          "name": "deletedBySystemUserId",
+          "columns": 2
+        },
+        {
+          "name": "createdBySystemUserName",
+          "columns": 2
+        },
+        {
+          "name": "modifiedBySystemUserName",
+          "columns": 2
+        },
+        {
+          "name": "deletedBySystemUserName",
+          "columns": 2
+        }
+      ]
+    }
+  ],
   "Ecd.OrganisationPerson.Create": [
     {
       "groupName": "Organisation Details",

@@ -383,6 +383,22 @@
     "approvedLearnerCount",
     "approvedFundingAmount"
   ],
+  "Ecd.OrganisationFundingCap.View": [
+    "createdOn",
+    "modifiedOn",
+    "deletedOn",
+    "maxLearnerCount",
+    "approvedLearnerCount",
+    "maxFundingAmount",
+    "approvedFundingAmount",
+    "name",
+    "fundingCapName",
+    "interventionOrganisationName",
+    "statusName",
+    "createdBySystemUserName",
+    "modifiedBySystemUserName",
+    "deletedBySystemUserName"
+  ],
   "Ecd.OrganisationPerson.Create": [
     "personId",
     "organisationId"

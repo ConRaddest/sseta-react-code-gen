@@ -1,5 +1,5 @@
 =================================================================
-Code Generation Log - 2026-05-06 13:55:34
+Code Generation Log - 2026-05-11 15:21:21
 =================================================================
 
 =================================================================
@@ -19,7 +19,8 @@ Fetching swagger: https://api-management-dev.pmis.servicesseta.org.za/swagger/v1
   Version:         1.0
 
   Form Layout Seed
-    layout up-to-date, nothing to seed
+    + Ecd.OrganisationFundingCap.View: 19 field(s) added
+    Seeded: input/form-layout/management-layout.json
 
   Fields Manifest
     ⚠ Skipping Event.requesterEventSourceId (no search endpoint)
@@ -38,10 +39,10 @@ Fetching swagger: https://api-management-dev.pmis.servicesseta.org.za/swagger/v1
     ⚠ Skipping PartnerRoleRequest.organisationId (no search endpoint)
     ⚠ Skipping PersonOrganisationPersonType.organisationPersonId (no search endpoint)
     ⚠ Skipping PersonOrganisationPersonType.organisationPersonId (no search endpoint)
-    39 resource(s) written to management-fields.json
+    40 resource(s) written to management-fields.json
 
   Services
-    ✓ api.service.ts  (135 endpoints across 7 modules)
+    ✓ api.service.ts  (137 endpoints across 7 modules)
 
   Types
     ✓ api.types.ts
@@ -168,6 +169,7 @@ Fetching swagger: https://api-management-dev.pmis.servicesseta.org.za/swagger/v1
     ✓ PORTAL/Object
     ✓ ECD/Organisation
     ✓ ECD/OrganisationEmployer
+    ✓ ECD/OrganisationFundingCap
     ✓ ECD/OrganisationPerson
     ✓ ECD/OrganisationProvider
     ✓ B/PartnerEmailChangeRequest
@@ -176,22 +178,22 @@ Fetching swagger: https://api-management-dev.pmis.servicesseta.org.za/swagger/v1
     ✓ ECD/Person
     ✓ ECD/PersonOrganisationPersonType
     ✓ ADMIN/StaffRoleRequest
-    16 view form(s) generated.
+    17 view form(s) generated.
 
   Delete Forms
     ⚠ Skipping: ECD/InterventionIndicator delete form — no view/retrieve endpoint found.
     ⚠ Skipping: ECD/InterventionOrganisation delete form — no view/retrieve endpoint found.
-    ⚠ Skipping: ECD/OrganisationFundingCap delete form — no view/retrieve endpoint found.
     ✓ ECD/Event
     ✓ ECD/EventVenue
     ✓ ECD/Intervention
     ✓ ECD/Organisation
     ✓ ECD/OrganisationEmployer
+    ✓ ECD/OrganisationFundingCap
     ✓ ECD/OrganisationPerson
     ✓ ECD/OrganisationProvider
     ✓ ECD/Person
     ✓ ECD/PersonOrganisationPersonType
-    9 delete form(s) generated.
+    10 delete form(s) generated.
 
   Field Hooks
     ⚠ Skipping Event.requesterEventSourceId (no search endpoint)

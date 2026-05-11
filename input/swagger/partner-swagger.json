@@ -5389,14 +5389,6 @@
       "EventRequestECDSearchResponseModel": {
         "type": "object",
         "properties": {
-          "startDateTime": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "endDateTime": {
-            "type": "string",
-            "format": "date-time"
-          },
           "createdOn": {
             "type": "string",
             "format": "date-time"

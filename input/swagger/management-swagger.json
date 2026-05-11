@@ -1404,6 +1404,18 @@
         }
       }
     },
+    "/api/support/EnumHelper/enumageddon": {
+      "get": {
+        "tags": [
+          "EnumHelper"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/management/ECD/EquityCode/Search": {
       "post": {
         "tags": [
@@ -5348,6 +5360,56 @@
               "text/xml": {
                 "schema": {
                   "$ref": "#/components/schemas/BooleanSETAApiResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/management/ECD/OrganisationFundingCap/Retrieve/{id}": {
+      "get": {
+        "tags": [
+          "OrganisationFundingCap"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrganisationFundingCapECDRetrieveResponseModelSETAApiResponse"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrganisationFundingCapECDRetrieveResponseModelSETAApiResponse"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrganisationFundingCapECDRetrieveResponseModelSETAApiResponse"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrganisationFundingCapECDRetrieveResponseModelSETAApiResponse"
+                }
+              },
+              "text/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrganisationFundingCapECDRetrieveResponseModelSETAApiResponse"
                 }
               }
             }
@@ -11258,14 +11320,6 @@
       "EventRequestECDSearchResponseModel": {
         "type": "object",
         "properties": {
-          "startDateTime": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "endDateTime": {
-            "type": "string",
-            "format": "date-time"
-          },
           "createdOn": {
             "type": "string",
             "format": "date-time"
@@ -15644,6 +15698,128 @@
           },
           "data": {
             "$ref": "#/components/schemas/OrganisationFundingCapECDCreateResponseModel"
+          }
+        },
+        "additionalProperties": false
+      },
+      "OrganisationFundingCapECDRetrieveResponseModel": {
+        "type": "object",
+        "properties": {
+          "createdOn": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "modifiedOn": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "deletedOn": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "maxLearnerCount": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "approvedLearnerCount": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "maxFundingAmount": {
+            "type": "number",
+            "description": "FieldType:Currency",
+            "format": "double",
+            "nullable": true
+          },
+          "approvedFundingAmount": {
+            "type": "number",
+            "description": "FieldType:Currency",
+            "format": "double",
+            "nullable": true
+          },
+          "organisationFundingCapId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "fundingCapId": {
+            "type": "integer",
+            "description": "ParentTable:FundingCap",
+            "format": "int64"
+          },
+          "interventionOrganisationId": {
+            "type": "integer",
+            "description": "ParentTable:InterventionOrganisation",
+            "format": "int64"
+          },
+          "statusId": {
+            "type": "integer",
+            "description": "ParentTable:Status",
+            "format": "int64",
+            "nullable": true
+          },
+          "createdBySystemUserId": {
+            "type": "integer",
+            "description": "ParentTable:SystemUser",
+            "format": "int64"
+          },
+          "modifiedBySystemUserId": {
+            "type": "integer",
+            "description": "ParentTable:SystemUser",
+            "format": "int64"
+          },
+          "deletedBySystemUserId": {
+            "type": "integer",
+            "description": "ParentTable:SystemUser",
+            "format": "int64",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "fundingCapName": {
+            "type": "string",
+            "nullable": true
+          },
+          "interventionOrganisationName": {
+            "type": "string",
+            "nullable": true
+          },
+          "statusName": {
+            "type": "string",
+            "nullable": true
+          },
+          "statusReason": {
+            "type": "string",
+            "nullable": true
+          },
+          "createdBySystemUserName": {
+            "type": "string",
+            "nullable": true
+          },
+          "modifiedBySystemUserName": {
+            "type": "string",
+            "nullable": true
+          },
+          "deletedBySystemUserName": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "OrganisationFundingCapECDRetrieveResponseModelSETAApiResponse": {
+        "type": "object",
+        "properties": {
+          "errorMessage": {
+            "type": "string",
+            "nullable": true
+          },
+          "data": {
+            "$ref": "#/components/schemas/OrganisationFundingCapECDRetrieveResponseModel"
           }
         },
         "additionalProperties": false

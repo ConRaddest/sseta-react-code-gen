@@ -734,7 +734,7 @@
       "fields": [
         {
           "name": "eventDate",
-          "columns": 1
+          "columns": 2
         },
         {
           "name": "eventStartTime",
@@ -794,7 +794,7 @@
       "fields": [
         {
           "name": "eventDate",
-          "columns": 1
+          "columns": 2
         },
         {
           "name": "eventStartTime",

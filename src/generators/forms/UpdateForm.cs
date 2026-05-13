@@ -96,7 +96,7 @@ static class UpdateFormGenerator
 
             // UpdateForm.tsx
             File.WriteAllText(Path.Combine(dir, $"UpdateForm.tsx"),
-                ApplyTemplate(RenderForm(ep, prefix, modulePascal, fkFields, orderedFields), formTemplatePath));
+                ApplyTemplate(RenderForm(ep, prefix, modulePascal, fkFields, orderedFields, properties, searchableResources), formTemplatePath));
 
             // useUpdateFields.tsx
             File.WriteAllText(Path.Combine(dir, $"useUpdateFields.tsx"),
@@ -109,12 +109,9 @@ static class UpdateFormGenerator
         Console.WriteLine($"    {count} update form(s) generated.");
     }
 
-    static string RenderForm(UpdateEndpoint ep, string prefix, string modulePascal, List<FkField> fkFields, List<string> orderedFields)
+    static string RenderForm(UpdateEndpoint ep, string prefix, string modulePascal, List<FkField> fkFields, List<string> orderedFields, JsonObject? properties, HashSet<string>? searchableResources)
     {
-        bool hasDateRange = (orderedFields.Any(f => f.Equals("startDate", StringComparison.OrdinalIgnoreCase)) &&
-                             orderedFields.Any(f => f.Equals("endDate", StringComparison.OrdinalIgnoreCase))) ||
-                            (orderedFields.Any(f => f.Equals("startDateTime", StringComparison.OrdinalIgnoreCase)) &&
-                             orderedFields.Any(f => f.Equals("endDateTime", StringComparison.OrdinalIgnoreCase)));
+        bool needsControl = UseFieldsGenerator.NeedsControlForRangeValidation(orderedFields, properties, searchableResources);
         string displayName = Formatters.ToTitleCase(ep.Resource);
         string contextHook = $"use{prefix}";
         string contextPath = $"@/contexts/resources/{ep.Module.ToLower()}/{prefix}Context";
@@ -192,7 +189,7 @@ static class UpdateFormGenerator
         sb.AppendLine();
 
         string selectedLabelsArg = fkFields.Count > 0 ? ", selectedLabels" : "";
-        string controlArg = hasDateRange ? ", control" : "";
+        string controlArg = needsControl ? ", control" : "";
         sb.AppendLine($"  const {{ fields, layout }} = use{prefix}Update({{ errors, disabledFields, selectFilterBys, selectOrderBys{selectedLabelsArg}{controlArg} }})");
         sb.AppendLine();
         sb.AppendLine("  useEffect(() => {");

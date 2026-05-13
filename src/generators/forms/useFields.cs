@@ -125,6 +125,30 @@ static class UseFieldsGenerator
         return ordered;
     }
 
+    internal static bool NeedsControlForRangeValidation(List<string> orderedFields, JsonObject? properties, HashSet<string>? searchableResources = null)
+    {
+        bool hasDateRange = (orderedFields.Any(f => f.Equals("startDate", StringComparison.OrdinalIgnoreCase)) &&
+                             orderedFields.Any(f => f.Equals("endDate", StringComparison.OrdinalIgnoreCase))) ||
+                            (orderedFields.Any(f => f.Equals("startDateTime", StringComparison.OrdinalIgnoreCase)) &&
+                             orderedFields.Any(f => f.Equals("endDateTime", StringComparison.OrdinalIgnoreCase)));
+
+        if (hasDateRange) return true;
+        if (properties == null) return false;
+
+        return orderedFields.Any(startField =>
+        {
+            if (!startField.EndsWith("StartTime", StringComparison.OrdinalIgnoreCase)) return false;
+            if (!properties.ContainsKey(startField)) return false;
+            if (GetFieldType(startField, properties[startField]!.AsObject()!, searchableResources) != "time") return false;
+
+            string expectedEndField = startField[..^"StartTime".Length] + "EndTime";
+            string? endField = orderedFields.FirstOrDefault(f => f.Equals(expectedEndField, StringComparison.OrdinalIgnoreCase));
+            return endField != null &&
+                   properties.ContainsKey(endField) &&
+                   GetFieldType(endField, properties[endField]!.AsObject()!, searchableResources) == "time";
+        });
+    }
+
     // Derives the internal field type from a property schema.
     internal static string GetFieldType(string fieldName, JsonObject prop, HashSet<string>? searchableResources = null)
     {
@@ -151,6 +175,7 @@ static class UseFieldsGenerator
         {
             "integer" or "number" => "number",
             "string" when format == "date-time" => "datetime",
+            "string" when format == "date-span" => "time",
             "string" when format == "date" => "date",
             "string" when maxLength >= 500 => "textarea",
             "string" => "text",
@@ -165,7 +190,7 @@ static class UseFieldsGenerator
         return fieldType switch
         {
             "select" => $"Select {heading}...",
-            "date" or "datetime" => $"Select {heading}...",
+            "date" or "datetime" or "time" => $"Select {heading}...",
             "checkbox" => $"{char.ToUpper(heading[0])}{heading[1..]}?",
             _ => $"Enter {heading}..."
         };
@@ -196,12 +221,33 @@ static class UseFieldsGenerator
         bool needsIdNumberValidator = orderedFields.Any(f =>
             properties?.ContainsKey(f) == true && GetFieldType(f, properties[f]!.AsObject()!, searchableResources) == "idnumber");
 
-        // Detect date range fields
+        // Detect date/time range fields
         bool hasStartDate = orderedFields.Any(f => f.Equals("startDate", StringComparison.OrdinalIgnoreCase));
         bool hasEndDate = orderedFields.Any(f => f.Equals("endDate", StringComparison.OrdinalIgnoreCase));
         bool hasStartDateTime = orderedFields.Any(f => f.Equals("startDateTime", StringComparison.OrdinalIgnoreCase));
         bool hasEndDateTime = orderedFields.Any(f => f.Equals("endDateTime", StringComparison.OrdinalIgnoreCase));
-        bool hasDateRange = (hasStartDate && hasEndDate) || (hasStartDateTime && hasEndDateTime);
+        var timeRangePairs = orderedFields
+            .Where(f => f.EndsWith("StartTime", StringComparison.OrdinalIgnoreCase) &&
+                        properties?.ContainsKey(f) == true &&
+                        GetFieldType(f, properties[f]!.AsObject()!, searchableResources) == "time")
+            .Select(startField =>
+            {
+                string endField = startField[..^"StartTime".Length] + "EndTime";
+                string? matchedEndField = orderedFields.FirstOrDefault(f => f.Equals(endField, StringComparison.OrdinalIgnoreCase));
+                return new { StartField = startField, EndField = matchedEndField };
+            })
+            .Where(pair => pair.EndField != null &&
+                           properties?.ContainsKey(pair.EndField) == true &&
+                           GetFieldType(pair.EndField, properties[pair.EndField]!.AsObject()!, searchableResources) == "time")
+            .Select(pair => new
+            {
+                pair.StartField,
+                EndField = pair.EndField!,
+                StartVar = Formatters.ToCamelCase(pair.StartField),
+                EndVar = Formatters.ToCamelCase(pair.EndField!)
+            })
+            .ToList();
+        bool hasDateRange = (hasStartDate && hasEndDate) || (hasStartDateTime && hasEndDateTime) || timeRangePairs.Count > 0;
 
         var componentLibImports = new List<string> { "FilterBy", "OrderBy", "FormLayout" };
         if (hasSelects) componentLibImports.Add("useSelect");
@@ -247,7 +293,7 @@ static class UseFieldsGenerator
 
         if (hasDateRange)
         {
-            sb.AppendLine("  // Watch start/end dates to drive min/max constraints and cross-field validation");
+            sb.AppendLine("  // Watch start/end date and time fields to drive min/max constraints and cross-field validation");
             if (hasStartDate && hasEndDate)
             {
                 sb.AppendLine("  const startDate = useWatch({ name: \"startDate\", control })");
@@ -257,6 +303,11 @@ static class UseFieldsGenerator
             {
                 sb.AppendLine("  const startDateTime = useWatch({ name: \"startDateTime\", control })");
                 sb.AppendLine("  const endDateTime = useWatch({ name: \"endDateTime\", control })");
+            }
+            foreach (var pair in timeRangePairs)
+            {
+                sb.AppendLine($"  const {pair.StartVar} = useWatch({{ name: \"{pair.StartVar}\", control }})");
+                sb.AppendLine($"  const {pair.EndVar} = useWatch({{ name: \"{pair.EndVar}\", control }})");
             }
             sb.AppendLine();
         }
@@ -323,17 +374,22 @@ static class UseFieldsGenerator
             fkByField.TryGetValue(fieldName, out var fk);
 
             bool isDateOrDateTime = fieldType == "date" || fieldType == "datetime";
+            bool isTime = fieldType == "time";
             bool isStartDateField = fieldName.Equals("startDate", StringComparison.OrdinalIgnoreCase);
             bool isEndDateField = fieldName.Equals("endDate", StringComparison.OrdinalIgnoreCase);
             bool isStartDateTimeField = fieldName.Equals("startDateTime", StringComparison.OrdinalIgnoreCase);
             bool isEndDateTimeField = fieldName.Equals("endDateTime", StringComparison.OrdinalIgnoreCase);
             bool isDateOfBirthField = fieldName.Equals("dateOfBirth", StringComparison.OrdinalIgnoreCase);
+            var timeRangePair = timeRangePairs.FirstOrDefault(pair =>
+                pair.StartField.Equals(fieldName, StringComparison.OrdinalIgnoreCase) ||
+                pair.EndField.Equals(fieldName, StringComparison.OrdinalIgnoreCase));
 
             bool inDateRange = hasDateRange && isDateOrDateTime &&
                 ((isStartDateField && hasStartDate && hasEndDate) ||
                  (isEndDateField && hasStartDate && hasEndDate) ||
                  (isStartDateTimeField && hasStartDateTime && hasEndDateTime) ||
                  (isEndDateTimeField && hasStartDateTime && hasEndDateTime));
+            bool inTimeRange = isTime && timeRangePair != null;
 
             sb.AppendLine($"    {camel}: {{");
             sb.AppendLine("      props: {");
@@ -379,22 +435,28 @@ static class UseFieldsGenerator
             {
                 ruleParts.Add("validate: (value: any) => value === true || value === false || \"Please check this field.\"");
             }
-            else if (inDateRange)
+            else if (inDateRange || inTimeRange)
             {
-                string watchVarStart = (isStartDateTimeField || isEndDateTimeField) ? "startDateTime" : "startDate";
-                string watchVarEnd = (isStartDateTimeField || isEndDateTimeField) ? "endDateTime" : "endDate";
-                string fieldLabel = fieldType == "datetime" ? "date time" : "date";
+                string watchVarStart = inTimeRange ? timeRangePair!.StartVar : (isStartDateTimeField || isEndDateTimeField) ? "startDateTime" : "startDate";
+                string watchVarEnd = inTimeRange ? timeRangePair!.EndVar : (isStartDateTimeField || isEndDateTimeField) ? "endDateTime" : "endDate";
+                string fieldLabel = inTimeRange ? "time" : fieldType == "datetime" ? "date time" : "date";
                 string headingLower = Formatters.GetFieldHeading(fieldName).ToLower();
                 string article = Formatters.StartsWithVowel(headingLower) ? "an" : "a";
-                bool isStart = isStartDateField || isStartDateTimeField;
+                bool isStart = inTimeRange
+                    ? timeRangePair!.StartField.Equals(fieldName, StringComparison.OrdinalIgnoreCase)
+                    : isStartDateField || isStartDateTimeField;
 
                 if (isRequired)
                     ruleParts.Add($"required: \"Please fill in this field.\"");
 
                 string watchOther = isStart ? watchVarEnd : watchVarStart;
-                string comparison = isStart
-                    ? $"new Date(value) > new Date({watchOther}) ? \"Start {fieldLabel} must be before end {fieldLabel}.\" : true"
-                    : $"new Date(value) < new Date({watchOther}) ? \"End {fieldLabel} must be after start {fieldLabel}.\" : true";
+                string comparison = inTimeRange
+                    ? isStart
+                        ? $"value > {watchOther} ? \"Start {fieldLabel} must be before end {fieldLabel}.\" : true"
+                        : $"value < {watchOther} ? \"End {fieldLabel} must be after start {fieldLabel}.\" : true"
+                    : isStart
+                        ? $"new Date(value) > new Date({watchOther}) ? \"Start {fieldLabel} must be before end {fieldLabel}.\" : true"
+                        : $"new Date(value) < new Date({watchOther}) ? \"End {fieldLabel} must be after start {fieldLabel}.\" : true";
                 string emptyCheck = isRequired ? $"\"Please select {article} {headingLower}.\"" : "true";
                 ruleParts.Add($"validate: (value: any) => !value ? {emptyCheck} : !{watchOther} ? true : {comparison}");
             }

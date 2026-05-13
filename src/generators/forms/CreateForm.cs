@@ -60,17 +60,14 @@ static class CreateFormGenerator
             var properties = requestSchema?["properties"]?.AsObject();
             var orderedFields = UseFieldsGenerator.GetOrderedFields(ep.Resource, fieldLayout, properties, searchableResources, $"{modulePascal}.{ep.Resource}.Create");
 
-            bool hasDateRange = (orderedFields.Any(f => f.Equals("startDate", StringComparison.OrdinalIgnoreCase)) &&
-                                 orderedFields.Any(f => f.Equals("endDate", StringComparison.OrdinalIgnoreCase))) ||
-                                (orderedFields.Any(f => f.Equals("startDateTime", StringComparison.OrdinalIgnoreCase)) &&
-                                 orderedFields.Any(f => f.Equals("endDateTime", StringComparison.OrdinalIgnoreCase)));
+            bool needsControl = UseFieldsGenerator.NeedsControlForRangeValidation(orderedFields, properties, searchableResources);
 
             string kebabResource = Formatters.ToKebabCase(ep.Resource);
             string dir = Path.Combine(formsOutputDir, ep.Module.ToLower(), kebabResource, "create");
             Directory.CreateDirectory(dir);
 
             string filePath = Path.Combine(dir, $"CreateForm.tsx");
-            File.WriteAllText(filePath, ApplyTemplate(RenderCreateForm(ep, hasDateRange), templatePath));
+            File.WriteAllText(filePath, ApplyTemplate(RenderCreateForm(ep, needsControl), templatePath));
 
             Console.WriteLine($"    ✓ {ep.Module}/{ep.Resource}");
         }
@@ -78,7 +75,7 @@ static class CreateFormGenerator
         Console.WriteLine($"    {createEndpoints.Count} create form(s) generated.");
     }
 
-    static string RenderCreateForm(CreateEndpoint ep, bool hasDateRange = false)
+    static string RenderCreateForm(CreateEndpoint ep, bool needsControl = false)
     {
         string resource = ep.Resource;
         string module = ep.Module;
@@ -171,7 +168,7 @@ static class CreateFormGenerator
         sb.AppendLine("    mode: \"onChange\",");
         sb.AppendLine("  })");
         sb.AppendLine();
-        string controlArg = hasDateRange ? ", control" : "";
+        string controlArg = needsControl ? ", control" : "";
         sb.AppendLine($"  const {{ fields, layout }} = use{prefix}Create({{ errors, disabledFields, selectFilterBys, selectOrderBys{controlArg} }})");
         sb.AppendLine();
         sb.AppendLine("  useEffect(() => {");

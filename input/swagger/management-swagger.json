@@ -11320,6 +11320,18 @@
       "EventRequestECDSearchResponseModel": {
         "type": "object",
         "properties": {
+          "eventDate": {
+            "type": "string",
+            "format": "date"
+          },
+          "eventStartTime": {
+            "type": "string",
+            "format": "date-span"
+          },
+          "eventEndTime": {
+            "type": "string",
+            "format": "date-span"
+          },
           "createdOn": {
             "type": "string",
             "format": "date-time"
